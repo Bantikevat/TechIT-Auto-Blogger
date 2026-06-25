@@ -4,6 +4,7 @@ import sys
 import random
 import urllib.parse
 import requests
+import time
 
 try:
     from google.oauth2.credentials import Credentials
@@ -77,12 +78,37 @@ def save_posted_topic(topic):
     with open(TRACKER_FILE, "w", encoding="utf-8") as f:
         json.dump(posted, f, indent=4)
 
+def call_gemini(gemini_key, prompt):
+    models = ["gemini-3.5-flash", "gemini-3.1-flash-lite"]
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}]
+    }
+    
+    for model in models:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={gemini_key}"
+        # Try up to 2 times for each model in case of temporary 503s
+        for attempt in range(2):
+            try:
+                response = requests.post(url, headers=headers, json=payload, timeout=60)
+                if response.status_code == 200:
+                    res_json = response.json()
+                    text = res_json['candidates'][0]['content']['parts'][0]['text'].strip()
+                    return text
+                elif response.status_code in [503, 429]:
+                    print(f"[WARNING] Gemini model {model} returned {response.status_code} (attempt {attempt+1}/2). Retrying in 2 seconds...")
+                    time.sleep(2)
+                else:
+                    print(f"[WARNING] Gemini model {model} returned status code {response.status_code}: {response.text}. Trying next option.")
+                    break # Break out of attempt loop to try the next model
+            except Exception as e:
+                print(f"[WARNING] Error calling Gemini model {model}: {e}")
+                time.sleep(2)
+                
+    return None
+
 def select_topic(gemini_key, posted_topics):
     print("[INFO] Topic select kiya ja raha hai...")
-    
-    # Try using Gemini to brainstorm a fresh, trending MERN stack / Javascript topic
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={gemini_key}"
-    headers = {"Content-Type": "application/json"}
     
     prompt = f"""
     You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js) or modern JavaScript.
@@ -94,15 +120,9 @@ def select_topic(gemini_key, posted_topics):
     {{"topic": "React Context API vs Redux in 2026", "category": "ReactJS"}}
     """
     
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}]
-    }
-    
-    try:
-        response = requests.post(url, headers=headers, json=payload, timeout=20)
-        if response.status_code == 200:
-            res_json = response.json()
-            text = res_json['candidates'][0]['content']['parts'][0]['text'].strip()
+    text = call_gemini(gemini_key, prompt)
+    if text:
+        try:
             # Clean up potential markdown formatting backticks
             if text.startswith("```json"):
                 text = text[7:]
@@ -113,11 +133,9 @@ def select_topic(gemini_key, posted_topics):
             data = json.loads(text)
             print(f"[OK] Gemini dynamically selected topic: '{data['topic']}' (Category: {data['category']})")
             return data["topic"], data["category"]
-        else:
-            print(f"[WARNING] Gemini topic selection failed with status code {response.status_code}: {response.text}")
-    except Exception as e:
-        print(f"[WARNING] Gemini dynamic topic selection failed: {e}. Falling back to default list.")
-    
+        except Exception as e:
+            print(f"[WARNING] Failed to parse Gemini response: {e}")
+            
     # Fallback to defaults
     available = [t for t in DEFAULT_TOPICS if t["topic"] not in posted_topics]
     if not available:
@@ -129,8 +147,6 @@ def select_topic(gemini_key, posted_topics):
 
 def generate_article_content(gemini_key, topic, category):
     print(f"[INFO] Article content generate kiya ja raha hai for: '{topic}'...")
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={gemini_key}"
-    headers = {"Content-Type": "application/json"}
     
     # Generate clean banner image using pollinations
     banner_prompt = f"Modern flat vector tech illustration for {topic}, neon colors, dark tech background, web development, no text"
@@ -184,36 +200,23 @@ def generate_article_content(gemini_key, topic, category):
     Output ONLY the valid HTML content. Do not wrap the HTML in backticks (```html ... ```). Just output the raw HTML starting with the post content.
     """
     
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}]
-    }
-    
-    try:
-        response = requests.post(url, headers=headers, json=payload, timeout=60)
-        if response.status_code == 200:
-            res_json = response.json()
-            article_html = res_json['candidates'][0]['content']['parts'][0]['text'].strip()
-            
-            # Clean up potential markdown formatting backticks
-            if article_html.startswith("```html"):
-                article_html = article_html[7:]
-            elif article_html.startswith("```"):
-                article_html = article_html[3:]
-            if article_html.endswith("```"):
-                article_html = article_html[:-3]
-            article_html = article_html.strip()
-            
-            # Prepended banner image to the post content
-            image_html = f'<div style="text-align: center; margin-bottom: 24px;"><img src="{banner_url}" alt="{topic}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>\n'
-            full_html = image_html + article_html
-            
-            return full_html
-        else:
-            print(f"[ERROR] Gemini API returned status code {response.status_code}: {response.text}")
-            return None
-    except Exception as e:
-        print(f"[ERROR] Error generating article content: {e}")
-        return None
+    article_html = call_gemini(gemini_key, prompt)
+    if article_html:
+        # Clean up potential markdown formatting backticks
+        if article_html.startswith("```html"):
+            article_html = article_html[7:]
+        elif article_html.startswith("```"):
+            article_html = article_html[3:]
+        if article_html.endswith("```"):
+            article_html = article_html[:-3]
+        article_html = article_html.strip()
+        
+        # Prepended banner image to the post content
+        image_html = f'<div style="text-align: center; margin-bottom: 24px;"><img src="{banner_url}" alt="{topic}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>\n'
+        full_html = image_html + article_html
+        return full_html
+        
+    return None
 
 def publish_to_blogger(title, html_content, category, is_draft=True):
     print("[INFO] Blogger API authenticate kiya ja raha hai...")
