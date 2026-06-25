@@ -1,0 +1,153 @@
+═══════════════════════════════════════════════════════
+HOW TO SET UP 6 SUBJECT-WISE TEACHERS IN CHATGPT
+═══════════════════════════════════════════════════════
+
+YEH GUIDE FOLLOW KARO — 30 MINUTE MEIN 6 TEACHERS READY.
+
+──────────────────────────────────────────
+APPROACH: 6 SEPARATE PROJECTS IN CHATGPT
+──────────────────────────────────────────
+
+Each subject ka apna project = apna specialist teacher.
+Confusion zero. Depth maximum.
+
+──────────────────────────────────────────
+STEP 1: CHATGPT MEIN 6 PROJECTS BANAO
+──────────────────────────────────────────
+
+ChatGPT → Left sidebar → "Projects" → "+ New Project"
+
+Create projects with these names:
+
+1. "OS Guru" (Operating System)
+2. "Networks Guru" (Computer Networks)
+3. "MERN Guru" (Full-Stack Development)
+4. "AI Guru" (AI-201 Principles)
+5. "NLP Guru" (Natural Language Processing)
+6. "DBMS Guru" (Database)
+
+──────────────────────────────────────────
+STEP 2: HAR PROJECT MEIN INSTRUCTIONS PASTE KARO
+──────────────────────────────────────────
+
+For each project:
+1. Click Project name → Settings (gear icon)
+2. "Instructions" field mein corresponding file ka text paste karo:
+
+   OS Guru        → 01_OS_Teacher/instructions.txt
+   Networks Guru  → 02_Networks_Teacher/instructions.txt
+   MERN Guru      → 03_MERN_Teacher/instructions.txt
+   AI Guru        → 04_AI_Teacher/instructions.txt
+   NLP Guru       → 05_NLP_Teacher/instructions.txt
+   DBMS Guru      → 06_DBMS_Teacher/instructions.txt
+
+3. Save
+
+──────────────────────────────────────────
+STEP 3: KNOWLEDGE FILES UPLOAD KARO
+──────────────────────────────────────────
+
+Common files (sab projects mein upload karo):
+- 1_my_profile.txt (your profile)
+- 2_teaching_style_examples.txt (style reference)
+
+Subject-specific files (jis subject ka project ho, wahin upload):
+
+OS Guru mein upload:
+- Operating system 2024.pdf
+- Operating system 2025.pdf
+- F_2025_7486.pdf
+- OS_2026_Predicted_Paper.pdf
+
+Networks Guru mein upload:
+- Networks syllabus (agar hai)
+- Old papers (agar hain)
+
+MERN Guru mein upload:
+- Job description PDF (Empower Solutions)
+- Apne projects ke README (Seva Setu)
+
+AI Guru mein upload:
+- 2nd Semester Syllabus AI.docx
+- Assignment file
+
+NLP Guru mein upload:
+- NLP syllabus (agar hai)
+
+DBMS Guru mein upload:
+- DBMS syllabus (agar hai)
+
+──────────────────────────────────────────
+STEP 4: HAR PROJECT MEIN TEST CHAT
+──────────────────────────────────────────
+
+Har project mein pehla chat aise shuru karo:
+
+"Guru ji, aap mere instructions samajh gaye?
+Pehle confirm karo:
+1. Aap [subject name] ke specialist ho?
+2. Hinglish use karoge?
+3. Real life example pehle?
+4. Definition last mein?
+5. Knowledge files mein meri profile padh li?
+6. Exam Corner zaroor doge?"
+
+Agar 6 ke 6 ka jawab YES → Setup perfect!
+
+──────────────────────────────────────────
+STEP 5: USE KARNA SHURU KARO
+──────────────────────────────────────────
+
+Subject ke according project khol ke topic puchho:
+
+OS exam ki tayyari → OS Guru project mein jao
+"Paging vs Segmentation in-depth padhao numerical sahit"
+
+MERN interview prep → MERN Guru project mein jao
+"JavaScript closures with dry run aur interview Qs"
+
+AI assignment → AI Guru project mein jao
+"PEAS framework with 3 different examples"
+
+──────────────────────────────────────────
+PRO TIPS
+──────────────────────────────────────────
+
+✓ Har subject ki saari chats us project mein hi rahengi
+✓ Search karna ho to project ke andar search use karo
+✓ Notes export ke liye chat copy → Word/PDF mein save
+✓ Naya topic seekho to "Conversation starter" set karo
+✓ Phone pe bhi same projects accessible hain
+
+✓ AI/NLP wala project mein "code interpreter" ON karo
+  (data analysis questions ke liye)
+
+✓ MERN wale project mein "code interpreter" + "browsing" ON
+
+──────────────────────────────────────────
+AGAR CONFUSE HO JAYE
+──────────────────────────────────────────
+
+Bas ye likho:
+"Guru ji, aap [subject] ke specialist ho. Instructions
+wapas padho. Hinglish, real life example pehle,
+definition last mein. Wahi style continue karo."
+
+──────────────────────────────────────────
+SUMMARY
+──────────────────────────────────────────
+
+Folder: C:\Claude\AI_\chatgpt_training\
+
+01_OS_Teacher           → OS exam (4th sem)
+02_Networks_Teacher     → Computer Networks (M.Tech)
+03_MERN_Teacher         → Full-Stack interview
+04_AI_Teacher           → AI Principles (AI-201)
+05_NLP_Teacher          → NLP (AI-203)
+06_DBMS_Teacher         → Database
+
+Common files in main folder:
+- 1_my_profile.txt
+- 2_teaching_style_examples.txt
+
+Har subject = alag teacher = alag specialist!

@@ -1,0 +1,213 @@
+════════════════════════════════════════════════════════
+LEARNING TRACKER — What Guru Ji Has Learned
+Upload to EVERY project — update weekly
+════════════════════════════════════════════════════════
+
+This file tracks completed topics. ChatGPT should:
+1. Read this before starting new topic
+2. Not re-teach completed topics unless asked
+3. Build on previous knowledge (reference past learnings)
+4. Update this file when user completes new topic
+
+══ COMPLETED TOPICS ══
+
+JAVASCRIPT:
+[x] var, let, const — scope, hoisting, TDZ (2026-06-21)
+[x] Async — Promises, async/await, Event Loop (2026-06-21)
+[ ] Closures, this, prototypes (partial — re-teach needed)
+[ ] ES6+ features
+[ ] Memory management
+[ ] Performance patterns
+
+REACT:
+[ ] JSX, components, props
+[ ] State, useState
+[ ] useEffect, useContext
+[ ] useRef, useMemo, useCallback
+[ ] Custom hooks
+[ ] Performance optimization
+
+NODE.JS:
+[ ] Event Loop
+[ ] Modules (CommonJS, ESM)
+[ ] Streams
+[ ] Worker threads
+[ ] Production setup
+
+EXPRESS:
+[ ] Routing
+[ ] Middleware
+[ ] Error handling
+[ ] Authentication
+[ ] Security (helmet, cors)
+
+MONGODB:
+[ ] CRUD operations
+[ ] Aggregation pipeline
+[ ] Indexes
+[ ] Mongoose patterns
+[ ] Transactions
+
+COMPUTER NETWORKS:
+[x] OSI Reference Model (complete) (2026-06-20)
+[ ] TCP/IP Model
+[ ] P2P vs Client-Server
+[ ] Transmission Media
+[ ] Network Topology
+[ ] IPv4 Addressing
+[ ] Routing (Distance Vector, Link State)
+[ ] RIP, OSPF
+[ ] TCP, UDP
+[ ] DNS
+[ ] SMTP
+[ ] Network Devices
+[ ] Wi-Fi
+[ ] SNMP
+[ ] Internet history
+
+OPERATING SYSTEM:
+[ ] Kernel + System calls
+[ ] Process, PCB
+[ ] CPU Scheduling (FCFS, SJF, RR)
+[ ] Threads, Synchronization
+[ ] Memory management
+[ ] Paging, Segmentation
+[ ] Virtual memory, Page fault
+[ ] LRU, FIFO algorithms
+[ ] File systems
+[ ] Disk scheduling
+[ ] Deadlock
+[ ] IPC
+
+DATABASE:
+[ ] ER Model
+[ ] SQL basics
+[ ] Joins
+[ ] Aggregation
+[ ] Normalization
+[ ] Transactions
+[ ] MongoDB advanced
+
+AI (AI-201):
+[x] What is AI + 4 Goals (2026-06-15)
+[x] Foundations of AI (2026-06-15)
+[x] History of AI (2026-06-15)
+[x] Agents + PEAS (2026-06-18)
+[x] Nature of Environment (ODESS) (2026-06-19)
+[ ] Problem Solving Agent (NEXT)
+[ ] Search Strategies (BFS, DFS, UCS, A*)
+[ ] Knowledge & Reasoning
+[ ] Machine Learning intro
+
+NLP:
+[ ] NLP basics
+[ ] Tokenization
+[ ] POS tagging
+[ ] Word embeddings
+[ ] Transformers, BERT, GPT
+
+AI AGENTS / GENAI:
+[ ] LangChain basics
+[ ] RAG implementation
+[ ] Multi-agent systems
+[ ] Vector databases
+[ ] LLM cost optimization
+
+CLOUD / DEVOPS:
+[ ] Docker basics
+[ ] AWS fundamentals
+[ ] CI/CD pipelines
+[ ] Kubernetes
+[ ] Terraform
+
+SYSTEM DESIGN:
+[ ] Framework (requirements → estimation → API → DB → architecture)
+[ ] URL shortener
+[ ] Chat application
+[ ] Feed system
+
+PYTHON:
+[ ] Python basics refresh
+[ ] Advanced features (decorators, generators)
+[ ] Async Python
+[ ] Data libraries (pandas, numpy)
+[ ] ML frameworks
+[ ] FastAPI
+
+BUSINESS / STARTUP:
+[ ] Idea validation
+[ ] MVP scope
+[ ] Indian SaaS pricing
+[ ] Marketing channels
+[ ] Legal setup (LLP, GST)
+
+PERSONAL BRAND:
+[ ] LinkedIn optimization
+[ ] Content frameworks (PASTA)
+[ ] First 30 posts
+[ ] Engagement strategy
+[ ] Monetization paths
+
+══ PROJECTS BUILT ══
+
+[x] Seva Setu — Hyperlocal services Ujjain
+    - React + TS + Vite + Tailwind
+    - 8 microservices, 32 features
+    - Status: Code ready, pending deployment
+
+[x] UjjainTemple — Bilingual tourism platform
+    - React + Vite + Tailwind
+    - GitHub: bantikevat-oss/ujjaintemple-web
+    - Status: Code ready, pending Hostinger deploy
+
+[ ] (Future) AI product for ByteFlow Tech
+[ ] (Future) MERN portfolio website
+[ ] (Future) Personal LinkedIn presence
+
+══ INTERVIEWS GIVEN ══
+
+[Planning] Empower Solutions Bhopal — 22-24 June 2026
+    - Role: MERN Full Stack Developer
+    - Status: Prep in progress
+
+══ CERTIFICATIONS ══
+
+[ ] AWS Cloud Practitioner
+[ ] AWS Solutions Architect Associate
+[ ] CKA (Kubernetes)
+[ ] Google Cloud Associate
+
+══ BOOKS READ ══
+
+[ ] You Don't Know JS series
+[ ] Eloquent JavaScript
+[ ] Designing Data-Intensive Applications
+[ ] System Design Interview (Alex Xu)
+[ ] Atomic Habits
+
+══ RULES FOR USING THIS FILE ══
+
+WHEN STUDENT ASKS NEW TOPIC:
+1. Check this file — is it already done?
+2. If YES: "Aapne yeh complete kiya hai [date]. Revise karna ho
+   to bolo, ya naya topic chuno."
+3. If NO: Mark as "in progress" and teach
+
+WHEN STUDENT COMPLETES TOPIC:
+End of session, say:
+"Yeh topic complete. Main learning tracker update kar du?
+Yeh date pe ([today]) ✓ mark kar du."
+
+WHEN STUDENT REVISITS:
+"Last time aapne X-Y-Z cover kiya tha [date]. Aaj kahan se shuru?"
+
+WEEKLY REVIEW:
+Sunday ko show:
+- Yeh week kya complete kiya
+- Pending list
+- Next week priority suggestion
+
+════════════════════════════════════════════════════════
+This file is YOUR memory of student's journey.
+Update it. Use it. Build upon it.
+════════════════════════════════════════════════════════

@@ -1,0 +1,212 @@
+════════════════════════════════════════════════════════
+20 POWER-PROMPT PATTERNS — Magic Words Library
+Save this file — use these prompts when needed
+════════════════════════════════════════════════════════
+
+These are tested prompts that GET YOU 10x BETTER replies.
+Most users get bad replies because they ask bad questions.
+Master these patterns.
+
+══ PATTERN 1: FORCE STRUCTURED THINKING ══
+
+Instead of:
+"X kya hai?"
+
+Use:
+"X explain karo using this structure:
+1. Problem it solves
+2. How it works (under the hood)
+3. Real-world analogy
+4. Code example with dry run
+5. 3 edge cases
+6. Interview gotcha
+7. Production best practice"
+
+══ PATTERN 2: ASK FOR DIFFERENT PERSPECTIVES ══
+
+"X ko 3 angles se samjhao:
+- Beginner ki nazar se
+- Senior dev ki nazar se
+- System architect ki nazar se
+Compare karke do."
+
+══ PATTERN 3: GET BRUTAL FEEDBACK ══
+
+"Yeh mera code/answer/idea hai: [paste]
+
+Brutally honest feedback do — like senior code reviewer.
+No sugar-coating. Top 5 problems batao with fixes.
+Yeh production-ready hai ya nahi?"
+
+══ PATTERN 4: COMPARE WITH ALTERNATIVES ══
+
+"X vs Y vs Z compare karo for [specific use case].
+Decision matrix banao:
+- When to use X
+- When to use Y
+- When to use Z
+- Trade-offs
+- My recommendation for [my case]"
+
+══ PATTERN 5: EXTRACT HIDDEN COMPLEXITY ══
+
+"X seems simple. But pretend you're explaining to a Staff
+Engineer — kya hidden complexities, edge cases, performance
+implications, security concerns hain?"
+
+══ PATTERN 6: LEARN BY TEACHING (Feynman) ══
+
+"Maine X seekha. Ab maan ke chalo aap mere chote bhai ho jo
+class 10 mein ho. Main aapko X samjhata hoon, aap tough Qs
+puchho — agar mera explanation galat ya incomplete ho to
+correct karo."
+
+══ PATTERN 7: REAL CONTEXT GROUNDING ══
+
+"My situation: [describe context — Seva Setu builder, Ujjain
+based, MERN dev, AI tools user]
+
+Given this, X ko mere context mein kaise apply karu?
+Generic advice nahi — specific to ME."
+
+══ PATTERN 8: REVERSE ENGINEERING ══
+
+"Imagine if X failed completely. What would the world look
+like? Who would suffer? What problems would emerge?
+Yeh exercise se X ki real importance samajhne ki koshish."
+
+══ PATTERN 9: GET CODE WITH PRODUCTION-GRADE STANDARDS ══
+
+"Production-grade code likho for X. Include:
+- TypeScript types
+- Error handling (try-catch, edge cases)
+- Logging
+- Comments only where non-obvious
+- Tests (Jest)
+- Security considerations
+- Performance optimization
+- Big O complexity
+
+Beginner toy code nahi chahiye."
+
+══ PATTERN 10: DEEP-DIVE WITH 'WHY' ══
+
+After every answer, ask:
+"WHY? Why is this way and not the alternative?"
+
+Repeat 5 times.
+
+This is the "5 Whys" technique. Reaches root truth.
+
+══ PATTERN 11: MOCK SCENARIO PRACTICE ══
+
+"Maan ke chalo:
+[Scenario: e.g., 'Maine production deploy kiya, suddenly
+50K users aaye, server crash ho gaya']
+
+Step-by-step what would you do? Walk me through 1 hour
+emergency response."
+
+══ PATTERN 12: HISTORICAL CONTEXT ══
+
+"X ka 1980-2025 ka pura journey samjhao. Kab aaya, kyun
+aaya, kaise evolve hua, ab kaha hai, future kya hai?
+Important milestones with years."
+
+══ PATTERN 13: DECISION FRAMEWORK ══
+
+"Mujhe X decide karna hai (e.g., MongoDB vs Postgres).
+Decision framework banake do — kis question puchhke,
+kaunsa answer aaye to kya choose karein?"
+
+══ PATTERN 14: LEARN FROM FAILURES ══
+
+"5 famous failures / disasters X ke saath. Companies ne
+glati kya ki, kya nuksaan hua, sabak kya mila? Real
+examples, named companies."
+
+══ PATTERN 15: TIME-CONSTRAINED LEARNING ══
+
+"Mere paas [X minutes/hours] hain to seekhne ke liye.
+What's the ABSOLUTE MINIMUM I need to understand to be
+dangerous? Skip everything optional. 80-20 only."
+
+══ PATTERN 16: SOCRATIC METHOD (Make You Think) ══
+
+"X padha rahe ho mujhe — but answer mat do directly.
+Questions puchho. Mujhe khud answer sochne do. Galti
+karu to gentle correction. Yeh exercise se mere
+understanding test ho jaaye."
+
+══ PATTERN 17: COST-BENEFIT ANALYSIS ══
+
+"X seekhne ka effort: ? hours
+X seekhne ka return: ? salary impact, ? skills gained
+
+Cost-benefit analyze karo for me — given my goals
+[interview, business, etc.]. Should I invest time?"
+
+══ PATTERN 18: ROADMAP TO MASTERY ══
+
+"X mein zero se Staff Engineer level pe pahunchne ka
+roadmap. Levels:
+- Beginner (Week 1-4)
+- Intermediate (Week 5-12)
+- Advanced (Month 4-6)
+- Expert (Month 6-12)
+- Master (Year 2+)
+
+Har level pe: kya seekhna, kya build karna, kya read
+karna, kaise test karna readiness."
+
+══ PATTERN 19: REVERSE INTERVIEW ══
+
+"Aap interview de rahe ho. Main interviewer hoon. Topic X.
+Roles reverse. Main puchhunga, aap answer doge. Better way
+to learn — apne knowledge gaps dikhenge."
+
+══ PATTERN 20: CONNECT THE DOTS ══
+
+"X kaise related hai Y, Z, A, B ke saath? Concept map
+banao. Yeh ek dum isolated topic nahi hai — bigger picture
+mein kaha fit karta hai?"
+
+══ BONUS PATTERN: THE ULTIMATE PROMPT ══
+
+"Imagine you have 5 minutes to give the BEST possible
+explanation of X. What would you say?
+
+Cover:
+- What it is (1 line)
+- Why it matters (impact)
+- How it works (mechanism)
+- When to use (and not)
+- Common mistake
+- Pro tip
+
+Make it memorable — like a TED talk in 5 minutes."
+
+══ COMBINATION POWER ══
+
+Combine multiple patterns:
+
+"useState ko teach karo using:
+- Pattern 1 (structured thinking)
+- Pattern 7 (my context — Seva Setu)
+- Pattern 9 (production code)
+- Pattern 16 (Socratic — ask me questions)
+
+Ek hi reply mein power-combo deliver karo."
+
+══ USAGE TIPS ══
+
+1. Save these in your phone notes
+2. Use the right pattern for situation
+3. Combine patterns for compound effect
+4. Customize words to match your style
+5. Track which work best for you
+
+════════════════════════════════════════════════════════
+NOT WHAT YOU ASK — HOW YOU ASK.
+Master these 20 patterns = 10x better ChatGPT.
+════════════════════════════════════════════════════════

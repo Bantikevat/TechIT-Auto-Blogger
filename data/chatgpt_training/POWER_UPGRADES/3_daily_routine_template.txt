@@ -1,0 +1,175 @@
+════════════════════════════════════════════════════════
+DAILY ROUTINE TEMPLATE — Auto Study Plan Generator
+Upload to Master Teacher project as knowledge file
+════════════════════════════════════════════════════════
+
+When user says "/plan today" or "Today ka plan banao":
+Generate hour-by-hour plan based on:
+- Current goals (interview prep, exam, project)
+- Available hours
+- Energy levels (morning vs evening)
+- Pending tasks
+
+══ TEMPLATE: BALANCED 8-HOUR DAY ══
+
+06:00 - 07:00 | Wake + Morning routine (1h)
+07:00 - 07:30 | Exercise (30 min) [non-negotiable]
+07:30 - 08:00 | Breakfast + News scan
+08:00 - 10:00 | DEEP WORK SLOT 1 (2h)
+  → Hardest topic
+  → MERN Maha-Guru or AI Guru
+  → 50 min work + 10 min break
+10:00 - 10:15 | Break (water, walk)
+10:15 - 12:15 | DEEP WORK SLOT 2 (2h)
+  → Coding practice or building
+  → Apply morning learning
+12:15 - 13:30 | Lunch + Rest
+13:30 - 15:30 | LEARNING SLOT (2h)
+  → Lighter subject (Networks/OS theory)
+  → Note-taking, video lectures
+15:30 - 15:45 | Break
+15:45 - 17:00 | CONTENT/COMMUNITY (1h 15min)
+  → LinkedIn post / Twitter
+  → Engage with community
+  → Network building
+17:00 - 18:00 | Project work / Side hustle
+18:00 - 19:00 | Exercise / Evening walk
+19:00 - 20:30 | Dinner + Family time
+20:30 - 21:30 | REVIEW + PLAN TOMORROW (1h)
+  → What did I learn today?
+  → What's tomorrow's priority?
+  → Quick journal
+21:30 - 22:30 | Reading (non-tech book)
+22:30 - 23:00 | Wind down, no screens
+23:00 - 06:00 | Sleep (7 hours)
+
+══ TEMPLATE: INTERVIEW WEEK (Intense) ══
+
+06:00 - 07:00 | Wake + light exercise
+07:00 - 09:00 | MERN deep dive (1 topic)
+09:00 - 10:00 | Code practice (LeetCode easy/medium)
+10:00 - 12:00 | System Design practice
+12:00 - 13:00 | Lunch + rest
+13:00 - 15:00 | Mock interview (with ChatGPT)
+15:00 - 16:00 | Review weak areas
+16:00 - 17:00 | Project demo prep (Seva Setu)
+17:00 - 18:00 | Behavioral question practice (STAR)
+18:00 - 19:00 | Walk + meditation
+19:00 - 20:00 | Dinner
+20:00 - 21:30 | Resume polish + LinkedIn
+21:30 - 22:30 | Rapid revision
+22:30 - 23:00 | Tomorrow plan
+23:00 - 06:00 | Sleep
+
+══ TEMPLATE: EXAM WEEK (Final Push) ══
+
+05:30 - 06:30 | Wake + revision (high retention time)
+06:30 - 07:00 | Tea + breakfast
+07:00 - 10:00 | NEW topic deep study (3h)
+10:00 - 10:30 | Break + snack
+10:30 - 12:30 | Numerical practice (2h)
+12:30 - 14:00 | Lunch + nap (45 min)
+14:00 - 16:00 | Previous papers solve (2h)
+16:00 - 16:30 | Break
+16:30 - 18:30 | Weak topic revisit (2h)
+18:30 - 19:30 | Light exercise
+19:30 - 20:30 | Dinner
+20:30 - 22:00 | Quick revision of day's topics
+22:00 - 22:30 | Tomorrow's question wishlist
+22:30 - 05:30 | Sleep (7h crucial)
+
+══ TEMPLATE: BUILDING PROJECT DAY ══
+
+08:00 - 09:00 | Wake + plan day's feature
+09:00 - 12:00 | Deep coding session (3h)
+12:00 - 13:00 | Lunch
+13:00 - 14:00 | Code review (yesterday's code)
+14:00 - 17:00 | Continue building (3h)
+17:00 - 18:00 | Testing + bug fixing
+18:00 - 19:00 | Documentation + commit
+19:00 - 20:00 | Walk + dinner
+20:00 - 21:00 | Twitter update / LinkedIn post
+21:00 - 22:00 | Tomorrow's tasks list
+22:00 - 23:00 | Wind down
+
+══ TEMPLATE: LEARNING + EARNING DAY ══
+
+06:30 - 07:00 | Wake
+07:00 - 09:00 | Learn (2h teacher session)
+09:00 - 11:00 | Apply (build something)
+11:00 - 12:00 | Marketing (LinkedIn, outreach)
+12:00 - 14:00 | Lunch + rest
+14:00 - 16:00 | Client work (if any)
+16:00 - 17:00 | Outbound (cold emails, DMs)
+17:00 - 18:00 | Exercise
+18:00 - 19:00 | Dinner
+19:00 - 21:00 | Side project / Course creation
+21:00 - 22:00 | Review + plan
+22:00 - 23:00 | Reading / Wind down
+
+══ PRINCIPLES OF GOOD DAY PLANNING ══
+
+1. **Hardest task in MORNING** (willpower depletes)
+2. **2-hour deep work blocks** (not 1, not 4)
+3. **10-min breaks every hour** (Pomodoro variant)
+4. **No screens 1 hour before sleep**
+5. **Exercise non-negotiable** (30-60 min)
+6. **Weekly off** (1 day complete rest)
+7. **Plan tomorrow today** (no morning decision fatigue)
+
+══ ENERGY-MATCHED TASKS ══
+
+HIGH ENERGY (mostly 8-12 AM):
+- New concept learning
+- Complex coding
+- System design
+- Math problems
+
+MEDIUM ENERGY (1-4 PM, post-lunch):
+- Reading
+- Note revision
+- Simple coding
+- Documentation
+
+LOW ENERGY (after 6 PM):
+- Email, communication
+- Light content creation
+- Meeting, calls
+- Admin tasks
+
+══ ANTI-PATTERNS (Don't Do) ══
+
+❌ All-nighters (destroy next day)
+❌ Skipping exercise (mental fog)
+❌ Multitasking (kills depth)
+❌ Phone before deep work (dopamine drain)
+❌ News in morning (negative bias)
+❌ Heavy lunch (afternoon crash)
+❌ Caffeine after 2 PM (sleep ruined)
+
+══ WHEN USER ASKS FOR PLAN ══
+
+Ask these clarifying questions:
+1. Total available hours today?
+2. Main goal — interview prep / exam / project / business?
+3. Energy level — high / medium / low?
+4. Any fixed commitments (class, meeting)?
+5. Wake-up and sleep time?
+
+Then generate hour-by-hour plan customized.
+
+══ EVENING REVIEW QUESTIONS ══
+
+End of day, ask:
+1. What 3 things did I accomplish?
+2. What blocked me?
+3. What did I learn?
+4. What's tomorrow's top 1 priority?
+5. Energy level — what worked?
+
+This compounds over time.
+
+════════════════════════════════════════════════════════
+PRODUCTIVITY = OUTPUT, NOT HOURS
+4 hours focused > 12 hours scattered
+════════════════════════════════════════════════════════

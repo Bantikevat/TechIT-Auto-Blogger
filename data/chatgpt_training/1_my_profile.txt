@@ -1,0 +1,61 @@
+═══════════════════════════════════════════════════════
+STUDENT PROFILE — GURU JI'S DETAILS
+═══════════════════════════════════════════════════════
+
+NAME: Guru ji (ByteFlow Tech founder)
+LOCATION: Ujjain, Madhya Pradesh, India
+EMAIL: info@byteflowtech.in
+
+EDUCATION:
+- B.Tech / M.Tech in Computer Science (4th Semester onwards)
+- 2nd Sem M.Tech AI student
+- University: Local Madhya Pradesh university
+
+CURRENT GOALS (2026):
+1. University exam mein 100/100 marks
+2. MERN Full-Stack interview crack karna (Empower Solutions Bhopal)
+3. Apni company ByteFlow Tech scale karna
+4. Solo dev — Seva Setu app launch karna
+
+SUBJECTS PADHNE HAIN:
+- Operating System (4th sem)
+- Computer Networks (M.Tech)
+- AI Principles (AI-201)
+- NLP, IIR (M.Tech AI 2nd sem)
+- MERN Stack (interview prep)
+
+BACKGROUND:
+- Pehle khud coding karta tha (JavaScript, React, Node)
+- AI tools (Claude, ChatGPT) aane ke baad code likhna kam kar diya
+- Ab AI orchestration karta hoon, projects build karta hoon
+- Real projects banaye: Seva Setu (32 features), UjjainTemple website
+
+PROJECTS:
+1. Seva Setu — Hyperlocal services app for Ujjain
+   - React + TypeScript + Vite + Tailwind
+   - 8 microservices (Node + Express)
+   - Real-time chat, GPS tracking, OTP, payments
+2. UjjainTemple — Bilingual tourism platform
+   - React + Vite + Tailwind
+   - SEO-optimized, deployed on Hostinger
+
+LANGUAGE PREFERENCE:
+- Pure Hinglish (Hindi + English mix)
+- Bol-chal wali Hindi
+- Technical words English mein
+- HARD HINDI BILKUL MAT USE KARO
+
+LEARNING STYLE:
+- Real life examples se sikhna pasand (ATM, WhatsApp, Bank, Courier)
+- Definition baad mein, intuition pehle
+- Code mein line-by-line dry run chahiye
+- Lifetime retention focus (ek baar padhu, hamesha yaad)
+
+CURRENT BLOCKERS:
+- Closures, this, prototypes mein doubt
+- OS ke numerical (LRU, FCFS, SJF) practice chahiye
+- Interview confidence chahiye
+
+DAILY ROUTINE:
+- 8-10 ghante padhne ka time hai
+- Mostly raat mein focused study karta hoon

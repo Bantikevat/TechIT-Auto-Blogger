@@ -1,0 +1,472 @@
+════════════════════════════════════════════════════════════════
+MERN INTERVIEW Q&A BANK — Real Questions from FAANG + Indian
+════════════════════════════════════════════════════════════════
+Upload to ChatGPT project. Reference for real interview questions.
+
+════════════════════════════════════════════════════════════════
+JAVASCRIPT — 25 Real Questions
+════════════════════════════════════════════════════════════════
+
+Q1. Var, let, const ka difference?
+A: Scope (function/block/block), reassign (yes/yes/no),
+   redeclare (yes/no/no), hoisting (with undefined/TDZ/TDZ).
+   Modern: const default, let when reassignment needed, never var.
+
+Q2. Closure kya hai?
+A: Function jo apne outer scope ke variables yaad rakhta hai
+   even after outer returns. Example: counter, factory functions,
+   private state.
+
+Q3. Event Loop kaise kaam karta hai?
+A: JavaScript single-threaded. Sync code Call Stack pe chalta.
+   Async (setTimeout, fetch) Web APIs ko jaata, callbacks Queue
+   mein aate. Event Loop dekhta — Stack khali hai? Microtasks
+   (Promises) pehle, phir Macrotasks (setTimeout).
+
+Q4. Promise vs async/await?
+A: Same thing — async/await syntactic sugar over Promise.
+   await Promise unwrap karta hai. async function Promise
+   return karta hai. async/await cleaner for sequential async.
+
+Q5. Output bata:
+    console.log(1);
+    setTimeout(() => console.log(2), 0);
+    Promise.resolve().then(() => console.log(3));
+    console.log(4);
+A: 1, 4, 3, 2 (sync first, then microtask, then macrotask)
+
+Q6. == vs ===?
+A: == type coercion karta hai (loose equality). === strict
+   equality, no coercion. Always use ===. Exception: == null
+   to check both null and undefined together.
+
+Q7. null vs undefined?
+A: undefined = variable declared but no value assigned.
+   null = explicitly assigned "no value". typeof undefined ===
+   "undefined", typeof null === "object" (historical bug).
+
+Q8. this ka behavior?
+A: 4 rules:
+   - obj.method() → this = obj
+   - function() → this = global (or undefined in strict)
+   - arrow fn → this = parent scope ka this
+   - new X() → this = naya object
+
+Q9. Hoisting kya hai?
+A: Variable/function declarations memory mein "upar uthate"
+   hain before code runs. var → undefined ke saath, let/const
+   → TDZ mein, function → fully hoisted.
+
+Q10. Currying kya hai?
+A: Multiple arguments wala function ko series of single-arg
+    functions mein todna.
+    add(1, 2, 3) → add(1)(2)(3)
+
+Q11. Higher Order Function kya hai?
+A: Function jo doosre function ko argument leta hai ya return
+   karta hai. Examples: map, filter, reduce, setTimeout.
+
+Q12. map vs forEach?
+A: map returns new array, forEach doesn't return anything.
+   map for transformation, forEach for side effects.
+
+Q13. Spread vs Rest operator?
+A: Same syntax (...), different context:
+   - Spread: spreads array/object → [...arr], {...obj}
+   - Rest: collects into array → function(...args)
+
+Q14. Deep copy vs Shallow copy?
+A: Shallow: only top level copied, nested references shared
+   ({...obj}, Object.assign).
+   Deep: everything copied (JSON.parse(JSON.stringify(obj)),
+   structuredClone()).
+
+Q15. Debouncing vs Throttling?
+A: Debounce: wait until X ms of silence (search input).
+   Throttle: max once per X ms (scroll, resize).
+
+Q16. Event delegation kya hai?
+A: Parent pe ek hi listener, child events bubble up. Better
+   performance for many children, dynamic elements.
+
+Q17. Prototype chain explain karo.
+A: Object property lookup — agar object mein nahi mila to
+   __proto__ pe dekho, fir uske __proto__ pe... chain me upar
+   tak — null tak.
+
+Q18. call, apply, bind ka difference?
+A: call: invoke with this and args separately - fn.call(obj, a, b)
+   apply: invoke with this and args as array - fn.apply(obj, [a, b])
+   bind: returns NEW function with bound this - const f = fn.bind(obj)
+
+Q19. Memoization explain karo.
+A: Function ka result cache karna based on input. Same input
+   aaye to cache se return, recompute nahi.
+
+Q20. IIFE kya hota hai?
+A: Immediately Invoked Function Expression. (function() {...})();
+   Used for scoping, module pattern (pre-ES6).
+
+Q21. Generator function kya hai?
+A: function* with yield. Pause-resume execution. Used for
+   iterators, async flows (before async/await).
+
+Q22. Symbol kya hai?
+A: Primitive type, unique identifier. Used for unique keys,
+   well-known symbols (Symbol.iterator).
+
+Q23. Proxy aur Reflect kya hain?
+A: Proxy: object behavior intercept karta hai (get, set, etc.)
+   Reflect: methods for object operations. Used in Vue 3
+   reactivity, MobX.
+
+Q24. Promise chaining vs Promise.all?
+A: Chaining: sequential (one after other)
+   Promise.all: parallel (all together, fails fast)
+   Promise.allSettled: parallel, waits for all (no fail fast)
+
+Q25. Garbage Collection kaise kaam karta?
+A: JavaScript automatic GC — unreachable objects free karta.
+   Mark-and-Sweep algorithm. Memory leaks aate hain:
+   accidental globals, forgotten timers, DOM references,
+   closures with large data.
+
+════════════════════════════════════════════════════════════════
+REACT — 25 Real Questions
+════════════════════════════════════════════════════════════════
+
+Q1. Virtual DOM kya hai aur kyun zaroori?
+A: Real DOM ka lightweight JS representation. React diffing
+   karta — sirf changed parts real DOM mein update. Faster
+   than direct DOM manipulation.
+
+Q2. Reconciliation aur Fiber kya hain?
+A: Reconciliation: process of comparing virtual DOMs (diffing).
+   Fiber: React 16+ ka new algorithm — interruptible work
+   units, allows priority and time-slicing.
+
+Q3. useState vs useReducer?
+A: useState: simple state (primitive, 1-2 fields)
+   useReducer: complex state with multiple actions, testable
+   logic separate from component.
+
+Q4. useEffect dependency array kya hai?
+A: Array of values to watch. Empty [] = run once on mount.
+   Missing = run every render. With values = run when those change.
+
+Q5. useMemo vs useCallback?
+A: useMemo: cache computed VALUE
+   useCallback: cache FUNCTION reference
+   useCallback(fn, deps) === useMemo(() => fn, deps)
+
+Q6. React.memo kab use karoge?
+A: Component re-renders unnecessarily, props same hain.
+   But: shallow comparison cost hota — profile karke add karo,
+   blindly nahi.
+
+Q7. Controlled vs Uncontrolled component?
+A: Controlled: state React mein, value={state}, onChange handler.
+   Uncontrolled: state DOM mein, useRef se access karo.
+   Controlled = recommended for most cases.
+
+Q8. Props drilling kya hai aur solution?
+A: Props ko multiple levels pass karna. Solutions:
+   - Context API (built-in)
+   - State management libraries (Redux, Zustand)
+   - Component composition
+
+Q9. Custom hook kya hai? Example?
+A: Reusable logic wala function jo "use" se shuru ho.
+   Example: useFetch, useLocalStorage, useDebounce.
+
+Q10. Server Components vs Client Components?
+A: Server Components (React 19+): render on server, no JS bundle,
+   can directly access DB. Use 'use client' for interactive.
+
+Q11. Keys ka purpose kya hai?
+A: React ko help karta — which items changed/added/removed.
+   Stable, unique identity (id), never use index for dynamic lists.
+
+Q12. Hooks rules kaunse hain?
+A: 1. Only call at top level (no conditions, loops)
+   2. Only call from React functions (component, custom hook)
+   Reason: Hooks linked list mein store hote, order matter karta.
+
+Q13. useRef use cases?
+A: 1. DOM access (input.current.focus())
+   2. Persist value across renders WITHOUT triggering re-render
+   3. Store previous value (usePrevious pattern)
+
+Q14. Context API se re-render problem?
+A: All consumers re-render jab context value badle.
+   Solution: split contexts, use selectors, memoize provider value.
+
+Q15. Suspense aur lazy loading?
+A: lazy(() => import('./Component')) → code splitting
+   <Suspense fallback={<Loader />}> → show fallback during load
+
+Q16. Error boundary kya hai?
+A: Class component jo child errors catch karta (try-catch like).
+   componentDidCatch + getDerivedStateFromError.
+   Functional version: react-error-boundary library.
+
+Q17. State lift up karna matlab?
+A: Sibling components ko share karna ho to state ko common
+   parent mein move karo. Pass down via props.
+
+Q18. React 18 ke automatic batching kya hai?
+A: Multiple setState calls ek hi re-render mein batch.
+   Earlier sirf event handlers mein, ab setTimeout, Promises
+   sab mein.
+
+Q19. Fragment kyun use karte?
+A: Multiple elements return karne ke liye without extra DOM node.
+   <>...</> or <React.Fragment>...</React.Fragment>
+
+Q20. PureComponent vs React.memo?
+A: PureComponent (class): shallow comparison of props + state
+   React.memo (function): shallow comparison of props only
+   Both prevent unnecessary re-renders.
+
+Q21. forwardRef kya karta hai?
+A: Functional component ko ref forward karta parent se.
+   const Input = forwardRef((props, ref) => <input ref={ref} />)
+
+Q22. useImperativeHandle kab use karoge?
+A: Parent ko child ke imperative methods expose karne ke liye.
+   Custom ref handle. Rare use case.
+
+Q23. Portal kya hai? Use case?
+A: Children ko parent ke bahar render karna. Modal, tooltip,
+   dropdown — z-index issues avoid karne ke liye.
+
+Q24. Form library kyun use karein?
+A: Built-in form complex hota — validation, error messages,
+   submission. react-hook-form, formik — less boilerplate,
+   better performance.
+
+Q25. React 19 ke new features kaunse?
+A: Actions (form actions with hooks), use() hook for promises,
+   Document metadata support, Server Components stable,
+   Asset loading APIs.
+
+════════════════════════════════════════════════════════════════
+NODE.JS + EXPRESS — 20 Real Questions
+════════════════════════════════════════════════════════════════
+
+Q1. Node.js kya hai aur kaise kaam karta?
+A: JavaScript runtime built on V8. Non-blocking, event-driven.
+   Single thread + event loop = handle thousands of concurrent
+   connections.
+
+Q2. Event Loop ke phases bata.
+A: timers → pending callbacks → idle → poll → check → close
+   Microtasks (Promise) between each phase.
+
+Q3. CommonJS vs ES Modules?
+A: CommonJS: require(), module.exports (sync, default in Node)
+   ESM: import/export (async, browser standard)
+   Node 14+ supports both with .mjs or "type": "module".
+
+Q4. Middleware kya hota hai Express mein?
+A: Functions jo request flow mein execute hote — req, res, next.
+   Used for: parsing, auth, logging, error handling.
+
+Q5. RESTful API ke principles?
+A: Stateless, client-server, cacheable, uniform interface,
+   layered. HTTP methods semantically — GET (read), POST (create),
+   PUT (replace), PATCH (update), DELETE.
+
+Q6. Authentication strategies?
+A: Sessions (server-side, cookies), JWT (stateless, token-based),
+   OAuth (delegated), API keys (simple).
+
+Q7. JWT vs Session?
+A: JWT: stateless, scalable, contains user data, can't revoke
+   easily. Session: server stores, easy to revoke, requires
+   storage (Redis usually).
+
+Q8. CORS kya hai?
+A: Cross-Origin Resource Sharing. Browser security — different
+   origin se request block. CORS headers (Access-Control-Allow-
+   Origin) se allow karo. Preflight OPTIONS request for non-
+   simple requests.
+
+Q9. Streams kya hain?
+A: Data ko chunks mein handle karna instead of loading all.
+   Types: Readable, Writable, Duplex, Transform.
+   Pipe karo: readable.pipe(writable).
+
+Q10. Cluster module kab use?
+A: Multi-core CPU utilize karne ke liye. Master process spawn
+   karta N workers (= CPU cores). PM2 production mein use hota.
+
+Q11. process.nextTick vs setImmediate?
+A: nextTick: BEFORE next event loop iteration (microtask)
+   setImmediate: in CHECK phase of next iteration
+   Order: nextTick > Promise > setImmediate.
+
+Q12. Body parser kyun chahiye?
+A: HTTP body raw stream hota — parse karna padta.
+   express.json() = JSON body parser
+   express.urlencoded() = form data parser
+   multer = file uploads
+
+Q13. Error handling middleware ka signature?
+A: 4 arguments: (err, req, res, next)
+   Express recognize karta hai 4 args ka middleware = error handler.
+   Define karo AT THE END.
+
+Q14. Rate limiting kaise karoge?
+A: express-rate-limit library, or Redis with sliding window.
+   Per IP / per user. Prevent DDoS, abuse.
+
+Q15. Helmet kya karta hai?
+A: Security headers set karta: CSP, X-Frame-Options, HSTS, etc.
+   Production mein zaroor lagana.
+
+Q16. Async error handling Express mein?
+A: Express 4 native async errors catch nahi karta.
+   - express-async-errors library
+   - Wrap routes in try-catch
+   - asyncHandler utility: (fn) => (req,res,next) =>
+     Promise.resolve(fn(req,res,next)).catch(next)
+
+Q17. WebSocket vs HTTP?
+A: HTTP: request-response, stateless, short-lived
+   WebSocket: persistent connection, bidirectional, real-time
+   (chat, notifications, live updates).
+
+Q18. Microservices vs Monolith?
+A: Monolith: single codebase, easy start, hard to scale parts
+   Microservices: separate services, scalable, complex (network
+   calls, distributed tracing, data consistency).
+
+Q19. Graceful shutdown kaise karoge?
+A: process.on('SIGTERM', async () => {
+     await server.close();
+     await db.disconnect();
+     process.exit(0);
+   });
+   Important for production deployments.
+
+Q20. Production logging?
+A: Winston / Pino libraries. Structured logs (JSON), log levels,
+   transport (file, console, remote). Don't console.log in prod!
+
+════════════════════════════════════════════════════════════════
+MONGODB — 15 Real Questions
+════════════════════════════════════════════════════════════════
+
+Q1. SQL vs NoSQL?
+A: SQL: schema-rigid, ACID, joins, relational. NoSQL: flexible
+   schema, horizontal scale, document/key-value/graph/column.
+   MongoDB = document. Use SQL for financial/relational data,
+   NoSQL for unstructured/scalable/quick iteration.
+
+Q2. Document vs Row?
+A: Document: nested JSON-like (BSON). Can have arrays, objects.
+   Row: flat fields.
+
+Q3. Mongoose Schema kyun?
+A: MongoDB schemaless, but applications need structure.
+   Schema validation, types, defaults, hooks (pre/post save).
+
+Q4. Indexes kyun zaroori?
+A: Without index: collection scan O(n).
+   With index: B-tree O(log n).
+   Compound, text, geo, TTL indexes.
+
+Q5. populate kya karta?
+A: ObjectId references ko actual documents se replace.
+   Like JOIN but in 2 queries. For 1-to-many relations.
+
+Q6. populate vs $lookup?
+A: populate: Mongoose, 2 DB calls (extra query)
+   $lookup: aggregation, 1 DB call (efficient for large data)
+
+Q7. Aggregation pipeline ke common stages?
+A: $match (filter), $project (select fields), $group (group by),
+   $sort, $limit, $skip, $unwind (array to docs),
+   $lookup (join), $addFields, $facet (multiple pipelines).
+
+Q8. Embed vs Reference?
+A: Embed: data together, fast read, large doc risk
+   Reference: separate, normalized, multiple queries
+   Rule: "data accessed together, store together"
+
+Q9. Transactions MongoDB mein?
+A: Multi-document ACID transactions (4.0+). Use for critical
+   operations spanning collections. session.startTransaction()...
+   commitTransaction() / abortTransaction().
+
+Q10. Sharding kya hai?
+A: Horizontal scaling — data split across multiple servers
+   based on shard key. For huge datasets (TBs).
+
+Q11. Replication kya hai?
+A: Primary-secondary copies. Auto-failover. Read scaling
+   (read from secondary).
+
+Q12. Capped collections?
+A: Fixed size, FIFO eviction. Useful for logs, real-time data.
+
+Q13. $set vs $push vs $addToSet?
+A: $set: update field
+   $push: add to array (allows duplicates)
+   $addToSet: add to array only if not exists (unique)
+
+Q14. ObjectId kya hai?
+A: 12-byte unique identifier:
+   - 4 bytes: timestamp
+   - 5 bytes: random
+   - 3 bytes: counter
+
+Q15. MongoDB Atlas?
+A: Cloud-hosted MongoDB. Free tier (M0). Automated backups,
+   monitoring, scaling. Default for production.
+
+════════════════════════════════════════════════════════════════
+SYSTEM DESIGN — 5 Common Senior Questions
+════════════════════════════════════════════════════════════════
+
+Q1. URL Shortener (Bitly) design karo
+A: Components:
+   - API server (Node + Express)
+   - DB: shortCode → longUrl (Redis cache + Mongo persist)
+   - Base62 encoding for short codes
+   - Counter or hash for unique generation
+   - CDN for redirects
+   - Analytics queue (Kafka/SQS)
+
+Q2. Chat application kaise banayega?
+A: WebSocket for real-time (Socket.io)
+   MongoDB for messages (sharded by chatId)
+   Redis pub/sub for multi-server message broadcast
+   Push notifications (FCM/APNS) for offline users
+   Encryption for E2E (Signal protocol)
+
+Q3. Newsfeed design (Instagram)?
+A: Fan-out write (push to followers' feeds) vs
+   Fan-out read (compute on read)
+   Hybrid: push for normal users, read-pull for celebrities
+   Cache top N posts per user (Redis)
+   CDN for media
+
+Q4. Rate limiter design?
+A: Token Bucket algorithm
+   Store in Redis (atomic INCR with TTL)
+   Per user / IP / API key
+   Headers: X-RateLimit-Remaining, Retry-After
+
+Q5. Search autocomplete kaise banayega?
+A: Trie data structure
+   Top N suggestions per prefix (heap)
+   Cache in Redis (key: prefix, value: suggestions)
+   Debounce on frontend (300ms)
+   Elasticsearch for production scale
+
+════════════════════════════════════════════════════════════════
+USE THIS BANK TO TEACH WITH REAL DEPTH.
+EVERY ANSWER SHOULD GO 3 LAYERS DEEP.
+════════════════════════════════════════════════════════════════

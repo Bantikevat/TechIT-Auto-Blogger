@@ -1,0 +1,134 @@
+<div style="text-align: center; margin-bottom: 24px;">
+  <img src="https://image.pollinations.ai/prompt/NodeJS%20event%20loop%20architecture%20neon%20dark%20concept%20illustration%20highly%20detailed?width=800&height=450&nologo=true" alt="NodeJS Event Loop" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" />
+</div>
+
+<p>दोस्तों, जब भी हम backend development की बात करते हैं, तो <strong>NodeJS</strong> का नाम सबसे पहले आता है। NodeJS अपनी बेहतरीन speed और performance के लिए जाना जाता है। लेकिन क्या आपने कभी सोचा है कि NodeJS single-threaded होने के बावजूद हज़ारों requests को एक साथ कैसे handle कर लेता है?</p>
+
+<p>इसका असली राज़ छुपा है NodeJS के दिल यानी <strong>Event Loop</strong> में। अगर आप NodeJS developer बनना चाहते हैं या full-stack interview की तैयारी कर रहे हैं, तो Event Loop का concept समझना आपके लिए बेहद ज़रूरी है। आज के इस tutorial में हम बिल्कुल आसान शब्दों में NodeJS Event Loop की पूरी वर्किंग को समझेंगे।</p>
+
+<h2>Single-Threaded Non-Blocking I/O क्या है?</h2>
+
+<p>पारंपरिक backend technologies (जैसे PHP या older Java structures) multi-threaded होती हैं। यानी हर new request के लिए एक नया thread बनता है। लेकिन NodeJS <strong>Single-Threaded</strong> है, इसका मतलब इसके पास काम करने के लिए सिर्फ एक ही main thread (v8 engine code executor) होता है।</p>
+
+<p>अब सवाल उठता है: अगर एक thread किसी heavy database query या file reading में व्यस्त हो गया, तो क्या पूरा server block हो जाएगा? </p>
+
+<p>जवाब है: <strong>नहीं!</strong> NodeJS <strong>Non-blocking I/O</strong> का उपयोग करता है। जब भी कोई heavy operation आता है, NodeJS उसे background में भेज देता है और main thread अगली request को handle करने के लिए free हो जाता है। जब background task पूरा हो जाता है, तो callback function को execute करने के लिए <strong>Event Loop</strong> उसे main call stack में वापस लाता है।</p>
+
+<h2>Event Loop के Phases (चरण)</h2>
+
+<p>Event Loop एक loop की तरह लगातार चलता रहता है और इसके मुख्य 6 phases होते हैं:</p>
+<ol>
+  <li><strong>Timers Phase:</strong> यहाँ <code>setTimeout()</code> और <code>setInterval()</code> के callbacks execute होते हैं।</li>
+  <li><strong>Pending Callbacks:</strong> पिछले loop cycle के बचे हुए I/O callbacks यहाँ execute होते हैं।</li>
+  <li><strong>Idle, Prepare:</strong> यह phase सिर्फ NodeJS internals के लिए उपयोग होता है।</li>
+  <li><strong>Poll Phase:</strong> नए incoming connection और I/O (files, network requests) callbacks यहाँ handle होते हैं।</li>
+  <li><strong>Check Phase:</strong> यहाँ <code>setImmediate()</code> के callbacks execute होते हैं।</li>
+  <li><strong>Close Callbacks:</strong> जैसे <code>socket.on('close')</code> callbacks यहाँ execute होते हैं।</li>
+</ol>
+
+<h2>Execution Order Testing (Live Code Example)</h2>
+
+<p>चलिए एक बेहतरीन code example से समझते हैं कि कौन सा function पहले run होगा। आप इस code को अपने local machine पर run करके देख सकते हैं:</p>
+
+<pre><code>const fs = require('fs');
+
+console.log("1. Script Start");
+
+// 1. setTimeout (Timer Phase)
+setTimeout(() => {
+  console.log("2. setTimeout (Timer Phase) - 0ms");
+}, 0);
+
+// 2. setImmediate (Check Phase)
+setImmediate(() => {
+  console.log("3. setImmediate (Check Phase)");
+});
+
+// 3. File Read (Poll Phase I/O)
+fs.readFile(__filename, () => {
+  console.log("4. File Reading Complete (Poll Phase)");
+  
+  // Microtasks inside I/O callback
+  setTimeout(() => {
+    console.log("5. Nested setTimeout inside File Read");
+  }, 0);
+  
+  setImmediate(() => {
+    console.log("6. Nested setImmediate inside File Read");
+  });
+  
+  process.nextTick(() => {
+    console.log("7. process.nextTick inside File Read");
+  });
+});
+
+// 4. process.nextTick (Microtask Queue - Priority #1)
+process.nextTick(() => {
+  console.log("8. process.nextTick (High Priority Microtask)");
+});
+
+console.log("9. Script End");
+</code></pre>
+
+<h3>Output Explanation (Execution Order):</h3>
+<p>जब आप ऊपर दिए गए code को run करेंगे, तो output का क्रम कुछ ऐसा होगा:</p>
+<ul>
+  <li>सबसे पहले synchronous code run होगा: <strong>1. Script Start</strong>, <strong>9. Script End</strong>.</li>
+  <li>फिर High Priority Microtask run होगा: <strong>8. process.nextTick</strong>.</li>
+  <li>फिर Event loop start होगा: <strong>2. setTimeout - 0ms</strong> run होगा.</li>
+  <li>फिर check phase में <strong>3. setImmediate</strong> run होगा.</li>
+  <li>इसके बाद background operation complete होने पर read callback run होगा: <strong>4. File Reading Complete</strong>.</li>
+  <li>I/O callback के अंदर <strong>7. process.nextTick</strong> पहले run होगा, फिर check phase में <strong>6. Nested setImmediate</strong> run होगा, और अंत में timers phase में <strong>5. Nested setTimeout</strong> run होगा.</li>
+</ul>
+
+<h2>Dhyan Dene Wali Baat (Common Mistake)</h2>
+<p>हमेशा याद रखें कि <code>process.nextTick()</code> Event Loop का हिस्सा नहीं है, बल्कि यह microtask queue का हिस्सा है जो हर phase के तुरंत बाद run होता है। यदि आप <code>process.nextTick()</code> के अंदर एक loop चला देंगे, तो Event Loop block हो जाएगा और आपका server crash हो सकता है!</p>
+
+<div class="faq-accordion">
+  <h3>Frequently Asked Questions (FAQs)</h3>
+  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+    <summary style="font-weight: bold; font-size: 15px;">Q1: NodeJS single-threaded है तो multi-threading कैसे करता है?</summary>
+    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">NodeJS v8 engine JavaScript single-threaded run करता है, लेकिन file operations और cryptography जैसे tasks के लिए NodeJS C++ backend library <strong>libuv</strong> के **Thread Pool** (default 4 threads) का उपयोग करता है जो asynchronous background operations handle करते हैं।</p>
+  </details>
+  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+    <summary style="font-weight: bold; font-size: 15px;">Q2: setTimeout(fn, 0) और setImmediate(fn) में क्या अंतर है?</summary>
+    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Normal script flow में इन दोनों का order unpredictable (unstable) होता है, लेकिन किसी asynchronous I/O callback के अंदर run करने पर <strong>setImmediate</strong> हमेशा <strong>setTimeout</strong> से पहले run होता है क्योंकि I/O के बाद check phase पहले आता है।</p>
+  </details>
+  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+    <summary style="font-weight: bold; font-size: 15px;">Q3: CPU intensive tasks के लिए NodeJS अच्छा क्यों नहीं है?</summary>
+    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">CPU intensive tasks (जैसे video processing, heavy calculations) main thread को block कर देते हैं, जिससे बाकी requests wait state में चली जाती हैं। ऐसे कामों के लिए Worker Threads का उपयोग किया जाता है।</p>
+  </details>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "NodeJS single-threaded है तो multi-threading कैसे करता है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NodeJS v8 engine JavaScript single-threaded run करता है, लेकिन heavy tasks के लिए NodeJS libuv library के Thread Pool का उपयोग करता है जो background execution handle करता है."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "setTimeout(fn, 0) और setImmediate(fn) में क्या अंतर है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Normal flow में order predictable नहीं होता, लेकिन I/O callback के अंदर setImmediate हमेशा setTimeout से पहले run होता है."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "CPU intensive tasks के लिए NodeJS अच्छा क्यों नहीं है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CPU intensive tasks main execution thread को block कर देते हैं, जिससे पूरा server block हो जाता है."
+      }
+    }
+  ]
+}
+</script>

@@ -1,0 +1,131 @@
+═══════════════════════════════════════════════════════
+TOPICS I WILL ASK YOU TO TEACH
+═══════════════════════════════════════════════════════
+
+🌐 COMPUTER NETWORKS (M.Tech) — 15 Master Topics
+─────────────────────────────────────────────────
+1. OSI Reference Model ⭐⭐⭐⭐⭐
+2. TCP/IP Model ⭐⭐⭐⭐⭐
+3. Peer-to-Peer vs Client-Server ⭐⭐⭐⭐
+4. Transmission Media (Coaxial, UTP, STP) ⭐⭐⭐⭐⭐
+5. Network Topology (Bus, Ring, Star, Mesh) ⭐⭐⭐⭐
+6. IPv4 Addressing ⭐⭐⭐⭐
+7. Routing Algorithms (Distance Vector, Link State) ⭐⭐⭐⭐⭐
+8. RIP & OSPF Protocols ⭐⭐⭐⭐⭐
+9. TCP & UDP ⭐⭐⭐⭐⭐
+10. DNS ⭐⭐⭐⭐⭐
+11. SMTP ⭐⭐⭐⭐
+12. Network Devices (NIC, Hub, Switch, Router) ⭐⭐⭐⭐⭐
+13. Wi-Fi, WLAN, Bluetooth, PAN ⭐⭐⭐⭐
+14. SNMP ⭐⭐⭐⭐⭐
+15. Internet & ARPANET ⭐⭐⭐
+
+
+💻 MERN FULL-STACK (Interview Prep) — 21 Topics
+─────────────────────────────────────────────────
+JAVASCRIPT:
+1. Var/Let/Const, Scope, Hoisting
+2. Async (Promises, async/await, callbacks)
+3. Closures, this, Prototypes
+4. ES6+ (Arrow, Destructure, Spread, Modules)
+
+REACT:
+5. JSX, Components, Props, State
+6. Hooks (useState, useEffect, useContext, useRef)
+7. Advanced (memo, useMemo, useCallback, custom hooks)
+
+BACKEND:
+8. Node.js (Event Loop, Modules, NPM)
+9. Express.js (Routing, Middleware, Error handling)
+10. MongoDB (CRUD, Aggregation, Mongoose)
+11. REST API Design
+
+TYPESCRIPT & STATE:
+12. TypeScript basics
+13. Redux Toolkit vs Context
+
+AUTH & FRAMEWORKS:
+14. JWT Authentication
+15. Next.js (Pages, SSR, API routes)
+
+DATABASE & CLOUD:
+16. SQL vs NoSQL
+17. AWS Lambda + API Gateway
+18. Docker basics
+19. Git workflow
+20. Redis caching
+21. System Design (URL shortener, chat app)
+
+
+🖥️ OPERATING SYSTEM (4th Sem Exam) — Key Topics
+─────────────────────────────────────────────────
+1. Kernel + System Architecture
+2. System Calls + System Programs
+3. Process & PCB (Process Control Block)
+4. Process State Diagram
+5. CPU Scheduling (FCFS, SJF, Round Robin)
+6. Threads + Multithreading
+7. Thread Synchronization (Semaphore, Mutex)
+8. Memory Management
+9. Fragmentation (Internal/External)
+10. Paging vs Segmentation
+11. Virtual Memory + Page Fault
+12. Page Replacement (LRU, FIFO, Optimal)
+13. Swapping
+14. File System + Directory Structure
+15. Disk Scheduling (FCFS, SSTF, SCAN, C-SCAN)
+16. Deadlock (4 conditions + Banker's algorithm)
+17. IPC (Inter-Process Communication)
+18. Authentication + Access Control + System Logs
+
+
+🧠 ARTIFICIAL INTELLIGENCE (M.Tech AI-201) — Unit I
+─────────────────────────────────────────────────
+1. What is AI? + 4 Goals (DONE)
+2. Foundations of AI (6 fields) (DONE)
+3. History of AI (DONE)
+4. Agents & Environments + PEAS (DONE)
+5. Nature of Environment (ODESS) (DONE)
+6. Problem Solving Agent + Problem Formulation (NEXT)
+7. Search Strategies (BFS, DFS, UCS, A*)
+
+
+🗣️ NATURAL LANGUAGE PROCESSING (AI-203)
+─────────────────────────────────────────────────
+1. Introduction to NLP
+2. Tokenization, Stemming, Lemmatization
+3. POS Tagging
+4. Named Entity Recognition
+5. Word Embeddings (Word2Vec, GloVe)
+6. RNN, LSTM for NLP
+7. Transformer architecture
+8. BERT, GPT models
+
+
+📚 INTELLIGENT INFORMATION RETRIEVAL (AI-202)
+─────────────────────────────────────────────────
+1. IR basics
+2. Boolean Retrieval
+3. Vector Space Model
+4. TF-IDF
+5. PageRank
+6. Web crawling
+7. Inverted Index
+
+
+──────────────────────────────────────────
+COMMANDS I WILL USE
+──────────────────────────────────────────
+
+"START [topic]"     → Begin full teaching
+"NEXT"              → Move to next section
+"DOUBT [question]"  → Address doubt first
+"REPEAT [step]"     → Re-explain specific part
+"AUR EXAMPLES"      → More real-life examples
+"DRY RUN [code]"    → Step-by-step code execution
+"QUIZ ME"           → Test my understanding
+"EXAM CORNER"       → Skip teaching, show exam stuff
+"MOCK INTERVIEW"    → Take an interview
+"SIMPLIFY"          → Make it simpler
+"100/100 ANSWER"    → Show full-marks model answer
+"PYQ"               → Show previous year questions
