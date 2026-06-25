@@ -20,6 +20,8 @@ BLOG_ID = "7779383721769805036"
 TRACKER_FILE = "posted_topics.json"
 CREDENTIALS_FILE = "blogger_credentials.json"
 GEMINI_KEY_FILE = "gemini_api_key.txt"
+QUEUE_FILE = "topics_to_write.txt"
+
 
 # Default topics to fallback on
 DEFAULT_TOPICS = [
@@ -107,8 +109,49 @@ def call_gemini(gemini_key, prompt):
                 
     return None
 
+def classify_topic_category(gemini_key, topic):
+    # Quick call to Gemini to classify the topic's category
+    prompt = f"""
+    Classify this programming tutorial topic: "{topic}"
+    Choose EXACTLY one category from this list: ReactJS, NodeJS, ExpressJS, MongoDB, MERN Stack.
+    Output ONLY the category name (just a single word from the list). Do not output any other text or explanation.
+    """
+    category = call_gemini(gemini_key, prompt)
+    if category:
+        category = category.strip()
+        # Clean up response
+        for valid in ["ReactJS", "NodeJS", "ExpressJS", "MongoDB", "MERN Stack"]:
+            if valid.lower() in category.lower():
+                return valid
+    return "MERN Stack" # Default fallback
+
 def select_topic(gemini_key, posted_topics):
-    print("[INFO] Topic select kiya ja raha hai...")
+    # 1. Try reading from custom topic queue file
+    if os.path.exists(QUEUE_FILE):
+        try:
+            with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+                lines = [line.strip() for line in f.readlines() if line.strip() and not line.strip().startswith("#")]
+            
+            if lines:
+                selected_topic = lines[0]
+                remaining_topics = lines[1:]
+                
+                # Write remaining topics back to keep queue updated
+                with open(QUEUE_FILE, "w", encoding="utf-8") as f:
+                    for t in remaining_topics:
+                        f.write(t + "\n")
+                
+                print(f"[OK] Found custom topic in queue: '{selected_topic}'")
+                
+                # Determine category using Gemini
+                category = classify_topic_category(gemini_key, selected_topic)
+                print(f"[OK] Topic classified as category: {category}")
+                return selected_topic, category
+        except Exception as e:
+            print(f"[WARNING] Error reading topic queue: {e}")
+
+    # 2. Fall back to dynamic selection if queue is empty or missing
+    print("[INFO] Queue file khali/missing hai. Topic dynamically select kiya ja raha hai...")
     
     prompt = f"""
     You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js) or modern JavaScript.
