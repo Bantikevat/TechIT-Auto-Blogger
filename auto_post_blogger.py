@@ -113,6 +113,8 @@ def select_topic(gemini_key, posted_topics):
             data = json.loads(text)
             print(f"[OK] Gemini dynamically selected topic: '{data['topic']}' (Category: {data['category']})")
             return data["topic"], data["category"]
+        else:
+            print(f"[WARNING] Gemini topic selection failed with status code {response.status_code}: {response.text}")
     except Exception as e:
         print(f"[WARNING] Gemini dynamic topic selection failed: {e}. Falling back to default list.")
     
@@ -206,6 +208,9 @@ def generate_article_content(gemini_key, topic, category):
             full_html = image_html + article_html
             
             return full_html
+        else:
+            print(f"[ERROR] Gemini API returned status code {response.status_code}: {response.text}")
+            return None
     except Exception as e:
         print(f"[ERROR] Error generating article content: {e}")
         return None
