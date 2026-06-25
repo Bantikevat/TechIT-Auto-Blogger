@@ -3422,18 +3422,22 @@ html[data-theme='dark'] .p-card:hover {
         }
       }).catch(function() {});
 
-    // Fetch Crypto Rates (Bitcoin & Ethereum in USD & INR, using character code for &)
-    var geckoUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum' + String.fromCharCode(38) + 'vs_currencies=usd,inr';
-    fetch(geckoUrl)
+    // Fetch Crypto Rates (using coincap.io which is CORS-friendly and free)
+    var capUrl = 'https://api.coincap.io/v2/assets?ids=bitcoin,ethereum';
+    fetch(capUrl)
       .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data) {
-          if (data.bitcoin) {
-            tickerMessages.push("🪙 BTC: $" + data.bitcoin.usd.toLocaleString() + " (₹" + data.bitcoin.inr.toLocaleString() + ")");
-          }
-          if (data.ethereum) {
-            tickerMessages.push("🪙 ETH: $" + data.ethereum.usd.toLocaleString() + " (₹" + data.ethereum.inr.toLocaleString() + ")");
-          }
+      .then(function(res) {
+        if (res && res.data) {
+          var usdToInr = 84.5; // Approximate conversion rate
+          res.data.forEach(function(coin) {
+            var priceUsd = parseFloat(coin.priceUsd);
+            var priceInr = priceUsd * usdToInr;
+            if (coin.id === 'bitcoin') {
+              tickerMessages.push("🪙 BTC: $" + Math.round(priceUsd).toLocaleString() + " (₹" + Math.round(priceInr).toLocaleString() + ")");
+            } else if (coin.id === 'ethereum') {
+              tickerMessages.push("🪙 ETH: $" + Math.round(priceUsd).toLocaleString() + " (₹" + Math.round(priceInr).toLocaleString() + ")");
+            }
+          });
         }
       }).catch(function() {});
 
