@@ -227,8 +227,16 @@ def publish_to_blogger(title, html_content, category, is_draft=True):
         return False
         
     try:
-        with open(CREDENTIALS_FILE, "r") as f:
-            creds_data = json.load(f)
+        if os.path.getsize(CREDENTIALS_FILE) == 0:
+            print(f"[ERROR] Credentials file '{CREDENTIALS_FILE}' empty (khali) hai. GitHub Secrets me BLOGGER_CREDENTIALS_JSON ki value sahi se paste karein.")
+            return False
+            
+        with open(CREDENTIALS_FILE, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+            if not content:
+                print(f"[ERROR] Credentials file '{CREDENTIALS_FILE}' khali hai.")
+                return False
+            creds_data = json.loads(content)
             
         creds = Credentials(
             token=None,
@@ -326,6 +334,7 @@ def main():
         print("==================================================")
     else:
         print("[ERROR] Post publish nahi ho payi. Logs check karein.")
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
