@@ -17,3 +17,4 @@ gemini_api_key.txt
 # Temporary / setup outputs
 setup_output.txt
 temp_script_*.js
+*.exe
