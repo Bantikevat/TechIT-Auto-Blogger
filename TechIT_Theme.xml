@@ -4292,7 +4292,7 @@ html[data-theme='dark'] .p-card:hover {
 
   // --- Lazy-Load Prism.js Syntax Highlighter on Demand ---
   (function() {
-    var preBlocks = d.querySelectorAll('.post-content pre');
+    var preBlocks = d.querySelectorAll('pre');
     if (preBlocks.length > 0) {
       // 1. Auto-detect and add language-javascript class if code has no class
       preBlocks.forEach(function(pre) {
