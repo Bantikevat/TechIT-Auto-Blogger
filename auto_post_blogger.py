@@ -81,7 +81,7 @@ def select_topic(gemini_key, posted_topics):
     print("[INFO] Topic select kiya ja raha hai...")
     
     # Try using Gemini to brainstorm a fresh, trending MERN stack / Javascript topic
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={gemini_key}"
     headers = {"Content-Type": "application/json"}
     
     prompt = f"""
@@ -129,7 +129,7 @@ def select_topic(gemini_key, posted_topics):
 
 def generate_article_content(gemini_key, topic, category):
     print(f"[INFO] Article content generate kiya ja raha hai for: '{topic}'...")
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={gemini_key}"
     headers = {"Content-Type": "application/json"}
     
     # Generate clean banner image using pollinations
