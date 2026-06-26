@@ -5,6 +5,7 @@ import random
 import urllib.parse
 import requests
 import time
+import re
 
 try:
     from google.oauth2.credentials import Credentials
@@ -125,6 +126,15 @@ def classify_topic_category(gemini_key, topic):
                 return valid
     return "MERN Stack" # Default fallback
 
+def normalize_title(title):
+    # Convert to lowercase
+    t = title.lower()
+    # Remove dynamic suffixes and labels
+    t = re.sub(r'\(in hindi\)|in hindi|tutorial|explained|guide|masterclass|introduction|basics|deep dive|step-by-step', '', t)
+    # Remove special chars and non-alphanumeric characters, consolidate whitespace
+    t = re.sub(r'[^a-z0-9]', '', t)
+    return t.strip()
+
 def select_topic(gemini_key, posted_topics):
     # 1. Try reading from custom topic queue file
     if os.path.exists(QUEUE_FILE):
@@ -153,34 +163,48 @@ def select_topic(gemini_key, posted_topics):
     # 2. Fall back to dynamic selection if queue is empty or missing
     print("[INFO] Queue file khali/missing hai. Topic dynamically select kiya ja raha hai...")
     
-    prompt = f"""
-    You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js) or modern JavaScript.
-    The topic must NOT be in this list of already written topics: {posted_topics}.
+    # Normalize already posted topics to prevent duplicates
+    normalized_posted = [normalize_title(t) for t in posted_topics]
     
-    Output ONLY a JSON object containing the topic title and the category (which must be exactly one of: ReactJS, NodeJS, ExpressJS, MongoDB, or MERN Stack).
-    Do not output any markdown formatting, backticks, or comments. Just raw JSON.
-    Example output format:
-    {{"topic": "React Context API vs Redux in 2026", "category": "ReactJS"}}
-    """
-    
-    text = call_gemini(gemini_key, prompt)
-    if text:
-        try:
-            # Clean up potential markdown formatting backticks
-            if text.startswith("```json"):
-                text = text[7:]
-            if text.endswith("```"):
-                text = text[:-3]
-            text = text.strip()
-            
-            data = json.loads(text)
-            print(f"[OK] Gemini dynamically selected topic: '{data['topic']}' (Category: {data['category']})")
-            return data["topic"], data["category"]
-        except Exception as e:
-            print(f"[WARNING] Failed to parse Gemini response: {e}")
-            
-    # Fallback to defaults
-    available = [t for t in DEFAULT_TOPICS if t["topic"] not in posted_topics]
+    for attempt in range(3):
+        prompt = f"""
+        You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js) or modern JavaScript.
+        The topic must NOT be in this list of already written topics: {posted_topics}.
+        Choose a completely different concept from the already written topics to ensure variety.
+        
+        Output ONLY a JSON object containing the topic title and the category (which must be exactly one of: ReactJS, NodeJS, ExpressJS, MongoDB, or MERN Stack).
+        Do not output any markdown formatting, backticks, or comments. Just raw JSON.
+        Example output format:
+        {{"topic": "React Context API vs Redux in 2026", "category": "ReactJS"}}
+        """
+        
+        text = call_gemini(gemini_key, prompt)
+        if text:
+            try:
+                # Clean up potential markdown formatting backticks
+                if text.startswith("```json"):
+                    text = text[7:]
+                if text.endswith("```"):
+                    text = text[:-3]
+                text = text.strip()
+                
+                data = json.loads(text)
+                selected_topic = data["topic"]
+                category = data["category"]
+                
+                # Normalize and check for duplicate
+                norm_selected = normalize_title(selected_topic)
+                if norm_selected in normalized_posted:
+                    print(f"[WARNING] Selected topic '{selected_topic}' normalized to '{norm_selected}' which matches an already written topic. Retrying...")
+                    continue
+                
+                print(f"[OK] Gemini dynamically selected topic: '{selected_topic}' (Category: {category})")
+                return selected_topic, category
+            except Exception as e:
+                print(f"[WARNING] Failed to parse Gemini response: {e}")
+                
+    # Fallback to defaults if dynamic selection fails or repeats
+    available = [t for t in DEFAULT_TOPICS if normalize_title(t["topic"]) not in normalized_posted]
     if not available:
         available = DEFAULT_TOPICS
         
@@ -243,6 +267,9 @@ def generate_article_content(gemini_key, topic, category):
       - For general MERN Stack topics, link keywords like "MERN Stack" to: https://itinfohubs.blogspot.com/search/label/MERN%20Stack
     - Do not make all keywords links. Only add 3-5 natural internal links across the entire article where it makes absolute sense.
     
+    Privacy & Security Requirements:
+    - Do NOT include any real or placeholder personal contact information, phone numbers, or email addresses in the article content (e.g. do not write mock contact forms, mock config files with personal email fields, or placeholder phone numbers). Keep all codes and examples completely neutral and clean.
+    
     Structure & HTML Requirements:
     - Output the blog post in raw HTML format.
     - Use clean HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a>.
@@ -289,8 +316,8 @@ def generate_article_content(gemini_key, topic, category):
             article_html = article_html[:-3]
         article_html = article_html.strip()
         
-        # Prepended banner image to the post content
-        image_html = f'<div style="text-align: center; margin-bottom: 24px;"><img src="{banner_url}" alt="{topic}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>\n'
+        # Banner image prepended to the post content (hidden via theme CSS in post body, used by Blogger for featuredImage)
+        image_html = f'<div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="{banner_url}" alt="{topic}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>\n'
         full_html = image_html + article_html
         return full_html
         
