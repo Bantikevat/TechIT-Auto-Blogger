@@ -188,15 +188,32 @@ def select_topic(gemini_key, posted_topics):
     print(f"[OK] Selected fallback topic: '{choice['topic']}' (Category: {choice['category']})")
     return choice["topic"], choice["category"]
 
+def generate_image_prompt(gemini_key, topic):
+    print(f"[INFO] Image prompt generate kiya ja raha hai for: '{topic}'...")
+    prompt = f"""
+    Create a highly descriptive and creative English image prompt for a blog post banner related to: "{topic}".
+    Describe a beautiful, modern, high-quality tech digital illustration (flat vector, 3D render, or synthwave style) with a dark theme, neon colors (like cyan, purple, and green), showing visual metaphors of coding and software concepts.
+    Do NOT include any text, letters, or words in the image description.
+    Output ONLY the one-sentence prompt. Do not output anything else.
+    """
+    custom_prompt = call_gemini(gemini_key, prompt)
+    if custom_prompt:
+        custom_prompt = custom_prompt.strip().replace('"', '').replace('\n', ' ')
+        return f"{custom_prompt}, modern tech vector design, neon accents, dark mode, high contrast, visually attractive, no text, no words"
+    return f"Modern flat vector tech illustration for {topic}, neon colors, dark tech background, web development, no text"
+
 def generate_article_content(gemini_key, topic, category):
     print(f"[INFO] Article content generate kiya ja raha hai for: '{topic}'...")
     
+    # 1. Generate customized image prompt dynamically using Gemini
+    custom_prompt = generate_image_prompt(gemini_key, topic)
+    print(f"[OK] Generated custom image prompt: '{custom_prompt}'")
+    
     # Generate clean banner image using pollinations
-    banner_prompt = f"Modern flat vector tech illustration for {topic}, neon colors, dark tech background, web development, no text"
-    banner_url = f"https://image.pollinations.ai/prompt/{urllib.parse.quote(banner_prompt)}?width=800&height=450&nologo=true"
+    banner_url = f"https://image.pollinations.ai/prompt/{urllib.parse.quote(custom_prompt)}?width=800&height=450&nologo=true"
     
     prompt = f"""
-    Write a highly detailed, professional, yet extremely easy-to-read programming blog tutorial about: "{topic}" (Category: {category}) in Hybrid Hindi-English.
+    Write a highly detailed, professional, long-form (at least 1500 to 2500 words), and extremely easy-to-read programming blog tutorial about: "{topic}" (Category: {category}) in Hybrid Hindi-English.
     
     Language & Script Requirements:
     - Write the main sentences in clean Devanagari Hindi script (हिंदी लिपि).
@@ -205,12 +222,27 @@ def generate_article_content(gemini_key, topic, category):
     Tone Requirements:
     - Write as if you are a senior developer with 50 years of experience, pair-programming with a close friend. Use terms like "दोस्तों", "चलिए शुरू करते हैं", "कैसे काम करता है", "ध्यान देने वाली बात ये है कि".
     - 100% human tone. Avoid generic AI transitions or structures like "निष्कर्ष", "अंतिम विचार", "आशा है कि यह ब्लॉग आपको पसंद आया होगा". Write naturally.
-    - Focus on real-world problems. Explain why we need this feature, how it solves problems, and explain edge cases.
-    - Write complete, production-ready coding examples. Do NOT write placeholders, incomplete functions, or comments like "// write code here". The code must be fully written and working.
+    
+    Depth & Content Length Requirements:
+    - The article must be extremely long-form, detailed, and comprehensive (Master-class tutorial style).
+    - Write deep, step-by-step explanations of the topic. Why do we use it? What problem does it solve?
+    - Provide complete, production-ready, and fully-functional coding examples. Do NOT use comments like "// write code here" or truncate/summarize the code. Write every line of the code clearly.
+    - Discuss edge cases, common errors developers face when using this, and how to debug/solve them.
+    - Include best practices for performance and scalability.
+    
+    SEO & Internal Linking Requirements:
+    - Automatically create internal links pointing to relevant categories on our blog by wrapping appropriate keywords in the text with <a> HTML tags.
+    - Use the following specific links for labels/categories:
+      - For ReactJS or frontend topics, link keywords like "ReactJS" or "React components" to: https://itinfohubs.blogspot.com/search/label/ReactJS
+      - For NodeJS topics, link keywords like "NodeJS" or "Runtime" to: https://itinfohubs.blogspot.com/search/label/NodeJS
+      - For ExpressJS topics, link keywords like "ExpressJS" or "Middleware" to: https://itinfohubs.blogspot.com/search/label/ExpressJS
+      - For MongoDB topics, link keywords like "MongoDB" or "Database" to: https://itinfohubs.blogspot.com/search/label/MongoDB
+      - For general MERN Stack topics, link keywords like "MERN Stack" to: https://itinfohubs.blogspot.com/search/label/MERN%20Stack
+    - Do not make all keywords links. Only add 3-5 natural internal links across the entire article where it makes absolute sense.
     
     Structure & HTML Requirements:
     - Output the blog post in raw HTML format.
-    - Use clean HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>.
+    - Use clean HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a>.
     - Format code blocks using: <pre><code>[YOUR CODE HERE]</code></pre>
     - Add a key takeaways or summary block at the end (write in a friendly way, e.g. "Toh dosto, humne aaj seekha...").
     - **FAQ Accordion Section:** Add an FAQ section with 3 detailed questions and answers using the HTML <details> and <summary> tags. Format it like this:
