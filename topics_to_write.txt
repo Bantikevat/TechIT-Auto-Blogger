@@ -1,10 +1,1 @@
-# TechIT Auto-Blogger Topic Queue File
-# -----------------------------------------------
-# Is file me aap jo bhi topics line-by-line likhenge, 
-# auto-poster script automatic unhi topics par detailed blog posts banakar upload karegi.
-# Har post complete hone par script us topic ko queue se delete kar degi aur persistent history me track kar legi.
-# Note: Lines starting with '#' are ignored.
-#
-# Niche apne topics add karein (Jaise):
-React 19 Server Components Explained
 How to build a custom REST API in Node.js and Express
