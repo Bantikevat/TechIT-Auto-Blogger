@@ -2371,7 +2371,8 @@ html[data-theme='dark'] .p-card:hover {
                         </b:if>
 
 
-                        <div class='toc' id='toc' style='display:none'>
+                        <b:if cond='data:view.isPost'>
+                          <div class='toc' id='toc' style='display:none'>
                           <div class='toc-head'><span><i class='fa-solid fa-list-ul'></i> Table of Contents</span><i class='fa-solid fa-chevron-down tg'></i></div>
                           <div class='toc-list' id='tocList'></div>
                         </div>
