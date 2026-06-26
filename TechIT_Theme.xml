@@ -274,6 +274,8 @@ nav.main-nav li.has-sub:hover .sub-ic{transform:rotate(180deg)}
 html[data-theme='dark'] #themeToggle .fa-sun{display:block}
 html[data-theme='dark'] #themeToggle .fa-moon{display:none}
 .menu-toggle{display:none}
+.lang-dropdown .lang-item:hover{background:var(--grad-soft) !important;color:var(--primary) !important}
+html[data-theme='dark'] .lang-dropdown{background:rgba(13,27,42,.95) !important}
 
 /* ----------------------------- 6. HERO BANNER -------------------------- */
 .hero{position:relative;overflow:hidden;background:var(--navy);color:#fff;padding:64px 0 72px;margin-bottom:8px}
@@ -2073,6 +2075,17 @@ html[data-theme='dark'] .p-card:hover {
       <div class='nav-tools'>
         <button class='icon-btn' id='searchBtn' aria-label='Search'><i class='fa-solid fa-magnifying-glass'></i></button>
         <button class='icon-btn' id='themeToggle' aria-label='Dark mode'><i class='fa-solid fa-moon'></i><i class='fa-solid fa-sun'></i></button>
+        <div class='lang-switcher' style='position: relative; display: inline-block;'>
+          <button class='icon-btn' id='langBtn' aria-label='Change Language' title='Change Language'><i class='fa-solid fa-globe'></i></button>
+          <div class='lang-dropdown' id='langDropdown' style='display: none; position: absolute; top: calc(100% + 8px); right: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 6px; min-width: 120px; z-index: 2500;'>
+            <button onclick="translatePage('hi')" class='lang-item' style='display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 12px; background: transparent; border: none; color: var(--text-soft); font-size: 13px; font-weight: 500; text-align: left; cursor: pointer; border-radius: 6px; transition: 0.2s;'>
+              <span>🇮🇳</span> हिंदी (Hindi)
+            </button>
+            <button onclick="translatePage('en')" class='lang-item' style='display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 12px; background: transparent; border: none; color: var(--text-soft); font-size: 13px; font-weight: 500; text-align: left; cursor: pointer; border-radius: 6px; transition: 0.2s;'>
+              <span>🇺🇸</span> English
+            </button>
+          </div>
+        </div>
         <button class='icon-btn menu-toggle' id='menuBtn' aria-label='Menu'><i class='fa-solid fa-bars'></i></button>
       </div>
     </div>
@@ -4393,6 +4406,59 @@ html[data-theme='dark'] .p-card:hover {
 <button class='cmd-trigger-btn' id='cmdTriggerBtn' title='Open Command Center (Ctrl+K)' aria-label='Open Command Center'>
   <i class='fa-solid fa-terminal'></i>
 </button>
+
+<!-- Hidden container for Google Translate element -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'hi',
+    includedLanguages: 'en,hi',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+
+function translatePage(lang) {
+  var cookieValue = "/hi/" + lang;
+  if (lang === 'hi') {
+    cookieValue = "";
+  }
+  
+  var host = window.location.hostname;
+  var domain = host.replace('www.', '');
+  
+  var expires = new Date();
+  expires.setTime(expires.getTime() + (365*24*60*60*1000));
+  var expiresStr = "; expires=" + expires.toUTCString();
+  
+  document.cookie = "googtrans=" + cookieValue + expiresStr + "; path=/; domain=" + domain + ";";
+  document.cookie = "googtrans=" + cookieValue + expiresStr + "; path=/; domain=." + host + ";";
+  document.cookie = "googtrans=" + cookieValue + expiresStr + "; path=/;";
+  
+  window.location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var langBtn = document.getElementById('langBtn');
+  var langDropdown = document.getElementById('langDropdown');
+  
+  if (langBtn && langDropdown) {
+    langBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      langDropdown.style.display = langDropdown.style.display === 'none' ? 'block' : 'none';
+    });
+    
+    document.addEventListener('click', function() {
+      langDropdown.style.display = 'none';
+    });
+  }
+});
+/*]]>*/
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer="defer"></script>
 
 </body>
 </html>
