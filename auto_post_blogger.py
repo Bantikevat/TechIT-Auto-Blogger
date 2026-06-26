@@ -190,17 +190,20 @@ def select_topic(gemini_key, posted_topics):
 
 def generate_image_prompt(gemini_key, topic):
     print(f"[INFO] Image prompt generate kiya ja raha hai for: '{topic}'...")
+    # Clean topic for image text to make it short and clean
+    clean_topic = topic.replace("(In Hindi)", "").replace("(in Hindi)", "").strip()
+    
     prompt = f"""
-    Create a highly descriptive and creative English image prompt for a blog post banner related to: "{topic}".
-    Describe a beautiful, modern, high-quality tech digital illustration (flat vector, 3D render, or synthwave style) with a dark theme, neon colors (like cyan, purple, and green), showing visual metaphors of coding and software concepts.
-    Do NOT include any text, letters, or words in the image description.
+    Create a highly descriptive and creative English image prompt for a blog post banner related to: "{clean_topic}".
+    Describe a beautiful, modern, high-quality tech digital illustration (flat vector or 3D render style) with a dark theme, neon colors (cyan, purple, green).
+    The image MUST contain the text "{clean_topic}" written in a very clean, readable, bold, modern neon sans-serif font, centered as a prominent title on the graphic, looking like a professional YouTube thumbnail or blog banner.
     Output ONLY the one-sentence prompt. Do not output anything else.
     """
     custom_prompt = call_gemini(gemini_key, prompt)
     if custom_prompt:
         custom_prompt = custom_prompt.strip().replace('"', '').replace('\n', ' ')
-        return f"{custom_prompt}, modern tech vector design, neon accents, dark mode, high contrast, visually attractive, no text, no words"
-    return f"Modern flat vector tech illustration for {topic}, neon colors, dark tech background, web development, no text"
+        return f"{custom_prompt}, ultra-detailed, modern tech style, dark mode neon, high contrast, visually attractive, clean typography"
+    return f"Modern flat vector tech illustration for {clean_topic} with bold readable text '{clean_topic}', neon colors, dark tech background, clean typography"
 
 def generate_article_content(gemini_key, topic, category):
     print(f"[INFO] Article content generate kiya ja raha hai for: '{topic}'...")
@@ -358,6 +361,47 @@ def publish_to_blogger(title, html_content, category, is_draft=True):
         print(f"[ERROR] Blogger API call failed: {e}")
         return False
 
+def fetch_live_post_titles():
+    print("[INFO] Blogger se live post titles fetch kiye ja rahe hain duplicate check karne ke liye...")
+    if not os.path.exists(CREDENTIALS_FILE):
+        return []
+        
+    try:
+        if os.path.getsize(CREDENTIALS_FILE) == 0:
+            return []
+            
+        with open(CREDENTIALS_FILE, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+            if not content:
+                return []
+            creds_data = json.loads(content)
+            
+        creds = Credentials(
+            token=None,
+            refresh_token=creds_data['refresh_token'],
+            client_id=creds_data['client_id'],
+            client_secret=creds_data['client_secret'],
+            token_uri=creds_data.get('token_uri', 'https://oauth2.googleapis.com/token'),
+            scopes=creds_data['scopes']
+        )
+        
+        creds.refresh(Request())
+        service = build('blogger', 'v3', credentials=creds)
+        
+        # Get last 50 posts to prevent duplicates
+        posts_data = service.posts().list(blogId=BLOG_ID, view='AUTHOR', maxResults=50).execute()
+        titles = []
+        if 'items' in posts_data:
+            for post in posts_data['items']:
+                # Clean up suffixes like "(In Hindi)" or "(in Hindi)"
+                title = post['title'].replace("(In Hindi)", "").replace("(in Hindi)", "").strip()
+                titles.append(title)
+        print(f"[OK] Blogger live posts se {len(titles)} titles fetch kiye gaye.")
+        return titles
+    except Exception as e:
+        print(f"[WARNING] Live post titles fetch failed: {e}")
+        return []
+
 def main():
     print("==================================================")
     print("  TechIT MERN Stack Auto-Blogger  ")
@@ -365,6 +409,11 @@ def main():
     
     gemini_key = load_gemini_api_key()
     posted_topics = get_posted_topics()
+    
+    # Live fetch posts to avoid duplicates 100%
+    live_titles = fetch_live_post_titles()
+    if live_titles:
+        posted_topics = list(set(posted_topics + live_titles))
     
     # 1. Select Topic
     topic, category = select_topic(gemini_key, posted_topics)
