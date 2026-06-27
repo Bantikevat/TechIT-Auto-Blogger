@@ -3,5 +3,6 @@
     "How to build a custom REST API in Node.js and Express",
     "Implementing Role-Based Access Control (RBAC) in MERN Stack using JWT and Middleware",
     "Optimizing MERN Stack Performance with Redis Caching and Database Indexing Strategies",
-    "Building Offline-First MERN Applications with Service Workers and IndexedDB Synchronization"
+    "Building Offline-First MERN Applications with Service Workers and IndexedDB Synchronization",
+    "Mastering Clean Architecture in Express.js for Scalable Web Applications"
 ]
