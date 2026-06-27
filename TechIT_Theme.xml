@@ -198,10 +198,10 @@ html[data-theme='dark']{
 
 /* ----------------------------- 2. RESET -------------------------------- */
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:90px;overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:90px;overflow-x:clip}
 body{
   font-family:var(--font);background:var(--bg);color:var(--text);
-  line-height:1.7;font-size:16px;overflow-x:hidden;transition:background .4s var(--ease),color .4s var(--ease);
+  line-height:1.7;font-size:16px;overflow-x:clip;transition:background .4s var(--ease),color .4s var(--ease);
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;height:auto;display:block}
@@ -225,8 +225,14 @@ h1,h2,h3,h4,h5{font-family:var(--font-head);font-weight:700;line-height:1.28;col
 .pre-logo-svg{width:100%;height:100%;animation:pulse 1.8s var(--ease) infinite}
 .pre-bar{width:140px;height:4px;border-radius:4px;background:rgba(255,255,255,.15);overflow:hidden;flex-shrink:0}
 .pre-bar span{display:block;height:100%;width:40%;background:var(--grad);border-radius:4px;animation:load 1.1s var(--ease) infinite}
+.ring-outer{stroke-dasharray:340;stroke-dashoffset:340;animation:drawRing 2.2s ease-in-out infinite alternate,rotateRing 4s linear infinite;transform-origin:100px 80px}
+.ring-inner{stroke-dasharray:300;stroke-dashoffset:300;animation:drawRingInner 2.2s ease-in-out infinite alternate,rotateRingInverse 3s linear infinite;transform-origin:100px 80px}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes load{0%{margin-left:-40%}100%{margin-left:100%}}
+@keyframes rotateRing{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes rotateRingInverse{0%{transform:rotate(360deg)}100%{transform:rotate(0deg)}}
+@keyframes drawRing{0%{stroke-dashoffset:340}100%{stroke-dashoffset:0}}
+@keyframes drawRingInner{0%{stroke-dashoffset:300}100%{stroke-dashoffset:0}}
 
 /* ----------------------------- 4. READING PROGRESS --------------------- */
 #progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:9000;transition:width .1s linear}
@@ -400,6 +406,33 @@ html[data-theme='dark'] .lang-dropdown{background:rgba(13,27,42,.95) !important}
 .single .post-content > p:first-child img,
 .single .post-content > .techit-hero-banner {
   display: none !important;
+}
+/* Responsive overrides for post hero layout on mobile */
+@media(max-width:640px){
+  .post-hero{aspect-ratio:auto;min-height:220px}
+  .post-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .post-hero-overlay{position:relative;z-index:2;padding:44px 16px 20px;height:auto;background:linear-gradient(to top, rgba(9,13,22,0.98) 0%, rgba(9,13,22,0.6) 70%, rgba(9,13,22,0.3) 100%)}
+  .post-hero-title{font-size:20px !important;margin-bottom:10px;max-width:100%;width:100%;align-self:stretch;overflow-wrap:break-word;word-wrap:break-word;word-break:normal}
+  .post-hero-meta{gap:12px;font-size:11.5px}
+  .post-hero .ph-lbl{position:static;display:inline-block;margin-bottom:12px;font-size:9.5px;padding:4px 10px;align-self:flex-start}
+}
+/* Hide Google Translate top bar & frame natively to maintain sticky header position */
+.goog-te-banner-frame, .goog-te-banner, .skiptranslate:not(.lang-switcher *) {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+html {
+  margin-top: 0 !important;
+}
+.goog-tooltip, .goog-tooltip:hover {
+  display: none !important;
+}
+.goog-text-highlight {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 .single-inner{padding:36px}
 .post-h1{font-size:34px;line-height:1.22;margin-bottom:18px}
@@ -676,7 +709,7 @@ html[data-theme='dark'] .lang-dropdown{background:rgba(13,27,42,.95) !important}
   .single-inner{padding:22px}
   .post-h1{font-size:25px}
   .footer-cols{grid-template-columns:1fr}
-  .tb-left span.hide-sm{display:none}
+  .tb-left{display:none !important}
   .topbar .wrap{justify-content:center}
   .author-box{flex-direction:column;text-align:center}
   .post-content{font-size:16px;word-wrap:break-word;word-break:break-word}
@@ -1948,6 +1981,54 @@ html[data-theme='dark'] .p-card:hover {
     }
     }
 
+    /* Mobile Responsiveness Improvements */
+    .breadcrumb span {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      max-width: 100%;
+    }
+    .toc-list a {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: normal;
+    }
+    .post-content img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    /* Responsive helpers for tables and video embeds */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 24px 0;
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--line);
+    }
+    .table-wrapper table {
+      width: 100% !important;
+      margin: 0 !important;
+    }
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      margin: 24px 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      border: 0;
+    }
+
 ]]></b:skin>
 
 
@@ -2860,9 +2941,19 @@ html[data-theme='dark'] .p-card:hover {
     return url;
   }
 
-  // preloader (disable delay for smoother mobile, fallback timeout for speed/SEO)
+  // preloader (with a minimum show duration of 1.2s to prevent layout flashing and show animations)
   var pre=d.getElementById('preloader');
-  function hidePreloader(){if(pre&&!pre.classList.contains('done')){pre.classList.add('done');setTimeout(function(){pre.style.display='none'},500)}}
+  var startTime = Date.now();
+  function hidePreloader(){
+    var elapsed = Date.now() - startTime;
+    var delay = Math.max(0, 1200 - elapsed);
+    setTimeout(function(){
+      if(pre&&!pre.classList.contains('done')){
+        pre.classList.add('done');
+        setTimeout(function(){pre.style.display='none'},500);
+      }
+    }, delay);
+  }
   w.addEventListener('load',hidePreloader);
   setTimeout(hidePreloader,3500); // 3.5s safety fallback
 
@@ -4374,6 +4465,41 @@ html[data-theme='dark'] .p-card:hover {
       d.body.appendChild(js);
     }
   })();
+
+  // Auto-wrap tables and video iframes in post content for mobile responsiveness
+  function wrapResponsiveElements() {
+    var body = d.getElementById('postBody');
+    if (body) {
+      // 1. Wrap tables
+      var tables = body.querySelectorAll('table');
+      tables.forEach(function(table) {
+        if (!table.parentNode.classList.contains('table-wrapper')) {
+          var wrapper = d.createElement('div');
+          wrapper.className = 'table-wrapper';
+          table.parentNode.insertBefore(wrapper, table);
+          wrapper.appendChild(table);
+        }
+      });
+
+      // 2. Wrap video iframes (YouTube, Vimeo, etc.)
+      var iframes = body.querySelectorAll('iframe');
+      iframes.forEach(function(iframe) {
+        if (iframe.src && iframe.src.match(/youtube\.com|youtube-nocookie\.com|vimeo\.com/)) {
+          if (!iframe.parentNode.classList.contains('iframe-wrapper')) {
+            var wrapper = d.createElement('div');
+            wrapper.className = 'iframe-wrapper';
+            iframe.parentNode.insertBefore(wrapper, iframe);
+            wrapper.appendChild(iframe);
+          }
+        }
+      });
+    }
+  }
+  if (d.readyState === 'loading') {
+    d.addEventListener('DOMContentLoaded', wrapResponsiveElements);
+  } else {
+    wrapResponsiveElements();
+  }
 
 })();
 /*]]>*/</script>
