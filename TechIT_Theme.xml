@@ -478,7 +478,11 @@ html {
   color: #e2e8f0;
   padding: 44px 22px 22px 22px;
   border-radius: 16px;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
   margin: 24px 0;
   font-family: var(--font-mono);
   font-size: 13.5px;
@@ -940,6 +944,16 @@ html[data-theme='dark'] .p-card:hover {
   border: 1px solid rgba(255,255,255,.06) !important;
   box-shadow: 0 12px 32px rgba(0,0,0,0.22) !important;
   margin: 24px 0 !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: pre !important;
+  -webkit-overflow-scrolling: touch;
+}
+.post-content pre[class*="language-"] code {
+  white-space: pre !important;
+  word-break: normal !important;
+  word-wrap: normal !important;
 }
 .post-content code[class*="language-"], .post-content pre[class*="language-"] {
   font-family: var(--font-mono) !important;
