@@ -45,6 +45,8 @@ jobs:
         INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         # Optional: ImgBB free API key se banner instant CDN par host hoti hai (na ho to repo me save)
         IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+        # Optional: Google Indexing API service-account JSON (poori JSON paste karein) — har post Google ko submit
+        GOOGLE_INDEXING_SA: ${{ secrets.GOOGLE_INDEXING_SA }}
       run: |
         python auto_post_blogger.py
 

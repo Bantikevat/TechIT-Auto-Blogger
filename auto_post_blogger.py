@@ -180,15 +180,24 @@ def select_topic(gemini_key, posted_topics):
     
     for attempt in range(3):
         prompt = f"""
-        You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js), Next.js, or common programming errors.
-        You MUST focus on highly searched, low-competition coding error solutions, debugging guides, or framework comparisons (e.g. "How to fix ... error in ...").
-        The topic must NOT be in this list of already written topics: {posted_topics}.
-        Choose a completely different concept from the already written topics to ensure variety.
-        
-        Output ONLY a JSON object containing the topic title and the category (which must be exactly one of: ReactJS, NextJS, NodeJS, ExpressJS, MongoDB, Error Solving, or MERN Stack).
-        Do not output any markdown formatting, backticks, or comments. Just raw JSON.
-        Example output format:
-        {{"topic": "How to Fix 'JWT Signature Verification Failed' in Node.js", "category": "Error Solving"}}
+        You are an SEO expert for a HINDI programming blog (audience: beginner Indian developers and students who search in Hindi/Hinglish).
+        Choose ONE highly-searchable, LOW-COMPETITION blog topic about MERN stack (MongoDB, Express, React, Node.js), Next.js, JavaScript, or common coding errors.
+
+        CRITICAL SEO RULES (yeh blog naya hai, isliye low-competition long-tail zaroori hai):
+        - Phrase the topic the way a real Hindi-speaking beginner would SEARCH on Google — use Hinglish (Roman Hindi) question style.
+        - Prefer "kya hai", "kaise kare", "kaise banaye", "ka matlab", "difference", "error solution" style queries.
+        - Keep technical terms (React, useState, MongoDB, async) in English, but the question framing in Hinglish.
+        - Be VERY specific and long-tail (5-9 words). Avoid broad, high-competition English titles that compete with Stack Overflow / Medium.
+        - The topic must NOT be in this already-written list: {posted_topics}. Pick a clearly different concept for variety.
+
+        GOOD examples (low competition, Hindi-search friendly):
+        {{"topic": "Next.js me Hydration Error kaise solve kare", "category": "NextJS"}}
+        {{"topic": "useEffect Hook kya hai aur kab use kare", "category": "ReactJS"}}
+        {{"topic": "MongoDB connection timeout error ka solution Hindi me", "category": "Error Solving"}}
+        BAD examples (too broad / high competition — avoid): "React Hooks Explained", "How to use Express.js".
+
+        Output ONLY raw JSON (no markdown, no backticks): {{"topic": "...", "category": "..."}}
+        category MUST be exactly one of: ReactJS, NextJS, NodeJS, ExpressJS, MongoDB, Error Solving, MERN Stack.
         """
         
         text = call_gemini(gemini_key, prompt)
@@ -560,6 +569,56 @@ def submit_to_indexnow(post_url):
             print(f"[WARNING] IndexNow {endpoint} failed: {e}")
 
 
+def _get_indexing_credentials():
+    # Google Indexing API ke liye service account credentials (env JSON ya local file se).
+    from google.oauth2 import service_account
+    sa_info = None
+    env_sa = os.environ.get("GOOGLE_INDEXING_SA", "").strip()
+    if env_sa:
+        try:
+            sa_info = json.loads(env_sa)
+        except Exception as e:
+            print(f"[WARNING] GOOGLE_INDEXING_SA env parse failed: {e}")
+    elif os.path.exists("google_indexing_sa.json") and os.path.getsize("google_indexing_sa.json") > 0:
+        try:
+            with open("google_indexing_sa.json", "r", encoding="utf-8") as f:
+                sa_info = json.load(f)
+        except Exception as e:
+            print(f"[WARNING] google_indexing_sa.json parse failed: {e}")
+    if not sa_info:
+        return None
+    try:
+        return service_account.Credentials.from_service_account_info(
+            sa_info, scopes=["https://www.googleapis.com/auth/indexing"])
+    except Exception as e:
+        print(f"[WARNING] Indexing credentials build failed: {e}")
+        return None
+
+
+def submit_to_google_indexing(post_url):
+    # Google Indexing API ko notify karo taaki naya post jaldi crawl/index ho.
+    if not post_url or "http" not in post_url:
+        return False
+    creds = _get_indexing_credentials()
+    if not creds:
+        print("[INFO] Google Indexing skip — service account configured nahi (GOOGLE_INDEXING_SA).")
+        return False
+    try:
+        from google.auth.transport.requests import Request as GRequest
+        creds.refresh(GRequest())
+        headers = {"Authorization": f"Bearer {creds.token}", "Content-Type": "application/json"}
+        body = {"url": post_url, "type": "URL_UPDATED"}
+        r = requests.post("https://indexing.googleapis.com/v3/urlNotifications:publish",
+                          headers=headers, json=body, timeout=20)
+        if r.status_code == 200:
+            print(f"[SUCCESS] Google Indexing API submitted: {post_url}")
+            return True
+        print(f"[INFO] Google Indexing returned {r.status_code}: {r.text[:160]}")
+    except Exception as e:
+        print(f"[WARNING] Google Indexing submit failed: {e}")
+    return False
+
+
 def notify_telegram(text, silent=False):
     # Telegram par message bhejta hai. Token/chat-id na ho to chup-chaap skip (kuch break nahi hota).
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
@@ -824,7 +883,8 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
     post_url = result.get("url", "")
 
     if not is_draft and post_url:
-        # Live post — instant index + social share
+        # Live post — instant index (Google + Bing/Yandex) + social share
+        submit_to_google_indexing(post_url)
         submit_to_indexnow(post_url)
         share_post_to_telegram(title, post_url, category, seo_desc)
     else:
