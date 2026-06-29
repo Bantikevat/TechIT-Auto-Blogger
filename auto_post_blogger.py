@@ -10,6 +10,8 @@ import requests
 import time
 import re
 
+import social_share  # multi-platform auto-share (Twitter/X, Facebook, Pinterest)
+
 try:
     from google.oauth2.credentials import Credentials
     from googleapiclient.discovery import build
@@ -796,6 +798,14 @@ def ask_user_for_topic(gemini_key, posted_topics):
         return select_topic(gemini_key, posted_topics)
 
 
+def _extract_first_image(html):
+    # Post HTML se pehli image ka URL nikalo (Pinterest pin ke liye banner chahiye).
+    if not html:
+        return ""
+    m = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', html)
+    return m.group(1) if m else ""
+
+
 def write_preview_file(title, category, seo_desc, content_html):
     # Local preview.html generate karta hai testing/checking ke liye.
     try:
@@ -887,6 +897,12 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
         submit_to_google_indexing(post_url)
         submit_to_indexnow(post_url)
         share_post_to_telegram(title, post_url, category, seo_desc)
+        # Multi-platform auto-share (Twitter/X, Facebook, Pinterest) — banner image bhi bhejte hain
+        clean_title = title.replace("(In Hindi)", "").replace("(in Hindi)", "").strip()
+        image_url = _extract_first_image(content_html)
+        shared = social_share.share_all(clean_title, post_url, category, seo_desc, image_url)
+        if shared:
+            notify_telegram(f"📣 <b>{clean_title}</b>\nShare hua: {', '.join(shared)}", silent=True)
     else:
         # Draft — sirf notify (URL public nahi hota)
         notify_telegram(f"📝 <b>TechIT</b>: Naya DRAFT ready — <b>{title}</b>\nBlogger dashboard se review karke live karein.", silent=True)

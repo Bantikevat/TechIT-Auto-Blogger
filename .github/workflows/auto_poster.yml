@@ -47,6 +47,15 @@ jobs:
         IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
         # Optional: Google Indexing API service-account JSON (poori JSON paste karein) — har post Google ko submit
         GOOGLE_INDEXING_SA: ${{ secrets.GOOGLE_INDEXING_SA }}
+        # Optional: Multi-platform auto-share (jo set hoga sirf wahi share karega)
+        TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+        TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+        TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+        FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+        FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+        PINTEREST_TOKEN: ${{ secrets.PINTEREST_TOKEN }}
+        PINTEREST_BOARD_ID: ${{ secrets.PINTEREST_BOARD_ID }}
       run: |
         python auto_post_blogger.py
 
