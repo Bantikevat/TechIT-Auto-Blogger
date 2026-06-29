@@ -1,7 +1,10 @@
 import os
+import io
 import json
 import sys
 import random
+import base64
+import subprocess
 import urllib.parse
 import requests
 import time
@@ -23,19 +26,28 @@ CREDENTIALS_FILE = "blogger_credentials.json"
 GEMINI_KEY_FILE = "gemini_api_key.txt"
 QUEUE_FILE = "topics_to_write.txt"
 
+# IndexNow key — host this exact string as a Blogger Page at /p/<key>.html for verification.
+# Override anytime with the INDEXNOW_KEY env var / GitHub Secret.
+INDEXNOW_KEY_DEFAULT = "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
 
-# Default topics to fallback on
+# Banner image generation — GitHub repo (used for CDN-hosted banners when ImgBB is not configured)
+GITHUB_REPO = "Bantikevat/TechIT-Auto-Blogger"
+ASSETS_DIR = "assets"
+IMAGES_DIR = "images"
+
+
+# Default topics to fallback on (low competition coding errors and modern debugging)
 DEFAULT_TOPICS = [
-    {"topic": "React Context API Tutorial in Hindi", "category": "ReactJS"},
-    {"topic": "NodeJS Event Loop and Thread Pool explained", "category": "NodeJS"},
-    {"topic": "MongoDB Aggregation Pipeline ($group, $match, $lookup)", "category": "MongoDB"},
-    {"topic": "ExpressJS Custom Middleware Architecture", "category": "ExpressJS"},
-    {"topic": "JWT Authentication with Access and Refresh Tokens in MERN Stack", "category": "MERN Stack"},
-    {"topic": "React Hooks: Custom useFetch Hook implementation", "category": "ReactJS"},
-    {"topic": "NodeJS Streams and Buffers for high performance", "category": "NodeJS"},
-    {"topic": "MongoDB Indexing and Query Performance Optimization", "category": "MongoDB"},
-    {"topic": "Error Handling best practices in Express JS", "category": "ExpressJS"},
-    {"topic": "React performance optimization using useMemo and useCallback", "category": "ReactJS"}
+    {"topic": "How to Fix Hydration failed because the initial UI does not match in NextJS", "category": "NextJS"},
+    {"topic": "How to Fix MongooseError: Operation users.findOne() buffering timed out in Nodejs", "category": "Error Solving"},
+    {"topic": "How to Fix CORS policy: No Access-Control-Allow-Origin header is present in MERN Stack", "category": "Error Solving"},
+    {"topic": "How to Solve JWT expired Error with Axios Interceptors and Refresh Tokens", "category": "MERN Stack"},
+    {"topic": "How to Fix React Hook useEffect has a missing dependency Lint Warning", "category": "Error Solving"},
+    {"topic": "How to Fix Error: Cannot find module in Node.js ESM vs CommonJS", "category": "Error Solving"},
+    {"topic": "How to Fix MongoDB connection failed on Render and Vercel Deployment", "category": "Error Solving"},
+    {"topic": "React 19 Server Actions vs traditional API requests: When to use what", "category": "ReactJS"},
+    {"topic": "How to Fix Express payload too large error when uploading base64 images", "category": "ExpressJS"},
+    {"topic": "How to Fix Next.js API route returns 404 in production Vercel error", "category": "NextJS"}
 ]
 
 def load_gemini_api_key():
@@ -114,14 +126,14 @@ def classify_topic_category(gemini_key, topic):
     # Quick call to Gemini to classify the topic's category
     prompt = f"""
     Classify this programming tutorial topic: "{topic}"
-    Choose EXACTLY one category from this list: ReactJS, NodeJS, ExpressJS, MongoDB, MERN Stack.
-    Output ONLY the category name (just a single word from the list). Do not output any other text or explanation.
+    Choose EXACTLY one category from this list: ReactJS, NextJS, NodeJS, ExpressJS, MongoDB, Error Solving, MERN Stack.
+    Output ONLY the category name (just a single word/phrase from the list). Do not output any other text or explanation.
     """
     category = call_gemini(gemini_key, prompt)
     if category:
         category = category.strip()
         # Clean up response
-        for valid in ["ReactJS", "NodeJS", "ExpressJS", "MongoDB", "MERN Stack"]:
+        for valid in ["ReactJS", "NextJS", "NodeJS", "ExpressJS", "MongoDB", "Error Solving", "MERN Stack"]:
             if valid.lower() in category.lower():
                 return valid
     return "MERN Stack" # Default fallback
@@ -168,14 +180,15 @@ def select_topic(gemini_key, posted_topics):
     
     for attempt in range(3):
         prompt = f"""
-        You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js) or modern JavaScript.
+        You are an expert programming blogger. Choose one unique, highly educational, and trending web development topic focusing on MERN stack (MongoDB, Express, React, Node.js), Next.js, or common programming errors.
+        You MUST focus on highly searched, low-competition coding error solutions, debugging guides, or framework comparisons (e.g. "How to fix ... error in ...").
         The topic must NOT be in this list of already written topics: {posted_topics}.
         Choose a completely different concept from the already written topics to ensure variety.
         
-        Output ONLY a JSON object containing the topic title and the category (which must be exactly one of: ReactJS, NodeJS, ExpressJS, MongoDB, or MERN Stack).
+        Output ONLY a JSON object containing the topic title and the category (which must be exactly one of: ReactJS, NextJS, NodeJS, ExpressJS, MongoDB, Error Solving, or MERN Stack).
         Do not output any markdown formatting, backticks, or comments. Just raw JSON.
         Example output format:
-        {{"topic": "React Context API vs Redux in 2026", "category": "ReactJS"}}
+        {{"topic": "How to Fix 'JWT Signature Verification Failed' in Node.js", "category": "Error Solving"}}
         """
         
         text = call_gemini(gemini_key, prompt)
@@ -212,32 +225,211 @@ def select_topic(gemini_key, posted_topics):
     print(f"[OK] Selected fallback topic: '{choice['topic']}' (Category: {choice['category']})")
     return choice["topic"], choice["category"]
 
-def generate_image_prompt(gemini_key, topic):
-    print(f"[INFO] Image prompt generate kiya ja raha hai for: '{topic}'...")
-    # Clean topic for image text to make it short and clean
-    clean_topic = topic.replace("(In Hindi)", "").replace("(in Hindi)", "").strip()
-    
-    prompt = f"""
-    Create a highly descriptive and creative English image prompt for a blog post banner related to: "{clean_topic}".
-    Describe a beautiful, modern, high-quality tech digital illustration (flat vector or 3D render style) with a dark theme, neon colors (cyan, purple, green).
-    The image MUST contain the text "{clean_topic}" written in a very clean, readable, bold, modern neon sans-serif font, centered as a prominent title on the graphic, looking like a professional YouTube thumbnail or blog banner.
-    Output ONLY the one-sentence prompt. Do not output anything else.
-    """
-    custom_prompt = call_gemini(gemini_key, prompt)
-    if custom_prompt:
-        custom_prompt = custom_prompt.strip().replace('"', '').replace('\n', ' ')
-        return f"{custom_prompt}, ultra-detailed, modern tech style, dark mode neon, high contrast, visually attractive, clean typography"
-    return f"Modern flat vector tech illustration for {clean_topic} with bold readable text '{clean_topic}', neon colors, dark tech background, clean typography"
+def _slugify(text, maxlen=55):
+    s = re.sub(r'[^a-zA-Z0-9]+', '-', text.lower()).strip('-')
+    return (s[:maxlen].strip('-')) or "techit-post"
+
+
+def _load_font(kind, size):
+    # Poppins fonts assets/ folder me committed hain. Na milein to default font.
+    from PIL import ImageFont
+    path = os.path.join(ASSETS_DIR, f"Poppins-{kind}.ttf")
+    if not os.path.exists(path):
+        # Runtime download fallback (agar assets/ commit nahi hua)
+        urls = {
+            "Bold": "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Bold.ttf",
+            "SemiBold": "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-SemiBold.ttf",
+            "Regular": "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Regular.ttf",
+        }
+        try:
+            os.makedirs(ASSETS_DIR, exist_ok=True)
+            r = requests.get(urls.get(kind, urls["Bold"]), timeout=30)
+            if r.status_code == 200:
+                with open(path, "wb") as f:
+                    f.write(r.content)
+        except Exception as e:
+            print(f"[WARNING] Font '{kind}' download failed: {e}")
+    try:
+        return ImageFont.truetype(path, size)
+    except Exception:
+        return ImageFont.load_default()
+
+
+def _wrap_text(draw, text, font, max_width):
+    words, lines, cur = text.split(), [], ""
+    for w in words:
+        test = (cur + " " + w).strip()
+        if draw.textlength(test, font=font) <= max_width:
+            cur = test
+        else:
+            if cur:
+                lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def generate_bg_prompt(gemini_key, clean_title):
+    # AI sirf BACKGROUND banaye (koi text nahi — kyunki AI text spell nahi kar pata, garble ho jata hai).
+    prompt = f"""Create a short English image prompt for a BACKGROUND graphic for a tech blog about "{clean_title}".
+    Describe a modern premium tech background: abstract code, circuit patterns, glowing UI elements, depth/bokeh, dark navy theme with cyan, blue and purple neon accents, 3D render or clean flat vector style.
+    CRITICAL: The image must contain absolutely NO text, NO letters, NO words, NO typography — only visuals and graphics.
+    Output ONLY the one-sentence prompt, nothing else."""
+    p = call_gemini(gemini_key, prompt)
+    if p:
+        p = p.strip().replace('"', '').replace('\n', ' ')
+        return f"{p}, absolutely no text, no words, no letters, clean abstract tech background, dark navy, cyan neon glow, ultra detailed, high quality, professional"
+    return f"abstract modern tech background related to {clean_title}, circuit board, glowing cyan and blue neon lines, dark navy gradient, depth, no text, no words, 3d render, ultra detailed"
+
+
+def fetch_ai_background(gemini_key, clean_title, seed):
+    # Flux model + random seed = har baar UNIQUE high-quality background (same image problem fix).
+    bg_prompt = generate_bg_prompt(gemini_key, clean_title)
+    url = (f"https://image.pollinations.ai/prompt/{urllib.parse.quote(bg_prompt)}"
+           f"?width=1200&height=630&nologo=true&model=flux&seed={seed}&enhance=true")
+    try:
+        r = requests.get(url, timeout=120)
+        if r.status_code == 200 and r.content:
+            return r.content, url
+        print(f"[INFO] Background fetch status {r.status_code}, will use URL directly.")
+    except Exception as e:
+        print(f"[WARNING] Background image fetch failed: {e}")
+    return None, url
+
+
+def compose_banner(bg_bytes, clean_title, category):
+    # AI background ke upar ASLI title text + category badge + brand overlay — perfectly readable.
+    from PIL import Image, ImageDraw
+    W, H = 1200, 630
+    if bg_bytes:
+        img = Image.open(io.BytesIO(bg_bytes)).convert("RGB").resize((W, H))
+    else:
+        img = Image.new("RGB", (W, H), (13, 27, 42))
+
+    # Dark gradient overlay (neeche zyada dark) — text contrast ke liye
+    grad = Image.new("L", (1, H))
+    for y in range(H):
+        grad.putpixel((0, y), int(70 + 150 * (y / H)))
+    alpha = grad.resize((W, H))
+    img = Image.composite(Image.new("RGB", (W, H), (7, 12, 24)), img, alpha)
+
+    draw = ImageDraw.Draw(img)
+
+    # Category badge (top-left, cyan)
+    badge_font = _load_font("SemiBold", 30)
+    cat = category.upper()
+    cw = draw.textlength(cat, font=badge_font)
+    draw.rounded_rectangle([60, 56, 60 + cw + 52, 56 + 54], radius=27, fill=(6, 182, 212))
+    draw.text((60 + 26, 56 + 11), cat, font=badge_font, fill=(4, 18, 28))
+
+    # Title — auto-fit font size so it wraps in <= 4 lines
+    title_font, lines = None, []
+    for fs in (70, 62, 54, 48, 42):
+        f = _load_font("Bold", fs)
+        wrapped = _wrap_text(draw, clean_title, f, W - 120)
+        if len(wrapped) <= 4:
+            title_font, lines = f, wrapped
+            break
+    if title_font is None:
+        title_font = _load_font("Bold", 42)
+        lines = _wrap_text(draw, clean_title, title_font, W - 120)[:4]
+
+    lh = int(title_font.size * 1.16)
+    y = H - 150 - len(lines) * lh
+    for ln in lines:
+        draw.text((63, y + 3), ln, font=title_font, fill=(0, 0, 0))      # shadow
+        draw.text((60, y), ln, font=title_font, fill=(255, 255, 255))    # text
+        y += lh
+
+    # Brand bottom-left
+    brand_font = _load_font("Bold", 36)
+    draw.text((60, H - 82), "</> TechIT", font=brand_font, fill=(6, 182, 212))
+    sub_font = _load_font("Regular", 26)
+    bw = draw.textlength("</> TechIT", font=brand_font)
+    draw.text((60 + bw + 16, H - 76), "Tech in Hindi", font=sub_font, fill=(150, 170, 190))
+
+    out = io.BytesIO()
+    img.save(out, format="PNG", optimize=True)
+    return out.getvalue()
+
+
+def upload_to_imgbb(png_bytes, api_key):
+    # Free ImgBB host — instant CDN URL (best option, ordering issue nahi).
+    try:
+        b64 = base64.b64encode(png_bytes).decode()
+        r = requests.post("https://api.imgbb.com/1/upload", timeout=60,
+                          data={"key": api_key, "image": b64})
+        if r.status_code == 200:
+            return r.json()["data"]["url"]
+        print(f"[WARNING] ImgBB returned {r.status_code}: {r.text[:150]}")
+    except Exception as e:
+        print(f"[WARNING] ImgBB upload failed: {e}")
+    return None
+
+
+def save_banner_to_repo(png_bytes, slug, seed):
+    # ImgBB na ho to image repo me save + (Actions me) turant push -> raw.githubusercontent URL.
+    os.makedirs(IMAGES_DIR, exist_ok=True)
+    fname = f"{slug}-{seed}.png"
+    path = os.path.join(IMAGES_DIR, fname)
+    with open(path, "wb") as f:
+        f.write(png_bytes)
+    raw_url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{IMAGES_DIR}/{fname}"
+    if os.environ.get("GITHUB_ACTIONS"):
+        # Image ko post-publish se pehle push karo taaki URL turant resolve ho
+        try:
+            subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"], check=False)
+            subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
+            subprocess.run(["git", "add", path], check=False)
+            subprocess.run(["git", "commit", "-m", f"Add banner image {fname} [skip ci]"], check=False)
+            subprocess.run(["git", "push"], check=False)
+            print(f"[OK] Banner image repo me push hui: {raw_url}")
+        except Exception as e:
+            print(f"[WARNING] git push image failed: {e}")
+    return raw_url
+
+
+def generate_banner(gemini_key, topic, category):
+    # Pura banner pipeline: AI background -> real title overlay -> host. Fail-safe with fallbacks.
+    clean_title = topic.replace("(In Hindi)", "").replace("(in Hindi)", "").strip()
+    seed = random.randint(1, 999999)
+    print(f"[INFO] Banner generate ho raha hai (seed={seed}) for: '{clean_title}'")
+
+    bg_bytes, bg_url = fetch_ai_background(gemini_key, clean_title, seed)
+
+    try:
+        png = compose_banner(bg_bytes, clean_title, category)
+    except Exception as e:
+        print(f"[WARNING] Banner compose fail ({e}). Plain AI image use ho rahi hai.")
+        return bg_url  # fallback: direct pollinations background (varied, clean, no garbled text)
+
+    imgbb_key = os.environ.get("IMGBB_API_KEY", "").strip()
+    if imgbb_key:
+        url = upload_to_imgbb(png, imgbb_key)
+        if url:
+            print(f"[OK] Banner ImgBB par upload hui: {url}")
+            return url
+
+    return save_banner_to_repo(png, _slugify(clean_title), seed)
+
+def fix_html_tags(html):
+    # Balanced check for unclosed HTML tags to prevent XML syntax errors in Blogger theme
+    tags = ['div', 'p', 'span', 'h2', 'h3', 'ul', 'li', 'pre', 'code', 'details', 'summary']
+    for tag in tags:
+        open_count = len(re.findall(rf'<{tag}\b', html))
+        close_count = len(re.findall(rf'</{tag}>', html))
+        if open_count > close_count:
+            # Append missing closing tags to repair the HTML structure
+            html += f"</{tag}>" * (open_count - close_count)
+    return html
 
 def generate_article_content(gemini_key, topic, category):
     print(f"[INFO] Article content generate kiya ja raha hai for: '{topic}'...")
     
-    # 1. Generate customized image prompt dynamically using Gemini
-    custom_prompt = generate_image_prompt(gemini_key, topic)
-    print(f"[OK] Generated custom image prompt: '{custom_prompt}'")
-    
-    # Generate clean banner image using pollinations
-    banner_url = f"https://image.pollinations.ai/prompt/{urllib.parse.quote(custom_prompt)}?width=800&height=450&nologo=true"
+    # 1. Generate a professional banner: AI background + REAL title text overlay (readable, unique)
+    banner_url = generate_banner(gemini_key, topic, category)
+    print(f"[OK] Banner URL: {banner_url}")
     
     prompt = f"""
     Write a highly detailed, professional, long-form (at least 1500 to 2500 words), and extremely easy-to-read programming blog tutorial about: "{topic}" (Category: {category}) in Hybrid Hindi-English.
@@ -260,11 +452,13 @@ def generate_article_content(gemini_key, topic, category):
     SEO & Internal Linking Requirements:
     - Automatically create internal links pointing to relevant categories on our blog by wrapping appropriate keywords in the text with <a> HTML tags.
     - Use the following specific links for labels/categories:
-      - For ReactJS or frontend topics, link keywords like "ReactJS" or "React components" to: https://itinfohubs.blogspot.com/search/label/ReactJS
+      - For ReactJS topics, link keywords like "ReactJS" or "React components" to: https://itinfohubs.blogspot.com/search/label/ReactJS
+      - For Next.js topics, link keywords like "Next.js" or "NextJS" to: https://itinfohubs.blogspot.com/search/label/NextJS
       - For NodeJS topics, link keywords like "NodeJS" or "Runtime" to: https://itinfohubs.blogspot.com/search/label/NodeJS
       - For ExpressJS topics, link keywords like "ExpressJS" or "Middleware" to: https://itinfohubs.blogspot.com/search/label/ExpressJS
       - For MongoDB topics, link keywords like "MongoDB" or "Database" to: https://itinfohubs.blogspot.com/search/label/MongoDB
       - For general MERN Stack topics, link keywords like "MERN Stack" to: https://itinfohubs.blogspot.com/search/label/MERN%20Stack
+      - For Error Solving/fixing errors, link keywords like "error", "exception", or "fix error" to: https://itinfohubs.blogspot.com/search/label/Error%20Solving
     - Do not make all keywords links. Only add 3-5 natural internal links across the entire article where it makes absolute sense.
     
     Privacy & Security Requirements:
@@ -316,12 +510,92 @@ def generate_article_content(gemini_key, topic, category):
             article_html = article_html[:-3]
         article_html = article_html.strip()
         
+        # Balance HTML tags to prevent SAXParseException XML issues
+        article_html = fix_html_tags(article_html)
+        
         # Banner image prepended to the post content (hidden via theme CSS in post body, used by Blogger for featuredImage)
         image_html = f'<div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="{banner_url}" alt="{topic}" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>\n'
         full_html = image_html + article_html
         return full_html
         
     return None
+
+def generate_seo_description(gemini_key, topic):
+    print(f"[INFO] SEO search description generate kiya ja raha hai...")
+    prompt = f"""
+    Create a highly engaging, SEO-optimized search description for a blog post titled: "{topic}".
+    The description must be in Hindi (mixed with English tech terms), extremely natural, and strictly between 120 and 150 characters (including spaces).
+    Output ONLY the description text. Do not write any labels, introduction, or quotes.
+    """
+    desc = call_gemini(gemini_key, prompt)
+    if desc:
+        return desc.strip().replace('"', '')
+    return f"Sikhiye {topic} ke baare me sab kuch detail me. Code, explanations aur best practices ke saath simple Hindi me tutorial."
+
+def submit_to_indexnow(post_url):
+    # Google ne purana sitemap-ping endpoint (June 2023) band kar diya, isliye ab IndexNow use karte hain.
+    # IndexNow se Bing, Yandex aur DuckDuckGo ko URL turant index ke liye notify hota hai. (Free, no auth)
+    if not post_url or "http" not in post_url:
+        print("[INFO] IndexNow skip — koi valid live URL nahi (draft post).")
+        return
+    indexnow_key = os.environ.get("INDEXNOW_KEY", INDEXNOW_KEY_DEFAULT)
+    host = "itinfohubs.blogspot.com"
+    payload = {
+        "host": host,
+        "key": indexnow_key,
+        "keyLocation": f"https://{host}/p/{indexnow_key}.html",
+        "urlList": [post_url, f"https://{host}/sitemap.xml"]
+    }
+    # Bing IndexNow endpoint (shared with Yandex/DuckDuckGo via the IndexNow protocol)
+    for endpoint in ["https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"]:
+        try:
+            res = requests.post(endpoint, json=payload, timeout=15,
+                                headers={"Content-Type": "application/json; charset=utf-8"})
+            if res.status_code in (200, 202):
+                print(f"[SUCCESS] IndexNow submitted to {endpoint} (status {res.status_code}) — Bing/Yandex jaldi index karenge.")
+                return
+            else:
+                print(f"[INFO] IndexNow {endpoint} returned {res.status_code}: {res.text[:120]}")
+        except Exception as e:
+            print(f"[WARNING] IndexNow {endpoint} failed: {e}")
+
+
+def notify_telegram(text, silent=False):
+    # Telegram par message bhejta hai. Token/chat-id na ho to chup-chaap skip (kuch break nahi hota).
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    if not token or not chat_id:
+        return False  # Telegram configured nahi hai — gracefully skip
+    try:
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        res = requests.post(url, timeout=15, data={
+            "chat_id": chat_id,
+            "text": text,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": "false",
+            "disable_notification": "true" if silent else "false"
+        })
+        if res.status_code == 200:
+            print("[SUCCESS] Telegram notification sent.")
+            return True
+        print(f"[WARNING] Telegram returned {res.status_code}: {res.text[:150]}")
+    except Exception as e:
+        print(f"[WARNING] Telegram notify failed: {e}")
+    return False
+
+
+def share_post_to_telegram(title, post_url, category, seo_desc):
+    # Naya LIVE post Telegram channel par auto-share — traffic ke liye.
+    clean_title = title.replace("(In Hindi)", "").replace("(in Hindi)", "").strip()
+    msg = (
+        f"🚀 <b>New Post Live!</b>\n\n"
+        f"📝 <b>{clean_title}</b>\n\n"
+        f"{seo_desc}\n\n"
+        f"🏷 {category}\n"
+        f"🔗 <a href='{post_url}'>Abhi padho →</a>\n\n"
+        f"#TechIT #{category.replace(' ', '')} #Coding"
+    )
+    return notify_telegram(msg)
 
 def publish_to_blogger(title, html_content, category, is_draft=True):
     print("[INFO] Blogger API authenticate kiya ja raha hai...")
@@ -382,11 +656,12 @@ def publish_to_blogger(title, html_content, category, is_draft=True):
         print(f"Title: {response['title']}")
         print(f"Post URL: {response.get('url', 'URL is generated when published')}")
         print(f"Status: {response['status']}")
-        return True
-        
+        # Return URL on success (live posts have a public url; drafts return empty string)
+        return {"success": True, "url": response.get("url", ""), "status": response.get("status", "")}
+
     except Exception as e:
         print(f"[ERROR] Blogger API call failed: {e}")
-        return False
+        return {"success": False, "url": "", "status": "error"}
 
 def fetch_live_post_titles():
     print("[INFO] Blogger se live post titles fetch kiye ja rahe hain duplicate check karne ke liye...")
@@ -429,63 +704,196 @@ def fetch_live_post_titles():
         print(f"[WARNING] Live post titles fetch failed: {e}")
         return []
 
-def main():
+def ask_user_for_topic(gemini_key, posted_topics):
+    """
+    Jab script locally run ho, user se topic poochhe.
+    Agar kuch nahi diya (Enter press kiya) toh auto-select karo.
+    """
+    print("\n==================================================")
+    print("  BLOG TOPIC SELECTION")
     print("==================================================")
-    print("  TechIT MERN Stack Auto-Blogger  ")
-    print("==================================================")
+    print("Aap apna khud ka topic de sakte hain, ya Enter press karein")
+    print("aur system automatically ek naya topic choose karega.")
+    print("--------------------------------------------------")
+    print("Examples:")
+    print("  > React Query vs SWR: Data Fetching Comparison")
+    print("  > MongoDB Transactions aur ACID Properties")
+    print("  > NodeJS Worker Threads for CPU-heavy tasks")
+    print("--------------------------------------------------")
     
-    gemini_key = load_gemini_api_key()
-    posted_topics = get_posted_topics()
+    try:
+        user_topic = input("\nApna blog topic enter karein (ya sirf Enter dabao auto ke liye): ").strip()
+    except (EOFError, KeyboardInterrupt):
+        user_topic = ""
     
-    # Live fetch posts to avoid duplicates 100%
-    live_titles = fetch_live_post_titles()
-    if live_titles:
-        posted_topics = list(set(posted_topics + live_titles))
-    
-    # 1. Select Topic
-    topic, category = select_topic(gemini_key, posted_topics)
-    
+    if user_topic:
+        print(f"\n[OK] Aapka topic: '{user_topic}'")
+        print("[INFO] Category classify kiya ja raha hai...")
+        category = classify_topic_category(gemini_key, user_topic)
+        print(f"[OK] Category: {category}")
+        return user_topic, category
+    else:
+        print("\n[INFO] Koi topic nahi diya. Auto-select mode...")
+        return select_topic(gemini_key, posted_topics)
+
+
+def write_preview_file(title, category, seo_desc, content_html):
+    # Local preview.html generate karta hai testing/checking ke liye.
+    try:
+        preview_file = "preview.html"
+        with open(preview_file, "w", encoding="utf-8") as f:
+            f.write(f"""<!DOCTYPE html>
+<html>
+<head>
+    <title>Preview: {title}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; background: #0a1320; color: #e8eef8; }}
+        img {{ max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }}
+        pre {{ background: #0f1d30; padding: 16px; border-radius: 8px; overflow-x: auto; color: #f8fafc; border: 1px solid #1f3550; }}
+        code {{ font-family: monospace; }}
+        a {{ color: #06b6d4; text-decoration: none; }}
+        details {{ background: #13243a; padding: 12px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #1f3550; }}
+    </style>
+</head>
+<body>
+    <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
+        <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">{seo_desc}</textarea>
+        <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
+    </div>
+    <h1>{title}</h1>
+    <p><strong>Category:</strong> {category}</p>
+    <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
+    {content_html}
+</body>
+</html>""")
+        print(f"[OK] Local HTML preview file generated: '{preview_file}'")
+    except Exception as e:
+        print(f"[WARNING] Failed to generate preview file: {e}")
+
+
+def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
+    """Ek post generate + publish karta hai. Success par True return, fail par False."""
+    # 1. Select Topic — interactive mein user se poochho, warna auto
+    if is_interactive:
+        topic, category = ask_user_for_topic(gemini_key, posted_topics)
+    else:
+        topic, category = select_topic(gemini_key, posted_topics)
+
     # 2. Generate Content
     title = f"{topic} (In Hindi)"
+    print(f"\n[INFO] Blog generate ho raha hai: \"{title}\"")
     content_html = generate_article_content(gemini_key, topic, category)
-    
     if not content_html:
-        print("[ERROR] Article content generate nahi ho paya. Script stopped.")
-        sys.exit(1)
-        
-    # Check if running in non-interactive environment (like GitHub Actions)
-    is_interactive = sys.stdin.isatty() and not os.environ.get("GITHUB_ACTIONS")
-    is_draft = True
-    
+        print("[ERROR] Article content generate nahi ho paya. Is post ko skip kar rahe hain.")
+        return False
+
+    # 3. SEO description + local preview
+    seo_desc = generate_seo_description(gemini_key, topic)
+    print(f"[OK] Generated Search Description: {seo_desc}")
+    write_preview_file(title, category, seo_desc, content_html)
+
+    # 4. Interactive single run mein draft/live choice
     if is_interactive:
-        # Ask if user wants to publish as live or draft
         print("\n--------------------------------------------------")
         print("Publishing Settings:")
-        print("1. Draft mode me save karein (Recommended - check karke dashboard se manually live karein)")
-        print("2. Direct Publish (Live) kar dein")
+        print("1. Draft mode me save karein (Recommended - Blogger dashboard se check karke live karein)")
+        print("2. Direct Live Publish kar dein")
         try:
             choice = input("Enter choice (1 or 2, default 1): ").strip()
             if choice == "2":
                 is_draft = False
+                confirm = input(f"Confirm: '{title}' ko LIVE publish karna chahte ho? (yes/no): ").strip().lower()
+                if confirm not in ("yes", "y", "ha", "han"):
+                    is_draft = True
+                    print("[INFO] Cancelled. Draft mode mein save ho raha hai.")
         except (EOFError, KeyboardInterrupt):
             print("[INFO] Input skipped. Defaulting to Draft mode.")
+
+    # 5. Publish
+    result = publish_to_blogger(title, content_html, category, is_draft=is_draft)
+    if not result.get("success"):
+        notify_telegram(f"⚠️ <b>TechIT Auto-Blogger</b>\nPost publish FAIL hui: <b>{title}</b>\nLogs check karein.")
+        return False
+
+    # 6. Post-publish automations
+    save_posted_topic(topic)
+    posted_topics.append(topic)  # in-memory list update — loop ke agle post mein duplicate na ho
+    post_url = result.get("url", "")
+
+    if not is_draft and post_url:
+        # Live post — instant index + social share
+        submit_to_indexnow(post_url)
+        share_post_to_telegram(title, post_url, category, seo_desc)
     else:
-        # In non-interactive mode, check env var PUBLISH_LIVE. Default is Draft (safe)
-        env_live = os.environ.get("PUBLISH_LIVE", "false").lower() == "true"
-        is_draft = not env_live
-        print(f"[INFO] Non-interactive execution. Post status: {'Draft' if is_draft else 'Live'}")
-        
-    success = publish_to_blogger(title, content_html, category, is_draft=is_draft)
-    
-    if success:
-        # Save to posted topics track file to avoid repeating it
-        save_posted_topic(topic)
-        print("==================================================")
-        print("[SUCCESS] Process Completed successfully!")
-        print("==================================================")
-    else:
-        print("[ERROR] Post publish nahi ho payi. Logs check karein.")
+        # Draft — sirf notify (URL public nahi hota)
+        notify_telegram(f"📝 <b>TechIT</b>: Naya DRAFT ready — <b>{title}</b>\nBlogger dashboard se review karke live karein.", silent=True)
+
+    print("==================================================")
+    print(f"[SUCCESS] Post done: '{topic}'")
+    print("==================================================")
+    return True
+
+
+def main():
+    print("==================================================")
+    print("  TechIT Auto-Blogger - Powered by Gemini AI  ")
+    print("==================================================")
+
+    try:
+        gemini_key = load_gemini_api_key()
+        posted_topics = get_posted_topics()
+
+        # Live fetch posts to avoid duplicates 100%
+        live_titles = fetch_live_post_titles()
+        if live_titles:
+            posted_topics = list(set(posted_topics + live_titles))
+
+        is_interactive = sys.stdin.isatty() and not os.environ.get("GITHUB_ACTIONS")
+
+        # Draft vs Live decide karo
+        if is_interactive:
+            is_draft = True  # interactive run create_one_post ke andar khud poochhega
+        else:
+            env_live = os.environ.get("PUBLISH_LIVE", "false").lower() == "true"
+            is_draft = not env_live
+            print(f"[INFO] Non-interactive execution. Post status: {'Draft' if is_draft else 'Live'}")
+
+        # Kitne posts banane hain — POSTS_PER_RUN env (default 1)
+        try:
+            posts_per_run = max(1, int(os.environ.get("POSTS_PER_RUN", "1")))
+        except ValueError:
+            posts_per_run = 1
+        if is_interactive:
+            posts_per_run = 1  # interactive mein hamesha 1 post
+        print(f"[INFO] Is run mein {posts_per_run} post(s) banaye jayenge.")
+
+        made = 0
+        for i in range(posts_per_run):
+            if posts_per_run > 1:
+                print(f"\n############## POST {i + 1} / {posts_per_run} ##############")
+            if create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
+                made += 1
+            if i < posts_per_run - 1:
+                time.sleep(5)  # API rate-limit ke liye chhota gap
+
+        if made == 0:
+            print("[ERROR] Koi post publish nahi hui. Logs check karein.")
+            notify_telegram("🚨 <b>TechIT Auto-Blogger</b>\nAaj koi bhi post publish nahi hui! Logs check karein.")
+            sys.exit(1)
+
+        print(f"\n[SUCCESS] Process complete — {made}/{posts_per_run} post(s) publish/draft hue.")
+
+    except SystemExit:
+        raise
+    except Exception as e:
+        # Koi bhi unexpected crash — Telegram par alert bhejo, taaki silent fail na ho
+        print(f"[FATAL] Script crashed: {e}")
+        notify_telegram(f"🚨 <b>TechIT Auto-Blogger CRASH</b>\n<code>{str(e)[:300]}</code>")
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

@@ -836,6 +836,31 @@ details[open] .faq-q .fq-ic{transform:rotate(45deg);background:var(--grad);color
 .story-card .st-t{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px;color:#fff;font-size:13px;font-weight:600;line-height:1.35}
 .story-card .st-ring{position:absolute;top:10px;left:10px;z-index:2;width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
 
+/* ----------------------------- 25b. LATEST NEWS (auto-loading) --------- */
+.news-sec{padding:40px 0 8px}
+.live-dot{display:inline-flex;align-items:center;gap:5px;background:#ef4444;color:#fff;font-size:10px;font-weight:800;letter-spacing:.5px;padding:3px 9px;border-radius:30px;vertical-align:middle;margin-left:8px;position:relative;top:-2px}
+.live-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:#fff;animation:livePulse 1.2s infinite}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+.news-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.news-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:.3s var(--ease);text-decoration:none}
+.news-card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:var(--shadow-lg)}
+.news-thumb{position:relative;display:block;aspect-ratio:16/10;background:var(--navy);overflow:hidden}
+.news-thumb img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.news-card:hover .news-thumb img{transform:scale(1.06)}
+.news-noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;background:var(--grad);opacity:.9}
+.news-cat{position:absolute;left:10px;top:10px;background:rgba(7,15,28,.82);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.news-body{padding:13px 14px 15px;display:flex;flex-direction:column;gap:8px;flex:1}
+.news-title{font-size:14.5px;font-weight:700;line-height:1.4;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-meta{font-size:12px;color:var(--muted);margin-top:auto;display:flex;align-items:center;gap:5px}
+.news-skel{height:232px;border-radius:16px;background:linear-gradient(100deg,var(--bg-soft) 30%,var(--line) 50%,var(--bg-soft) 70%);background-size:200% 100%;animation:skelShine 1.3s infinite}
+@keyframes skelShine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@media(max-width:980px){.news-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:680px){
+  .news-grid{display:flex;overflow-x:auto;gap:13px;padding:4px 2px 14px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .news-grid::-webkit-scrollbar{display:none}
+  .news-card,.news-skel{flex:0 0 78%;max-width:260px;scroll-snap-align:start}
+}
+
 /* ----------------------------- 26. RELATED POSTS ----------------------- */
 #relatedWrap{margin-top:44px}
 .rel-loading{text-align:center;color:var(--muted);padding:20px;font-size:14px}
@@ -2121,9 +2146,18 @@ html[data-theme='dark'] .p-card:hover {
             <ul class='submenu'>
               <li><a href='/search/label/MERN%20Stack'><i class='fa-solid fa-layer-group'></i> MERN Stack Home</a></li>
               <li><a href='/search/label/ReactJS'><i class='fa-brands fa-react'></i> React JS</a></li>
+              <li><a href='/search/label/NextJS'><i class='fa-solid fa-angles-right'></i> Next.js</a></li>
               <li><a href='/search/label/NodeJS'><i class='fa-brands fa-node-js'></i> Node JS</a></li>
               <li><a href='/search/label/ExpressJS'><i class='fa-solid fa-server'></i> Express JS</a></li>
               <li><a href='/search/label/MongoDB'><i class='fa-solid fa-database'></i> MongoDB</a></li>
+            </ul>
+          </li>
+          <li class='has-sub'>
+            <a href='/search/label/Error%20Solving'>Error Solving <i class='fa-solid fa-chevron-down sub-ic'></i></a>
+            <ul class='submenu'>
+              <li><a href='/search/label/Error%20Solving'><i class='fa-solid fa-bug-slash'></i> All Error Solutions</a></li>
+              <li><a href='/search/label/ReactJS%20Errors'><i class='fa-brands fa-react'></i> React Errors</a></li>
+              <li><a href='/search/label/NodeJS%20Errors'><i class='fa-brands fa-node-js'></i> Node Errors</a></li>
             </ul>
           </li>
           <li class='has-sub'>
@@ -2246,6 +2280,19 @@ html[data-theme='dark'] .p-card:hover {
         <div class='cat-ic'><i class='fa-solid fa-tv'></i></div>
         <b>TV&#39;s</b><small>Reviews &amp; tips</small>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================== LATEST NEWS (auto-loading from feed, hides if empty) ================== -->
+<section class='news-sec' id='newsSec'>
+  <div class='wrap'>
+    <div class='sec-head'>
+      <div class='sec-title'><span class='bar'></span><div>Latest News <span class='live-dot'>LIVE</span><small>Taaza tech updates seedhe feed se</small></div></div>
+      <a class='sec-link' href='/search'>View all <i class='fa-solid fa-arrow-right'></i></a>
+    </div>
+    <div class='news-grid' id='newsGrid'>
+      <div class='news-skel'></div><div class='news-skel'></div><div class='news-skel'></div><div class='news-skel'></div>
     </div>
   </div>
 </section>
@@ -2857,10 +2904,11 @@ html[data-theme='dark'] .p-card:hover {
           <h4>Categories</h4>
           <ul class='footer-links'>
             <li><a href='/search/label/IT%20EDUCATION'>IT Education</a></li>
-            <li><a href='/search/label/Coding%20info'>Coding Info</a></li>
+            <li><a href='/search/label/MERN%20Stack'>MERN Stack</a></li>
+            <li><a href='/search/label/NextJS'>Next.js</a></li>
+            <li><a href='/search/label/Error%20Solving'>Error Solving</a></li>
             <li><a href='/search/label/AI%20TOOL'>AI Tools</a></li>
             <li><a href='/search/label/TECH%20BLOGs'>Tech Blogs</a></li>
-            <li><a href='/search/label/TV%27s'>TV&#39;s</a></li>
           </ul>
         </div>
 
@@ -2941,21 +2989,27 @@ html[data-theme='dark'] .p-card:hover {
     return url;
   }
 
-  // preloader (with a minimum show duration of 1.2s to prevent layout flashing and show animations)
+  // preloader (with a minimum show duration of 800ms to prevent layout flashing and show animations)
   var pre=d.getElementById('preloader');
   var startTime = Date.now();
   function hidePreloader(){
     var elapsed = Date.now() - startTime;
-    var delay = Math.max(0, 1200 - elapsed);
+    var delay = Math.max(0, 800 - elapsed);
     setTimeout(function(){
       if(pre&&!pre.classList.contains('done')){
         pre.classList.add('done');
-        setTimeout(function(){pre.style.display='none'},500);
+        setTimeout(function(){pre.style.display='none'},400);
       }
     }, delay);
   }
+  // Hide preloader as soon as the DOM is ready (super fast, doesn't wait for heavy images/scripts)
+  if (d.readyState === 'loading') {
+    d.addEventListener('DOMContentLoaded', hidePreloader);
+  } else {
+    hidePreloader();
+  }
   w.addEventListener('load',hidePreloader);
-  setTimeout(hidePreloader,3500); // 3.5s safety fallback
+  setTimeout(hidePreloader,1800); // 1.8s safety fallback
 
   // theme toggle
   var html=d.documentElement,tT=d.getElementById('themeToggle');
@@ -3135,6 +3189,32 @@ html[data-theme='dark'] .p-card:hover {
     var ss=d.createElement('script');
     ss.src='/feeds/posts/default/-/web-stories?alt=json-in-script&max-results=10&callback=techitStories';
     d.body.appendChild(ss);
+  }
+
+  // Latest News section (homepage, recent posts from default feed)
+  var newsSec=d.getElementById('newsSec');
+  if(newsSec){
+    var newsGrid=d.getElementById('newsGrid');
+    w.techitNews=function(json){
+      try{
+        var ents=(json.feed&&json.feed.entry)||[],html='';
+        for(var i=0;i<ents.length&&i<8;i++){
+          var e=ents[i],url='';
+          for(var k=0;k<e.link.length;k++){if(e.link[k].rel==='alternate'){url=e.link[k].href}}
+          var title=e.title.$t,img='',cat=(e.category&&e.category[0])?e.category[0].term:'News';
+          if(e.media$thumbnail){img=resizeBloggerImage(e.media$thumbnail.url, 400, 250)}
+          var dt='';try{if(e.published&&e.published.$t){dt=new Date(e.published.$t).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}}catch(x){}
+          var thumb=img?('<img src="'+img+'" alt="'+title.replace(/"/g,'')+'" loading="lazy"/>'):('<span class="news-noimg"><i class="fa-solid fa-newspaper"></i></span>');
+          html+='<a class="news-card" href="'+url+'"><span class="news-thumb">'+thumb+'<span class="news-cat">'+cat+'</span></span><span class="news-body"><span class="news-title">'+title+'</span><span class="news-meta"><i class="fa-regular fa-clock"></i> '+dt+'</span></span></a>';
+        }
+        if(html){newsGrid.innerHTML=html}else{newsSec.style.display='none'}
+        if (w.techitOptimizeLinks) w.techitOptimizeLinks();
+      }catch(err){newsSec.style.display='none'}
+    };
+    var ns=d.createElement('script');
+    ns.src='/feeds/posts/default?alt=json-in-script&max-results=8&callback=techitNews';
+    ns.onerror=function(){newsSec.style.display='none'};
+    d.body.appendChild(ns);
   }
 
   // Cookie consent

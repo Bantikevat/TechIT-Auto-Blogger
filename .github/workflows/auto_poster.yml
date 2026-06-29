@@ -2,8 +2,9 @@ name: TechIT Auto Blog Poster
 
 on:
   schedule:
-    # Run everyday at 04:00 AM UTC (which is 9:30 AM IST)
-    - cron: '0 4 * * *'
+    # Do baar roz post — posts spread karne se SEO behtar (burst se accha)
+    - cron: '0 4 * * *'    # 09:30 AM IST
+    - cron: '30 12 * * *'  # 06:00 PM IST
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
 jobs:
@@ -33,7 +34,17 @@ jobs:
     - name: Run Auto-Poster Script
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        PUBLISH_LIVE: 'false' # Set to 'true' in your GitHub Secrets/Variables if you want posts to go Live instantly (default is Draft)
+        # 'true' = posts seedhe LIVE; 'false' = Draft (safe). GitHub Secrets/Variables se set karein.
+        PUBLISH_LIVE: ${{ vars.PUBLISH_LIVE || 'false' }}
+        # Ek run mein kitne posts banane hain (default 1). vars.POSTS_PER_RUN se badlein.
+        POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '1' }}
+        # Telegram auto-share + failure alerts (optional — na ho to skip ho jata hai)
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        # IndexNow key (optional override) — default code mein hai
+        INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        # Optional: ImgBB free API key se banner instant CDN par host hoti hai (na ho to repo me save)
+        IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
       run: |
         python auto_post_blogger.py
 
@@ -41,6 +52,7 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add topics_to_write.txt posted_topics.json || true
-        git commit -m "Update topic queue and posted history [skip ci]" || echo "No changes to commit"
+        git add topics_to_write.txt posted_topics.json assets images || true
+        git commit -m "Update topic queue, posted history and banners [skip ci]" || echo "No changes to commit"
+        git pull --rebase || true
         git push || echo "Push failed (maybe no changes)"
