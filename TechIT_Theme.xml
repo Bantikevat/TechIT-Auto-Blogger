@@ -716,8 +716,12 @@ html {
   /* Safety net: mobile par koi bhi post element overflow/clip na ho ("kata hua" fix) */
   .single{overflow:visible}
   .post-hero{border-radius:var(--radius-lg) var(--radius-lg) 0 0;overflow:hidden}
-  #postBody,#postBody *{max-width:100% !important}
+  #postBody *{max-width:100% !important;box-sizing:border-box}
+  #postBody p,#postBody li,#postBody h1,#postBody h2,#postBody h3,#postBody h4,#postBody h5,
+  #postBody a,#postBody span,#postBody strong,#postBody td,#postBody div{overflow-wrap:break-word !important;word-break:break-word}
   #postBody pre{overflow-x:auto;white-space:pre}
+  #postBody pre code{white-space:inherit;word-break:normal}
+  #postBody :not(pre) > code{white-space:normal;word-break:break-word}
   #postBody img{height:auto}
 
   /* Homepage Hero Mobile Optimization */
