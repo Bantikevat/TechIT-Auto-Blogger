@@ -516,6 +516,14 @@ html {
   padding: 0;
   border: 0;
 }
+/* JS-added scroll wrapper around code blocks (guarantees horizontal scroll on mobile) */
+.pre-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 24px 0;
+}
+.pre-scroll pre { margin: 0 !important; }
 .post-content table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
 .post-content th,.post-content td{border:1px solid var(--line);padding:13px 16px;text-align:left}
 .post-content th{background:var(--navy);color:#fff;font-family:var(--font-head)}
@@ -4595,6 +4603,26 @@ html[data-theme='dark'] .p-card:hover {
             iframe.parentNode.insertBefore(wrapper, iframe);
             wrapper.appendChild(iframe);
           }
+        }
+      });
+
+      // 3. Wrap code blocks (pre) in a scroll container so long code scrolls
+      //    horizontally on mobile instead of getting cut. Force inline styles
+      //    too, so it works even if cached/old CSS is served.
+      var pres = body.querySelectorAll('pre');
+      pres.forEach(function(pre) {
+        pre.style.maxWidth = '100%';
+        pre.style.overflowX = 'auto';
+        pre.style.whiteSpace = 'pre';
+        pre.style.webkitOverflowScrolling = 'touch';
+        if (!pre.parentNode.classList.contains('pre-scroll')) {
+          var wrapper = d.createElement('div');
+          wrapper.className = 'pre-scroll';
+          wrapper.style.maxWidth = '100%';
+          wrapper.style.overflowX = 'auto';
+          wrapper.style.webkitOverflowScrolling = 'touch';
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
         }
       });
     }
