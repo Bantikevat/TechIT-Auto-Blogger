@@ -13,6 +13,9 @@ __pycache__/
 blogger_credentials.json
 client_secrets.json
 gemini_api_key.txt
+google_indexing_sa.json
+*-poster-*.json
+*.iam.gserviceaccount.com.json
 
 # Temporary / setup outputs
 setup_output.txt
