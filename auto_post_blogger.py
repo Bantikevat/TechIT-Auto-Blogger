@@ -28,9 +28,9 @@ CREDENTIALS_FILE = "blogger_credentials.json"
 GEMINI_KEY_FILE = "gemini_api_key.txt"
 QUEUE_FILE = "topics_to_write.txt"
 
-# IndexNow key — host this exact string as a Blogger Page at /p/<key>.html for verification.
-# Override anytime with the INDEXNOW_KEY env var / GitHub Secret.
-INDEXNOW_KEY_DEFAULT = "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6"
+# IndexNow key — generated in Bing Webmaster Tools (site already verified there, so no
+# key file hosting needed). Override anytime with the INDEXNOW_KEY env var / GitHub Secret.
+INDEXNOW_KEY_DEFAULT = "0db540fa14b34f7181150950ea7bbef9"
 
 # Banner image generation — GitHub repo (used for CDN-hosted banners when ImgBB is not configured)
 GITHUB_REPO = "Bantikevat/TechIT-Auto-Blogger"
@@ -551,10 +551,10 @@ def submit_to_indexnow(post_url):
         return
     indexnow_key = os.environ.get("INDEXNOW_KEY", INDEXNOW_KEY_DEFAULT)
     host = "itinfohubs.blogspot.com"
+    # No keyLocation needed — key is verified via Bing Webmaster Tools for this site.
     payload = {
         "host": host,
         "key": indexnow_key,
-        "keyLocation": f"https://{host}/p/{indexnow_key}.html",
         "urlList": [post_url, f"https://{host}/sitemap.xml"]
     }
     # Bing IndexNow endpoint (shared with Yandex/DuckDuckGo via the IndexNow protocol)
