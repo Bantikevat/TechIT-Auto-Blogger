@@ -3149,7 +3149,7 @@ html[data-theme='dark'] .p-card:hover {
   // Related Posts (label feed)
   var rw=d.getElementById('relatedWrap');
   if(rw){
-    var lbl=rw.getAttribute('data-label'),home=(rw.getAttribute('data-home')||'/').replace(/\/$/,''),cur=rw.getAttribute('data-current');
+    var lbl=rw.getAttribute('data-label'),home=(rw.getAttribute('data-home')||'/').split('?')[0].split('#')[0].replace(/\/$/,''),cur=rw.getAttribute('data-current');
     var grid=d.getElementById('relatedGrid'),ld=d.getElementById('relLoading');
     w.techitRelated=function(json){
       try{
@@ -4531,22 +4531,22 @@ html[data-theme='dark'] .p-card:hover {
       js.src = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js';
       js.defer = true;
       js.onload = function() {
-        // 4. Load required languages dynamically
+        // 4. Load languages SEQUENTIALLY in dependency order (javascript needs clike, jsx needs javascript).
+        //    Parallel loading randomly breaks dependencies -> "Cannot read properties of undefined" errors.
         var langs = ['markup', 'css', 'clike', 'javascript', 'jsx'];
-        var loadedCount = 0;
-        
-        langs.forEach(function(lang) {
+        var i = 0;
+        function loadNext() {
+          if (i >= langs.length) {
+            if (w.Prism) { w.Prism.highlightAll(); }
+            return;
+          }
           var s = d.createElement('script');
-          s.src = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-' + lang + '.min.js';
-          s.defer = true;
-          s.onload = function() {
-            loadedCount++;
-            if (loadedCount === langs.length && w.Prism) {
-              w.Prism.highlightAll();
-            }
-          };
+          s.src = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-' + langs[i] + '.min.js';
+          s.onload = function() { i++; loadNext(); };
+          s.onerror = function() { i++; loadNext(); };  // skip failed lang, keep going
           d.body.appendChild(s);
-        });
+        }
+        loadNext();
       };
       d.body.appendChild(js);
     }
