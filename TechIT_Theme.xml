@@ -331,6 +331,11 @@ html[data-theme='dark'] .lang-dropdown{background:rgba(13,27,42,.95) !important}
 /* ----------------------------- 8. SECTION HEAD ------------------------- */
 .content-area{padding:34px 0 30px}
 .layout-grid{display:grid;grid-template-columns:1fr 330px;gap:36px;align-items:start}
+/* CRITICAL: grid/flex items default to min-width:auto and refuse to shrink below
+   content size — a long code line then widens the whole column instead of letting
+   the code block scroll. min-width:0 lets columns shrink so pre overflow-x works. */
+.layout-grid > *{min-width:0}
+.single,.single-inner,.post-content,#postBody{min-width:0}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 24px;gap:14px}
 .sec-title{display:flex;align-items:center;gap:12px;font-size:23px;position:relative}
 .sec-title .bar{width:6px;height:26px;border-radius:5px;background:var(--grad)}
