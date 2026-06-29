@@ -11,6 +11,7 @@ import time
 import re
 
 import social_share  # multi-platform auto-share (Twitter/X, Facebook, Pinterest)
+import cross_post     # Dev.to / Hashnode cross-post for backlinks
 
 try:
     from google.oauth2.credentials import Credentials
@@ -903,6 +904,13 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
         shared = social_share.share_all(clean_title, post_url, category, seo_desc, image_url)
         if shared:
             notify_telegram(f"📣 <b>{clean_title}</b>\nShare hua: {', '.join(shared)}", silent=True)
+        # Cross-post to Dev.to / Hashnode for backlinks (gated on tokens)
+        try:
+            xp = cross_post.cross_post_all(clean_title, content_html, post_url, category)
+            if xp:
+                notify_telegram(f"🔗 <b>{clean_title}</b>\nCross-post (backlinks): {', '.join(xp)}", silent=True)
+        except Exception as ex:
+            print(f"[WARNING] Cross-post error: {ex}")
     else:
         # Draft — sirf notify (URL public nahi hota)
         notify_telegram(f"📝 <b>TechIT</b>: Naya DRAFT ready — <b>{title}</b>\nBlogger dashboard se review karke live karein.", silent=True)
