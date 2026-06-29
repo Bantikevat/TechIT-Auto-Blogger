@@ -713,7 +713,13 @@ html {
   .topbar .wrap{justify-content:center}
   .author-box{flex-direction:column;text-align:center}
   .post-content{font-size:16px;word-wrap:break-word;word-break:break-word}
-  
+  /* Safety net: mobile par koi bhi post element overflow/clip na ho ("kata hua" fix) */
+  .single{overflow:visible}
+  .post-hero{border-radius:var(--radius-lg) var(--radius-lg) 0 0;overflow:hidden}
+  #postBody,#postBody *{max-width:100% !important}
+  #postBody pre{overflow-x:auto;white-space:pre}
+  #postBody img{height:auto}
+
   /* Homepage Hero Mobile Optimization */
   .hero{padding:48px 0;text-align:center}
   .hero h1{font-size:28px;margin-bottom:14px}
