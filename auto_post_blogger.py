@@ -150,7 +150,59 @@ def normalize_title(title):
     t = re.sub(r'[^a-z0-9]', '', t)
     return t.strip()
 
+def refill_topic_queue(gemini_key, posted_topics, count=10):
+    """Queue low ho to Gemini se naye low-competition topics generate karke append karo — pipeline kabhi na ruke."""
+    existing = set()
+    if os.path.exists(QUEUE_FILE):
+        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                t = line.strip()
+                if t and not t.startswith("#"):
+                    existing.add(t.lower())
+    for t in posted_topics:
+        existing.add(str(t).lower())
+
+    prompt = f"""You are an SEO expert for a HINDI programming blog (audience: beginner Indian developers, Hinglish search).
+Give {count + 6} fresh, LOW-COMPETITION, long-tail blog post TITLE ideas about MERN stack (MongoDB, Express, React, Node.js), Next.js, JavaScript, AI tools, ya common coding errors aur unke solutions.
+RULES:
+- Hinglish (Roman Hindi) question style: "kya hai", "kaise kare", "kaise banaye", "error solution", "difference".
+- Technical terms English me (React, useState, MongoDB, async), framing Hinglish me. Specific aur long-tail (5-9 words).
+- Broad high-competition titles avoid karo (jaise "React Hooks Explained").
+- In already-written topics se BILKUL alag: {list(posted_topics)[:40]}
+Output ONLY plain text — ek line me ek title, numbering/bullets/extra text ke bina."""
+    out = call_gemini(gemini_key, prompt)
+    if not out:
+        print("[WARNING] Topic refill: Gemini se response nahi mila.")
+        return 0
+    new = []
+    for line in out.splitlines():
+        t = re.sub(r'^[\s\-\*\d\.\)]+', '', line).strip().strip('"').strip("`")
+        if t and t.lower() not in existing and len(t) > 8:
+            existing.add(t.lower())
+            new.append(t)
+        if len(new) >= count:
+            break
+    if new:
+        with open(QUEUE_FILE, "a", encoding="utf-8") as f:
+            for t in new:
+                f.write(t + "\n")
+        print(f"[OK] Topic queue AUTO-REFILL: {len(new)} naye topics add hue (pipeline safe).")
+    return len(new)
+
+
 def select_topic(gemini_key, posted_topics):
+    # 0. AUTO-REFILL: queue low ho to pehle bhar do (pipeline kabhi na ruke)
+    try:
+        qcount = 0
+        if os.path.exists(QUEUE_FILE):
+            with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+                qcount = len([l for l in f if l.strip() and not l.strip().startswith("#")])
+        if qcount < 5:
+            print(f"[INFO] Topic queue low hai ({qcount} bache). Gemini se auto-refill ho raha hai...")
+            refill_topic_queue(gemini_key, posted_topics, count=10)
+    except Exception as e:
+        print(f"[WARNING] Auto-refill skip: {e}")
+
     # 1. Try reading from custom topic queue file
     if os.path.exists(QUEUE_FILE):
         try:

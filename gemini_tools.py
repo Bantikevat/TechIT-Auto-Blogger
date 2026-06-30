@@ -6,11 +6,13 @@ By/for Banti Kevat (TechIT — Tech in Hindi)
   1. topics    -> trending blog post ideas generate karke topics_to_write.txt me add
   2. captions  -> ek post ke liye platform-wise social media captions
   3. faq       -> ek post ke liye 5 FAQ (theme ke faq-q/faq-a HTML format me)
+  4. rewrite   -> kisi reference post se 100% ORIGINAL behtar post (SEO-ready HTML)
 
 Usage:
   python gemini_tools.py topics [N]                         (default N=10)
   python gemini_tools.py captions "Post Title" "post-url"
   python gemini_tools.py faq "Post Title"
+  python gemini_tools.py rewrite "reference.txt"            (reference me post copy-paste karo)
 
 API key: GEMINI_API_KEY env var ya gemini_api_key.txt file se.
 """
@@ -165,6 +167,86 @@ def cmd_faq(title):
     print("--- Upar ka HTML copy karke post ke HTML view me paste karo. Theme auto accordion + FAQ schema bana dega. ---")
 
 
+def cmd_rewrite(ref_file):
+    if not os.path.exists(ref_file):
+        print(f"[ERROR] Reference file nahi mili: {ref_file}")
+        print('Pehle ek file banao (jaise reference.txt) aur usme woh post copy-paste karo jisse inspiration leni hai.')
+        return
+    with open(ref_file, "r", encoding="utf-8") as f:
+        reference = f.read().strip()
+    if len(reference) < 50:
+        print("[ERROR] Reference content bahut chhota hai. Poora article paste karo.")
+        return
+
+    instructions = """Tum TechIT (Tech in Hindi) ke senior content writer ho.
+Neeche ek REFERENCE article diya hai (kisi aur blog se). Isse SIRF topic aur key points samajhne ke liye use karo.
+Phir ek BILKUL NAYA, 100% ORIGINAL, usse ZYADA detailed aur behtar blog post likho.
+REFERENCE ko HUBAHU COPY mat karo — apne shabdon mein, apne examples aur apne fresh code ke saath likho. (Plagiarism / copyright bilkul nahi.)
+
+Language: explanation clean Devanagari Hindi (हिंदी लिपि) mein + technical terms English mein (React, function, error, API, component, server). Hard/shuddh Hindi mat use karo.
+Tone: 50 saal ke experienced senior developer jaisa, dost ko samjhate hue ("दोस्तों", "चलिए शुरू करते हैं").
+
+MUST follow (first-page Google SEO formula):
+- HOOK INTRO: relatable problem ya sawaal se shuru karo (boring definition se nahi).
+- QUICK ANSWER BOX intro ke turant baad (40-60 words, main keyword ke saath):
+  <div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> [40-60 word seedha jawab]</div>
+- <h2> headings ko asli search questions ki tarah likho ("X क्या है?", "X कैसे काम करता है?", "X vs Y में difference?").
+- Jahan possible ho ek clean comparison <table> do.
+- "Kaise karein" parts ko numbered <ol><li> steps mein.
+- Production-ready, complete code <pre><code>...</code></pre> mein (truncate mat karo).
+- Common errors / edge cases / best practices discuss karo.
+- Ek (sirf ek) external authority link official docs ka do, rel="noopener" target="_blank" ke saath.
+- 5 FAQ <details><summary> accordion + neeche JSON-LD FAQPage schema (same 5 Q&A).
+- Length: 1500-2500 words, comprehensive, scannable (chhote paragraphs, bold, bullets).
+
+Output format BILKUL aise (aur kuch nahi):
+TITLE: [SEO-friendly catchy title, main keyword ke saath, Hinglish]
+---
+[raw HTML body — koi markdown nahi, koi triple-backtick nahi, seedha HTML]
+"""
+    prompt = instructions + "\n\n=== REFERENCE ARTICLE (sirf inspiration ke liye — copy mat karo) ===\n" + reference[:8000]
+
+    print("[INFO] Gemini se original better post likhwaa raha hoon... (thoda time lagega)")
+    out = ask_gemini(prompt, temperature=0.8)
+    if not out:
+        print("[ERROR] Gemini se response nahi mila.")
+        return
+
+    # TITLE aur body alag karo
+    title = ""
+    body = out
+    if out.upper().startswith("TITLE:"):
+        nl = out.find("\n")
+        title = out[6:nl].strip() if nl != -1 else ""
+        body = out[nl + 1:].lstrip() if nl != -1 else out
+        if body.startswith("---"):
+            body = body[3:].lstrip()
+    # code fences clean
+    if body.startswith("```html"):
+        body = body[7:]
+    elif body.startswith("```"):
+        body = body[3:]
+    if body.rstrip().endswith("```"):
+        body = body.rstrip()[:-3]
+    body = body.strip()
+
+    out_file = "rewritten_post.html"
+    with open(out_file, "w", encoding="utf-8") as f:
+        f.write(body)
+
+    print("\n" + "=" * 44)
+    print("✅ ORIGINAL (better) post taiyaar!")
+    print("=" * 44)
+    if title:
+        print(f"\n📌 SUGGESTED TITLE:\n   {title}")
+    print(f"\n📄 HTML saved: {out_file}  (~{len(body.split())} words)")
+    print("\n👉 Steps:")
+    print("   1. Blogger > New Post > upar right '<>' (HTML view) on karo")
+    print(f"   2. '{out_file}' kholo, poora content copy karo, HTML view me paste karo")
+    print("   3. Title (upar) + labels lagao > Preview > Publish")
+    print("\n⚠️  Publish se pehle ek baar padh lena — sab sahi hai na (quality check).")
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -183,6 +265,12 @@ def main():
             print('Usage: python gemini_tools.py faq "Post Title"')
             return
         cmd_faq(sys.argv[2])
+    elif cmd == "rewrite":
+        if len(sys.argv) < 3:
+            print('Usage: python gemini_tools.py rewrite "reference.txt"')
+            print('(Pehle reference.txt me woh post copy-paste karo jisse inspiration leni hai)')
+            return
+        cmd_rewrite(sys.argv[2])
     else:
         print(__doc__)
 
