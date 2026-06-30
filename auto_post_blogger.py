@@ -416,7 +416,11 @@ def generate_banner(gemini_key, topic, category):
         print(f"[WARNING] Banner compose fail ({e}). Plain AI image use ho rahi hai.")
         return bg_url  # fallback: direct pollinations background (varied, clean, no garbled text)
 
+    # ImgBB key: pehle env var (GitHub Actions secret), warna local file (gitignored)
     imgbb_key = os.environ.get("IMGBB_API_KEY", "").strip()
+    if not imgbb_key and os.path.exists("imgbb_api_key.txt"):
+        with open("imgbb_api_key.txt", "r", encoding="utf-8") as f:
+            imgbb_key = f.read().strip()
     if imgbb_key:
         url = upload_to_imgbb(png, imgbb_key)
         if url:
@@ -460,7 +464,18 @@ def generate_article_content(gemini_key, topic, category):
     - Provide complete, production-ready, and fully-functional coding examples. Do NOT use comments like "// write code here" or truncate/summarize the code. Write every line of the code clearly.
     - Discuss edge cases, common errors developers face when using this, and how to debug/solve them.
     - Include best practices for performance and scalability.
-    
+
+    FIRST-PAGE GOOGLE RANKING (MOST IMPORTANT — yeh blog ko #1 rank karwata hai):
+    - HOOK INTRO: Pehle 2-3 lines mein ek relatable problem ya sawaal se start karo (jaise "क्या आपका React app बार-बार re-render हो रहा है?"). Boring definition se shuru मत karो.
+    - QUICK ANSWER BOX: Intro ke turant baad ek highlighted box do jo main sawaal ka seedha jawab sirf 40-60 words mein de (Google featured snippet / position #0 ke liye). Is exact format mein:
+      <div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> [40-60 word direct answer jisme main keyword ho]</div>
+    - PRIMARY KEYWORD: Main keyword (topic) ko first 100 words mein zaroor use karo, aur poore article mein naturally 4-6 baar (keyword stuffing mat karo).
+    - HEADINGS AS QUESTIONS: <h2> headings ko asli search questions ki tarah likho jo log Google par type karte hain (jaise "[Topic] क्या है?", "[Topic] कैसे काम करता है?", "[Topic] का use कब करें?", "[Topic] vs [Alternative] में difference?").
+    - COMPARISON TABLE: Jahan possible ho, ek clean HTML <table> do (A vs B ya features) — Google tables ko featured snippet mein dikhata hai.
+    - STEP-BY-STEP: "Kaise karein" wale parts ko numbered <ol><li> steps mein do.
+    - AUTHORITY LINK: Sirf ek external link official documentation ka do (React/Node/MDN docs jaisa) rel="noopener" aur target="_blank" ke saath — E-E-A-T trust signal ke liye.
+    - SCANNABLE: Chhote paragraphs (2-3 lines max), bullet points, bold important words — mobile par easily padha jaaye, bounce rate kam ho.
+
     SEO & Internal Linking Requirements:
     - Automatically create internal links pointing to relevant categories on our blog by wrapping appropriate keywords in the text with <a> HTML tags.
     - Use the following specific links for labels/categories:
@@ -481,7 +496,7 @@ def generate_article_content(gemini_key, topic, category):
     - Use clean HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a>.
     - Format code blocks using: <pre><code>[YOUR CODE HERE]</code></pre>
     - Add a key takeaways or summary block at the end (write in a friendly way, e.g. "Toh dosto, humne aaj seekha...").
-    - **FAQ Accordion Section:** Add an FAQ section with 3 detailed questions and answers using the HTML <details> and <summary> tags. Format it like this:
+    - **FAQ Accordion Section:** Add an FAQ section with 5 detailed questions and answers (real "People Also Ask" style questions that users actually search on Google) using the HTML <details> and <summary> tags. Format it like this:
       <div class="faq-accordion">
         <h3>Frequently Asked Questions (FAQs)</h3>
         <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
@@ -490,7 +505,7 @@ def generate_article_content(gemini_key, topic, category):
         </details>
       </div>
       
-    - **Google FAQ Schema Markup:** In addition to the visible accordion, include a JSON-LD FAQ Schema script tag at the bottom of the HTML, containing the same 3 questions and answers. Format:
+    - **Google FAQ Schema Markup:** In addition to the visible accordion, include a JSON-LD FAQ Schema script tag at the bottom of the HTML, containing the same 5 questions and answers. Format:
       <script type="application/ld+json">
       {{
         "@context": "https://schema.org",

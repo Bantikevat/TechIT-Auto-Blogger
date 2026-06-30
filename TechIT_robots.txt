@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /search
+Allow: /
+
+Sitemap: https://itinfohubs.blogspot.com/sitemap.xml
+Sitemap: https://itinfohubs.blogspot.com/sitemap-pages.xml

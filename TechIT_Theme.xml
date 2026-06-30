@@ -54,7 +54,12 @@
     <b:if cond='data:view.isSearch'>
       <meta expr:content='&quot;Search results for &quot; + data:view.search.query + &quot; on TechIT — Tech in Hindi.&quot;' name='description'/>
     <b:else/>
-      <meta content='TechIT — Tech in Hindi. React, JavaScript, AI Tools, Coding tutorials aur IT education simple Hindi mein. By Banti Kevat, Ujjain.' name='description'/>
+      <b:if cond='data:view.isPost or data:view.isPage'>
+        <!-- AUTO meta description: title-based (server) — JS isse content-snippet se upgrade karta hai -->
+        <meta expr:content='data:view.title + &quot; — TechIT par detail mein padho, simple Hindi mein. React, MERN, coding aur tech tutorials step-by-step.&quot;' data-auto='1' id='metaDesc' name='description'/>
+      <b:else/>
+        <meta content='TechIT — Tech in Hindi. React, JavaScript, AI Tools, Coding tutorials aur IT education simple Hindi mein. By Banti Kevat, Ujjain.' name='description'/>
+      </b:if>
     </b:if>
   </b:if>
 </b:if>
@@ -887,6 +892,16 @@ details[open] .faq-q .fq-ic{transform:rotate(45deg);background:var(--grad);color
   .news-grid::-webkit-scrollbar{display:none}
   .news-card,.news-skel{flex:0 0 78%;max-width:260px;scroll-snap-align:start}
 }
+
+/* ----------------------------- 25b. CODE HIGHLIGHT + COPY -------------- */
+.post-content pre{position:relative}
+.post-content pre.has-copy{padding-top:48px}
+.code-copy{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.08);color:#cbd5e1;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:6px 13px;font-size:12px;font-weight:600;font-family:var(--font);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.2s;z-index:3}
+.code-copy:hover{background:var(--grad);color:#fff;border-color:transparent}
+.code-copy.copied{background:#22c55e;color:#fff;border-color:transparent}
+.code-lang{position:absolute;top:14px;left:18px;font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5eead4;font-family:var(--font-mono);z-index:2}
+/* hljs tokens use karo par background brand-navy hi rahe */
+.hljs{background:transparent!important;padding:0!important;color:#e2e8f0}
 
 /* ----------------------------- 26. RELATED POSTS ----------------------- */
 #relatedWrap{margin-top:44px}
@@ -2211,7 +2226,7 @@ html[data-theme='dark'] .p-card:hover {
               <li><a href='/p/about-us.html'><i class='fa-solid fa-circle-info'></i> About Us</a></li>
               <li><a href='/p/contact-us.html'><i class='fa-solid fa-envelope'></i> Contact Us</a></li>
               <li><a href='/p/disclaimer.html'><i class='fa-solid fa-shield-halved'></i> Disclaimer</a></li>
-              <li><a href='/p/site-map.html'><i class='fa-solid fa-sitemap'></i> Site Map</a></li>
+              <li><a href='/p/blog-page.html'><i class='fa-solid fa-sitemap'></i> Site Map</a></li>
               <li><a href='/p/privacy-policy-techit.html'><i class='fa-solid fa-user-shield'></i> Privacy Policy</a></li>
             </ul>
           </li>
@@ -2953,7 +2968,7 @@ html[data-theme='dark'] .p-card:hover {
             <li><a href='/p/about-us.html'>About Us</a></li>
             <li><a href='/p/contact-us.html'>Contact Us</a></li>
             <li><a href='/p/disclaimer.html'>Disclaimer</a></li>
-            <li><a href='/p/site-map.html'>Site Map</a></li>
+            <li><a href='/p/blog-page.html'>Site Map</a></li>
             <li><a href='/p/privacy-policy-techit.html'>Privacy Policy</a></li>
           </ul>
         </div>
@@ -2978,7 +2993,7 @@ html[data-theme='dark'] .p-card:hover {
       <span class='fb-links'>
         <a href='/p/privacy-policy-techit.html'>Privacy</a>
         <a href='/p/disclaimer.html'>Disclaimer</a>
-        <a href='/p/site-map.html'>Sitemap</a>
+        <a href='/p/blog-page.html'>Sitemap</a>
       </span>
     </div>
   </div>
@@ -3154,6 +3169,55 @@ html[data-theme='dark'] .p-card:hover {
       if(!img.getAttribute('alt')||img.getAttribute('alt').trim()===''){img.setAttribute('alt',ptitle+(n>0?(' '+(n+1)):''))}
       if(!img.getAttribute('loading')){img.setAttribute('loading','lazy')}
     });
+
+    // AUTO meta description — post ke content se 155-char snippet (jab manual description na ho)
+    var md=d.getElementById('metaDesc');
+    if(md&&md.getAttribute('data-auto')){
+      var raw=(body.innerText||body.textContent||'').replace(/\s+/g,' ').trim();
+      if(raw.length>60){
+        var desc=raw;
+        if(desc.length>160){var cut=desc.slice(0,157);var sp=cut.lastIndexOf(' ');desc=(sp>100?cut.slice(0,sp):cut)+'…';}
+        md.setAttribute('content',desc);
+        var ogd=d.querySelector('meta[property="og:description"]'); if(ogd)ogd.setAttribute('content',desc);
+        var twd=d.querySelector('meta[name="twitter:description"]'); if(twd)twd.setAttribute('content',desc);
+      }
+    }
+
+    // CODE syntax highlighting + COPY button (sirf jab post me code ho)
+    var pres=body.querySelectorAll('pre');
+    if(pres.length){
+      var hcss=d.createElement('link');
+      hcss.rel='stylesheet';
+      hcss.href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css';
+      d.head.appendChild(hcss);
+      var hjs=d.createElement('script');
+      hjs.src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+      hjs.onload=function(){
+        pres.forEach(function(pre){
+          var code=pre.querySelector('code');
+          if(!code){ code=d.createElement('code'); code.textContent=pre.textContent; pre.textContent=''; pre.appendChild(code); }
+          try{ window.hljs.highlightElement(code); }catch(e){}
+          // language label
+          var lang=(code.className.match(/language-(\w+)/)||[])[1];
+          if(lang){ var lt=d.createElement('span'); lt.className='code-lang'; lt.textContent=lang; pre.appendChild(lt); }
+          // copy button
+          if(!pre.querySelector('.code-copy')){
+            pre.classList.add('has-copy');
+            var btn=d.createElement('button');
+            btn.className='code-copy'; btn.type='button';
+            btn.innerHTML='<i class="fa-regular fa-copy"></i> Copy';
+            btn.addEventListener('click',function(){
+              var txt=code.innerText||code.textContent;
+              var done=function(){ btn.innerHTML='<i class="fa-solid fa-check"></i> Copied!'; btn.classList.add('copied'); setTimeout(function(){ btn.innerHTML='<i class="fa-regular fa-copy"></i> Copy'; btn.classList.remove('copied'); },2000); };
+              if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(function(){}); }
+              else { var ta=d.createElement('textarea'); ta.value=txt; d.body.appendChild(ta); ta.select(); try{d.execCommand('copy');}catch(e){} d.body.removeChild(ta); done(); }
+            });
+            pre.appendChild(btn);
+          }
+        });
+      };
+      d.head.appendChild(hjs);
+    }
 
     var fqs=body.querySelectorAll('.faq-q');
     if(fqs.length){
@@ -3684,6 +3748,25 @@ html[data-theme='dark'] .p-card:hover {
           var priceUsd = parseFloat(res.data.amount);
           var priceInr = priceUsd * usdToInr;
           tickerMessages.push("🪙 ETH: $" + Math.round(priceUsd).toLocaleString() + " (₹" + Math.round(priceInr).toLocaleString() + ")");
+        }
+      }).catch(function() {});
+
+    // Live Trending Posts (latest 5 from blog feed — FRONT me, turant dikhao)
+    fetch('/feeds/posts/default?alt=json&max-results=5')
+      .then(function(r) { return r.json(); })
+      .then(function(json) {
+        var ents = (json.feed && json.feed.entry) || [];
+        var posts = [];
+        for (var i = 0; i < ents.length; i++) {
+          var e = ents[i], url = '';
+          for (var k = 0; k < e.link.length; k++) { if (e.link[k].rel === 'alternate') { url = e.link[k].href; } }
+          var title = e.title.$t;
+          posts.push('🔥 Trending: ' + (url ? ('<a href="' + url + '" style="color:inherit;text-decoration:none;">' + title + '</a>') : title));
+        }
+        if (posts.length) {
+          tickerMessages = posts.concat(tickerMessages); // posts ko sabse aage daalo
+          currentTickerIdx = 0;
+          topbarTicker.innerHTML = tickerMessages[0];     // page load hote hi pehla post dikhao
         }
       }).catch(function() {});
 
