@@ -2305,25 +2305,29 @@ html[data-theme='dark'] .p-card:hover {
 <section class='cat-strip'>
   <div class='wrap'>
     <div class='cat-grid'>
-      <a class='cat-card reveal' href='/search/label/IT%20EDUCATION'>
-        <div class='cat-ic'><i class='fa-solid fa-graduation-cap'></i></div>
-        <b>IT Education</b><small>Learn the basics</small>
+      <a class='cat-card reveal' href='/search/label/ReactJS'>
+        <div class='cat-ic'><i class='fa-brands fa-react'></i></div>
+        <b>React JS</b><small>Components &amp; hooks</small>
       </a>
-      <a class='cat-card reveal' href='/search/label/Coding%20info'>
-        <div class='cat-ic'><i class='fa-solid fa-code'></i></div>
-        <b>Coding Info</b><small>Programming guides</small>
+      <a class='cat-card reveal' href='/search/label/NodeJS'>
+        <div class='cat-ic'><i class='fa-brands fa-node-js'></i></div>
+        <b>Node JS</b><small>Backend &amp; APIs</small>
       </a>
-      <a class='cat-card reveal' href='/search/label/AI%20TOOL'>
-        <div class='cat-ic'><i class='fa-solid fa-robot'></i></div>
-        <b>AI Tools</b><small>Smart tools</small>
+      <a class='cat-card reveal' href='/search/label/NextJS'>
+        <div class='cat-ic'><i class='fa-solid fa-angles-right'></i></div>
+        <b>Next.js</b><small>Full-stack React</small>
       </a>
-      <a class='cat-card reveal' href='/search/label/TECH%20BLOGs'>
-        <div class='cat-ic'><i class='fa-solid fa-newspaper'></i></div>
-        <b>Tech Blogs</b><small>Latest news</small>
+      <a class='cat-card reveal' href='/search/label/Error%20Solving'>
+        <div class='cat-ic'><i class='fa-solid fa-bug-slash'></i></div>
+        <b>Error Solving</b><small>Fix coding errors</small>
       </a>
-      <a class='cat-card reveal' href='/search/label/TV%27s'>
-        <div class='cat-ic'><i class='fa-solid fa-tv'></i></div>
-        <b>TV&#39;s</b><small>Reviews &amp; tips</small>
+      <a class='cat-card reveal' href='/search/label/MERN%20Stack'>
+        <div class='cat-ic'><i class='fa-solid fa-layer-group'></i></div>
+        <b>MERN Stack</b><small>Mongo Express React Node</small>
+      </a>
+      <a class='cat-card reveal' href='/search/label/Tech%20News'>
+        <div class='cat-ic'><i class='fa-solid fa-bolt'></i></div>
+        <b>Tech News</b><small>Latest updates</small>
       </a>
     </div>
   </div>
