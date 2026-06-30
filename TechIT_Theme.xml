@@ -2172,13 +2172,6 @@ html[data-theme='dark'] .p-card:hover {
         <ul>
           <li><a expr:href='data:blog.homepageUrl'><i class='fa-solid fa-house'></i> Home</a></li>
           <li class='has-sub'>
-            <a href='/search/label/IT%20EDUCATION'>IT Education <i class='fa-solid fa-chevron-down sub-ic'></i></a>
-            <ul class='submenu'>
-              <li><a href='/search/label/IT%20EDUCATION'><i class='fa-solid fa-graduation-cap'></i> All IT Education</a></li>
-              <li><a href='/search/label/Coding%20info'><i class='fa-solid fa-code'></i> Coding Info</a></li>
-            </ul>
-          </li>
-          <li class='has-sub'>
             <a href='/search/label/MERN%20Stack'>MERN Stack <i class='fa-solid fa-chevron-down sub-ic'></i></a>
             <ul class='submenu'>
               <li><a href='/search/label/MERN%20Stack'><i class='fa-solid fa-layer-group'></i> MERN Stack Home</a></li>
@@ -2202,13 +2195,6 @@ html[data-theme='dark'] .p-card:hover {
             <ul class='submenu'>
               <li><a href='/search/label/TOOLS'><i class='fa-solid fa-screwdriver-wrench'></i> All Tools</a></li>
               <li><a href='/search/label/AI%20TOOL'><i class='fa-solid fa-robot'></i> AI Tools</a></li>
-            </ul>
-          </li>
-          <li class='has-sub'>
-            <a href='/search/label/TECH%20BLOGs'>Tech Blogs <i class='fa-solid fa-chevron-down sub-ic'></i></a>
-            <ul class='submenu'>
-              <li><a href='/search/label/TECH%20BLOGs'><i class='fa-solid fa-newspaper'></i> All Blogs</a></li>
-              <li><a href='/search/label/TV%27s'><i class='fa-solid fa-tv'></i> TV&#39;s</a></li>
             </ul>
           </li>
           <li class='has-sub'>
