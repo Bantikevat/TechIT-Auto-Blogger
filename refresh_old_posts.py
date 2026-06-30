@@ -112,9 +112,13 @@ def refresh_one(service, post, gemini_key):
     old_html = full.get("content", "") or ""
     labels = full.get("labels", [])
 
-    # original banner preserve karo
+    # original banner ya first image preserve karo (koi image na khoye)
     bm = re.search(r'<div class="techit-hero-banner".*?</div>\s*', old_html, re.DOTALL)
     banner = bm.group(0) if bm else ""
+    first_img = ""
+    if not banner:
+        im = re.search(r'<img[^>]+>', old_html, re.IGNORECASE)
+        first_img = im.group(0) if im else ""
 
     prompt = (
         "Tum TechIT (Tech in Hindi) ke senior editor ho. Neeche ek PURANA blog post (HTML) diya hai. "
@@ -139,9 +143,11 @@ def refresh_one(service, post, gemini_key):
         print("[WARN] Refreshed content bahut chhota — skip (safety).")
         return False
 
-    # banner wapas prepend (agar tha aur naye me nahi hai)
+    # banner ya first image wapas prepend (koi image na khoye)
     if banner and "techit-hero-banner" not in new_html:
         new_html = banner + "\n" + new_html
+    elif first_img and "<img" not in new_html.lower():
+        new_html = '<div style="text-align:center;margin-bottom:20px;">' + first_img + "</div>\n" + new_html
 
     try:
         new_html = a.fix_html_tags(new_html)
