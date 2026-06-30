@@ -2212,6 +2212,14 @@ html[data-theme='dark'] .p-card:hover {
             </ul>
           </li>
           <li class='has-sub'>
+            <a href='/search/label/Tech%20News'>Tech News <i class='fa-solid fa-chevron-down sub-ic'></i></a>
+            <ul class='submenu'>
+              <li><a href='/search/label/Tech%20News'><i class='fa-solid fa-bolt'></i> Latest News</a></li>
+              <li><a href='/search/label/AI%20News'><i class='fa-solid fa-robot'></i> AI News</a></li>
+              <li><a href='/search/label/Gadgets'><i class='fa-solid fa-mobile-screen'></i> Gadgets</a></li>
+            </ul>
+          </li>
+          <li class='has-sub'>
             <a href='#'>Pages <i class='fa-solid fa-chevron-down sub-ic'></i></a>
             <ul class='submenu'>
               <li><a href='/p/about-us.html'><i class='fa-solid fa-circle-info'></i> About Us</a></li>
