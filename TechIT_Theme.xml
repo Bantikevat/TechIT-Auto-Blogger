@@ -259,9 +259,9 @@ html[data-theme='dark'] .header-main{background:rgba(13,27,42,.82)}
 .brand .logo-text span{font-size:10.5px;letter-spacing:3px;color:var(--primary);text-transform:uppercase;font-weight:600}
 
 /* ---- NAV ---- */
-nav.main-nav>ul{display:flex;align-items:center;gap:2px}
+nav.main-nav>ul{display:flex;align-items:center;gap:0}
 nav.main-nav>ul>li{position:relative}
-nav.main-nav a{color:var(--text-soft);font-weight:600;font-size:14.5px;padding:11px 15px;border-radius:11px;display:flex;align-items:center;gap:6px;position:relative}
+nav.main-nav a{color:var(--text-soft);font-weight:600;font-size:14px;padding:10px 11px;border-radius:11px;display:flex;align-items:center;gap:5px;position:relative;white-space:nowrap}
 nav.main-nav>ul>li>a:hover{color:var(--primary);background:var(--grad-soft)}
 nav.main-nav>ul>li>a::before{content:"";position:absolute;left:50%;bottom:5px;width:0;height:2px;background:var(--grad);border-radius:2px;transform:translateX(-50%);transition:width .25s}
 nav.main-nav>ul>li:hover>a::before{width:22px}
