@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: Node.js aur Express se REST API Kaise Banayein: Step-by-Step Guide (in Hindi) (In Hindi)</title>
+    <title>Preview: MongoDB Atlas ko Node.js App se Connect Kaise Karein: Puri Jankari (in Hindi) (In Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,129 +16,141 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">Node.js aur Express use karke REST API banana seekhein. Is step-by-step Hindi guide se apna backend development career shuru karein. Aaj hi read karein!</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">Node.js app को MongoDB Atlas से connect करने का सबसे आसान तरीका जानें। इस step-by-step tutorial से database connection सेटअप करना सीखें।</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>Node.js aur Express se REST API Kaise Banayein: Step-by-Step Guide (in Hindi) (In Hindi)</h1>
-    <p><strong>Category:</strong> NodeJS</p>
+    <h1>MongoDB Atlas ko Node.js App se Connect Kaise Karein: Puri Jankari (in Hindi) (In Hindi)</h1>
+    <p><strong>Category:</strong> MongoDB</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/Q7QLwknC/c050d2f705c6.png" alt="Node.js aur Express se REST API Kaise Banayein: Step-by-Step Guide (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<h2>क्या आप भी कन्फ्यूज्ड हैं कि एक robust Backend कैसे तैयार किया जाए?</h2>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/39VGzJw9/d7ba353ee01f.png" alt="MongoDB Atlas ko Node.js App se Connect Kaise Karein: Puri Jankari (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+<h2>क्या आपका Node.js application database connection failed error की वजह से बार-बार क्रैश हो रहा है?</h2>
 
-<p>अक्सर जब हम Frontend डेवलपमेंट सीख लेते हैं, तो सबसे बड़ा सवाल यही होता है कि डेटा को परमानेंट स्टोर कैसे करें और उसे क्लाइंट तक पहुँचाएं कैसे? क्या आप चाहते हैं कि आपका एप्लीकेशन डेटाबेस के साथ बिना किसी लैग के बात करे? दोस्तों, आज हम एक ऐसी चीज के बारे में बात करेंगे जो हर <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack">MERN Stack</a> डेवलपर की नींव है।</p>
+<p>दोस्तों, अक्सर जब हम MERN Stack में अपना पहला प्रोजेक्ट शुरू करते हैं, तो सबसे बड़ी चुनौती MongoDB Atlas को अपने local development environment के साथ सही तरीके से जोड़ना होती है। क्या आपने कभी सोचा है कि Connection String बदलते ही पूरा app क्यों बैठ जाता है? या फिर क्यों production में database latency का सामना करना पड़ता है?</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> Node.js aur ExpressJS ka use karke REST API banana bahut hi simple process hai. Aapko pehle ek Express server setup karna hota hai, phir routing ke zariye GET, POST, PUT, aur DELETE methods define karne hote hain. Yeh API client (Frontend) aur <a href="https://itinfohubs.blogspot.com/search/label/MongoDB">MongoDB</a> database ke beech ek bridge ki tarah kaam karti hai.</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> MongoDB Atlas को <a href="https://itinfohubs.blogspot.com/search/label/NodeJS">NodeJS</a> app से कनेक्ट करने के लिए Mongoose library का उपयोग करें। अपने Atlas dashboard से 'Connection String' कॉपी करें, इसे environment variables (.env) में सुरक्षित रखें, और <code>mongoose.connect()</code> function का उपयोग करके app start होने से पहले कनेक्शन को establish करें।</div>
 
-<h2>Node.js aur ExpressJS ka use kab aur kyu karein?</h2>
+<h2>MongoDB Atlas क्या है और हमें इसकी ज़रूरत क्यों पड़ती है?</h2>
 
-<p>देखिए, मार्केट में बहुत सारी टेक्नोलॉजीज हैं, लेकिन <a href="https://itinfohubs.blogspot.com/search/label/NodeJS">NodeJS</a> का जलवा कुछ अलग है। यह इवेंट-ड्रिवन और नॉन-ब्लॉकिंग I/O मॉडल पर काम करता है, जिसका मतलब है कि यह एक साथ हजारों रिक्वेस्ट को हैंडल कर सकता है। जब हम इसके ऊपर <a href="https://itinfohubs.blogspot.com/search/label/ExpressJS">ExpressJS</a> की लेयर चढ़ाते हैं, तो काम बहुत आसान हो जाता है। यह एक मिनिमलिस्टिक फ्रेमवर्क है जो हमें राउटिंग, मिडलवेयर और रिस्पांस हैंडलिंग के लिए बेहतरीन टूल्स देता है।</p>
+<p>MongoDB Atlas एक cloud-based <a href="https://itinfohubs.blogspot.com/search/label/MongoDB">Database</a> as a Service (DBaaS) है। पुराने ज़माने में हमें अपने सर्वर पर MongoDB install करना पड़ता था, उसे कॉन्फ़िगर करना पड़ता था, और बैकअप की चिंता करनी पड़ती थी। Atlas हमें ये सब झंझटों से आज़ाद करता है।</p>
 
-<h3>REST API Architecture: Ek Nazar</h3>
-<p>REST (Representational State Transfer) एक आर्किटेक्चर स्टाइल है। इसका मतलब है कि हम HTTP प्रोटोकॉल का इस्तेमाल करके डेटा को एक फॉर्मेट (ज्यादातर JSON) में भेजते हैं।</p>
+<p>इसका सबसे बड़ा फायदा scalability है। जैसे ही आपका traffic बढ़ता है, Atlas बिना किसी downtime के आपके डेटा को handle कर लेता है। एक senior developer के नाते मैं आपको यही सलाह दूंगा कि development हो या production, हमेशा managed services का ही चुनाव करें।</p>
+
+<h2>MongoDB Atlas को Node.js App से connect करने के स्टेप्स</h2>
+
+<p>चलिए, बिना किसी देरी के इसे step-by-step समझते हैं। मान लीजिए हम एक <a href="https://itinfohubs.blogspot.com/search/label/ExpressJS">ExpressJS</a> सर्वर बना रहे हैं।</p>
+
+<ol>
+    <li><strong>Cluster Setup:</strong> MongoDB Atlas पर एक अकाउंट बनाएं और एक 'Shared Cluster' (जो free tier में आता है) deploy करें।</li>
+    <li><strong>Database Access:</strong> 'Database Access' tab में जाकर एक user बनाएं (username और password याद रखें)।</li>
+    <li><strong>Network Access:</strong> 'Network Access' में जाकर अपना IP address whitelist करें (या security के लिए 0.0.0.0/0 का प्रयोग करें ताकि कहीं से भी एक्सेस हो सके)।</li>
+    <li><strong>Connection String:</strong> 'Connect' बटन दबाएं, 'Connect your application' चुनें और जो URI आपको मिले, उसे कॉपी कर लें।</li>
+</ol>
+
+<h2>Node.js प्रोजेक्ट में Mongoose का सेटअप कैसे करें?</h2>
+
+<p>सबसे पहले अपने terminal में जाकर ज़रूरी packages install करें:</p>
+
+<pre><code>npm install mongoose dotenv express</code></pre>
+
+<p>अब एक <code>.env</code> फाइल बनाएं और उसमें अपनी कनेक्शन स्ट्रिंग रखें। कभी भी अपनी स्ट्रिंग को code के अंदर hard-code न करें, यह एक बहुत बड़ा security <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> हो सकता है।</p>
+
+<pre><code># .env file
+MONGO_URI=mongodb+srv://&lt;username&gt;:&lt;password&gt;@cluster0.example.mongodb.net/myDatabase?retryWrites=true&w=majority</code></pre>
+
+<h2>Connection के लिए production-ready code</h2>
+
+<p>यहाँ एक clean और robust तरीका दिया गया है, जिसे मैं अपने पिछले 50 साल के करियर (मज़ाक कर रहा हूँ, पर तजुर्बा पक्का है!) के दौरान इस्तेमाल करता आया हूँ।</p>
+
+<pre><code>// db.js
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB Connected Successfully!");
+  } catch (err) {
+    console.error("Database connection failed:", err.message);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;</code></pre>
+
+<h2>Connection Options का comparison</h2>
+
+<p>पुराने Mongoose versions में हमें बहुत सारे options पास करने पड़ते थे, लेकिन Mongoose 6+ में चीज़ें काफी आसान हो गई हैं।</p>
 
 <table>
   <tr>
-    <th>HTTP Method</th>
-    <th>Action</th>
-    <th>Purpose</th>
+    <th>Feature</th>
+    <th>Old Mongoose (v5)</th>
+    <th>New Mongoose (v6+)</th>
   </tr>
   <tr>
-    <td>GET</td>
-    <td>Read</td>
-    <td>Data fetch karne ke liye</td>
+    <td>Connection</td>
+    <td>Complex configurations</td>
+    <td>Automatic & Minimal</td>
   </tr>
   <tr>
-    <td>POST</td>
-    <td>Create</td>
-    <td>Naya data save karne ke liye</td>
+    <td>Security</td>
+    <td>Manual handling</td>
+    <td>Built-in best practices</td>
   </tr>
   <tr>
-    <td>PUT</td>
-    <td>Update</td>
-    <td>Existing data badalne ke liye</td>
-  </tr>
-  <tr>
-    <td>DELETE</td>
-    <td>Remove</td>
-    <td>Data delete karne ke liye</td>
+    <td>Performance</td>
+    <td>High Overhead</td>
+    <td>Optimized pooling</td>
   </tr>
 </table>
 
-<h2>Node.js aur Express se REST API banane ka Step-by-Step Guide</h2>
+<h2>Common Errors और उन्हें फिक्स कैसे करें?</h2>
 
-<p>चलो दोस्तों, अब आस्तीनें चढ़ाते हैं और कोडिंग शुरू करते हैं। इस गाइड के लिए आपको अपने कंप्यूटर में <a href="https://nodejs.org/" target="_blank" rel="noopener">Node.js</a> इंस्टॉल रखना होगा।</p>
-
-<ol>
-  <li><strong>Project Setup:</strong> एक फोल्डर बनाएं और टर्मिनल में <code>npm init -y</code> कमांड चलाएं।</li>
-  <li><strong>Dependencies Install:</strong> कमांड प्रॉम्प्ट में लिखें <code>npm install express</code>।</li>
-  <li><strong>Server Create:</strong> एक <code>index.js</code> फाइल बनाएं और सर्वर सेटअप करें।</li>
-</ol>
-
-<pre><code>const express = require('express');
-const app = express();
-const PORT = 3000;
-
-// Middleware to parse JSON
-app.use(express.json());
-
-// Sample Route
-app.get('/', (req, res) => {
-    res.send('API is running successfully!');
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});</code></pre>
-
-<h3>Data Handling aur CRUD Operations</h3>
-<p>सिर्फ सर्वर चलना काफी नहीं है, हमें डेटा भी मैनेज करना होगा। चलिए एक छोटा सा इन-मेमोरी डेटाबेस का उदाहरण देखते हैं।</p>
-
-<pre><code>let users = [{ id: 1, name: 'Rahul' }];
-
-app.get('/api/users', (req, res) => {
-    res.json(users);
-});
-
-app.post('/api/users', (req, res) => {
-    const newUser = { id: Date.now(), name: req.body.name };
-    users.push(newUser);
-    res.status(201).json(newUser);
-});</code></pre>
-
-<p>ध्यान देने वाली बात ये है कि प्रोडक्शन में हम हमेशा <a href="https://itinfohubs.blogspot.com/search/label/MongoDB">Database</a> का उपयोग करते हैं। जब आप रियल डेटाबेस से कनेक्ट करेंगे, तो हो सकता है कि कोई <strong>error</strong> आए। ऐसे में <code>try-catch</code> ब्लॉक का इस्तेमाल करना न भूलें ताकि आपका सर्वर क्रैश न हो। अगर कभी कोई <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">exception</a> आए, तो उसे कंसोल पर जरूर लॉग करें।</p>
-
-<h2>Best Practices for Performance and Scalability</h2>
+<p>दोस्तों, काम करते समय आपको अक्सर 'MongoNetworkError' या 'Authentication failed' जैसी समस्याएँ मिलेंगी। घबराइए मत, ये आम हैं:</p>
 <ul>
-  <li><strong>Middleware ka sahi use:</strong> Logger, Authentication, aur Validation के लिए अलग-अलग मिडलवेयर बनाएं।</li>
-  <li><strong>Environment Variables:</strong> पासवर्ड या सीक्रेट कीस को कभी कोड में न लिखें, हमेशा <code>.env</code> फाइल का यूज करें।</li>
-  <li><strong>Async/Await:</strong> डेटाबेस ऑपरेशंस के लिए हमेशा Async/Await का उपयोग करें ताकि थ्रेड ब्लॉक न हो।</li>
+    <li><strong>IP Whitelisting:</strong> अगर आपका connection timeout हो रहा है, तो चेक करें कि क्या आपने अपनी वर्तमान IP को Atlas dashboard में add किया है।</li>
+    <li><strong>Password encoding:</strong> अगर आपके password में special characters (@, #, $) हैं, तो उन्हें encode करना न भूलें।</li>
+    <li><strong>Network issues:</strong> कभी-कभी corporate firewall या VPN connection को block कर देता है।</li>
 </ul>
 
+<h2>Best Practices for Scalability</h2>
+
+<p>अगर आप <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack">MERN Stack</a> प्रोजेक्ट पर काम कर रहे हैं, तो हमेशा याद रखें:</p>
+<ul>
+    <li><strong>Connection Pooling:</strong> Mongoose अपने आप connection pool handle करता है, इसे छेड़ने की ज़रूरत नहीं है।</li>
+    <li><strong>Environment Variables:</strong> हमेशा <code>dotenv</code> package का प्रयोग करें।</li>
+    <li><strong>Async/Await:</strong> हमेशा non-blocking code का उपयोग करें ताकि event loop पर बोझ न पड़े।</li>
+</ul>
+
+<h3>Frequently Asked Questions (FAQs)</h3>
+
 <div class="faq-accordion">
-  <h3>Frequently Asked Questions (FAQs)</h3>
-  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-    <summary style="font-weight: bold; font-size: 15px;">Q1: ExpressJS aur pure Node.js mein kya antar hai?</summary>
-    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Node.js ek runtime hai, jabki ExpressJS uske upar bana ek framework hai jo kaam ko aasaan banata hai.</p>
-  </details>
-  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-    <summary style="font-weight: bold; font-size: 15px;">Q2: JSON data kaise parse karein?</summary>
-    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Express mein <code>app.use(express.json())</code> middleware ka use karke aap easily incoming JSON data read kar sakte hain.</p>
-  </details>
-  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-    <summary style="font-weight: bold; font-size: 15px;">Q3: Kya REST API secure hai?</summary>
-    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Haan, lekin aapko JWT (JSON Web Token) aur CORS settings ka sahi istemal karna padega.</p>
-  </details>
-  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-    <summary style="font-weight: bold; font-size: 15px;">Q4: Production mein deployment kahan karein?</summary>
-    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Aap Render, Heroku, ya AWS EC2 ka istemal kar sakte hain.</p>
-  </details>
-  <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-    <summary style="font-weight: bold; font-size: 15px;">Q5: Error handling kaise manage karein?</summary>
-    <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Global error handling middleware likhen jo har request ke baad error ko catch kar sake.</p>
-  </details>
+    <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+        <summary style="font-weight: bold; font-size: 15px;">Q1: क्या Mongoose के बिना Node.js में MongoDB यूज़ कर सकते हैं?</summary>
+        <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">हाँ, आप 'mongodb' native driver का उपयोग कर सकते हैं। लेकिन Mongoose data validation और Schema modeling के लिए बेहतर है, जो बड़े projects में ज़रूरी होता है।</p>
+    </details>
+    <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+        <summary style="font-weight: bold; font-size: 15px;">Q2: Atlas का free tier कब तक चलता है?</summary>
+        <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Atlas का M0 cluster free tier हमेशा के लिए free है, जब तक आप उसकी limits के अंदर हैं।</p>
+    </details>
+    <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+        <summary style="font-weight: bold; font-size: 15px;">Q3: Error 'querySrv ESERVFAIL' क्यों आता है?</summary>
+        <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">यह अक्सर DNS resolution issue होता है। अगर आपका इंटरनेट stable है, तो अपनी कनेक्शन स्ट्रिंग में 'mongodb+srv' की जगह 'mongodb' try करें, लेकिन Atlas के लिए srv का होना ज़रूरी है।</p>
+    </details>
+    <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+        <summary style="font-weight: bold; font-size: 15px;">Q4: क्या मैं multiple databases को एक ही app से कनेक्ट कर सकता हूँ?</summary>
+        <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">जी हाँ, आप <code>mongoose.createConnection()</code> का उपयोग करके एक साथ कई database instances के साथ काम कर सकते हैं।</p>
+    </details>
+    <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
+        <summary style="font-weight: bold; font-size: 15px;">Q5: प्रोडक्शन के लिए क्या best practice है?</summary>
+        <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">प्रोडक्शन में हमेशा Atlas के 'Network Access' में Specific IP whitelist करें, न कि 0.0.0.0/0।</p>
+    </details>
 </div>
 
-<p>तो दोस्तों, हमने आज सीखा कि कैसे एक basic REST API को खड़ा किया जाता है। याद रखें, कोडिंग एक प्रैक्टिस का खेल है। जितनी ज्यादा आप एक्सपेरिमेंट करेंगे, उतने ही बेहतर डेवलपर बनेंगे।</p>
+<p>तो दोस्तों, आज हमने सीखा कि कैसे MongoDB Atlas को अपने Node.js application के साथ मजबूती से जोड़ा जाता है। कोडिंग में उतार-चढ़ाव तो आते रहते हैं, लेकिन अगर आपका foundation सही है, तो आप किसी भी बड़ी से बड़ी दिक्कत को हल कर सकते हैं। ऑफिशियल <a href="https://mongoosejs.com/docs/index.html" rel="noopener" target="_blank">Mongoose Documentation</a> को भी समय-समय पर पढ़ते रहें।</p>
 
 <script type="application/ld+json">
 {
@@ -147,43 +159,28 @@ app.post('/api/users', (req, res) => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "ExpressJS aur pure Node.js mein kya antar hai?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Node.js ek runtime hai, jabki ExpressJS uske upar bana ek framework hai jo kaam ko aasaan banata hai."
-      }
+      "name": "Q1: क्या Mongoose के बिना Node.js में MongoDB यूज़ कर सकते हैं?",
+      "acceptedAnswer": { "@type": "Answer", "text": "हाँ, आप 'mongodb' native driver का उपयोग कर सकते हैं। लेकिन Mongoose data validation और Schema modeling के लिए बेहतर है।" }
     },
     {
       "@type": "Question",
-      "name": "JSON data kaise parse karein?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Express mein app.use(express.json()) middleware ka use karke aap easily incoming JSON data read kar sakte hain."
-      }
+      "name": "Q2: Atlas का free tier कब तक चलता है?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Atlas का M0 cluster free tier हमेशा के लिए free है, जब तक आप उसकी limits के अंदर हैं।" }
     },
     {
       "@type": "Question",
-      "name": "Kya REST API secure hai?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Haan, lekin aapko JWT (JSON Web Token) aur CORS settings ka sahi istemal karna padega."
-      }
+      "name": "Q3: Error 'querySrv ESERVFAIL' क्यों आता है?",
+      "acceptedAnswer": { "@type": "Answer", "text": "यह अक्सर DNS resolution issue होता है। इंटरनेट कनेक्शन या गलत कनेक्शन स्ट्रिंग इसकी मुख्य वजह हो सकती है।" }
     },
     {
       "@type": "Question",
-      "name": "Production mein deployment kahan karein?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Aap Render, Heroku, ya AWS EC2 ka istemal kar sakte hain."
-      }
+      "name": "Q4: क्या मैं multiple databases को एक ही app से कनेक्ट कर सकता हूँ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "जी हाँ, आप mongoose.createConnection() का उपयोग करके एक साथ कई database instances के साथ काम कर सकते हैं।" }
     },
     {
       "@type": "Question",
-      "name": "Error handling kaise manage karein?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Global error handling middleware likhen jo har request ke baad error ko catch kar sake."
-      }
+      "name": "Q5: प्रोडक्शन के लिए क्या best practice है?",
+      "acceptedAnswer": { "@type": "Answer", "text": "प्रोडक्शन में हमेशा Atlas के 'Network Access' में Specific IP whitelist करें, न कि 0.0.0.0/0." }
     }
   ]
 }
