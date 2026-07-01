@@ -726,7 +726,7 @@ def share_post_to_telegram(title, post_url, category, seo_desc):
     )
     return notify_telegram(msg)
 
-def publish_to_blogger(title, html_content, category, is_draft=True):
+def publish_to_blogger(title, html_content, category, is_draft=True, seo_description=None):
     print("[INFO] Blogger API authenticate kiya ja raha hai...")
     
     if not os.path.exists(CREDENTIALS_FILE):
@@ -770,6 +770,10 @@ def publish_to_blogger(title, html_content, category, is_draft=True):
             "content": html_content,
             "labels": labels
         }
+        # Search Description (meta description) — theme isko <b:if data:view.description> se pick karta hai
+        if seo_description:
+            desc = seo_description.strip()[:160]
+            post_body["customMetaData"] = json.dumps({"description": desc})
         
         print(f"[INFO] Blog Post ko Blogger par upload kiya ja raha hai ({'Draft' if is_draft else 'Live'})...")
         
@@ -950,7 +954,7 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
             print("[INFO] Input skipped. Defaulting to Draft mode.")
 
     # 5. Publish
-    result = publish_to_blogger(title, content_html, category, is_draft=is_draft)
+    result = publish_to_blogger(title, content_html, category, is_draft=is_draft, seo_description=seo_desc)
     if not result.get("success"):
         notify_telegram(f"⚠️ <b>TechIT Auto-Blogger</b>\nPost publish FAIL hui: <b>{title}</b>\nLogs check karein.")
         return False
