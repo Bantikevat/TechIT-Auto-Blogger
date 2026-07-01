@@ -67,7 +67,7 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add topics_to_write.txt posted_topics.json assets images || true
+        git add -A || true
         git commit -m "Update topic queue, posted history and banners [skip ci]" || echo "No changes to commit"
-        git pull --rebase || true
+        git pull --rebase --autostash || true
         git push || echo "Push failed (maybe no changes)"
