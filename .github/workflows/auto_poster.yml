@@ -2,9 +2,10 @@ name: TechIT Auto Blog Poster
 
 on:
   schedule:
-    # Do baar roz post — posts spread karne se SEO behtar (burst se accha)
-    - cron: '0 4 * * *'    # 09:30 AM IST
-    - cron: '30 12 * * *'  # 06:00 PM IST
+    # Do baar roz post. Odd minutes (:00 nahi) — GitHub congestion/drop kam hota hai.
+    # NOTE: GitHub scheduled runs "best-effort" hain; agar miss ho jaaye to Actions tab se manual "Run workflow".
+    - cron: '17 4 * * *'    # ~09:47 AM IST
+    - cron: '47 12 * * *'   # ~06:17 PM IST
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
 jobs:
