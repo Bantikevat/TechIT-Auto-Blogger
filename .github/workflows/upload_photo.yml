@@ -1,0 +1,32 @@
+name: Upload Image to ImgBB
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: 'Image path in repo'
+        required: false
+        default: 'images/banti_kevat.jpg'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - run: pip install requests
+    - name: Upload to ImgBB
+      env:
+        IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+      run: |
+        python -c "
+        import requests, base64, os
+        key = os.environ['IMGBB_API_KEY']
+        p = '${{ github.event.inputs.path }}'
+        data = open(p, 'rb').read()
+        r = requests.post('https://api.imgbb.com/1/upload', data={'key': key, 'image': base64.b64encode(data)}, timeout=60)
+        j = r.json()
+        print('IMGBB_RESULT_URL=' + j['data']['url'])
+        "
