@@ -277,16 +277,30 @@ def main():
         f.write(html)
     print()
     print("=" * 50)
-    print(f"✅ Roadmap ready: {OUT_FILE} ({len(html)} chars)")
+    print(f"[OK] Roadmap HTML ready: {OUT_FILE} ({len(html)} chars)")
     print("=" * 50)
-    print()
-    print("👉 Blogger me kaise use karein:")
-    print("   1. Blogger > Pages > + New Page")
-    print("   2. Title: '🚀 Learning Roadmap' (ya jo pasand ho)")
-    print("   3. Upar right '<>' icon -> HTML view ON")
-    print(f"   4. '{OUT_FILE}' kholo, poora copy, HTML view me paste")
-    print("   5. Publish -> URL jaise /p/learn.html ban jaayega")
-    print("   6. Menu me add karo (Layout > menu widget > + Learn / Learning Path)")
+
+    # LIVE PAGE ke saath auto-sync (agar existing "Roadmap" / "Learning" page mila to update)
+    try:
+        print("[INFO] Live Blogger page update check ho raha hai...")
+        existing = service.pages().list(blogId=a.BLOG_ID).execute().get("items", [])
+        target = next(
+            (p for p in existing if any(k in p["title"].lower() for k in ["roadmap", "learning path", "start here"])),
+            None,
+        )
+        body = {
+            "kind": "blogger#page",
+            "title": "🚀 Learning Roadmap — TechIT ka Complete Guide",
+            "content": html,
+        }
+        if target:
+            result = service.pages().update(blogId=a.BLOG_ID, pageId=target["id"], body=body).execute()
+            print(f"[OK] Live page UPDATED: {result.get('url','(publishing)')}")
+        else:
+            result = service.pages().insert(blogId=a.BLOG_ID, body=body, isDraft=False).execute()
+            print(f"[OK] Live page CREATED: {result.get('url','(publishing)')}")
+    except Exception as e:
+        print(f"[WARN] Live page sync fail (roadmap.html still ready): {e}")
 
     if os.environ.get("GITHUB_ACTIONS"):
         try:
