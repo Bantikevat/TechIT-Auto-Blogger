@@ -559,7 +559,7 @@ def generate_article_content(gemini_key, topic, category):
           <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
           <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Result</div>
         </div>
-        <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: {topic ka short flow description}</div>
+        <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: [topic ka short flow description]</div>
       </div>
       Adapt karo (boxes, arrows, colors — cyan/blue/purple palette) topic ke hisaab se. Non-architectural topics (jaise "kya hai" definitions ya "syntax") mein diagram optional/skip.
     - STEP-BY-STEP: "Kaise karein" wale parts ko numbered <ol><li> steps mein do.
