@@ -1047,8 +1047,7 @@ def main():
         gemini_key = load_gemini_api_key()
         posted_topics = get_posted_topics()
 
-        # COOLDOWN CHECK — agar last post 5 ghante ke andar hua ho to skip
-        # (redundant cron backup slot se duplicate posts se bacha).
+        # COOLDOWN CHECK — hourly schedule ke saath 30 min cooldown (accidental double-fire se bacha).
         # Manual dispatch: SKIP_COOLDOWN=true set karke bypass kar sakte hain.
         skip_cooldown = os.environ.get("SKIP_COOLDOWN", "false").lower() == "true"
         is_manual = os.environ.get("GITHUB_EVENT_NAME", "") == "workflow_dispatch"
@@ -1063,8 +1062,8 @@ def main():
                         pub_dt = datetime.datetime.fromisoformat(pub.replace("Z", "+00:00"))
                         now_dt = datetime.datetime.now(datetime.timezone.utc)
                         hours = (now_dt - pub_dt).total_seconds() / 3600
-                        if hours < 5:
-                            print(f"[COOLDOWN] Last post sirf {hours:.1f} ghante pehle hua — backup slot skip (max 2 posts/day).")
+                        if hours < 0.5:
+                            print(f"[COOLDOWN] Last post sirf {hours*60:.0f} min pehle hua — hourly slot double-fire se bacha rahe hain, skip.")
                             print("           Manually run karna ho to workflow_dispatch use karo ya SKIP_COOLDOWN=true.")
                             return
                         print(f"[OK] Last post {hours:.1f} ghante pehle — cooldown clear, aage badho.")

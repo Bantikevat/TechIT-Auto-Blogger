@@ -2,12 +2,22 @@ name: TechIT Auto Blog Poster
 
 on:
   schedule:
-    # GitHub scheduled runs "best-effort" hain — kabhi drop ho jaate. Isliye har target ke liye 1 backup slot.
-    # `concurrency` + script me last-post-time check (5 hr cooldown) = max 2 posts/day.
-    - cron: '17 4 * * *'    # 09:47 AM IST (primary morning)
-    - cron: '47 5 * * *'    # 11:17 AM IST (morning backup — agar primary drop)
-    - cron: '47 12 * * *'   # 06:17 PM IST (primary evening)
-    - cron: '17 14 * * *'   # 07:47 PM IST (evening backup)
+    # NATURAL HOURLY SCHEDULE — 10 AM to 9 PM IST (12 slots/day, 1 post per slot).
+    # Better than burst publishing: Google spam signal se bacha, indexing per-post attention deta hai,
+    # aur social share bhi natural fasla se hote hain.
+    # (POSTS_PER_RUN=1 GitHub variable; concurrency prevents overlap.)
+    - cron: '30 4 * * *'    # 10:00 AM IST
+    - cron: '30 5 * * *'    # 11:00 AM IST
+    - cron: '30 6 * * *'    # 12:00 PM IST
+    - cron: '30 7 * * *'    # 01:00 PM IST
+    - cron: '30 8 * * *'    # 02:00 PM IST
+    - cron: '30 9 * * *'    # 03:00 PM IST
+    - cron: '30 10 * * *'   # 04:00 PM IST
+    - cron: '30 11 * * *'   # 05:00 PM IST
+    - cron: '30 12 * * *'   # 06:00 PM IST
+    - cron: '30 13 * * *'   # 07:00 PM IST
+    - cron: '30 14 * * *'   # 08:00 PM IST
+    - cron: '30 15 * * *'   # 09:00 PM IST
   workflow_dispatch: # Manual trigger
 
 # Ek time pe ek hi run. Backup jab fire ho aur primary chal raha ho to backup skip.
