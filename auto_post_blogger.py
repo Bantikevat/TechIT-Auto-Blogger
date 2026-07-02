@@ -549,6 +549,19 @@ def generate_article_content(gemini_key, topic, category):
     - PRIMARY KEYWORD: Main keyword (topic) ko first 100 words mein zaroor use karo, aur poore article mein naturally 4-6 baar (keyword stuffing mat karo).
     - HEADINGS AS QUESTIONS: <h2> headings ko asli search questions ki tarah likho jo log Google par type karte hain (jaise "[Topic] क्या है?", "[Topic] कैसे काम करता है?", "[Topic] का use कब करें?", "[Topic] vs [Alternative] में difference?").
     - COMPARISON TABLE: Jahan possible ho, ek clean HTML <table> do (A vs B ya features) — Google tables ko featured snippet mein dikhata hai.
+    - **ARCHITECTURE / FLOW DIAGRAM (jab relevant ho — REQUIRED for architectural concepts):** Agar topic architecture/flow/pattern-related ho (jaise Component Tree, State Flow, Router structure, HOC pattern, Data Fetching flow, Redux flow, Server-Client architecture, MERN stack, useEffect lifecycle, etc.), to ek visual diagram ZAROOR do using inline HTML/CSS. NO external images. Use this exact structure:
+      <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
+        <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Architecture Diagram</div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+          <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Component A</div>
+          <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+          <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Component B</div>
+          <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+          <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Result</div>
+        </div>
+        <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: {topic ka short flow description}</div>
+      </div>
+      Adapt karo (boxes, arrows, colors — cyan/blue/purple palette) topic ke hisaab se. Non-architectural topics (jaise "kya hai" definitions ya "syntax") mein diagram optional/skip.
     - STEP-BY-STEP: "Kaise karein" wale parts ko numbered <ol><li> steps mein do.
     - AUTHORITY LINK: Sirf ek external link official documentation ka do (React/Node/MDN docs jaisa) rel="noopener" aur target="_blank" ke saath — E-E-A-T trust signal ke liye.
     - SCANNABLE: Chhote paragraphs (2-3 lines max), bullet points, bold important words — mobile par easily padha jaaye, bounce rate kam ho.
