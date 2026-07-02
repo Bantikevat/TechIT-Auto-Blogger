@@ -150,11 +150,23 @@ def build_html(grouped, total_posts):
                 f'<span class="lp-arr">→</span>'
                 f'</a>'
             )
+        # Pagination controls (sirf 6 se zyada posts ho tab dikhega)
+        total = len(items)
+        pager_html = ""
+        if total > 6:
+            pager_html = (
+                f'<div class="lp-pager" data-total="{total}" data-page="1" data-per="6">'
+                f'<button type="button" class="lp-pg-btn lp-pg-prev" disabled>← Previous</button>'
+                f'<span class="lp-pg-info">Page <b class="lp-pg-cur">1</b> of <b>{(total + 5) // 6}</b></span>'
+                f'<button type="button" class="lp-pg-btn lp-pg-next">Next →</button>'
+                f'</div>'
+            )
         sections.append(
             f'<section class="lp-sec" id="lp-{cat_id}">'
             f'<div class="lp-sec-h"><span class="lp-e">{emoji}</span>'
             f'<div><b>{name}</b><span>{tagline} · {len(items)} posts</span></div></div>'
             f'<div class="lp-list">{rows}</div>'
+            f'{pager_html}'
             f'</section>'
         )
 
@@ -207,6 +219,13 @@ def build_html(grouped, total_posts):
 .lp-d{font-size:12px;color:#94a3b8}
 .lp-arr{color:#06b6d4;font-size:22px;font-weight:700;transition:.22s}
 .lp-item:hover .lp-arr{transform:translateX(3px)}
+.lp-item.lp-pg-hidden{display:none}
+.lp-pager{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px;padding:10px;background:#eef2f9;border-radius:12px;flex-wrap:wrap}
+.lp-pg-btn{background:linear-gradient(135deg,#06b6d4,#2563eb);color:#fff;border:0;font-family:inherit;font-weight:700;font-size:13.5px;padding:9px 18px;border-radius:50px;cursor:pointer;transition:.22s;box-shadow:0 4px 12px rgba(6,182,212,.28)}
+.lp-pg-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 18px rgba(6,182,212,.4)}
+.lp-pg-btn:disabled{background:#cbd5e1;color:#94a3b8;cursor:not-allowed;box-shadow:none}
+.lp-pg-info{font-size:13.5px;color:#1a2233;font-weight:500}
+.lp-pg-info b{color:#0d1b2a}
 .lp-foot{margin-top:34px;padding:22px;background:linear-gradient(135deg,#eef6fb,#eef2fb);border-radius:16px;text-align:center;color:#3b4a64;font-size:14.5px;line-height:1.7}
 .lp-foot b{color:#0d1b2a}
 @media(max-width:640px){
@@ -260,6 +279,53 @@ def build_html(grouped, total_posts):
   var emptyMsg = document.getElementById('lpEmpty');
   if(!chips.length || !sections.length) return;
 
+  // ============== PAGINATION (per section, 6 items per page) ==============
+  function renderPage(pager){
+    if(!pager) return;
+    var section = pager.closest('.lp-sec');
+    var items = section.querySelectorAll('.lp-list .lp-item');
+    var per = parseInt(pager.getAttribute('data-per'), 10) || 6;
+    var page = parseInt(pager.getAttribute('data-page'), 10) || 1;
+    var totalPages = Math.max(1, Math.ceil(items.length / per));
+    if(page < 1) page = 1;
+    if(page > totalPages) page = totalPages;
+    pager.setAttribute('data-page', page);
+    var start = (page - 1) * per;
+    var end = start + per;
+    items.forEach(function(item, i){
+      if(i >= start && i < end) item.classList.remove('lp-pg-hidden');
+      else item.classList.add('lp-pg-hidden');
+    });
+    var cur = pager.querySelector('.lp-pg-cur');
+    if(cur) cur.textContent = page;
+    var prev = pager.querySelector('.lp-pg-prev');
+    var next = pager.querySelector('.lp-pg-next');
+    if(prev) prev.disabled = (page === 1);
+    if(next) next.disabled = (page === totalPages);
+  }
+
+  // Sabhi pagers initialize karo (default page 1 dikhao — sirf 6 posts)
+  document.querySelectorAll('.lp-pager').forEach(function(pager){
+    renderPage(pager);
+    var prev = pager.querySelector('.lp-pg-prev');
+    var next = pager.querySelector('.lp-pg-next');
+    if(prev) prev.addEventListener('click', function(){
+      var p = parseInt(pager.getAttribute('data-page'), 10) || 1;
+      pager.setAttribute('data-page', p - 1);
+      renderPage(pager);
+      var s = pager.closest('.lp-sec');
+      if(s){ var y = s.getBoundingClientRect().top + window.pageYOffset - 80; window.scrollTo({top: y, behavior: 'smooth'}); }
+    });
+    if(next) next.addEventListener('click', function(){
+      var p = parseInt(pager.getAttribute('data-page'), 10) || 1;
+      pager.setAttribute('data-page', p + 1);
+      renderPage(pager);
+      var s = pager.closest('.lp-sec');
+      if(s){ var y = s.getBoundingClientRect().top + window.pageYOffset - 80; window.scrollTo({top: y, behavior: 'smooth'}); }
+    });
+  });
+
+  // ============== FILTER (category chips) ==============
   function applyFilter(filter){
     var shown = 0;
     sections.forEach(function(s){
@@ -270,6 +336,11 @@ def build_html(grouped, total_posts):
       } else {
         s.classList.add('lp-hidden');
       }
+    });
+    // Filter change ho to pager reset karo (page 1 dikhao)
+    sections.forEach(function(s){
+      var pg = s.querySelector('.lp-pager');
+      if(pg){ pg.setAttribute('data-page', 1); renderPage(pg); }
     });
     if(emptyMsg) emptyMsg.style.display = shown === 0 ? 'block' : 'none';
     chips.forEach(function(c){
