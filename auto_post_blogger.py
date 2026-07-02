@@ -158,18 +158,35 @@ def normalize_title(title):
     return t.strip()
 
 def refill_topic_queue(gemini_key, posted_topics, count=10):
-    """Queue low ho to Gemini se naye low-competition topics generate karke append karo — pipeline kabhi na ruke."""
+    """Queue low ho to Gemini se naye low-competition topics generate karke append karo — pipeline kabhi na ruke.
+
+    NOTE: Jab tak topics_to_write.txt me React related items hain, focus REACT-only rakho
+    (roadmap.sh React series complete karne tak).
+    """
     existing = set()
+    react_focus = False
     if os.path.exists(QUEUE_FILE):
         with open(QUEUE_FILE, "r", encoding="utf-8") as f:
             for line in f:
                 t = line.strip()
                 if t and not t.startswith("#"):
                     existing.add(t.lower())
+                    if "react" in t.lower() or "jsx" in t.lower() or "use" in t.lower():
+                        react_focus = True
     for t in posted_topics:
         existing.add(str(t).lower())
 
-    prompt = f"""You are an SEO expert for a HINDI programming blog (audience: beginner Indian developers, Hinglish search).
+    if react_focus:
+        prompt = f"""You are an SEO expert for a HINDI React tutorial blog (audience: Indian devs learning React in Hinglish).
+Give {count + 6} fresh REACT-ONLY blog post TITLE ideas following the roadmap.sh React learning path (hooks, routing, state management, styling, forms, API, testing, TypeScript, animations, React Native).
+STRICT RULES:
+- ONLY React topics (React, JSX, hooks, Router, Redux, Zustand, Tailwind, Material UI, React Hook Form, Axios, React Query, Testing, TypeScript with React, Framer Motion, React Native). NO Node/Mongo/Next standalone topics.
+- Hinglish question style: "kaise use karein", "kya hai", "complete guide", "beginner friendly".
+- Technical terms English me (React, useEffect, TanStack Query), framing Hinglish me. Long-tail (6-10 words).
+- In already-written React topics se BILKUL alag: {[t for t in posted_topics if 'react' in str(t).lower() or 'jsx' in str(t).lower()][:40]}
+Output ONLY plain text — ek line me ek title, numbering/bullets/extra text ke bina."""
+    else:
+        prompt = f"""You are an SEO expert for a HINDI programming blog (audience: beginner Indian developers, Hinglish search).
 Give {count + 6} fresh, LOW-COMPETITION, long-tail blog post TITLE ideas about MERN stack (MongoDB, Express, React, Node.js), Next.js, JavaScript, AI tools, ya common coding errors aur unke solutions.
 RULES:
 - Hinglish (Roman Hindi) question style: "kya hai", "kaise kare", "kaise banaye", "error solution", "difference".
