@@ -1,4 +1,13 @@
-JavaScript Async/Await Kya Hai aur isse Callback Hell Kaise Bachein? (in Hindi)
 MongoDB Atlas ko Express se kaise connect kare
 React me useState aur useRef kab use kare
 NextJS hydration error kaise solve kare
+React input me type nahi ho raha kaise solve kare
+MongoDB cluster IP access error kaise fix kare
+React me array map key prop warning kaise remove kare
+JavaScript querySelector aur getElementById me kya difference hai
+Cursor AI code editor VS Code se kaise connect kare
+Node.js me env variables security ke sath kaise use kare
+React se Node backend me image upload kaise kare
+Next.js me custom 404 error page kaise banaye
+Mongoose validation failed path is required error kaise solve kare
+JavaScript null aur undefined me kya difference hota hai

@@ -3,6 +3,13 @@ import io
 import json
 import sys
 import random
+
+# Windows console pe Hindi/emoji clean print — cp1252 crash se bacha
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 import base64
 import subprocess
 import urllib.parse
@@ -518,7 +525,8 @@ def generate_article_content(gemini_key, topic, category):
     - Include best practices for performance and scalability.
 
     FIRST-PAGE GOOGLE RANKING (MOST IMPORTANT — yeh blog ko #1 rank karwata hai):
-    - HOOK INTRO: Pehle 2-3 lines mein ek relatable problem ya sawaal se start karo (jaise "क्या आपका React app बार-बार re-render हो रहा है?"). Boring definition se shuru मत karो.
+    - **META HOOK LINE (FIRST paragraph — CRITICAL):** Post ki bilkul PEHLI line ek complete standalone hook paragraph ho (130-155 characters exactly) jisme main keyword ho aur reader ko turant grab kare. Yeh line ka DOUBLE ROLE hai — (1) reader ka attention (2) Google/Facebook/Twitter ka meta description jo social share aur search preview pe dikhega. Isliye ise SELF-CONTAINED, engaging, aur keyword-rich rakho. Example: "React kya hai aur beginners kyun sikhein? Is Hindi guide me components, JSX, state aur hooks step-by-step aasan bhasha me seekho."
+    - HOOK INTRO: Uske baad 2-3 lines ka relatable problem/sawaal se main content start karo. Boring definition se shuru मत karो.
     - QUICK ANSWER BOX: Intro ke turant baad ek highlighted box do jo main sawaal ka seedha jawab sirf 40-60 words mein de (Google featured snippet / position #0 ke liye). Is exact format mein:
       <div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> [40-60 word direct answer jisme main keyword ho]</div>
     - PRIMARY KEYWORD: Main keyword (topic) ko first 100 words mein zaroor use karo, aur poore article mein naturally 4-6 baar (keyword stuffing mat karo).
@@ -927,7 +935,12 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
         topic, category = select_topic(gemini_key, posted_topics)
 
     # 2. Generate Content
-    title = f"{topic} (In Hindi)"
+    # Bug fix: agar topic me pehle se "(in Hindi)" hai to dobara mat lagao (title duplicate se bacha)
+    _topic_lower = topic.lower()
+    if "(in hindi)" in _topic_lower or "(in hindi )" in _topic_lower:
+        title = topic  # already has it
+    else:
+        title = f"{topic} (In Hindi)"
     print(f"\n[INFO] Blog generate ho raha hai: \"{title}\"")
     content_html = generate_article_content(gemini_key, topic, category)
     if not content_html:
