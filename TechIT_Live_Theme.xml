@@ -2526,32 +2526,7 @@ body{overflow-x:hidden}
 .tlx-trust{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
 .tlx-trust span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#cbd5e1;font:600 12.5px/1 'Inter',sans-serif;padding:9px 15px;border-radius:50px}
 </style>
-
-<script>/*<![CDATA[*/
-(function(){
-  var root=document.querySelector('.techit-lux');
-  if(!root)return;
-  var nums=root.querySelectorAll('.tlx-num'),done=false;
-  var livePosts=root.querySelector('[data-live="posts"]');
-  if(livePosts){
-    fetch('/feeds/posts/summary?alt=json&amp;max-results=0').then(function(r){return r.json();}).then(function(j){
-      var total=parseInt((j.feed&amp;&amp;j.feed['openSearch$totalResults']&amp;&amp;j.feed['openSearch$totalResults'].$t)||'0',10);
-      if(total>0) livePosts.setAttribute('data-to', total);
-    }).catch(function(){});
-  }
-  function run(){
-    if(done)return;done=true;
-    nums.forEach(function(el){
-      var to=parseInt(el.getAttribute('data-to'),10)||0,cur=0,step=Math.max(1,Math.ceil(to/45));
-      var t=setInterval(function(){cur+=step;if(cur>=to){cur=to;clearInterval(t);}el.textContent=cur;},28);
-    });
-  }
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)run();});},{threshold:.3});
-    io.observe(root);
-  }else{run();}
-})();
-/*]]]]><![CDATA[>*/</script>]]></b:widget-setting>
+<!-- NOTE: Counter animation JS moved to main theme script block (Blogger widget-setting strips <script> tags). -->]]></b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'>
   <b:include name='widget-title'/>
@@ -3787,6 +3762,31 @@ body{overflow-x:hidden}
     var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
     d.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
   }else{d.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')})}
+
+  // Creator widget (.techit-lux) stats counter — Blogger widget-setting script strip karta hai,
+  // isliye main JS bundle mein rakha. Blog feed se live posts count fetch + animated count-up.
+  var luxRoot=d.querySelector('.techit-lux');
+  if(luxRoot){
+    var luxNums=luxRoot.querySelectorAll('.tlx-num'),luxDone=false;
+    var livePosts=luxRoot.querySelector('[data-live="posts"]');
+    if(livePosts){
+      fetch('/feeds/posts/summary?alt=json&max-results=0').then(function(r){return r.json();}).then(function(j){
+        var total=parseInt((j.feed&&j.feed['openSearch$totalResults']&&j.feed['openSearch$totalResults'].$t)||'0',10);
+        if(total>0) livePosts.setAttribute('data-to', total);
+      }).catch(function(){});
+    }
+    function luxRun(){
+      if(luxDone)return;luxDone=true;
+      luxNums.forEach(function(el){
+        var to=parseInt(el.getAttribute('data-to'),10)||0,cur=0,step=Math.max(1,Math.ceil(to/45));
+        var t=setInterval(function(){cur+=step;if(cur>=to){cur=to;clearInterval(t);}el.textContent=cur;},28);
+      });
+    }
+    if('IntersectionObserver' in w){
+      var luxIO=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){luxRun();luxIO.unobserve(x.target)}})},{threshold:.2});
+      luxIO.observe(luxRoot);
+    }else{luxRun();}
+  }
 
   // reading time + TOC (post only)
   var body=d.getElementById('postBody');
