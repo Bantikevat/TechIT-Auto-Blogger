@@ -1001,6 +1001,30 @@ def main():
         gemini_key = load_gemini_api_key()
         posted_topics = get_posted_topics()
 
+        # COOLDOWN CHECK — agar last post 5 ghante ke andar hua ho to skip
+        # (redundant cron backup slot se duplicate posts se bacha).
+        # Manual dispatch: SKIP_COOLDOWN=true set karke bypass kar sakte hain.
+        skip_cooldown = os.environ.get("SKIP_COOLDOWN", "false").lower() == "true"
+        is_manual = os.environ.get("GITHUB_EVENT_NAME", "") == "workflow_dispatch"
+        if not skip_cooldown and not is_manual:
+            try:
+                r = requests.get("https://itinfohubs.blogspot.com/feeds/posts/default?alt=json&max-results=1", timeout=20)
+                if r.ok:
+                    latest = r.json().get("feed", {}).get("entry", [{}])[0]
+                    pub = latest.get("published", {}).get("$t", "")
+                    if pub:
+                        import datetime
+                        pub_dt = datetime.datetime.fromisoformat(pub.replace("Z", "+00:00"))
+                        now_dt = datetime.datetime.now(datetime.timezone.utc)
+                        hours = (now_dt - pub_dt).total_seconds() / 3600
+                        if hours < 5:
+                            print(f"[COOLDOWN] Last post sirf {hours:.1f} ghante pehle hua — backup slot skip (max 2 posts/day).")
+                            print("           Manually run karna ho to workflow_dispatch use karo ya SKIP_COOLDOWN=true.")
+                            return
+                        print(f"[OK] Last post {hours:.1f} ghante pehle — cooldown clear, aage badho.")
+            except Exception as e:
+                print(f"[WARN] Cooldown check fail (aage badh rahe hain): {e}")
+
         # Live fetch posts to avoid duplicates 100%
         live_titles = fetch_live_post_titles()
         if live_titles:
