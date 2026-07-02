@@ -141,7 +141,7 @@
 </b:if>
 
 <!-- ============ JSON-LD : WEBSITE + ORG ============ -->
-<script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@graph&quot;:[{&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;TechIT&quot;,&quot;url&quot;:&quot;https://itinfohubs.blogspot.com/&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;https://itinfohubs.blogspot.com/search?q={q}&quot;,&quot;query-input&quot;:&quot;required name=q&quot;}},{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;TechIT&quot;,&quot;url&quot;:&quot;https://itinfohubs.blogspot.com/&quot;,&quot;founder&quot;:&quot;Banti Kevat&quot;,&quot;email&quot;:&quot;bantikevat199@gmail.com&quot;,&quot;sameAs&quot;:[&quot;https://www.instagram.com/tech_it_info/&quot;,&quot;https://x.com/BantiKevat18232&quot;,&quot;https://www.linkedin.com/in/banti-kevat-4228b719a/&quot;,&quot;https://t.me/tech_IT7&quot;,&quot;https://github.com/Bantikevat&quot;]}]}</script>
+<script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@graph&quot;:[{&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;TechIT&quot;,&quot;url&quot;:&quot;https://itinfohubs.blogspot.com/&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;https://itinfohubs.blogspot.com/search?q={q}&quot;,&quot;query-input&quot;:&quot;required name=q&quot;}},{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;TechIT&quot;,&quot;url&quot;:&quot;https://itinfohubs.blogspot.com/&quot;,&quot;founder&quot;:&quot;Banti Kevat&quot;,&quot;email&quot;:&quot;bantikevat199@gmail.com&quot;,&quot;sameAs&quot;:[&quot;https://www.instagram.com/techit_info/&quot;,&quot;https://x.com/BantiKevat18232&quot;,&quot;https://www.linkedin.com/in/banti-kevat-4228b719a/&quot;,&quot;https://t.me/tech_IT7&quot;,&quot;https://github.com/Bantikevat&quot;]}]}</script>
 
 <b:skin version='2.0.0'><![CDATA[
 /* ==========================================================================
@@ -2215,7 +2215,7 @@ body{overflow-x:hidden}
         <span class='hide-sm' id='topbarTicker'>TechIT &#8212; Tech in Hindi | React &#183; JavaScript &#183; AI &#183; Coding</span>
       </span>
       <span class='tb-social'>
-        <a href='https://www.instagram.com/tech_it_info/' rel='noopener' target='_blank' title='Instagram'><i class='fa-brands fa-instagram'/></a>
+        <a href='https://www.instagram.com/techit_info/' rel='noopener' target='_blank' title='Instagram'><i class='fa-brands fa-instagram'/></a>
         <a href='https://t.me/tech_IT7' rel='noopener' target='_blank' title='Telegram'><i class='fa-brands fa-telegram'/></a>
         <a href='https://x.com/BantiKevat18232' rel='noopener' target='_blank' title='X'><i class='fa-brands fa-x-twitter'/></a>
         <a href='https://www.linkedin.com/in/banti-kevat-4228b719a/' rel='noopener' target='_blank' title='LinkedIn'><i class='fa-brands fa-linkedin'/></a>
@@ -2450,7 +2450,7 @@ body{overflow-x:hidden}
         <p class="tlx-role">M.Tech AI Student · Full-Stack Developer · Ujjain, MP 🇮🇳</p>
         <p class="tlx-bio">React, MERN aur AI ko <b>simple Hindi</b> mein sikhaata hoon. Real projects banaye hain — <b>Seva Setu</b> (hyperlocal services) aur <b>UjjainTemple</b> (devotional web). Seekha hua sach mein kaam aata hai. 🚀</p>
         <div class="tlx-social">
-          <a href="https://www.instagram.com/tech_it_info/" target="_blank" rel="noopener" title="Instagram">◎</a>
+          <a href="https://www.instagram.com/techit_info/" target="_blank" rel="noopener" title="Instagram">◎</a>
           <a href="https://x.com/BantiKevat18232" target="_blank" rel="noopener" title="X">✕</a>
           <a href="https://www.linkedin.com/in/banti-kevat-4228b719a/" target="_blank" rel="noopener" title="LinkedIn">in</a>
           <a href="https://github.com/bantikevat-oss" target="_blank" rel="noopener" title="GitHub">⌥</a>
@@ -2697,7 +2697,7 @@ body{overflow-x:hidden}
                         &quot;sameAs&quot;: [
                           &quot;https://github.com/Bantikevat&quot;,
                           &quot;https://www.linkedin.com/in/banti-kevat-4228b719a/&quot;,
-                          &quot;https://www.instagram.com/tech_it_info/&quot;,
+                          &quot;https://www.instagram.com/techit_info/&quot;,
                           &quot;https://x.com/BantiKevat18232&quot;
                         ]
                       },
@@ -2858,7 +2858,7 @@ body{overflow-x:hidden}
                             <div class='ab-name'><b>Banti Kevat</b><span class='badge'>Founder</span></div>
                             <p>TechIT ka founder &#183; M.Tech AI student &#183; Ujjain, MP. React, AI aur coding ko simple Hindi mein sikhaata hoon taaki har student aage badh sake. 🇮🇳</p>
                             <div class='ab-social'>
-                              <a href='https://www.instagram.com/tech_it_info/' rel='noopener' target='_blank'><i class='fa-brands fa-instagram'/></a>
+                              <a href='https://www.instagram.com/techit_info/' rel='noopener' target='_blank'><i class='fa-brands fa-instagram'/></a>
                               <a href='https://x.com/BantiKevat18232' rel='noopener' target='_blank'><i class='fa-brands fa-x-twitter'/></a>
                               <a href='https://www.linkedin.com/in/banti-kevat-4228b719a/' rel='noopener' target='_blank'><i class='fa-brands fa-linkedin'/></a>
                               <a href='https://github.com/Bantikevat' rel='noopener' target='_blank'><i class='fa-brands fa-github'/></a>
@@ -3355,7 +3355,7 @@ body{overflow-x:hidden}
                 <h3 class='s-title' style='display:inline-block'>About TechIT</h3>
                 <p>Namaste! Main <b>Banti Kevat</b>. TechIT par React, JavaScript, AI Tools aur Coding ko <b>simple Hindi</b> mein sikhaata hoon. 🚀</p>
                 <div class='ac-social'>
-                  <a href='https://www.instagram.com/tech_it_info/' rel='noopener' target='_blank'><i class='fa-brands fa-instagram'/></a>
+                  <a href='https://www.instagram.com/techit_info/' rel='noopener' target='_blank'><i class='fa-brands fa-instagram'/></a>
                   <a href='https://t.me/tech_IT7' rel='noopener' target='_blank'><i class='fa-brands fa-telegram'/></a>
                   <a href='https://x.com/BantiKevat18232' rel='noopener' target='_blank'><i class='fa-brands fa-x-twitter'/></a>
                   <a href='https://www.linkedin.com/in/banti-kevat-4228b719a/' rel='noopener' target='_blank'><i class='fa-brands fa-linkedin'/></a>
@@ -3614,7 +3614,7 @@ body{overflow-x:hidden}
           </div>
           <p>React, JavaScript, AI Tools aur IT education ko simple Hindi mein. Naye coders, students aur tech lovers ke liye banaya gaya. 🚀</p>
           <div class='footer-social'>
-            <a href='https://www.instagram.com/tech_it_info/' rel='noopener' target='_blank'><i class='fa-brands fa-instagram'/></a>
+            <a href='https://www.instagram.com/techit_info/' rel='noopener' target='_blank'><i class='fa-brands fa-instagram'/></a>
             <a href='https://t.me/tech_IT7' rel='noopener' target='_blank'><i class='fa-brands fa-telegram'/></a>
             <a href='https://x.com/BantiKevat18232' rel='noopener' target='_blank'><i class='fa-brands fa-x-twitter'/></a>
             <a href='https://www.linkedin.com/in/banti-kevat-4228b719a/' rel='noopener' target='_blank'><i class='fa-brands fa-linkedin'/></a>

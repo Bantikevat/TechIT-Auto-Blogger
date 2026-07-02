@@ -158,8 +158,10 @@ def build_html(grouped, total_posts):
             f'</section>'
         )
 
-    nav_links = "".join(
-        f'<a href="#lp-{c[0]}" class="lp-chip">{c[1]} {c[2]}</a>'
+    # Filter chips (click karo → sirf wahi category dikhao)
+    nav_links = '<button type="button" class="lp-chip lp-active" data-filter="all">📚 All Topics</button>'
+    nav_links += "".join(
+        f'<button type="button" class="lp-chip" data-filter="{c[0]}">{c[1]} {c[2]}</button>'
         for c in CATEGORIES
         if grouped.get(c[0])
     )
@@ -176,8 +178,12 @@ def build_html(grouped, total_posts):
 .lp-hero .lp-stat b{display:block;font:800 24px/1 'Sora',sans-serif;background:linear-gradient(135deg,#06b6d4,#60a5fa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .lp-hero .lp-stat span{font-size:12.5px;color:#94a3b8;letter-spacing:.5px;text-transform:uppercase}
 .lp-nav{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 28px}
-.lp-chip{background:#eef2f9;border:1px solid #e4e9f2;color:#1a2233;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:50px;text-decoration:none;transition:.2s}
+.lp-chip{background:#eef2f9;border:1px solid #e4e9f2;color:#1a2233;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:50px;text-decoration:none;transition:.2s;cursor:pointer;font-family:inherit}
 .lp-chip:hover{background:linear-gradient(135deg,#06b6d4,#2563eb);color:#fff;border-color:transparent;transform:translateY(-2px)}
+.lp-chip.lp-active{background:linear-gradient(135deg,#0d1b2a,#13263c);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(13,27,42,.25)}
+.lp-sec.lp-hidden{display:none}
+.lp-empty-msg{text-align:center;padding:40px 20px;color:#64748b;font-size:15px}
+.lp-empty-msg b{color:#0d1b2a}
 .lp-sec{margin-bottom:34px}
 .lp-sec-h{display:flex;align-items:center;gap:14px;margin-bottom:14px}
 .lp-sec-h .lp-e{font-size:32px;width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#e0f2fe,#dbeafe);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -233,13 +239,68 @@ def build_html(grouped, total_posts):
 
   {''.join(sections)}
 
+  <div class="lp-empty-msg" id="lpEmpty" style="display:none">
+    Is topic pe abhi koi post nahi hai. <b>Coming soon!</b> 📚<br>
+    <small>Instagram <a href="https://www.instagram.com/techit_info/">@techit_info</a> par batao kya banao next!</small>
+  </div>
+
   <div class="lp-foot">
     Naye posts add hote hi yeh page <b>automatically update</b> ho jaata hai.<br>
-    Kuch naya seekhna chahte ho? <b>Instagram: <a href="https://www.instagram.com/tech_it_info/">@tech_it_info</a></b> par batao — main us par post likh dunga! 🚀
+    Kuch naya seekhna chahte ho? <b>Instagram: <a href="https://www.instagram.com/techit_info/">@techit_info</a></b> par batao — main us par post likh dunga! 🚀
   </div>
 </div>
 """.strip()
-    return html
+
+    # Filter JS — separate raw string (f-string ke bahar, taaki JS ke braces safe rahein)
+    filter_js = r"""
+<script>/*<![CDATA[*/
+(function(){
+  var chips = document.querySelectorAll('.lp-nav .lp-chip');
+  var sections = document.querySelectorAll('.lp-sec');
+  var emptyMsg = document.getElementById('lpEmpty');
+  if(!chips.length || !sections.length) return;
+
+  function applyFilter(filter){
+    var shown = 0;
+    sections.forEach(function(s){
+      var id = s.id.replace('lp-','');
+      if(filter === 'all' || id === filter){
+        s.classList.remove('lp-hidden');
+        shown++;
+      } else {
+        s.classList.add('lp-hidden');
+      }
+    });
+    if(emptyMsg) emptyMsg.style.display = shown === 0 ? 'block' : 'none';
+    chips.forEach(function(c){
+      c.classList.toggle('lp-active', c.getAttribute('data-filter') === filter);
+    });
+    if(filter !== 'all'){
+      var firstShown = document.querySelector('.lp-sec:not(.lp-hidden)');
+      if(firstShown){
+        var y = firstShown.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({top: y, behavior: 'smooth'});
+      }
+    }
+    try{
+      if(filter === 'all') history.replaceState(null,'',window.location.pathname);
+      else history.replaceState(null,'','#lp-' + filter);
+    }catch(e){}
+  }
+
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){ applyFilter(c.getAttribute('data-filter')); });
+  });
+
+  var hash = (window.location.hash || '').replace('#lp-','');
+  if(hash && document.getElementById('lp-'+hash)){
+    applyFilter(hash);
+  }
+})();
+/*]]>*/</script>
+""".strip()
+
+    return html + "\n" + filter_js
 
 
 def main():

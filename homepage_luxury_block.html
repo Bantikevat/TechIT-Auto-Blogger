@@ -1,0 +1,104 @@
+<!-- ============================================================
+     TechIT — LUXURY HOMEPAGE BLOCK (Creator Spotlight + Stats + Trust)
+     Blogger > Layout > Add a Gadget > HTML/JavaScript > yeh POORA paste karo
+     Koi theme replace nahi — safe add-on. Brand colors self-contained.
+     ============================================================ -->
+<div class="techit-lux">
+  <div class="tlx-glow tlx-g1"></div>
+  <div class="tlx-glow tlx-g2"></div>
+
+  <div class="tlx-inner">
+    <!-- Creator Spotlight -->
+    <div class="tlx-creator">
+      <div class="tlx-avatar"><img src="https://i.ibb.co/Kjr1Fkzz/717df4cc7a4f.jpg" alt="Banti Kevat — Founder TechIT" loading="lazy"/><span class="tlx-ring"></span></div>
+      <div class="tlx-info">
+        <span class="tlx-tag"><span class="tlx-dot"></span> Founder &amp; Author</span>
+        <h3>Banti Kevat</h3>
+        <p class="tlx-role">M.Tech AI Student · Full-Stack Developer · Ujjain, MP 🇮🇳</p>
+        <p class="tlx-bio">React, MERN aur AI ko <b>simple Hindi</b> mein sikhaata hoon. Real projects banaye hain — <b>Seva Setu</b> (hyperlocal services) aur <b>UjjainTemple</b> (devotional web). Seekha hua sach mein kaam aata hai. 🚀</p>
+        <div class="tlx-social">
+          <a href="https://www.instagram.com/techit_info/" target="_blank" rel="noopener" title="Instagram">◎</a>
+          <a href="https://x.com/BantiKevat18232" target="_blank" rel="noopener" title="X">✕</a>
+          <a href="https://www.linkedin.com/in/banti-kevat-4228b719a/" target="_blank" rel="noopener" title="LinkedIn">in</a>
+          <a href="https://github.com/bantikevat-oss" target="_blank" rel="noopener" title="GitHub">⌥</a>
+          <a href="https://t.me/tech_IT7" target="_blank" rel="noopener" title="Telegram">✈</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated Stats -->
+    <div class="tlx-stats">
+      <div class="tlx-stat"><b class="tlx-num" data-to="35">0</b><span>+ Articles</span></div>
+      <div class="tlx-stat"><b class="tlx-num" data-to="6">0</b><span>+ Categories</span></div>
+      <div class="tlx-stat"><b class="tlx-num" data-to="100">0</b><span>% Free</span></div>
+      <div class="tlx-stat"><b class="tlx-hindi">हिंदी</b><span>Easy Language</span></div>
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="tlx-trust">
+      <span>✅ Free Forever</span>
+      <span>🇮🇳 Tech in Hindi</span>
+      <span>👨‍💻 Real Developer</span>
+      <span>🚫 No Spam</span>
+      <span>🎓 M.Tech AI</span>
+    </div>
+  </div>
+</div>
+
+<style>
+.techit-lux{position:relative;overflow:hidden;background:#0d1b2a;border-radius:24px;margin:34px 0;padding:2px;box-shadow:0 18px 50px rgba(13,27,42,.35)}
+.techit-lux *{box-sizing:border-box}
+.tlx-glow{position:absolute;border-radius:50%;filter:blur(60px);z-index:0;opacity:.55}
+.tlx-g1{top:-40%;right:-8%;width:45%;height:180%;background:radial-gradient(circle,#06b6d4,transparent 65%)}
+.tlx-g2{bottom:-50%;left:-8%;width:45%;height:180%;background:radial-gradient(circle,#8b5cf6,transparent 65%)}
+.tlx-inner{position:relative;z-index:1;background:linear-gradient(160deg,rgba(19,38,60,.85),rgba(13,27,42,.9));border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:34px}
+@media(max-width:600px){.tlx-inner{padding:24px 18px}}
+
+.tlx-creator{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.tlx-avatar{position:relative;width:96px;height:96px;flex-shrink:0;border-radius:50%;box-shadow:0 8px 28px rgba(6,182,212,.5)}
+.tlx-avatar img{width:96px;height:96px;object-fit:cover;border-radius:50%;display:block}
+.tlx-ring{position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(6,182,212,.4);animation:tlxspin 8s linear infinite}
+.tlx-ring::before{content:"";position:absolute;top:-4px;left:50%;width:7px;height:7px;border-radius:50%;background:#06b6d4;box-shadow:0 0 12px #06b6d4}
+@keyframes tlxspin{to{transform:rotate(360deg)}}
+.tlx-info{flex:1;min-width:240px}
+.tlx-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(6,182,212,.14);border:1px solid rgba(6,182,212,.3);color:#67e8f9;font:600 12px/1 'Inter',sans-serif;padding:6px 13px;border-radius:50px;text-transform:uppercase;letter-spacing:1px}
+.tlx-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.25);animation:tlxblink 1.6s infinite}
+@keyframes tlxblink{0%,100%{opacity:1}50%{opacity:.35}}
+.tlx-info h3{margin:12px 0 4px;font:800 27px/1.1 'Poppins','Segoe UI',sans-serif;color:#fff;letter-spacing:.3px}
+.tlx-role{margin:0 0 10px;color:#7dd3fc;font:600 13.5px/1.5 'Inter',sans-serif}
+.tlx-bio{margin:0 0 16px;color:#cbd5e1;font:400 15px/1.75 'Inter',sans-serif;max-width:620px}
+.tlx-bio b{color:#fff}
+.tlx-social{display:flex;gap:10px}
+.tlx-social a{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:#e2e8f0;font:700 16px/1 serif;text-decoration:none;transition:.25s}
+.tlx-social a:hover{background:linear-gradient(135deg,#06b6d4,#2563eb);color:#fff;transform:translateY(-3px);border-color:transparent}
+
+.tlx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0 0;padding-top:26px;border-top:1px solid rgba(255,255,255,.09)}
+@media(max-width:600px){.tlx-stats{grid-template-columns:repeat(2,1fr)}}
+.tlx-stat{text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px 10px;transition:.25s}
+.tlx-stat:hover{background:rgba(6,182,212,.1);transform:translateY(-4px)}
+.tlx-num,.tlx-hindi{display:block;font:800 32px/1 'Poppins',sans-serif;background:linear-gradient(135deg,#06b6d4,#60a5fa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tlx-hindi{font-size:28px}
+.tlx-stat span{display:block;margin-top:6px;color:#94a3b8;font:600 12.5px/1.3 'Inter',sans-serif}
+
+.tlx-trust{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.tlx-trust span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#cbd5e1;font:600 12.5px/1 'Inter',sans-serif;padding:9px 15px;border-radius:50px}
+</style>
+
+<script>/*<![CDATA[*/
+(function(){
+  var root=document.querySelector('.techit-lux');
+  if(!root)return;
+  var nums=root.querySelectorAll('.tlx-num'),done=false;
+  function run(){
+    if(done)return;done=true;
+    nums.forEach(function(el){
+      var to=parseInt(el.getAttribute('data-to'),10)||0,cur=0,step=Math.max(1,Math.ceil(to/45));
+      var t=setInterval(function(){cur+=step;if(cur>=to){cur=to;clearInterval(t);}el.textContent=cur;},28);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)run();});},{threshold:.3});
+    io.observe(root);
+  }else{run();}
+})();
+/*]]>*/</script>
