@@ -2263,8 +2263,8 @@ body{overflow-x:hidden}
             <a href='/search/label/Error%20Solving'>Error Solving <i class='fa-solid fa-chevron-down sub-ic'/></a>
             <ul class='submenu'>
               <li><a href='/search/label/Error%20Solving'><i class='fa-solid fa-bug-slash'/> All Error Solutions</a></li>
-              <li><a href='/search/label/ReactJS%20Errors'><i class='fa-brands fa-react'/> React Errors</a></li>
-              <li><a href='/search/label/NodeJS%20Errors'><i class='fa-brands fa-node-js'/> Node Errors</a></li>
+              <li><a href='/search/label/ExpressJS'><i class='fa-solid fa-server'/> Express.js Issues</a></li>
+              <li><a href='/search/label/MongoDB'><i class='fa-solid fa-database'/> MongoDB Fixes</a></li>
             </ul>
           </li>
           <li class='has-sub'>
@@ -2278,8 +2278,8 @@ body{overflow-x:hidden}
             <a href='/search/label/Tech%20News'>Tech News <i class='fa-solid fa-chevron-down sub-ic'/></a>
             <ul class='submenu'>
               <li><a href='/search/label/Tech%20News'><i class='fa-solid fa-bolt'/> Latest News</a></li>
-              <li><a href='/search/label/AI%20News'><i class='fa-solid fa-robot'/> AI News</a></li>
-              <li><a href='/search/label/Gadgets'><i class='fa-solid fa-mobile-screen'/> Gadgets</a></li>
+              <li><a href='/search/label/AI%20TOOL'><i class='fa-solid fa-robot'/> AI Tools</a></li>
+              <li><a href='/search/label/Coding%20info'><i class='fa-solid fa-code'/> Coding Info</a></li>
             </ul>
           </li>
           <li class='has-sub'>
