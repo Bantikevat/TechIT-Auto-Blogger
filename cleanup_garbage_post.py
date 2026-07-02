@@ -48,9 +48,18 @@ def main():
     print("=" * 50)
     service = get_service()
 
-    posts = service.posts().list(blogId=BLOG_ID, maxResults=100, status="LIVE").execute()
-    items = posts.get("items", [])
-    print(f"[INFO] {len(items)} live posts mile. Garbage check ho raha hai...")
+    # Pagination — 100 posts se zyada ho to sab fetch karo (nextPageToken loop).
+    # Bina iske 100+ posts wale blogs pe purane garbage posts kabhi scan nahi honge.
+    items, token = [], None
+    while True:
+        res = service.posts().list(
+            blogId=BLOG_ID, maxResults=100, pageToken=token, status="LIVE"
+        ).execute()
+        items.extend(res.get("items", []))
+        token = res.get("nextPageToken")
+        if not token:
+            break
+    print(f"[INFO] {len(items)} live posts mile (all pages). Garbage check ho raha hai...")
 
     found = 0
     for p in items:

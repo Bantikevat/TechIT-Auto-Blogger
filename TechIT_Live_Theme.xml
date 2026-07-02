@@ -5408,7 +5408,8 @@ body{overflow-x:hidden}
       var w = document.getElementById(id);
       if(!w) return;
       var txt = (w.textContent || '').toLowerCase();
-      if(txt.indexOf('loading') !== -1 || txt.indexOf('error') !== -1 || w.querySelector('.widget-content').innerText.trim().length < 30){
+      var wc = w.querySelector('.widget-content');
+      if(txt.indexOf('loading') !== -1 || txt.indexOf('error') !== -1 || (wc &amp;&amp; wc.innerText.trim().length &lt; 30)){
         w.classList.add('stuck-widget');
       }
     });

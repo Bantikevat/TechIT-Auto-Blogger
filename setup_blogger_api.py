@@ -40,7 +40,15 @@ def main():
         print("Note: Agar Google unsafe page ki warning de, toh 'Advanced' par click karke 'Go to [Project Name] (unsafe)' select karein.")
         
         # Run local server auth flow
-        creds = flow.run_local_server(port=0)
+        # prompt='consent' — Google se refresh_token HAMESHA maango (re-auth pe bhi milega).
+        # access_type='offline' — refresh token issue karo taaki background me chal sake.
+        # Bina in do params ke, dobara authorize karne pe Google refresh_token=None bhej deta hai
+        # aur pura auto-poster ruk jata hai.
+        creds = flow.run_local_server(
+            port=0,
+            access_type='offline',
+            prompt='consent'
+        )
         
         # Extract required credential fields
         credentials_data = {

@@ -548,15 +548,18 @@ def generate_article_content(gemini_key, topic, category):
     - Use clean HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a>.
     - Format code blocks using: <pre><code>[YOUR CODE HERE]</code></pre>
     - Add a key takeaways or summary block at the end (write in a friendly way, e.g. "Toh dosto, humne aaj seekha...").
-    - **FAQ Accordion Section:** Add an FAQ section with 5 detailed questions and answers (real "People Also Ask" style questions that users actually search on Google) using the HTML <details> and <summary> tags. Format it like this:
+    - **FAQ Accordion Section:** Add an FAQ section with 5 detailed questions and answers (real "People Also Ask" style questions that users actually search on Google).
+      - IMPORTANT: DO NOT use inline styles or hardcoded colors. Use the theme's CSS classes so it looks perfect in BOTH dark AND light mode.
+      - Use this EXACT format (no inline style attribute anywhere):
       <div class="faq-accordion">
-        <h3>Frequently Asked Questions (FAQs)</h3>
-        <details style="background: #1e293b; color: #f1f5f9; padding: 12px; border: 1px solid #334155; border-radius: 8px; margin-bottom: 10px; cursor: pointer;">
-          <summary style="font-weight: bold; font-size: 15px;">Q1: Question text?</summary>
-          <p style="margin-top: 8px; color: #cbd5e1; line-height: 1.6;">Detailed answer explaining the concept...</p>
-        </details>
+        <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
+        <div class="faq-q">Q1: Question text?</div>
+        <div class="faq-a">Detailed answer in Hindi/Hinglish explaining the concept clearly.</div>
+        <div class="faq-q">Q2: Second question?</div>
+        <div class="faq-a">Second answer.</div>
+        (isi tarah total 5 question/answer pairs)
       </div>
-      
+
     - **Google FAQ Schema Markup:** In addition to the visible accordion, include a JSON-LD FAQ Schema script tag at the bottom of the HTML, containing the same 5 questions and answers. Format:
       <script type="application/ld+json">
       {{
