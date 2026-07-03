@@ -965,9 +965,10 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
         topic, category = select_topic(gemini_key, posted_topics)
 
     # 2. Generate Content
-    # Bug fix: agar topic me pehle se "(in Hindi)" hai to dobara mat lagao (title duplicate se bacha)
-    _topic_lower = topic.lower()
-    if "(in hindi)" in _topic_lower or "(in hindi )" in _topic_lower:
+    # Bug fix: agar topic me kahin bhi "in Hindi" hai to dobara mat lagao (title duplicate se bacha).
+    # Queue topics aksar "(Composition in Hindi)" / "(Explained in Hindi)" jaise suffix rakhte hain —
+    # sirf "(in hindi)" exact match check karna kaafi nahi tha.
+    if "in hindi" in topic.lower():
         title = topic  # already has it
     else:
         title = f"{topic} (In Hindi)"
