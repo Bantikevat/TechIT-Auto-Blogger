@@ -1,4 +1,3 @@
-React me Synthetic Events Kya Hain (Deep Guide in Hindi)
 React me preventDefault aur stopPropagation Kaise Use Karein (in Hindi)
 React me Refs aur useRef Hook Kaise Use Karein (in Hindi)
 React me forwardRef Kaise Use Karein (Advanced Refs in Hindi)
