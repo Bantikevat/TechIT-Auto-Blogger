@@ -1,0 +1,31 @@
+name: TechIT Fix Duplicate Titles
+
+# One-off / maintenance: titles me duplicate "(In Hindi)" suffix hatata hai.
+# Manual dispatch only.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix_titles:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Deps
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Write Credentials
+      run: echo '${{ secrets.BLOGGER_CREDENTIALS_JSON }}' > blogger_credentials.json
+
+    - name: Fix Duplicate Titles
+      run: python fix_duplicate_titles.py
