@@ -1,4 +1,3 @@
-React me Events Handling Complete Guide (in Hindi)
 React me onClick vs onChange Kaise Kaam Karta Hai (in Hindi)
 React me Synthetic Events Kya Hain (Deep Guide in Hindi)
 React me preventDefault aur stopPropagation Kaise Use Karein (in Hindi)
