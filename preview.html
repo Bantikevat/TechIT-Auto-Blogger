@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React me Composition Pattern Kya Hai (Beginner Guide in Hindi) (In Hindi)</title>
+    <title>Preview: React me children Prop Kaise Use Karein (Composition in Hindi) (In Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,378 +16,119 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me Composition Pattern kya hai? Seekhein kaise reusable components banakar clean aur scalable code likhte hain. Step-by-step beginner guide!</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React components reusable banane ke liye children prop ka use kaise karein? Is Hindi tutorial me React Composition ko aasan shabdo me samjhein!</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React me Composition Pattern Kya Hai (Beginner Guide in Hindi) (In Hindi)</h1>
+    <h1>React me children Prop Kaise Use Karein (Composition in Hindi) (In Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/ymWFTJP1/54a03a852c8d.png" alt="React me Composition Pattern Kya Hai (Beginner Guide in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React me Composition Pattern kya hai? Is complete Hindi guide me seekhein kaise components ko reuse karke clean code likhte hain.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/RkJkCNkn/a10f958af6b7.png" alt="React me children Prop Kaise Use Karein (Composition in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+<p>React me children prop ka sahi istemal kaise karein? Composition pattern ke zariye reusable components banane ka ye step-by-step master guide dekhein.</p>
 
-<p>दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने एक <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> प्रोजेक्ट बनाना शुरू किया, और कुछ ही दिनों में आपके <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> इतने उलझ गए कि एक छोटा सा बदलाव करने पर भी पूरा कोड बिखरने लगा? जब हम शुरुआत करते हैं, तो हम हर छोटी-बड़ी चीज़ के लिए नए Props बनाना शुरू कर देते हैं। नतीजा? भयंकर Prop Drilling और एक ऐसा कोडबेस जिसे मैनेज करना सिरदर्द बन जाता है।</p>
+<p>Jab hum <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> mein kaam karte hain, toh aksar humein aise layouts banane padte hain jahan ek "wrapper" ya "container" component baar-baar use hota hai. Kya aap bhi har baar naya component likh kar waqt barbaad kar rahe hain? Aaj hum seekhenge ki kaise <code>children</code> prop ki madad se hum apne components ko flexible aur modular bana sakte hain.</p>
 
-<p>एक सीनियर डेवलपर के तौर पर, मैं आपको अपने सालों के अनुभव से बता रहा हूँ कि इस समस्या का सबसे बेहतरीन समाधान है: <strong>React Composition Pattern</strong>। आज हम और आप साथ मिलकर इस पैटर्न को इतने आसान शब्दों में समझेंगे कि इसके बाद आपको कभी भी कॉम्प्लेक्स UI बनाने में डर नहीं लगेगा। चलिए, एक कप चाय लेते हैं और कोडिंग की इस जादुई दुनिया में गोता लगाते हैं!</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React mein <code>children</code> prop ek special prop hai jo aapko ek component ke beech mein wrap kiye gaye elements ya components ko access karne ki suvidha deta hai. Ye 'Composition' ka core hai, jisse aap generic layouts (jaise Card ya Modal) bana kar unme alag-alag content dynamically inject kar sakte hain, bina code duplicate kiye.</div>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me Composition Pattern ek design pattern hai jahan hum chote, independent aur flexible components ko aapas me combine (compose) karke ek bada UI banate hain. Yeh pattern React ke core philosophy "Props and Children" par kaam karta hai, jisse custom components ko reusable banaya jata hai bina extra Props pass kiye.</div>
-
----
-
-<h2>React Composition Pattern क्या है और इसकी ज़रूरत क्यों पड़ी?</h2>
-
-<p>जब हम React में काम करते हैं, तो हमारा मुख्य लक्ष्य होता है ऐसे कॉम्पोनेंट्स बनाना जिन्हें हम बार-बार इस्तेमाल कर सकें (Reusability)। लेकिन अक्सर डेवलपर्स एक ही कॉम्पोनेंट में इतने सारे Props डाल देते हैं कि वह कॉम्पोनेंट कस्टमाइज़ होने के बजाय और जटिल हो जाता है। इसी समस्या को सुलझाने के लिए Composition Pattern का जन्म हुआ।</p>
-
-<p>इसे एक आसान उदाहरण से समझते हैं। मान लीजिए आपके पास एक <code>Card</code> कॉम्पोनेंट है। अब आपको तीन अलग-अलग तरह के कार्ड्स चाहिए:</p>
-<ul>
-    <li>एक Profile Card जिसमें यूजर की इमेज और नाम हो।</li>
-    <li>एक Product Card जिसमें प्रोडक्ट का नाम, कीमत और "Buy Now" बटन हो।</li>
-    <li>एक Text Card जिसमें सिर्फ कुछ हेडलाइन्स और पैराग्राफ हो।</li>
-</ul>
-
-<p>अगर आप पारंपरिक तरीका (Configuration-driven approach) अपनाएंगे, तो आप एक ही <code>Card</code> कॉम्पोनेंट के अंदर <code>showButton</code>, <code>showImage</code>, <code>buttonText</code>, <code>price</code> जैसे दर्जनों Props पास करेंगे। यह बहुत ही गंदा तरीका है। इसके विपरीत, Composition Pattern हमें छोटे-छोटे स्वतंत्र ब्लॉक्स बनाने की आज़ादी देता है जिन्हें हम लेगो ब्लॉक्स (Lego Blocks) की तरह जोड़ सकते हैं।</p>
+<h2>React me children prop kya hai?</h2>
+<p>Dosto, <code>children</code> prop React ka ek built-in feature hai. Jab aap kisi component ko opening aur closing tag ke beech kuch likhte hain, toh React use automatically <code>children</code> naam ke prop mein daal deta hai. Ye wahi mechanism hai jisse <code>&lt;div&gt;Hello&lt;/div&gt;</code> kaam karta hai. React components mein, hum isi pattern ko use karke parent se child ko content pass karte hain.</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Composition Pattern Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Architecture Diagram: Composition Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Card Container</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">+</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">CardHeader / Image</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">+</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">CardBody / Actions</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Fully Customized Card</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;">Parent: &lt;Layout&gt;...&lt;/Layout&gt;</div>
+    <div style="color:#67e8f9;font-size:20px;">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;">props.children</div>
+    <div style="color:#67e8f9;font-size:20px;">→</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;">Rendered Output</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Kaise chote standalone components milkar ek custom UI tayar karte hain bina Prop Drilling ke.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Parent component apne children ko wrapper ke andar render karta hai.</div>
 </div>
 
----
+<h2>Children prop ka use kaise karein (Step-by-Step)</h2>
+<p>Chaliye ek real-world example dekhte hain. Maan lijiye humein ek <code>Card</code> component banana hai jo har jagah dikhega, lekin uska andar ka content alag hoga.</p>
 
-<h2>Inheritance vs Composition: दोनों में क्या अंतर है?</h2>
+<ol>
+  <li><strong>Step 1: Card Component banayein</strong> - Isme hum <code>props.children</code> ko render karenge.</li>
+  <li><strong>Step 2: Parent Component se wrap karein</strong> - Content ko tags ke beech mein pass karenge.</li>
+</ol>
 
-<p>ऑब्जेक्ट-ओरिएंटेड प्रोग्रामिंग (OOP) की दुनिया से आने वाले डेवलपर्स अक्सर सोचते हैं कि क्या हमें React में Inheritance (विरासत) का इस्तेमाल करना चाहिए? इसका सीधा और स्पष्ट जवाब है—<strong>नहीं!</strong></p>
-
-<p>खुद React की कोर टीम का कहना है कि वे Facebook में हज़ारों कॉम्पोनेंट्स का इस्तेमाल करते हैं, लेकिन उन्हें कभी भी ऐसी स्थिति का सामना नहीं करना पड़ा जहां उन्हें Inheritance का इस्तेमाल करना पड़े। चलिए, इन दोनों के अंतर को एक तुलना तालिका के जरिए समझते हैं:</p>
-
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; min-width: 400px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
-    <thead>
-        <tr style="background-color: #06b6d4; color: #ffffff; text-align: left; font-weight: bold;">
-            <th style="padding: 12px 15px;">Feature</th>
-            <th style="padding: 12px 15px;">Inheritance (OOP approach)</th>
-            <th style="padding: 12px 15px;">Composition (React approach)</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px; font-weight: bold;">रिश्ता (Relationship)</td>
-            <td style="padding: 12px 15px;">"Is-A" रिश्ता (जैसे: Dog is an Animal)</td>
-            <td style="padding: 12px 15px;">"Has-A" रिश्ता (जैसे: Card has a Button)</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f4f6;">
-            <td style="padding: 12px 15px; font-weight: bold;">लचीलापन (Flexibility)</td>
-            <td style="padding: 12px 15px;">बहुत कम। पैरेंट क्लास बदलने पर सब कुछ प्रभावित होता है।</td>
-            <td style="padding: 12px 15px;">अत्यधिक। आप आसानी से किसी भी चाइल्ड को बदल सकते हैं।</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #dddddd;">
-            <td style="padding: 12px 15px; font-weight: bold;">Prop Drilling</td>
-            <td style="padding: 12px 15px;">काफी बढ़ जाता है क्योंकि डेटा को हर स्तर पर पास करना पड़ता है।</td>
-            <td style="padding: 12px 15px;">लगभग खत्म हो जाता है क्योंकि पैरेंट सीधे चाइल्ड को रेंडर करता है।</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f4f6;">
-            <td style="padding: 12px 15px; font-weight: bold;">Reusability</td>
-            <td style="padding: 12px 15px;">कठिन और सीमित होती है।</td>
-            <td style="padding: 12px 15px;">बेहद आसान। कहीं भी, कभी भी इस्तेमाल करें।</td>
-        </tr>
-    </tbody>
-</table>
-
----
-
-<h2>React Composition Pattern कैसे काम करता है? (Step-by-Step Code Guide)</h2>
-
-<p>अब समय आ गया है अपने हाथों को कोडिंग से रंगने का। हम एक रियल-वर्ल्ड उदाहरण लेंगे—एक <strong>Modal (पॉप-अप) कॉम्पोनेंट</strong>। हम देखेंगे कि कैसे एक ही बेसिक Modal स्ट्रक्चर का उपयोग करके हम अलग-अलग तरह के डायलॉग बॉक्स (जैसे Info Modal, Danger Alert, और Form Modal) बना सकते हैं, बिना बार-बार कोड लिखे।</p>
-
-<h3>Step 1: बिना Composition का बुरा तरीका (The Bad Way)</h3>
-<p>पहले देखिए कि अक्सर नौसिखिए डेवलपर्स इसे कैसे लिखते हैं। वे एक ही कॉम्पोनेंट में सब कुछ भर देते हैं:</p>
-
-<pre><code>// ❌ BAD PRACTICE: Ganda aur inflexible tareeqa
-import React from 'react';
-
-function BadModal({ isOpen, title, bodyText, showFooter, confirmText, onConfirm, type }) {
-  if (!isOpen) return null;
-
+<pre><code>// Card.js
+const Card = ({ children }) => {
   return (
-    &lt;div className="modal-overlay"&gt;
-      &lt;div className="modal-container"&gt;
-        &lt;div className={`modal-header ${type === 'danger' ? 'bg-red' : 'bg-blue'}`}&gt;
-          &lt;h2&gt;{title}&lt;/h2&gt;
-        &lt;/div&gt;
-        &lt;div className="modal-body"&gt;
-          &lt;p&gt;{bodyText}&lt;/p&gt;
-        &lt;/div&gt;
-        {showFooter && (
-          &lt;div className="modal-footer"&gt;
-            &lt;button onClick={onConfirm}&gt;{confirmText || 'Close'}&lt;/button&gt;
-          &lt;/div&gt;
-        )}
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-
-<p><strong>इस कोड में समस्या क्या है?</strong> अगर कल को मुझे इस Modal के अंदर एक इनपुट फॉर्म रेंडर करना पड़े, या कोई वीडियो प्लेयर दिखाना पड़े, तो मुझे इस <code>BadModal</code> के अंदर जाकर कोड को बदलना होगा और नए Props जोड़ने होंगे। यह कोड स्केलेबल नहीं है!</p>
-
-<h3>Step 2: Composition Pattern का सही तरीका (The Good Way)</h3>
-<p>अब हम इसी समस्या को <code>children</code> prop का उपयोग करके हल करेंगे। हम अपने कॉम्पोनेंट को छोटे-छोटे टुकड़ों में तोड़ देंगे। इस प्रक्रिया को विस्तार से समझने के लिए आप <a href="https://react.dev/reference/react/children" rel="noopener" target="_blank">React Children API Documentation</a> भी पढ़ सकते हैं।</p>
-
-<pre><code>// App.js (Production Ready Code)
-import React, { useState } from 'react';
-
-// 1. Base Modal Component जो सिर्फ ढांचा (Shell) प्रदान करता है
-function Modal({ isOpen, onClose, children }) {
-  if (!isOpen) return null;
-
-  return (
-    &lt;div style={overlayStyle} onClick={onClose}&gt;
-      &lt;div style={modalContentStyle} onClick={(e) =&gt; e.stopPropagation()}&gt;
+    &lt;div className="card-wrapper" style={{ border: '1px solid #ccc', padding: '20px' }}&gt;
+      &lt;h2&gt;Main Card Title&lt;/h2&gt;
+      &lt;div className="card-content"&gt;
         {children}
       &lt;/div&gt;
     &lt;/div&gt;
   );
-}
+};
 
-// 2. Sub-components जो Modal के हिस्सों को दर्शाते हैं
-function ModalHeader({ children, bg = '#2563eb' }) {
+// App.js
+const App = () => {
   return (
-    &lt;div style={{ ...headerStyle, backgroundColor: bg }}&gt;
-      {children}
-    &lt;/div&gt;
+    &lt;Card&gt;
+      &lt;p&gt;Ye mera dynamic content hai jo Card ke andar jayega!&lt;/p&gt;
+      &lt;button&gt;Click Me&lt;/button&gt;
+    &lt;/Card&gt;
   );
-}
+};</code></pre>
 
-function ModalBody({ children }) {
-  return (
-    &lt;div style={bodyStyle}&gt;
-      {children}
-    &lt;/div&gt;
-  );
-}
+<h2>Children prop vs Prop Drilling mein kya antar hai?</h2>
+<p>Bahut se beginners ko lagta hai ki <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> mein data pass karne ka sirf ek hi tarika hai. Lekin <code>children</code> prop actually <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">Prop Drilling</a> se bachne ka ek behtareen tareeka hai. Jab aap components ko compose karte hain, toh aapko data ko props ke zariye har level par nahi bhejna padta.</p>
 
-function ModalFooter({ children }) {
-  return (
-    &lt;div style={footerStyle}&gt;
-      {children}
-    &lt;/div&gt;
-  );
-}
+<table>
+  <tr>
+    <th>Feature</th>
+    <th>Standard Props</th>
+    <th>Children Prop</th>
+  </tr>
+  <tr>
+    <td>Purpose</td>
+    <td>Data/Function pass karna</td>
+    <td>UI Composition</td>
+  </tr>
+  <tr>
+    <td>Flexibility</td>
+    <td>Fixed structure</td>
+    <td>Highly reusable</td>
+  </tr>
+  <tr>
+    <td>Syntax</td>
+    <td>Explicit prop name</td>
+    <td>Implicit {children}</td>
+  </tr>
+</table>
 
-// Styling Objects (ताकि आपको रन करने में कोई समस्या न हो)
-const overlayStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 1000,
-};
-
-const modalContentStyle = {
-  background: '#fff',
-  borderRadius: '8px',
-  width: '500px',
-  overflow: 'hidden',
-  boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
-};
-
-const headerStyle = {
-  padding: '16px',
-  color: '#fff',
-  fontSize: '1.25rem',
-  fontWeight: 'bold',
-};
-
-const bodyStyle = {
-  padding: '20px',
-  color: '#333',
-  fontSize: '1rem',
-  lineHeight: '1.5',
-};
-
-const footerStyle = {
-  padding: '12px 20px',
-  background: '#f3f4f6',
-  display: 'flex',
-  justifyContent: 'flex-end',
-  gap: '10px',
-  borderTop: '1px solid #e5e7eb',
-};
-</code></pre>
-
-<h3>Step 3: अब इस Composed Modal का इस्तेमाल कैसे करें?</h3>
-<p>देखिए जादू! अब हम इस बेसिक Modal से किसी भी तरह का Modal सेकंडों में बना सकते हैं, बिना इसके कोर लॉजिक को छेड़े।</p>
-
-<pre><code>// Main Component
-export default function App() {
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [email, setEmail] = useState('');
-
-  const handleFormSubmit = (e) =&gt; {
-    e.preventDefault();
-    alert(`Form submitted with Email: ${email}`);
-    setIsFormOpen(false);
-  };
-
-  return (
-    &lt;div style={{ padding: '40px', fontFamily: 'sans-serif', textAlign: 'center' }}&gt;
-      &lt;h1&gt;React Composition Pattern Demo&lt;/h1&gt;
-      &lt;p&gt;सीनियर डेवलपर की तरह कोड कंपोज़ करना सीखें!&lt;/p&gt;
-
-      &lt;div style={{ display: 'flex', gap: '20px', justifyContent: 'center', marginTop: '20px' }}&gt;
-        &lt;button 
-          style={{ padding: '10px 20px', background: '#dc2626', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-          onClick={() =&gt; setIsAlertOpen(true)}
-        &gt;
-          Open Danger Alert
-        &lt;/button&gt;
-
-        &lt;button 
-          style={{ padding: '10px 20px', background: '#16a34a', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}
-          onClick={() =&gt; setIsFormOpen(true)}
-        &gt;
-          Open Form Modal
-        &lt;/button&gt;
-      &lt;/div&gt;
-
-      {/* EXAMPLE 1: Danger Alert Modal */}
-      &lt;Modal isOpen={isAlertOpen} onClose={() =&gt; setIsAlertOpen(false)}&gt;
-        &lt;ModalHeader bg="#dc2626"&gt;
-          ⚠️ Danger: Action Required!
-        &lt;/ModalHeader&gt;
-        &lt;ModalBody&gt;
-          Kya aap sach me apna account delete karna chahte hain? Yeh action irreversible hai.
-        &lt;/ModalBody&gt;
-        &lt;ModalFooter&gt;
-          &lt;button onClick={() =&gt; setIsAlertOpen(false)} style={{ padding: '6px 12px', border: '1px solid #ccc', borderRadius: '4px' }}&gt;
-            Cancel
-          &lt;/button&gt;
-          &lt;button onClick={() =&gt; { alert('Deleted!'); setIsAlertOpen(false); }} style={{ padding: '6px 12px', background: '#dc2626', color: '#fff', border: 'none', borderRadius: '4px' }}&gt;
-            Yes, Delete
-          &lt;/button&gt;
-        &lt;/ModalFooter&gt;
-      &lt;/Modal&gt;
-
-      {/* EXAMPLE 2: Dynamic Form Modal (Zero configurations required in base Modal!) */}
-      &lt;Modal isOpen={isFormOpen} onClose={() =&gt; setIsFormOpen(false)}&gt;
-        &lt;ModalHeader bg="#16a34a"&gt;
-          📧 Newsletter Subscription
-        &lt;/ModalHeader&gt;
-        &lt;form onSubmit={handleFormSubmit}&gt;
-          &lt;ModalBody&gt;
-            &lt;p&gt;Humare informative articles direct inbox me paane ke liye subscribe karein.&lt;/p&gt;
-            &lt;input 
-              type="email" 
-              placeholder="Enter your email" 
-              value={email}
-              onChange={(e) =&gt; setEmail(e.target.value)}
-              required
-              style={{ width: '100%', padding: '10px', marginTop: '10px', boxSizing: 'border-box', borderRadius: '4px', border: '1px solid #ccc' }}
-            /&gt;
-          &lt;/ModalBody&gt;
-          &lt;ModalFooter&gt;
-            &lt;button type="button" onClick={() =&gt; setIsFormOpen(false)} style={{ padding: '6px 12px', border: '1px solid #ccc', borderRadius: '4px', marginRight: '8px' }}&gt;
-              Close
-            &lt;/button&gt;
-            &lt;button type="submit" style={{ padding: '6px 12px', background: '#16a34a', color: '#fff', border: 'none', borderRadius: '4px' }}&gt;
-              Subscribe Now
-            &lt;/button&gt;
-          &lt;/ModalFooter&gt;
-        &lt;/form&gt;
-      &lt;/Modal&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-
----
-
-<h2>यह Pattern 'Prop Drilling' की समस्या को कैसे हल करता है?</h2>
-
-<p>नए डेवलपर्स के सामने आने वाली सबसे बड़ी समस्याओं में से एक है <strong>Prop Drilling</strong>। जब हमें पैरेंट कॉम्पोनेंट से किसी बहुत गहरे (Deeply Nested) चाइल्ड कॉम्पोनेंट तक डेटा पहुँचाना होता है, तो हमें बीच के उन सभी कॉम्पोनेंट्स में वह Prop पास करना पड़ता है जिन्हें उस डेटा की कोई ज़रूरत नहीं होती।</p>
-
-<p>ध्यान देने वाली बात ये है कि Composition Pattern हमें इस झंझट से पूरी तरह आज़ादी देता है। क्योंकि हम चाइल्ड कॉम्पोनेंट को सीधे पैरेंट कॉम्पोनेंट के अंदर रेंडर कर रहे होते हैं, इसलिए हम स्टेट (State) को सीधे उसी जगह हैंडल कर सकते हैं जहाँ वह रेंडर हो रहा है। बीच के कॉम्पोनेंट्स को पता भी नहीं चलता कि कौन सा डेटा पास हुआ है।</p>
-
-<p>अगर आपको बहुत बड़े लेवल पर स्टेट्स को शेयर करना है, तो आप <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> के Context API का भी सहारा ले सकते हैं, लेकिन छोटी और मध्यम लेवल की कस्टमाइजेशन के लिए Composition ही राजा है।</p>
-
----
-
-<h2>कॉमन गलतियाँ जो डेवलपर्स करते हैं (और उन्हें कैसे सुधारें)</h2>
-
-<p>कोडिंग करते समय गलतियाँ होना स्वाभाविक है। चलिए देखते हैं कि Composition Pattern का इस्तेमाल करते समय डेवलपर्स अक्सर कहाँ फंसते हैं और उनके उपाय क्या हैं:</p>
-
-<h3>1. "TypeError: children is not a function"</h3>
-<p>यह <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> तब आता है जब आप Render Props का इस्तेमाल कर रहे होते हैं लेकिन गलती से एक सामान्य React Element पास कर देते हैं।</p>
-<p><strong>समाधान:</strong> हमेशा सुनिश्चित करें कि अगर आपका कॉम्पोनेंट बच्चों को एक फंक्शन के रूप में उम्मीद कर रहा है, तो आप उसे वैसे ही इस्तेमाल करें। उदाहरण के लिए:</p>
-<pre><code>// ❌ Galat tareeqa
-&lt;DataProvider&gt;
-  &lt;MyComponent /&gt;
-&lt;/DataProvider&gt;
-
-//  Sahi tareeqa (Render Prop Composition)
-&lt;DataProvider&gt;
-  {(data) =&gt; &lt;MyComponent data={data} /&gt;}
-&lt;/DataProvider&gt;
-</code></pre>
-
-<h3>2. CSS Layout का बिखर जाना</h3>
-<p>जब हम कॉम्पोनेंट्स को नेस्ट (Nest) करते हैं, तो कभी-कभी पैरेंट के <code>display: flex</code> या <code>grid</code> की वजह से चाइल्ड कॉम्पोनेंट्स का अलाइनमेंट बिगड़ जाता है।</p>
-<p><strong>समाधान:</strong> हमेशा अपने रैपर (Wrapper) कॉम्पोनेंट्स में स्टाइलिंग फ्लेक्सिबिलिटी रखें। आप पैरेंट से <code>className</code> या <code>style</code> Props को स्वीकार कर सकते हैं और उन्हें कोर डिवीज़न (Divs) पर लागू कर सकते हैं:</p>
-<pre><code>function CustomWrapper({ children, className = '' }) {
-  return &lt;div className={`default-container ${className}`}&gt;{children}&lt;/div&gt;;
-}
-</code></pre>
-
----
-
-<h2>परफॉरमेंस और स्केलेबिलिटी के लिए बेस्ट प्रैक्टिसेज</h2>
-
-<p>एक सीनियर डेवलपर के रूप में मेरी सलाह हमेशा यही रहेगी कि सिर्फ सुंदर कोड लिखना काफी नहीं है, कोड की स्पीड और परफॉरमेंस भी बेहतरीन होनी चाहिए। Composition इस्तेमाल करते समय इन बातों का ध्यान रखें:</p>
-
+<h2>Common Errors aur Debugging Tips</h2>
+<p>Dosto, kaam karte waqt kuch baaton ka dhyan rakhein:</p>
 <ul>
-    <li><strong>Keep Components Atomic:</strong> अपने कॉम्पोनेंट्स को उतना ही छोटा रखें जितना ज़रूरी हो। सिंगल रिस्पॉन्सिबिलिटी प्रिंसिपल (Single Responsibility Principle) का पालन करें।</li>
-    <li><strong>Use Memoization Wisely:</strong> जब आप अत्यधिक कंपोज़्ड यूआई बनाते हैं, तो कभी-कभी अनचाहे री-रेंडर्स हो सकते हैं। महत्वपूर्ण जगहों पर <code>React.memo</code> या <code>useMemo</code> का उपयोग करें।</li>
-    <li><strong>Keep Context Minimal:</strong> कंपोज़िशन और कॉन्टेक्स्ट का तालमेल बेहतरीन है, लेकिन हर छोटी चीज़ के लिए कॉन्टेक्स्ट न बनाएं। जितना हो सके लोकलाइज्ड स्टेट (Localized State) का ही इस्तेमाल करें।</li>
+  <li><strong>Missing Children:</strong> Agar aap <code>props.children</code> ko component mein render karna bhool gaye, toh content screen par nahi dikhega.</li>
+  <li><strong>Type Checking:</strong> Agar aap TypeScript use kar rahe hain, toh <code>children</code> ka type <code>React.ReactNode</code> define karna na bhoolein.</li>
+  <li><strong>Performance:</strong> Excessive composition se bachne ki zaroorat nahi hai, React iske liye highly optimized hai.</li>
 </ul>
 
----
+<p>Agar aapko koi <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> dikhe, toh check karein ki kya aapne component ko sahi se wrap kiya hai ya nahi. <a href="https://react.dev/learn/composition-vs-inheritance" target="_blank" rel="noopener">Official React Docs</a> par iske baare mein aur bhi gehrai se jankari di gayi hai.</p>
 
-<p>तो दोस्तों, आज हमने सीखा कि कैसे React का Composition Pattern हमारे कोडबेस को साफ, लचीला और स्केलेबल बना सकता है। हमने देखा कि कैसे हम पारंपरिक प्रोप-ड्रिलिंग और भारी-भरकम कॉन्फ़िगरेशन वाले कॉम्पोनेंट से बचकर सुव्यवस्थित लेगो-ब्लॉक जैसा आर्किटेक्चर बना सकते हैं।</p>
-
-<p>इस कोड को अपने प्रोजेक्ट्स में आज़माएं और देखें कि आपका डेवलपमेंट एक्सपीरियंस कितना सुगम हो जाता है। अगर कोडिंग करते समय कोई भी समस्या या एरर आए, तो मुझे नीचे कमेंट्स में जरूर बताएं, हम मिलकर उसे सुलझाएंगे!</p>
-
----
+<h2>Toh dosto, humne aaj kya seekha?</h2>
+<p>Aaj humne samjha ki <code>children</code> prop kaise hamare React components ko zyada saaf (clean) aur reusable banata hai. Composition ka istemal karke hum apne <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack">MERN Stack</a> projects ko better organize kar sakte hain. Agli baar jab aap koi layout banayein, toh <code>children</code> ka use zaroor karein!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
+  <div class="faq-q">Q1: Kya hum ek component mein multiple children pass kar sakte hain?</div>
+  <div class="faq-a">Haan, aap components ko nesting karke jitne chahe children pass kar sakte hain. React ka children prop unhe array ya object ki tarah handle karta hai.</div>
   
-  <div class="faq-q">Q1: React में Composition और Inheritance में से कौन सा बेहतर है?</div>
-  <div class="faq-a">React में हमेशा Composition ही बेहतर माना जाता है। React की टीम भी आधिकारिक तौर पर Composition के उपयोग की सलाह देती है क्योंकि यह कोड को अत्यधिक लचीला और रीयूजेबल बनाता है, जबकि Inheritance कोड को आपस में बहुत ज्यादा जकड़ देता है जिससे बदलाव करना मुश्किल हो जाता है।</div>
+  <div class="faq-q">Q2: Children prop default kahan se aata hai?</div>
+  <div class="faq-a">Ye React ka native prop hai. Jab aap JSX mein <code>&lt;Component&gt;content&lt;/Component&gt;</code> likhte hain, toh 'content' automatically <code>props.children</code> mein chala jata hai.</div>
   
-  <div class="faq-q">Q2: Children Prop का क्या काम होता है?</div>
-  <div class="faq-a">React में special prop "children" हमें एक कॉम्पोनेंट के ओपनिंग और क्लोजिंग टैग्स के बीच की सामग्री (elements, texts ya other components) को सीधे रेंडर करने की अनुमति देता है। यह Composition Pattern का मुख्य आधार है।</div>
+  <div class="faq-q">Q3: Kya main children ko modify kar sakta hoon?</div>
+  <div class="faq-a">Haan, aap <code>React.Children.map()</code> ka use karke children ko iterate aur modify kar sakte hain, lekin ise carefully karna chahiye.</div>
   
-  <div class="faq-q">Q3: क्या Composition Pattern से Prop Drilling खत्म हो जाती है?</div>
-  <div class="faq-a">हाँ, काफी हद तक! चूंकि कंपोज़िशन में आप चाइल्ड कॉम्पोनेंट को सीधे उस पैरेंट कॉम्पोनेंट में लिख सकते हैं जहाँ उसका डेटा उपलब्ध है, इसलिए आपको बीच के कॉम्पोनेंट्स के माध्यम से अनावश्यक रूप से Props पास करने की आवश्यकता नहीं होती।</div>
+  <div class="faq-q">Q4: Functional components mein children access kaise karein?</div>
+  <div class="faq-a">Aap destructuring ka use karke <code>const MyComponent = ({ children }) => { ... }</code> likh sakte hain.</div>
   
-  <div class="faq-q">Q4: क्या हम एक से अधिक Children Props का उपयोग कर सकते हैं?</div>
-  <div class="faq-a">हाँ, बिल्कुल! आप सामान्य Props का उपयोग करके JSX एलिमेंट्स को पास कर सकते हैं। इन्हें अक्सर 'Slots' कहा जाता है। उदाहरण के लिए, आप "leftIcon" और "rightIcon" नाम के Props में अलग-अलग React components पास कर सकते हैं।</div>
-  
-  <div class="faq-q">Q5: क्या Composition Pattern का उपयोग करने से परफॉरमेंस पर कोई असर पड़ता है?</div>
-  <div class="faq-a">सकारात्मक रूप से हाँ! यह अनावश्यक री-रेंडरिंग को कम करता है क्योंकि स्टेट्स केवल वहीं सीमित रहती हैं जहाँ उनकी आवश्यकता होती है। लेकिन बहुत अधिक गहराई तक नेस्टिंग करने से बचने की सलाह दी जाती है।</div>
+  <div class="faq-q">Q5: Prop drilling aur children prop mein kya behtar hai?</div>
+  <div class="faq-a">Composition (children) hamesha behtar hai agar aapko sirf wrapper UI banana hai, kyuki ye prop drilling ki complexity ko khatam kar deta hai.</div>
 </div>
 
 <script type="application/ld+json">
@@ -397,42 +138,42 @@ export default function App() {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React में Composition और Inheritance में से कौन सा बेहतर है?",
+      "name": "Kya hum ek component mein multiple children pass kar sakte hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "React में हमेशा Composition ही बेहतर माना जाता है। React की टीम भी आधिकारिक तौर पर Composition के उपयोग की सलाह देती है क्योंकि यह कोड को अत्यधिक लचीला और रीयूजेबल बनाता है।"
+        "text": "Haan, aap components ko nesting karke jitne chahe children pass kar sakte hain. React ka children prop unhe array ya object ki tarah handle karta hai."
       }
     },
     {
       "@type": "Question",
-      "name": "Children Prop का क्या काम होता है?",
+      "name": "Children prop default kahan se aata hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "React में special prop 'children' हमें एक कॉम्पोनेंट के ओपनिंग और क्लोजिंग टैग्स के बीच की सामग्री को सीधे रेंडर करने की अनुमति देता है। यह Composition Pattern का मुख्य आधार है।"
+        "text": "Ye React ka native prop hai. Jab aap JSX mein <Component>content</Component> likhte hain, toh 'content' automatically props.children mein chala jata hai."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Composition Pattern से Prop Drilling खत्म हो जाती है?",
+      "name": "Kya main children ko modify kar sakta hoon?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, काफी हद तक! चूंकि कंपोज़िशन में आप चाइल्ड कॉम्पोनेंट को सीधे उस पैरेंट कॉम्पोनेंट में लिख सकते हैं जहाँ उसका डेटा उपलब्ध है, इसलिए आपको बीच के कॉम्पोनेंट्स के माध्यम से अनावश्यक रूप से Props पास करने की आवश्यकता नहीं होती।"
+        "text": "Haan, aap React.Children.map() ka use karke children ko iterate aur modify kar sakte hain, lekin ise carefully karna chahiye."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या हम एक से अधिक Children Props का उपयोग कर सकते हैं?",
+      "name": "Functional components mein children access kaise karein?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! आप सामान्य Props का उपयोग करके JSX एलिमेंट्स को पास कर सकते हैं जिन्हें अक्सर Slots कहा जाता है।"
+        "text": "Aap destructuring ka use karke const MyComponent = ({ children }) => { ... } likh sakte hain."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Composition Pattern का उपयोग करने से परफॉरमेंस पर कोई असर पड़ता है?",
+      "name": "Prop drilling aur children prop mein kya behtar hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "सकारात्मक रूप से हाँ! यह अनावश्यक री-रेंडरिंग को कम करता है क्योंकि स्टेट्स केवल वहीं सीमित रहती हैं जहाँ उनकी आवश्यकता होती है।"
+        "text": "Composition (children) hamesha behtar hai agar aapko sirf wrapper UI banana hai, kyuki ye prop drilling ki complexity ko khatam kar deta hai."
       }
     }
   ]
