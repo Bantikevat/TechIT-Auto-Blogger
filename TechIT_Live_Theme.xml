@@ -44,22 +44,21 @@
   </b:if>
 </b:if>
 
-<!-- ============ SEO : META ============ -->
-<b:if cond='data:view.description'>
-  <meta expr:content='data:view.description' name='description'/>
+<!-- ============ SEO : META (AUTO-FIX) ============
+     Blogger v3 API me customMetaData reliably kaam nahi karta,
+     isliye har post pe title-based description embed karte hain +
+     client-side JS content ke pehle paragraph se upgrade karta hai.
+     Sabhi posts ke pass GUARANTEED unique meta description hoga. -->
+<b:if cond='data:view.isPost or data:view.isPage'>
+  <meta data-auto='1' expr:content='data:view.title + &quot; — TechIT par Hindi me detail me padho. React, MERN, JavaScript aur coding tutorials easy Hindi bhasha me step-by-step.&quot;' id='metaDesc' name='description'/>
 <b:else/>
   <b:if cond='data:view.isLabelSearch'>
-    <meta expr:content='data:view.search.label + &quot; — Read coding tutorials, news, and guides about &quot; + data:view.search.label + &quot; in Hindi on TechIT.&quot;' name='description'/>
+    <meta expr:content='data:view.search.label + &quot; — TechIT par &quot; + data:view.search.label + &quot; se related saare tutorials, guides aur solutions Hindi mein.&quot;' name='description'/>
   <b:else/>
     <b:if cond='data:view.isSearch'>
       <meta expr:content='&quot;Search results for &quot; + data:view.search.query + &quot; on TechIT — Tech in Hindi.&quot;' name='description'/>
     <b:else/>
-      <b:if cond='data:view.isPost or data:view.isPage'>
-        <!-- AUTO meta description: title-based (server) &#8212; JS isse content-snippet se upgrade karta hai -->
-        <meta data-auto='1' expr:content='data:view.title + &quot; — TechIT par detail mein padho, simple Hindi mein. React, MERN, coding aur tech tutorials step-by-step.&quot;' id='metaDesc' name='description'/>
-      <b:else/>
-        <meta content='TechIT — Tech in Hindi. React, JavaScript, AI Tools, Coding tutorials aur IT education simple Hindi mein. By Banti Kevat, Ujjain.' name='description'/>
-      </b:if>
+      <meta content='TechIT — Tech in Hindi. React, JavaScript, AI Tools, Coding tutorials aur IT education simple Hindi mein. By Banti Kevat, Ujjain.' name='description'/>
     </b:if>
   </b:if>
 </b:if>
@@ -82,7 +81,7 @@
 <b:if cond='data:view.isPost'>
   <meta content='article' property='og:type'/>
   <meta expr:content='data:view.title' property='og:title'/>
-  <meta expr:content='data:view.description ? data:view.description : data:blog.metaDescription' property='og:description'/>
+  <meta data-og='1' expr:content='data:view.title + &quot; — TechIT par Hindi me detail me padho. React, MERN, JavaScript aur coding tutorials easy Hindi bhasha me step-by-step.&quot;' id='ogDesc' property='og:description'/>
 <b:else/>
   <meta content='website' property='og:type'/>
   <meta expr:content='data:blog.title' property='og:title'/>
