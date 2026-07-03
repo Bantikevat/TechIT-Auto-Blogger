@@ -2,22 +2,12 @@ name: TechIT Auto Blog Poster
 
 on:
   schedule:
-    # NATURAL HOURLY SCHEDULE — 10 AM to 9 PM IST (12 slots/day, 1 post per slot).
-    # Better than burst publishing: Google spam signal se bacha, indexing per-post attention deta hai,
-    # aur social share bhi natural fasla se hote hain.
-    # (POSTS_PER_RUN=1 GitHub variable; concurrency prevents overlap.)
-    - cron: '30 4 * * *'    # 10:00 AM IST
-    - cron: '30 5 * * *'    # 11:00 AM IST
-    - cron: '30 6 * * *'    # 12:00 PM IST
-    - cron: '30 7 * * *'    # 01:00 PM IST
+    # SAFE MODE — sirf 3 posts/din. Google suspension se bacha.
+    # 9 AM, 2 PM, 5 PM IST — insaan jaisa natural samay.
+    # (POSTS_PER_RUN=1; concurrency overlap rokta hai.)
+    - cron: '30 3 * * *'    # 09:00 AM IST
     - cron: '30 8 * * *'    # 02:00 PM IST
-    - cron: '30 9 * * *'    # 03:00 PM IST
-    - cron: '30 10 * * *'   # 04:00 PM IST
     - cron: '30 11 * * *'   # 05:00 PM IST
-    - cron: '30 12 * * *'   # 06:00 PM IST
-    - cron: '30 13 * * *'   # 07:00 PM IST
-    - cron: '30 14 * * *'   # 08:00 PM IST
-    - cron: '30 15 * * *'   # 09:00 PM IST
   workflow_dispatch: # Manual trigger
 
 # Ek time pe ek hi run. Backup jab fire ho aur primary chal raha ho to backup skip.

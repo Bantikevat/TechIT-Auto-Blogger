@@ -5,9 +5,9 @@ name: TechIT Catchup Poster
 # Yeh missed hourly slots ke liye safety net hai.
 
 on:
-  schedule:
-    - cron: '15 * * * *'  # har ghante 45 IST — hourly cron ke 15 min baad
-    - cron: '45 * * * *'  # har ghante 15 IST — hourly cron ke 15 min pehle bhi backup
+  # SAFE MODE — automatic catchup band. 3 posts/din wale schedule me
+  # catchup extra posts bana deta (5 ghante ka gap > 90 min threshold).
+  # Jab zaroorat ho, haath se chalao (workflow_dispatch).
   workflow_dispatch:
 
 concurrency:
