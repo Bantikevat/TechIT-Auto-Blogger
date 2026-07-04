@@ -88,6 +88,13 @@ def load_gemini_api_key():
         print("[ERROR] Gemini API Key is required to generate articles.")
         sys.exit(1)
 
+def _atomic_write_text(path, content):
+    """Race-safe write: temp file me likh ke rename. Do parallel runs se corruption bacha."""
+    tmp = f"{path}.tmp.{os.getpid()}"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(content)
+    os.replace(tmp, path)  # Windows aur POSIX dono par atomic
+
 def get_posted_topics():
     if os.path.exists(TRACKER_FILE):
         try:
@@ -100,8 +107,7 @@ def get_posted_topics():
 def save_posted_topic(topic):
     posted = get_posted_topics()
     posted.append(topic)
-    with open(TRACKER_FILE, "w", encoding="utf-8") as f:
-        json.dump(posted, f, indent=4)
+    _atomic_write_text(TRACKER_FILE, json.dumps(posted, indent=4, ensure_ascii=False))
 
 def call_gemini(gemini_key, prompt):
     models = ["gemini-3.5-flash", "gemini-3.1-flash-lite"]
@@ -236,11 +242,9 @@ def select_topic(gemini_key, posted_topics):
             if lines:
                 selected_topic = lines[0]
                 remaining_topics = lines[1:]
-                
-                # Write remaining topics back to keep queue updated
-                with open(QUEUE_FILE, "w", encoding="utf-8") as f:
-                    for t in remaining_topics:
-                        f.write(t + "\n")
+
+                # Atomic write — parallel runs se race/corruption bacha
+                _atomic_write_text(QUEUE_FILE, "\n".join(remaining_topics) + ("\n" if remaining_topics else ""))
                 
                 print(f"[OK] Found custom topic in queue: '{selected_topic}'")
                 
@@ -629,7 +633,14 @@ def generate_article_content(gemini_key, topic, category):
         if article_html.endswith("```"):
             article_html = article_html[:-3]
         article_html = article_html.strip()
-        
+
+        # QUALITY GATE: Gemini kabhi kabhi rate-limit/timeout par adha-adhoora response deta hai.
+        # Aisa content publish ho jaye to blog par 200-shabd wala toota post dikhta hai.
+        # 2000 chars threshold = kam se kam ~300-400 shabd (real article usually 8000+ chars).
+        if len(article_html) < 2000:
+            print(f"[ERROR] Article bahut chota mila ({len(article_html)} chars). Gemini ne adhura response bheja — publish skip.")
+            return None
+
         # Balance HTML tags to prevent SAXParseException XML issues
         article_html = fix_html_tags(article_html)
         
