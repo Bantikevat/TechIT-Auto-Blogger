@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useState Functional Update Kya Hai (in Hindi)</title>
+    <title>Preview: React me Multiple useState kaise Manage Karein (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,288 +16,406 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में useState Functional Update क्या है? जानिए prev state को सही से update करने और stale state की problem को solve करने का आसान तरीका।</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me multiple useState manage karne me dikkat ho rahi hai? Seekhein complex state ko efficiently manage karne ke best tarike Hindi me.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useState Functional Update Kya Hai (in Hindi)</h1>
+    <h1>React me Multiple useState kaise Manage Karein (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/MDF1RWTy/f39befecbdf0.png" alt="React useState Functional Update Kya Hai (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useState Functional Update kya hai? State stale value issues ko solve karne aur React application updates ko accurate banane ka aasan tarika seekhein.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/C5yRtVmn/816fcdd1f0d5.png" alt="React me Multiple useState kaise Manage Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React me multiple useState kaise manage karein? Is Hindi guide me multiple states handle karne ke best methods aur optimization tips seekho.
 
-<p>मेरे प्यारे दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> में एक ही function के अंदर लगातार 3 बार <code>setCount(count + 1)</code> लिखा, लेकिन जब button पर click किया, तो state सिर्फ 1 ही बार बढ़ी? या फिर <code>setTimeout</code> या <code>useEffect</code> के अंदर आपको state की पुरानी यानी stale value का सामना करना पड़ा?</p>
+<p>तो मेरे दोस्तों, कैसे हो आप सब? अगर आप <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" rel="noopener" target="_blank">ReactJS</a> सीख रहे हैं, तो एक समय ऐसा जरूर आया होगा जब आपने एक बड़ा Form बनाया होगा। उस Form में Name, Email, Password, Phone Number, Age, Gender और न जाने क्या-क्या fields होंगी। हर field के लिए एक नया <code>useState</code> लिखना, फिर उसका <code>onChange</code> handler बनाना... देखते ही देखते आपका component 50-100 lines का तो सिर्फ State Management के लिए ही बन जाता है!</p>
 
-<p>घबराइए मत! यह समस्या दुनिया के हर दूसरे React developer के साथ होती है। आज हम इस समस्या की जड़ तक जाएंगे और इसका सबसे बेहतरीन समाधान—<strong>React useState Functional Update</strong>—को बिल्कुल बारीकी से समझेंगे। इस guide के बाद, आप state updates में कभी कोई गलती नहीं करेंगे। तो चलिए, चाय का कप हाथ में लीजिए और इस शानदार सफर को शुरू करते हैं!</p>
+<p>एक सीनियर डेवलपर के तौर पर, जब मैं junior developers का कोड review करता हूँ, तो यह सबसे आम गलती दिखती है। कोड काम तो करता है, लेकिन वह बहुत गंदा, unmaintainable और कभी-कभी slow भी हो जाता है। आज हम और आप साथ मिलकर बैठेंगे, चाय की चुस्की लेंगे, और यह समझेंगे कि React me Multiple useState कैसे Manage Karein ताकि आपका कोड एकदम Clean, Professional और Scalable बने।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useState Functional Update एक ऐसी technique है जहां state updater function (जैसे <code>setCount</code>) में direct value पास करने के बजाय एक callback function पास किया जाता है। यह callback automatically current state (previous state) को receive करता है, जिससे stale state bug पूरी तरह से हल हो जाता है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me Multiple useState manage karne ke do best tarike hain: pehla, alag-alag state variables banana (agar states independent hain), aur dusra, saare states ko ek single Object state me merge karna (complex forms ke liye) aur dynamic key <code>[name]: value</code> ka use karna. Jyada complex state transitions ke liye <code>useReducer</code> hook ka upyog karein.</div>
 
-<h2>React useState Functional Update क्या है?</h2>
+---
 
-<p>जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> में <code>useState</code> hook का उपयोग करते हैं, तो हमें दो चीजें मिलती हैं: current state value और उसे update करने वाला function।</p>
+<h2>React में Multiple useState क्या है और इसकी जरूरत क्यों पड़ती है?</h2>
 
-<p>आमतौर पर, हम state को direct update करते हैं, कुछ इस तरह:</p>
+<p>जब हम कोई Dynamic UI बनाते हैं, तो हमें Users के Inputs, Loading States, Modals का Open/Close होना, या Validation Errors को track करना पड़ता है। इन सबको React में State कहा जाता है।</p>
 
-<pre><code>const [count, setCount] = useState(0);
+<p>शुरुआत में, हम हर छोटी चीज़ के लिए एक नया State Variable बना देते हैं। जैसे:</p>
 
-// Direct Update
-setCount(count + 1);</code></pre>
+<pre><code>const [firstName, setFirstName] = useState("");
+const [lastName, setLastName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [isLoading, setIsLoading] = useState(false);
+const [isSubmitted, setIsSubmitted] = useState(false);
+</code></pre>
 
-<p>लेकिन React में state updates तुरंत (synchronously) नहीं होते। React performance को बेहतर बनाने के लिए कई state updates को batch (इकट्ठा) करता है। इस वजह से, जब हम direct update करते हैं, तो React को हमेशा "ताजा" या "current" state value नहीं मिल पाती।</p>
+<p>इसे ही हम <strong>Multiple useState</strong> का Use करना कहते हैं। लेकिन ध्यान देने वाली बात ये है कि जब ये States आपस में Related होती हैं (जैसे एक Form की Fields), तो अलग-अलग State Hooks बनाने से कोड की readability खराब हो जाती है। हर State को React अलग से track करता है, जिससे component re-render होने का flow भी पेचीदा हो जाता है। हमें <a href="https://react.dev" rel="noopener" target="_blank">React Official Documentation</a> भी यही सिखाता है कि जो States हमेशा एक साथ बदलती हैं, उन्हें एक ही State Object में रखना बेहतर होता है।</p>
 
-<p>इसी समस्या को हल करने के लिए आता है <strong>Functional Update</strong>। इसमें हम direct value पास करने के बजाय <code>setCount</code> के अंदर एक arrow function पास करते हैं:</p>
+---
 
-<pre><code>// Functional Update
-setCount(prevCount => prevCount + 1);</code></pre>
+<h2>React में Multiple useState को Manage करने के कौन-से तरीके हैं?</h2>
 
-<p>यहाँ, <code>prevCount</code> वह सबसे ताजा और accurate state value है जो React के पास उस समय मौजूद होती है। React खुद इस callback function को execute करता है और उसमें latest state pass करता है।</p>
-
-<h2>हमें Functional Updates की ज़रूरत क्यों पड़ती है? (The Stale State Problem)</h2>
-
-<p>इसको समझने के लिए, ध्यान देने वाली बात ये है कि React state updates को कैसे schedule करता है। चलिए एक classic example देखते हैं जिससे यह समस्या पूरी तरह साफ हो जाएगी।</p>
-
-<h3>The Counter Bug (Direct Update का फेल होना)</h3>
-
-<p>मान लीजिए आपके पास एक function है जहां आप state को consecutive (लगातार) तीन बार बढ़ाना चाहते हैं:</p>
-
-<pre><code>import React, { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  const tripleIncrement = () => {
-    setCount(count + 1);
-    setCount(count + 1);
-    setCount(count + 1);
-  };
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-      &lt;button onClick={tripleIncrement}&gt;Triple Increment&lt;/button&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
-
-<p>अगर आप इस button पर click करेंगे, तो आपको लगेगा कि <code>count</code> की value 0 से बढ़कर सीधे 3 हो जानी चाहिए। लेकिन असल में ऐसा नहीं होगा! <code>count</code> सिर्फ 1 से बढ़ेगा।</p>
-
-<h3>ऐसा क्यों हुआ? (Under the Hood Story)</h3>
-
-<p>जब <code>tripleIncrement</code> function trigger होता है, तब <code>count</code> की value <code>0</code> होती है (यह current render का snapshot है)।</p>
-<ol>
-  <li>पहला <code>setCount(count + 1)</code> कहता है: <code>setCount(0 + 1)</code> &rarr; React schedules count to be 1.</li>
-  <li>दूसरा <code>setCount(count + 1)</code> भी कहता है: <code>setCount(0 + 1)</code> &rarr; React schedules count to be 1.</li>
-  <li>तीसरा <code>setCount(count + 1)</code> भी कहता है: <code>setCount(0 + 1)</code> &rarr; React schedules count to be 1.</li>
-</ol>
-<p>चूंकि React batching करता है, वह इन तीनों calls को merge कर देता है और component को केवल एक बार re-render करता है। आखिर में, <code>count</code> की value सिर्फ 1 ही रह जाती है। इसे ही हम <strong>Stale State Problem</strong> कहते हैं।</p>
+<p>मेरे दोस्त, इस समस्या को सुलझाने के मुख्य रूप से तीन तरीके हैं। चलिए इन तीनों तरीकों को गहराई से समझते हैं ताकि आपको पता हो कि कब कौन-सा तरीका चुनना है।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ State Update Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React State Update Pattern Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Direct: count + 1 (uses old snapshot)</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">User Types Input</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#eab308;color:#000;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(234,179,8,0.4)">React State Batching</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Single Handler: handleChange()</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Functional: (prev => prev + 1) (uses latest queue value)</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">setFormData({ ...prev, [name]: value })</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Direct vs Functional update flow inside React's batching process.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How a Single Object State handles multiple inputs dynamically with minimal re-renders.</div>
 </div>
 
-<h2>Functional Update कैसे काम करता है?</h2>
+<h3>1. Multiple Independent States (अलग-अलग Hooks)</h3>
+<p>यह सबसे आसान और सीधा तरीका है। जब आपके States का आपस में कोई सीधा संबंध न हो (जैसे: एक State Modal open/close करने के लिए है और दूसरी Dark Mode toggle करने के लिए), तब आप इसी तरीके का इस्तेमाल करें।</p>
 
-<p>अब, इसी code को functional update के साथ लिख कर देखते हैं:</p>
+<h3>2. Single Object State (एक Object में सब कुछ)</h3>
+<p>जब आपके पास बहुत सारी Inputs हों जो एक ही Form का हिस्सा हैं, तो उन सभी को एक JavaScript Object में डाल देना सबसे बेस्ट प्रैक्टिस है। इससे आपका Handler Function सिर्फ एक लाइन का रह जाता है।</p>
 
-<pre><code>const tripleIncrement = () => {
-  setCount(prevCount => prevCount + 1);
-  setCount(prevCount => prevCount + 1);
-  setCount(prevCount => prevCount + 1);
-};</code></pre>
+<h3>3. useReducer Hook (जटिल State के लिए ब्रह्मास्त्र)</h3>
+<p>जब आपकी State Management बहुत जटिल हो जाए, जहाँ एक State की Value दूसरी State पर निर्भर करती है, तब <code>useReducer</code> सबसे बढ़िया विकल्प है। यह Redux की तरह काम करता है लेकिन इसके लिए किसी external library की जरूरत नहीं पड़ती।</p>
 
-<p>अब जब आप button पर click करेंगे, तो React इन updates को queue (लाइन) में लगा देगा:</p>
-<ol>
-  <li>React पहली callback run करेगा: <code>prevCount</code> (जो 0 है) + 1 = 1.</li>
-  <li>React दूसरी callback run करेगा: अब queue में latest temporary value 1 है, तो <code>prevCount</code> (जो 1 है) + 1 = 2.</li>
-  <li>React तीसरी callback run करेगा: अब latest value 2 है, तो <code>prevCount</code> (जो 2 है) + 1 = 3.</li>
-</ol>
-<p>आखिरकार, जब re-render होगा, तब <code>count</code> की value बिल्कुल सही यानी 3 होगी। यही जादू है Functional Updates का!</p>
+---
 
-<h2>Direct Update vs Functional Update में क्या अंतर है?</h2>
+<h2>Multiple Independent States vs Single Object State: दोनों में क्या अंतर है?</h2>
 
-<p>आइए इन दोनों के बीच के अंतर को एक comparison table के जरिए अच्छे से समझते हैं ताकि कोई doubt न रहे:</p>
+<p>चलिए एक Table के ज़रिए समझते हैं कि इन दोनों Approaches में क्या अंतर है ताकि आपके दिमाग में कोई भी दुविधा न रहे:</p>
 
-<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:15px;text-align:left;">
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; min-width: 400px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
   <thead>
-    <tr style="background-color:#0f172a;color:#ffffff;border-bottom:3px solid #06b6d4;">
-      <th style="padding:12px;">फ़ीचर (Feature)</th>
-      <th style="padding:12px;">Direct Update (setCount(count + 1))</th>
-      <th style="padding:12px;">Functional Update (setCount(prev => prev + 1))</th>
+    <tr style="background-color: #009879; color: #ffffff; text-align: left; font-weight: bold;">
+      <th style="padding: 12px 15px; border: 1px solid #dddddd;">Feature / Parameter</th>
+      <th style="padding: 12px 15px; border: 1px solid #dddddd;">Multiple Independent States</th>
+      <th style="padding: 12px 15px; border: 1px solid #dddddd;">Single Object State</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom:1px solid #e2e8f0;">
-      <td style="padding:12px;font-weight:600;">Syntax</td>
-      <td style="padding:12px;">Direct value या variable pass करना।</td>
-      <td style="padding:12px;">Callback function pass करना जो previous state return करे।</td>
+    <tr style="border-bottom: 1px solid #dddddd;">
+      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">Code Cleanliness</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">खराब (अगर 5 से ज्यादा states हों)</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">बहुत साफ और सुंदर (Clean Code)</td>
     </tr>
-    <tr style="border-bottom:1px solid #e2e8f0;background-color:#f8fafc;">
-      <td style="padding:12px;font-weight:600;">State Accuracy</td>
-      <td style="padding:12px;color:#ef4444;font-weight:600;">Stale (पुरानी) value होने का खतरा रहता है।</td>
-      <td style="padding:12px;color:#10b981;font-weight:600;">हमेशा 100% Latest और Fresh state मिलती है।</td>
+    <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f3f3;">
+      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">Event Handlers</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">हर input के लिए अलग handler चाहिए</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">सिर्फ एक generic handleChange काफी है</td>
     </tr>
-    <tr style="border-bottom:1px solid #e2e8f0;">
-      <td style="padding:12px;font-weight:600;">Asynchronous Behavior</td>
-      <td style="padding:12px;">setTimeout या Event Handlers में bug पैदा कर सकता है।</td>
-      <td style="padding:12px;">Async environments में भी पूरी तरह सुरक्षित और predictable है।</td>
+    <tr style="border-bottom: 1px solid #dddddd;">
+      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">State updates</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">Directly set Value (<code>setValue(val)</code>)</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">Spread Operator (<code>...prev</code>) की जरूरत होती है</td>
     </tr>
-    <tr style="border-bottom:1px solid #e2e8f0;background-color:#f8fafc;">
-      <td style="padding:12px;font-weight:600;">Dependencies in useEffect</td>
-      <td style="padding:12px;">State variable को dependency array में डालना पड़ता है।</td>
-      <td style="padding:12px;">बिना dependency array में state डाले भी सही काम करता है।</td>
+    <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f3f3;">
+      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">Scalability</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">कम Scalable है</td>
+      <td style="padding: 12px 15px; border: 1px solid #dddddd;">अत्यधिक Scalable है</td>
     </tr>
   </tbody>
 </table>
 
-<h2>Real-world Examples: Functional Updates का Use कब करें?</h2>
+---
 
-<p>चलिए कुछ ऐसे real-world scenarios देखते हैं जहां functional updates का इस्तेमाल करना अनिवार्य हो जाता है। इन examples को आप अपने production apps में भी direct use कर सकते हैं।</p>
+<h2>एक Complex Form State को Single Object के साथ कैसे Handle करें? (Step-by-Step Guide)</h2>
 
-<h3>Example 1: Delayed Async Counter (setTimeout के साथ)</h3>
+<p>अब हम सीधे कोड में कूदते हैं! मान लीजिए कि हम एक User Registration Form बना रहे हैं। इसमें हम Single Object State का इस्तेमाल करेंगे और सिर्फ एक <code>onChange</code> Handler की मदद से पूरे Form को control करेंगे।</p>
 
-<p>कई बार हमें state को किसी asynchronous call, API fetch या delay के बाद update करना पड़ता है। यहाँ direct update कैसे fail होता है और functional update उसे कैसे बचाता है, देखिए:</p>
+<h3>Step 1: State Object को Initialize करना</h3>
+<p>सबसे पहले, हम अपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" rel="noopener" target="_blank">React components</a> में <code>useState</code> को एक Object के साथ initialize करेंगे।</p>
 
-<pre><code>import React, { useState } from 'react';
-
-function AsyncCounter() {
-  const [count, setCount] = useState(0);
-
-  const handleDelayedIncrement = () => {
-    // 3 second का delay
-    setTimeout(() => {
-      // Wrong Way (अगर user 3 seconds में multiple clicks करता है, तो updates miss हो जाएंगे)
-      // setCount(count + 1); 
-
-      // Correct Way (functional update हमेशा latest value उठाएगा)
-      setCount(prevCount => prevCount + 1);
-    }, 3000);
-  };
-
-  return (
-    &lt;div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}&gt;
-      &lt;h3&gt;Async Counter Component&lt;/h3&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-      &lt;button onClick={handleDelayedIncrement}&gt;Increment After 3s&lt;/button&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default AsyncCounter;</code></pre>
-
-<h3>Example 2: Complex State Objects और Arrays को Update करना</h3>
-
-<p>जब आप <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack" target="_blank">MERN Stack</a> application बना रहे होते हैं, तब आपको objects और arrays जैसी complex structures के साथ काम करना पड़ता है। ऐसे में functional updates spread operator (<code>...</code>) के साथ मिलकर बहुत सफाई से काम करते हैं।</p>
-
-<p>यहाँ एक Todo list app का code है जो functional update का उपयोग करके state array में नया item जोड़ता है:</p>
-
-<pre><code>import React, { useState } from 'react';
-
-function TodoApp() {
-  const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React Basics' },
-    { id: 2, text: 'Master useState Hook' }
-  ]);
-  const [inputText, setInputText] = useState('');
-
-  const addTodo = () => {
-    if (!inputText.trim()) return;
-
-    const newTodo = {
-      id: Date.now(),
-      text: inputText
-    };
-
-    // Functional update ensuring we do not mutate previous array directly
-    setTodos(prevTodos => [...prevTodos, newTodo]);
-    setInputText('');
-  };
-
-  return (
-    &lt;div style={{ maxWidth: '400px', margin: '20px auto', padding: '10px' }}&gt;
-      &lt;h2&gt;My Todo App&lt;/h2&gt;
-      &lt;input 
-        type="text" 
-        value={inputText} 
-        onChange={(e) => setInputText(e.target.value)} 
-        placeholder="Enter todo item..." 
-      /&gt;
-      &lt;button onClick={addTodo}&gt;Add Todo&lt;/button&gt;
-
-      &lt;ul&gt;
-        {todos.map(todo =&gt; (
-          &lt;li key={todo.id}&gt;{todo.text}&lt;/li&gt;
-        ))}
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default TodoApp;</code></pre>
-
-<h2>Common Errors और उन्हें Debug करने का तरीका</h2>
-
-<p>जब आप functional updates का उपयोग करते हैं, तो कुछ ऐसी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> आ सकती हैं जो आपको परेशान कर सकती हैं। आइए उनके समाधान पर चर्चा करते हैं।</p>
-
-<h3>1. Direct Mutation Error (State को सीधे बदलना)</h3>
-<p>सबसे बड़ी गलती जो नए developers करते हैं, वो है callback function के अंदर state object को सीधे modify (mutate) कर देना।</p>
-
-<pre><code>// ❌ INCORRECT WAY - Direct mutation inside callback
-setUserInfo(prev => {
-  prev.age = 25; // Directly modifying the object property
-  return prev;   // React may not re-render because object reference didn't change!
+<pre><code>const [formData, setFormData] = useState({
+  username: "",
+  email: "",
+  password: "",
+  country: "India",
+  agreeToTerms: false
 });
+</code></pre>
 
-//  CORRECT WAY - Creating a shallow copy
-setUserInfo(prev => {
-  return {
-    ...prev,
-    age: 25
+<h3>Step 2: Generic Handle Change Function बनाना</h3>
+<p>यह इस तकनीक का सबसे जादुई हिस्सा है। हम JavaScript की dynamic key evaluation <code>[name]: value</code> का उपयोग करेंगे।</p>
+
+<pre><code>const handleChange = (event) => {
+  const { name, value, type, checked } = event.target;
+  
+  setFormData((prevData) => ({
+    ...prevData,
+    [name]: type === "checkbox" ? checked : value
+  }));
+};
+</code></pre>
+
+<p><strong>ध्यान देने वाली बात ये है कि:</strong> यहाँ <code>...prevData</code> (Spread Operator) लिखना बहुत जरूरी है। अगर आप इसे नहीं लिखेंगे, तो आपकी पुरानी State पूरी तरह से delete हो जाएगी और सिर्फ नया अपडेटेड field ही बचेगा!</p>
+
+<h3>Step 3: Complete, Production-Ready Code</h3>
+<p>चलिए अब पूरा Working Component देखते हैं जिसे आप सीधे अपने project में use कर सकते हैं:</p>
+
+<pre><code>import React, { useState } from "react";
+
+const RegistrationForm = () => {
+  // Step 1: Initialize Single Object State
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    country: "India",
+    agreeToTerms: false
+  });
+
+  const [submittedData, setSubmittedData] = useState(null);
+
+  // Step 2: Single Handler for all Inputs
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value
+    }));
   };
-});</code></pre>
 
-<p><strong>Fix:</strong> हमेशा state की deep copy या spread operator का उपयोग करके नया object या array return करें ताकि React reference change को detect कर सके और successfully re-render कर सके।</p>
+  // Step 3: Handle Form Submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedData(formData);
+    // Submit logic or API call here
+  };
 
-<h3>2. Infinite Render Loops inside useEffect</h3>
-<p>अगर आप state update functions को <code>useEffect</code> में call करते हैं, और direct update का इस्तेमाल करते हैं, तो आपको state को dependency array में डालना पड़ता है। इससे component infinite loop में फंस सकता है।</p>
+  return (
+    <div style={{ maxWidth: "450px", margin: "40px auto", padding: "20px", border: "1px solid #eaeaea", borderRadius: "10px", fontFamily: "Arial, sans-serif", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
+      <h2 style={{ textAlign: "center", color: "#333" }}>Join Our Community</h2>
+      <form onSubmit={handleSubmit}>
+        
+        {/* Username Field */}
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Enter Username"
+            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
+            required
+          />
+        </div>
 
-<p><strong>Fix:</strong> Functional updates का उपयोग करें। क्योंकि functional updates को current state variable की direct dependency नहीं चाहिए होती, आप dependency array को खाली रख सकते हैं या dependency array से state variable हटा सकते हैं।</p>
+        {/* Email Field */}
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Email Address</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter Email"
+            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
+            required
+          />
+        </div>
 
-<h2>Best Practices: कब क्या इस्तेमाल करें?</h2>
+        {/* Password Field */}
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter Password"
+            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
+            required
+          />
+        </div>
 
-<p>सीनियर developer होने के नाते मेरी सलाह यही होगी कि आप इन rules को हमेशा याद रखें:</p>
+        {/* Dropdown Field */}
+        <div style={{ marginBottom: "15px" }}>
+          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Country</label>
+          <select
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
+          >
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="UK">UK</option>
+          </select>
+        </div>
+
+        {/* Checkbox Field */}
+        <div style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}>
+          <input
+            type="checkbox"
+            name="agreeToTerms"
+            id="agreeToTerms"
+            checked={formData.agreeToTerms}
+            onChange={handleChange}
+            style={{ marginRight: "10px" }}
+            required
+          />
+          <label htmlFor="agreeToTerms" style={{ fontSize: "14px" }}>I agree to terms and conditions</label>
+        </div>
+
+        <button type="submit" style={{ width: "100%", padding: "12px", background: "#0070f3", color: "#fff", border: "none", borderRadius: "5px", fontSize: "16px", cursor: "pointer", fontWeight: "bold" }}>
+          Register Now
+        </button>
+      </form>
+
+      {submittedData && (
+        <div style={{ marginTop: "20px", padding: "15px", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px" }}>
+          <h4 style={{ margin: "0 0 10px 0", color: "#166534" }}>Form Submitted Successfully!</h4>
+          <pre style={{ fontSize: "12px", margin: 0, overflowX: "auto" }}>{JSON.stringify(submittedData, null, 2)}</pre>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RegistrationForm;
+</code></pre>
+
+---
+
+<h2>Common Errors और Developer Mistakes (और उन्हें कैसे Fix करें)</h2>
+
+<p>जब आप React में multiple states को object के जरिए manage करते हैं, तो कुछ सामान्य गलतियां (common bugs) होती हैं जो बड़े-बड़े Developers भी कर बैठते हैं। आइए देखते हैं कि वे क्या हैं और उनका समाधान कैसे निकालें:</p>
+
+<h3>गलती #1: React State Direct Mutation (सीधे State बदलना)</h3>
+<p>बहुत से नए डेवलपर्स गलती से State Object को सीधे बदल देते हैं, जैसे:</p>
+<pre><code>// ❌ NEVER DO THIS!
+formData.username = "new_value"; 
+</code></pre>
+<p>अगर आप ऐसा करेंगे, तो React को पता ही नहीं चलेगा कि State बदल चुकी है, क्योंकि Object का memory reference चेंज नहीं हुआ। React re-render नहीं होगा।</p>
+<p><strong>💡 समाधान (Solution):</strong> हमेशा Setter function (<code>setFormData</code>) का उपयोग करें और एक नया Object reference पास करें (Spread Operator के साथ)।</p>
+
+<h3>गलती #2: Nested Object State को गलत तरीके से Update करना</h3>
+<p>मान लीजिए आपकी State ऐसी है:</p>
+<pre><code>const [user, setUser] = useState({
+  name: "",
+  address: {
+    city: "",
+    zip: ""
+  }
+});
+</code></pre>
+<p>अगर आप सीधे <code>setUser({ ...user, address: { city: "Delhi" } })</code> करेंगे, तो <code>zip</code> गायब हो जाएगा! क्योंकि Nested Objects को भी deep spread करना पड़ता है।</p>
+<p>इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" rel="noopener" target="_blank">error</a> को सुलझाने का सही तरीका यह है:</p>
+<pre><code>setUser((prevUser) => ({
+  ...prevUser,
+  address: {
+    ...prevUser.address,
+    city: "Delhi" // Now zip is preserved!
+  }
+}));
+</code></pre>
+
+---
+
+<h2>Advanced Technique: useReducer कब इस्तेमाल करना चाहिए?</h2>
+
+<p>मेरे दोस्त, यदि आपके पास कोई ऐसा फॉर्म है जिसमें 10-15 fields हैं, custom validation rules हैं, और एक input बदलने पर दूसरी input की values dynamically update होती हैं, तो Single Object State भी कम पड़ सकती है। यहाँ पर <strong>useReducer Hook</strong> काम आता है।</p>
+
+<p>चलो देखते हैं कि <code>useReducer</code> का ढांचा कैसा होता है:</p>
+
+<pre><code>import React, { useReducer } from "react";
+
+// Initial State Definition
+const initialState = {
+  count: 0,
+  username: "",
+  error: null
+};
+
+// Reducer function that handles state transitions based on Actions
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_FIELD":
+      return {
+        ...state,
+        [action.field]: action.value
+      };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.payload
+      };
+    case "RESET_FORM":
+      return initialState;
+    default:
+      return state;
+  }
+};
+
+const ReducerFormExample = () => {
+  const [state, dispatch] = useReducer(formReducer, initialState);
+
+  const handleInputChange = (e) => {
+    dispatch({
+      type: "SET_FIELD",
+      field: e.target.name,
+      value: e.target.value
+    });
+  };
+
+  return (
+    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
+      <h3>useReducer State Management</h3>
+      <input
+        type="text"
+        name="username"
+        value={state.username}
+        onChange={handleInputChange}
+        placeholder="Enter Username"
+        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+      />
+      <button onClick={() => dispatch({ type: "RESET_FORM" })} style={{ padding: "10px", background: "#ef4444", color: "#fff", border: "none", cursor: "pointer" }}>
+        Reset Form
+      </button>
+    </div>
+  );
+};
+
+export default ReducerFormExample;
+</code></pre>
+
+---
+
+<h2>Best Practices: State Management को Super-Optimized कैसे बनाएं?</h2>
+
+<p>एक सीनियर आर्किटेक्ट के नजरिए से, मैं आपको कुछ अनमोल सलाह देना चाहूंगा जो आपकी Application की Performance को एकदम मक्खन जैसी तेज बना देंगी:</p>
+
 <ul>
-  <li><strong>Direct Update का उपयोग तब करें:</strong> जब नया state value पिछले state value पर बिल्कुल भी निर्भर न हो (जैसे input field की text value update करना, <code>setSearchQuery(e.target.value)</code>)।</li>
-  <li><strong>Functional Update का उपयोग तब करें:</strong> जब भी आपका नया state, पुराने state (previous state) की value पर calculated हो (जैसे toggle switches, counters, array manipulations like adding/deleting items)।</li>
-  <li>आप React की official <a href="https://react.dev/reference/react/useState" rel="noopener" target="_blank">useState API Reference</a> का भी अध्ययन कर सकते हैं ताकि इसके internal behaviors को और गहराई से समझ सकें।</li>
+  <li><strong>Keep State Local:</strong> जब तक किसी state की जरूरत parent या sibling components को न हो, तब तक उसे component के अंदर ही रखें (Lift State Up सिर्फ तभी करें जब सचमुच आवश्यक हो)।</li>
+  <li><strong>Avoid Unnecessary re-renders:</strong> React 18 में State Batching अपने आप काम करती है (यानी एक event handler के अंदर multiple updates होने पर भी React सिर्फ एक बार Render करेगा)। लेकिन, Complex dynamic forms के लिए आप Uncontrolled Inputs (using <code>useRef</code>) पर विचार कर सकते हैं अगर performance critical हो।</li>
+  <li><strong>Form Libraries:</strong> अगर आपका प्रोजेक्ट बहुत बड़ा है और उसमें heavy validations हैं, तो खुद का wheel re-invent न करें। Formik या React Hook Form जैसी बेहतरीन Library का उपयोग करें जो internal states को optimized तरीके से हैंडल करती हैं।</li>
 </ul>
 
-<p>तो दोस्तों, हमने आज सीखा कि React में state stale problems क्यों आती हैं और useState Functional Update हमारी performance और bugs को सुधारने में कितना महत्वपूर्ण रोल अदा करता है। अगली बार जब भी आप state updates करें, इस technique को ज़रूर अपनाएं!</p>
+<p>तो दोस्तों, हमने आज क्या-क्या सीखा? React में Multiple useState को Manage करने के लिए अलग-अलग states का उपयोग तभी करें जब वे पूरी तरह स्वतंत्र हों। यदि वे आपस में जुड़ी हुई हैं, तो Single Object State को Dynamic Handlers के साथ इस्तेमाल करना सबसे बेहतरीन तकनीक है। और यदि आपकी Business Logic बहुत अधिक जटिल है, तो बेझिझक <code>useReducer</code> की तरफ़ कदम बढाएं।</p>
+
+---
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
   
-  <div class="faq-q">Q1: React useState Functional Update क्यों जरूरी है?</div>
-  <div class="faq-a">यह इसलिए जरूरी है क्योंकि React state updates asynchronous होते हैं और batching process का उपयोग करते हैं। जब हमें current state value के आधार पर ही अगली state calculate करनी होती है, तो direct updates पुराने (stale) data का इस्तेमाल कर सकते हैं। Functional update हमेशा latest queue value को utilize करता है।</div>
+  <div class="faq-q">Q1: क्या Multiple useState Hooks का उपयोग करने से React App Slow हो जाती है?</div>
+  <div class="faq-a">नहीं, सामान्यतः Multiple useState Hooks का उपयोग करने से App Slow नहीं होती। React 18 का automatic batching feature Multiple State updates को एक ही re-render में process कर लेता है। लेकिन, कोड की Readability और Maintenance के लिहाज से Object State या useReducer का इस्तेमाल करना बेहतर माना जाता है।</div>
   
-  <div class="faq-q">Q2: क्या Functional Update का use करने से Performance बेहतर होती है?</div>
-  <div class="faq-a">हाँ, बिल्कुल! Functional updates के उपयोग से unwanted re-renders और state stale bugs कम होते हैं। इसके अलावा, useEffect hooks में state dependency की आवश्यकता न होने के कारण unnecessary hook triggerings से भी बचा जा सकता है।</div>
+  <div class="faq-q">Q2: Single Object State का उपयोग करते समय Input change होने पर पुराना डेटा क्यों गायब हो जाता है?</div>
+  <div class="faq-a">ऐसा इसलिए होता है क्योंकि आप State Update करते समय Spread Operator (...prev) का उपयोग करना भूल जाते हैं। React में Object State को partial update नहीं किया जा सकता, उसे हमेशा पूरा नया Object चाहिए होता है। इसलिए, हमेशा state update करते समय पुराने fields को spread करना अनिवार्य है।</div>
   
-  <div class="faq-q">Q3: क्या मैं Object State के लिए भी Functional Update कर सकता हूँ?</div>
-  <div class="faq-a">हाँ! आप state updates के दौरान Spread Operator (...) का उपयोग करके आसानी से old properties को copy कर सकते हैं और सिर्फ target property को dynamic function के जरिए update कर सकते हैं।</div>
+  <div class="faq-q">Q3: dynamic bracket notation [e.target.name] का क्या मतलब है?</div>
+  <div class="faq-a">यह ES6 JavaScript की एक शानदार Feature है जिसे Dynamic Property Name कहते हैं। इसकी मदद से हम runtime पर Object की Key का नाम बदल सकते हैं। इससे हमें अलग-अलग input fields (जैसे email, password) के लिए अलग-अलग Event Handlers लिखने की जरूरत नहीं पड़ती।</div>
   
-  <div class="faq-q">Q4: Functional updates में "prev" parameter क्या दर्शाता है?</div>
-  <div class="faq-a">"prev" या "prevCount" React द्वारा runtime पर automatically inject की जाने वाली सबसे latest (current) state value होती है जो queue में update होने के लिए तैयार खड़ी होती है।</div>
+  <div class="faq-q">Q4: complex nested states के लिए क्या useState सही विकल्प है?</div>
+  <div class="faq-a">Nested states को useState के साथ manage करना थोड़ा थकाऊ और bug-prone हो सकता है, क्योंकि आपको हर level पर shallow copying करनी पड़ती है। ऐसी स्थिति में, आप या तो useReducer Hook का उपयोग कर सकते हैं या Immer.js जैसी library का सहारा ले सकते हैं जो immutable data को आसान बनाती है।</div>
   
-  <div class="faq-q">Q5: Stale State closure bug क्या होता है?</div>
-  <div class="faq-a">जब React state update asynchronous event handler (जैसे setTimeout, setInterval, या API Call callbacks) के अंदर render snapshot closure में lock हो जाती है, तो उसे outdated value मिलती है। इसी closure issue को stale state bug कहा जाता है, जिसे functional update से आसानी से solve किया जा सकता है।</div>
+  <div class="faq-q">Q5: useState vs useReducer: मुझे कब कौन-सा चुनना चाहिए?</div>
+  <div class="faq-a">अगर आपकी state स्वतंत्र है और उसमें simple data types (string, boolean, number) हैं, तो useState का उपयोग करें। यदि आपकी state complex है (जैसे array of objects), या एक action से multiple states पर असर पड़ता है, तो useReducer एक बेहतरीन और maintainable solution है।</div>
 </div>
+
+---
 
 <script type="application/ld+json">
 {
@@ -306,42 +424,42 @@ setUserInfo(prev => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React useState Functional Update क्यों जरूरी है?",
+      "name": "क्या Multiple useState Hooks का उपयोग करने से React App Slow हो जाती है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यह इसलिए जरूरी है क्योंकि React state updates asynchronous होते हैं और batching process का उपयोग करते हैं। जब हमें current state value के आधार पर ही अगली state calculate करनी होती है, तो direct updates पुराने (stale) data का इस्तेमाल कर सकते हैं। Functional update हमेशा latest queue value को utilize करता है।"
+        "text": "नहीं, सामान्यतः Multiple useState Hooks का उपयोग करने से App Slow नहीं होती। React 18 का automatic batching feature Multiple State updates को एक ही re-render में process कर लेता है। लेकिन, कोड की Readability और Maintenance के लिहाज से Object State या useReducer का इस्तेमाल करना बेहतर माना जाता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Functional Update का use करने से Performance बेहतर होती है?",
+      "name": "Single Object State का उपयोग करते समय Input change होने पर पुराना डेटा क्यों गायब हो जाता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! Functional updates के उपयोग से unwanted re-renders और state stale bugs कम होते हैं। इसके अलावा, useEffect hooks में state dependency की आवश्यकता न होने के कारण unnecessary hook triggerings से भी बचा जा सकता है।"
+        "text": "ऐसा इसलिए होता है क्योंकि आप State Update करते समय Spread Operator (...prev) का उपयोग करना भूल जाते हैं। React में Object State को partial update नहीं किया जा सकता, उसे हमेशा पूरा नया Object चाहिए होता है। इसलिए, हमेशा state update करते समय पुराने fields को spread करना अनिवार्य है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या मैं Object State के लिए भी Functional Update कर सकता हूँ?",
+      "name": "dynamic bracket notation [e.target.name] का क्या मतलब है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ! आप state updates के दौरान Spread Operator (...) का उपयोग करके आसानी से old properties को copy कर सकते हैं और सिर्फ target property को dynamic function के जरिए update कर सकते हैं।"
+        "text": "यह ES6 JavaScript की एक शानदार Feature है जिसे Dynamic Property Name कहते हैं। इसकी मदद से हम runtime पर Object की Key का नाम बदल सकते हैं। इससे हमें अलग-अलग input fields के लिए अलग-अलग Event Handlers लिखने की जरूरत नहीं पड़ती।"
       }
     },
     {
       "@type": "Question",
-      "name": "Functional updates में \"prev\" parameter क्या दर्शाता है?",
+      "name": "complex nested states के लिए क्या useState सही विकल्प है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "\"prev\" या \"prevCount\" React द्वारा runtime पर automatically inject की जाने वाली सबसे latest (current) state value होती है जो queue में update होने के लिए तैयार खड़ी होती है।"
+        "text": "Nested states को useState के साथ manage करना थोड़ा थकाऊ और bug-prone हो सकता है, क्योंकि आपको हर level पर shallow copying करनी पड़ती है। ऐसी स्थिति में, आप या तो useReducer Hook का उपयोग कर सकते हैं या Immer.js जैसी library का सहारा ले सकते हैं जो immutable data को आसान बनाती है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Stale State closure bug क्या होता है?",
+      "name": "useState vs useReducer: मुझे कब कौन-सा चुनना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "जब React state update asynchronous event handler (जैसे setTimeout, setInterval, या API Call callbacks) के अंदर render snapshot closure में lock हो जाती है, तो उसे outdated value मिलती है। इसी closure issue को stale state bug कहा जाता है, जिसे functional update से आसानी से solve किया जा सकता है।"
+        "text": "अगर आपकी state स्वतंत्र है और उसमें simple data types (string, boolean, number) हैं, तो useState का उपयोग करें। यदि आपकी state complex है (जैसे array of objects), या एक action से multiple states पर असर पड़ता है, तो useReducer एक बेहतरीन और maintainable solution है।"
       }
     }
   ]
