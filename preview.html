@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useState me Object aur Array Kaise Update Karein (in Hindi)</title>
+    <title>Preview: React useState Functional Update Kya Hai (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,116 +16,287 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useState mein Object aur Array ko sahi tarike se update kaise karein? Seekhein best practices aur common mistakes se bachne ke aasaan tips yahan.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में useState Functional Update क्या है? जानिए prev state को सही से update करने और stale state की problem को solve करने का आसान तरीका।</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useState me Object aur Array Kaise Update Karein (in Hindi)</h1>
+    <h1>React useState Functional Update Kya Hai (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/BKPzC5c2/a62749ac9fdf.png" alt="React useState me Object aur Array Kaise Update Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useState me object aur array ko sahi tarike se update kaise karein? Is guide me hum state immutability aur best practices ko aasan Hindi me samjhenge.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/MDF1RWTy/f39befecbdf0.png" alt="React useState Functional Update Kya Hai (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useState Functional Update kya hai? State stale value issues ko solve karne aur React application updates ko accurate banane ka aasan tarika seekhein.
 
-<p>Kya aapne kabhi socha hai ki ReactJS me jab aap <code>useState</code> hook ka use karte hain, toh ek simple string ya number ko update karna toh bahut aasaan hota hai, lekin jaise hi baat <code>Object</code> ya <code>Array</code> ki aati hai, toh data update kyun nahi hota? Aksar naye developers yahi galti karte hain aur fir sochte hain ki unka UI re-render kyun nahi ho raha.</p>
+<p>मेरे प्यारे दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> में एक ही function के अंदर लगातार 3 बार <code>setCount(count + 1)</code> लिखा, लेकिन जब button पर click किया, तो state सिर्फ 1 ही बार बढ़ी? या फिर <code>setTimeout</code> या <code>useEffect</code> के अंदर आपको state की पुरानी यानी stale value का सामना करना पड़ा?</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me <code>useState</code> object aur array update karne ke liye aapko hamesha naya reference (spread operator <code>...</code>) use karna chahiye. React "Immutability" par kaam karta hai, isliye direct mutate karne ke bajaye hamesha pura object ya array copy karke update karein, jisse React component re-render ho sake.</div>
+<p>घबराइए मत! यह समस्या दुनिया के हर दूसरे React developer के साथ होती है। आज हम इस समस्या की जड़ तक जाएंगे और इसका सबसे बेहतरीन समाधान—<strong>React useState Functional Update</strong>—को बिल्कुल बारीकी से समझेंगे। इस guide के बाद, आप state updates में कभी कोई गलती नहीं करेंगे। तो चलिए, चाय का कप हाथ में लीजिए और इस शानदार सफर को शुरू करते हैं!</p>
 
-<h2>useState में Object को अपडेट कैसे करें?</h2>
-<p>React me state ek read-only snapshot ki tarah hoti hai. Agar aap direct <code>user.name = "Rahul"</code> jaisa code likhenge, toh React ko pata hi nahi chalega ki state change hui hai. Isliye hamein <strong>Spread Operator</strong> (<code>...</code>) ka use karke object ki copy banani padti hai.</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useState Functional Update एक ऐसी technique है जहां state updater function (जैसे <code>setCount</code>) में direct value पास करने के बजाय एक callback function पास किया जाता है। यह callback automatically current state (previous state) को receive करता है, जिससे stale state bug पूरी तरह से हल हो जाता है।</div>
 
-<pre><code>import { useState } from 'react';
+<h2>React useState Functional Update क्या है?</h2>
 
-function UserProfile() {
-  const [user, setUser] = useState({ name: 'Rahul', age: 25, role: 'Developer' });
+<p>जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> में <code>useState</code> hook का उपयोग करते हैं, तो हमें दो चीजें मिलती हैं: current state value और उसे update करने वाला function।</p>
 
-  const updateName = () => {
-    // Sahi tarika: Spread operator se purane data ko preserve karein
-    setUser(prevState => ({
-      ...prevState,
-      name: 'Amit'
-    }));
+<p>आमतौर पर, हम state को direct update करते हैं, कुछ इस तरह:</p>
+
+<pre><code>const [count, setCount] = useState(0);
+
+// Direct Update
+setCount(count + 1);</code></pre>
+
+<p>लेकिन React में state updates तुरंत (synchronously) नहीं होते। React performance को बेहतर बनाने के लिए कई state updates को batch (इकट्ठा) करता है। इस वजह से, जब हम direct update करते हैं, तो React को हमेशा "ताजा" या "current" state value नहीं मिल पाती।</p>
+
+<p>इसी समस्या को हल करने के लिए आता है <strong>Functional Update</strong>। इसमें हम direct value पास करने के बजाय <code>setCount</code> के अंदर एक arrow function पास करते हैं:</p>
+
+<pre><code>// Functional Update
+setCount(prevCount => prevCount + 1);</code></pre>
+
+<p>यहाँ, <code>prevCount</code> वह सबसे ताजा और accurate state value है जो React के पास उस समय मौजूद होती है। React खुद इस callback function को execute करता है और उसमें latest state pass करता है।</p>
+
+<h2>हमें Functional Updates की ज़रूरत क्यों पड़ती है? (The Stale State Problem)</h2>
+
+<p>इसको समझने के लिए, ध्यान देने वाली बात ये है कि React state updates को कैसे schedule करता है। चलिए एक classic example देखते हैं जिससे यह समस्या पूरी तरह साफ हो जाएगी।</p>
+
+<h3>The Counter Bug (Direct Update का फेल होना)</h3>
+
+<p>मान लीजिए आपके पास एक function है जहां आप state को consecutive (लगातार) तीन बार बढ़ाना चाहते हैं:</p>
+
+<pre><code>import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const tripleIncrement = () => {
+    setCount(count + 1);
+    setCount(count + 1);
+    setCount(count + 1);
   };
 
   return (
     &lt;div&gt;
-      &lt;h1&gt;{user.name} is {user.age} years old&lt;/h1&gt;
-      &lt;button onClick={updateName}&gt;Update Name&lt;/button&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={tripleIncrement}&gt;Triple Increment&lt;/button&gt;
     &lt;/div&gt;
   );
 }</code></pre>
 
-<p>Yahan dhyan dein, humne <code>prevState</code> ka use kiya hai. Yeh best practice hai kyunki state updates asynchronous ho sakte hain. Jab aap updated state ko purani state par base karte hain, toh hamesha functional update ka use karna chahiye.</p>
+<p>अगर आप इस button पर click करेंगे, तो आपको लगेगा कि <code>count</code> की value 0 से बढ़कर सीधे 3 हो जानी चाहिए। लेकिन असल में ऐसा नहीं होगा! <code>count</code> सिर्फ 1 से बढ़ेगा।</p>
 
-<h2>useState में Array को अपडेट कैसे करें?</h2>
-<p>Array ke case me bhi logic wahi hai. Aap <code>push()</code> ya <code>splice()</code> jaise methods ka use nahi kar sakte kyunki ye original array ko badal dete hain (mutate karte hain). Hamein <code>map()</code>, <code>filter()</code>, ya spread operator ka use karke naya array banana hoga.</p>
+<h3>ऐसा क्यों हुआ? (Under the Hood Story)</h3>
+
+<p>जब <code>tripleIncrement</code> function trigger होता है, तब <code>count</code> की value <code>0</code> होती है (यह current render का snapshot है)।</p>
+<ol>
+  <li>पहला <code>setCount(count + 1)</code> कहता है: <code>setCount(0 + 1)</code> &rarr; React schedules count to be 1.</li>
+  <li>दूसरा <code>setCount(count + 1)</code> भी कहता है: <code>setCount(0 + 1)</code> &rarr; React schedules count to be 1.</li>
+  <li>तीसरा <code>setCount(count + 1)</code> भी कहता है: <code>setCount(0 + 1)</code> &rarr; React schedules count to be 1.</li>
+</ol>
+<p>चूंकि React batching करता है, वह इन तीनों calls को merge कर देता है और component को केवल एक बार re-render करता है। आखिर में, <code>count</code> की value सिर्फ 1 ही रह जाती है। इसे ही हम <strong>Stale State Problem</strong> कहते हैं।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ State Update Flow</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ State Update Flow Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Original State</div>
+    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Direct: count + 1 (uses old snapshot)</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Spread (...) Copy</div>
+    <div style="background:#eab308;color:#000;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(234,179,8,0.4)">React State Batching</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">New State</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Functional: (prev => prev + 1) (uses latest queue value)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React state update ka immutability flow</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Direct vs Functional update flow inside React's batching process.</div>
 </div>
 
-<h3>Array Update karne ka Code Example:</h3>
-<pre><code>const [items, setItems] = useState(['Apple', 'Banana']);
+<h2>Functional Update कैसे काम करता है?</h2>
 
-const addItem = () => {
-  // Naya array create karein aur purane items ko copy karein
-  setItems([...items, 'Mango']);
-};
+<p>अब, इसी code को functional update के साथ लिख कर देखते हैं:</p>
 
-const removeItem = (itemToRemove) => {
-  // Filter method se naya array banayein
-  setItems(items.filter(item => item !== itemToRemove));
+<pre><code>const tripleIncrement = () => {
+  setCount(prevCount => prevCount + 1);
+  setCount(prevCount => prevCount + 1);
+  setCount(prevCount => prevCount + 1);
 };</code></pre>
 
-<h2>Common Errors और Debugging</h2>
-<p>Dosto, aksar log <code>error</code> face karte hain jab woh nested objects ke saath kaam karte hain. Agar aapka object deep nested hai, toh sirf ek level ka spread operator kaafi nahi hoga. Tab aapko deep cloning ya <code>immer</code> library ka use karna pad sakta hai.</p>
+<p>अब जब आप button पर click करेंगे, तो React इन updates को queue (लाइन) में लगा देगा:</p>
+<ol>
+  <li>React पहली callback run करेगा: <code>prevCount</code> (जो 0 है) + 1 = 1.</li>
+  <li>React दूसरी callback run करेगा: अब queue में latest temporary value 1 है, तो <code>prevCount</code> (जो 1 है) + 1 = 2.</li>
+  <li>React तीसरी callback run करेगा: अब latest value 2 है, तो <code>prevCount</code> (जो 2 है) + 1 = 3.</li>
+</ol>
+<p>आखिरकार, जब re-render होगा, तब <code>count</code> की value बिल्कुल सही यानी 3 होगी। यही जादू है Functional Updates का!</p>
 
-<table>
-  <tr>
-    <th>Method</th>
-    <th>Immutability</th>
-    <th>Result</th>
-  </tr>
-  <tr>
-    <td>push()</td>
-    <td>No (Mutates)</td>
-    <td>React detect nahi karega</td>
-  </tr>
-  <tr>
-    <td>concat()</td>
-    <td>Yes</td>
-    <td>React detect karega</td>
-  </tr>
-  <tr>
-    <td>Spread (...)</td>
-    <td>Yes</td>
-    <td>Recommended</td>
-  </tr>
+<h2>Direct Update vs Functional Update में क्या अंतर है?</h2>
+
+<p>आइए इन दोनों के बीच के अंतर को एक comparison table के जरिए अच्छे से समझते हैं ताकि कोई doubt न रहे:</p>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:15px;text-align:left;">
+  <thead>
+    <tr style="background-color:#0f172a;color:#ffffff;border-bottom:3px solid #06b6d4;">
+      <th style="padding:12px;">फ़ीचर (Feature)</th>
+      <th style="padding:12px;">Direct Update (setCount(count + 1))</th>
+      <th style="padding:12px;">Functional Update (setCount(prev => prev + 1))</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:12px;font-weight:600;">Syntax</td>
+      <td style="padding:12px;">Direct value या variable pass करना।</td>
+      <td style="padding:12px;">Callback function pass करना जो previous state return करे।</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e2e8f0;background-color:#f8fafc;">
+      <td style="padding:12px;font-weight:600;">State Accuracy</td>
+      <td style="padding:12px;color:#ef4444;font-weight:600;">Stale (पुरानी) value होने का खतरा रहता है।</td>
+      <td style="padding:12px;color:#10b981;font-weight:600;">हमेशा 100% Latest और Fresh state मिलती है।</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e2e8f0;">
+      <td style="padding:12px;font-weight:600;">Asynchronous Behavior</td>
+      <td style="padding:12px;">setTimeout या Event Handlers में bug पैदा कर सकता है।</td>
+      <td style="padding:12px;">Async environments में भी पूरी तरह सुरक्षित और predictable है।</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e2e8f0;background-color:#f8fafc;">
+      <td style="padding:12px;font-weight:600;">Dependencies in useEffect</td>
+      <td style="padding:12px;">State variable को dependency array में डालना पड़ता है।</td>
+      <td style="padding:12px;">बिना dependency array में state डाले भी सही काम करता है।</td>
+    </tr>
+  </tbody>
 </table>
 
-<p>Ek aur important baat, jab aap <code>ReactJS</code> me complex data structures manage karte hain, toh performance ka bhi dhyan rakhein. Har state update re-render trigger karta hai. Agar aapki application bahut badi hai, toh state ko sahi jagah lift karna seekhein.</p>
+<h2>Real-world Examples: Functional Updates का Use कब करें?</h2>
 
-<h2>Summary</h2>
-<p>Toh dosto, humne aaj seekha ki <code>useState</code> me objects aur arrays ko update karne ka golden rule hai <strong>"Immutability"</strong>. Direct modify karne ke bajaye hamesha purani state ki copy banayein aur usme changes karein. Isse aapke <code>React components</code> sahi se re-render honge aur aapka UI update rahega. Zyada janne ke liye official <a href="https://react.dev/reference/react/useState" target="_blank" rel="noopener">React documentation</a> zaroor check karein.</p>
+<p>चलिए कुछ ऐसे real-world scenarios देखते हैं जहां functional updates का इस्तेमाल करना अनिवार्य हो जाता है। इन examples को आप अपने production apps में भी direct use कर सकते हैं।</p>
+
+<h3>Example 1: Delayed Async Counter (setTimeout के साथ)</h3>
+
+<p>कई बार हमें state को किसी asynchronous call, API fetch या delay के बाद update करना पड़ता है। यहाँ direct update कैसे fail होता है और functional update उसे कैसे बचाता है, देखिए:</p>
+
+<pre><code>import React, { useState } from 'react';
+
+function AsyncCounter() {
+  const [count, setCount] = useState(0);
+
+  const handleDelayedIncrement = () => {
+    // 3 second का delay
+    setTimeout(() => {
+      // Wrong Way (अगर user 3 seconds में multiple clicks करता है, तो updates miss हो जाएंगे)
+      // setCount(count + 1); 
+
+      // Correct Way (functional update हमेशा latest value उठाएगा)
+      setCount(prevCount => prevCount + 1);
+    }, 3000);
+  };
+
+  return (
+    &lt;div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}&gt;
+      &lt;h3&gt;Async Counter Component&lt;/h3&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={handleDelayedIncrement}&gt;Increment After 3s&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default AsyncCounter;</code></pre>
+
+<h3>Example 2: Complex State Objects और Arrays को Update करना</h3>
+
+<p>जब आप <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack" target="_blank">MERN Stack</a> application बना रहे होते हैं, तब आपको objects और arrays जैसी complex structures के साथ काम करना पड़ता है। ऐसे में functional updates spread operator (<code>...</code>) के साथ मिलकर बहुत सफाई से काम करते हैं।</p>
+
+<p>यहाँ एक Todo list app का code है जो functional update का उपयोग करके state array में नया item जोड़ता है:</p>
+
+<pre><code>import React, { useState } from 'react';
+
+function TodoApp() {
+  const [todos, setTodos] = useState([
+    { id: 1, text: 'Learn React Basics' },
+    { id: 2, text: 'Master useState Hook' }
+  ]);
+  const [inputText, setInputText] = useState('');
+
+  const addTodo = () => {
+    if (!inputText.trim()) return;
+
+    const newTodo = {
+      id: Date.now(),
+      text: inputText
+    };
+
+    // Functional update ensuring we do not mutate previous array directly
+    setTodos(prevTodos => [...prevTodos, newTodo]);
+    setInputText('');
+  };
+
+  return (
+    &lt;div style={{ maxWidth: '400px', margin: '20px auto', padding: '10px' }}&gt;
+      &lt;h2&gt;My Todo App&lt;/h2&gt;
+      &lt;input 
+        type="text" 
+        value={inputText} 
+        onChange={(e) => setInputText(e.target.value)} 
+        placeholder="Enter todo item..." 
+      /&gt;
+      &lt;button onClick={addTodo}&gt;Add Todo&lt;/button&gt;
+
+      &lt;ul&gt;
+        {todos.map(todo =&gt; (
+          &lt;li key={todo.id}&gt;{todo.text}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default TodoApp;</code></pre>
+
+<h2>Common Errors और उन्हें Debug करने का तरीका</h2>
+
+<p>जब आप functional updates का उपयोग करते हैं, तो कुछ ऐसी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> आ सकती हैं जो आपको परेशान कर सकती हैं। आइए उनके समाधान पर चर्चा करते हैं।</p>
+
+<h3>1. Direct Mutation Error (State को सीधे बदलना)</h3>
+<p>सबसे बड़ी गलती जो नए developers करते हैं, वो है callback function के अंदर state object को सीधे modify (mutate) कर देना।</p>
+
+<pre><code>// ❌ INCORRECT WAY - Direct mutation inside callback
+setUserInfo(prev => {
+  prev.age = 25; // Directly modifying the object property
+  return prev;   // React may not re-render because object reference didn't change!
+});
+
+//  CORRECT WAY - Creating a shallow copy
+setUserInfo(prev => {
+  return {
+    ...prev,
+    age: 25
+  };
+});</code></pre>
+
+<p><strong>Fix:</strong> हमेशा state की deep copy या spread operator का उपयोग करके नया object या array return करें ताकि React reference change को detect कर सके और successfully re-render कर सके।</p>
+
+<h3>2. Infinite Render Loops inside useEffect</h3>
+<p>अगर आप state update functions को <code>useEffect</code> में call करते हैं, और direct update का इस्तेमाल करते हैं, तो आपको state को dependency array में डालना पड़ता है। इससे component infinite loop में फंस सकता है।</p>
+
+<p><strong>Fix:</strong> Functional updates का उपयोग करें। क्योंकि functional updates को current state variable की direct dependency नहीं चाहिए होती, आप dependency array को खाली रख सकते हैं या dependency array से state variable हटा सकते हैं।</p>
+
+<h2>Best Practices: कब क्या इस्तेमाल करें?</h2>
+
+<p>सीनियर developer होने के नाते मेरी सलाह यही होगी कि आप इन rules को हमेशा याद रखें:</p>
+<ul>
+  <li><strong>Direct Update का उपयोग तब करें:</strong> जब नया state value पिछले state value पर बिल्कुल भी निर्भर न हो (जैसे input field की text value update करना, <code>setSearchQuery(e.target.value)</code>)।</li>
+  <li><strong>Functional Update का उपयोग तब करें:</strong> जब भी आपका नया state, पुराने state (previous state) की value पर calculated हो (जैसे toggle switches, counters, array manipulations like adding/deleting items)।</li>
+  <li>आप React की official <a href="https://react.dev/reference/react/useState" rel="noopener" target="_blank">useState API Reference</a> का भी अध्ययन कर सकते हैं ताकि इसके internal behaviors को और गहराई से समझ सकें।</li>
+</ul>
+
+<p>तो दोस्तों, हमने आज सीखा कि React में state stale problems क्यों आती हैं और useState Functional Update हमारी performance और bugs को सुधारने में कितना महत्वपूर्ण रोल अदा करता है। अगली बार जब भी आप state updates करें, इस technique को ज़रूर अपनाएं!</p>
 
 <div class="faq-accordion">
-  <h3 class="faq-h">Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: React state me direct mutation kyun nahi karna chahiye?</div>
-  <div class="faq-a">Direct mutation se React ka change detection mechanism trigger nahi hota, jisse UI update nahi hota aur bugs aate hain.</div>
-  <div class="faq-q">Q2: Spread operator (...) kya karta hai?</div>
-  <div class="faq-a">Spread operator purane object ya array ke sabhi elements ko naye container me copy kar deta hai, jisse naya reference banta hai.</div>
-  <div class="faq-q">Q3: Kya hum nested object ko update kar sakte hain?</div>
-  <div class="faq-a">Haan, lekin har level par spread operator use karna padega, jaise { ...state, nested: { ...state.nested, key: 'value' } }.</div>
-  <div class="faq-q">Q4: Functional update (prevState) ka use kab karein?</div>
-  <div class="faq-a">Jab aapki nai state purani state par depend karti ho, tab functional update ka use karna best practice hai.</div>
-  <div class="faq-q">Q5: Best practice kya hai badi objects ke liye?</div>
-  <div class="faq-a">Badi objects ke liye 'Immer' library ka use karein, jo code ko readable aur clean banati hai.</div>
+  <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
+  
+  <div class="faq-q">Q1: React useState Functional Update क्यों जरूरी है?</div>
+  <div class="faq-a">यह इसलिए जरूरी है क्योंकि React state updates asynchronous होते हैं और batching process का उपयोग करते हैं। जब हमें current state value के आधार पर ही अगली state calculate करनी होती है, तो direct updates पुराने (stale) data का इस्तेमाल कर सकते हैं। Functional update हमेशा latest queue value को utilize करता है।</div>
+  
+  <div class="faq-q">Q2: क्या Functional Update का use करने से Performance बेहतर होती है?</div>
+  <div class="faq-a">हाँ, बिल्कुल! Functional updates के उपयोग से unwanted re-renders और state stale bugs कम होते हैं। इसके अलावा, useEffect hooks में state dependency की आवश्यकता न होने के कारण unnecessary hook triggerings से भी बचा जा सकता है।</div>
+  
+  <div class="faq-q">Q3: क्या मैं Object State के लिए भी Functional Update कर सकता हूँ?</div>
+  <div class="faq-a">हाँ! आप state updates के दौरान Spread Operator (...) का उपयोग करके आसानी से old properties को copy कर सकते हैं और सिर्फ target property को dynamic function के जरिए update कर सकते हैं।</div>
+  
+  <div class="faq-q">Q4: Functional updates में "prev" parameter क्या दर्शाता है?</div>
+  <div class="faq-a">"prev" या "prevCount" React द्वारा runtime पर automatically inject की जाने वाली सबसे latest (current) state value होती है जो queue में update होने के लिए तैयार खड़ी होती है।</div>
+  
+  <div class="faq-q">Q5: Stale State closure bug क्या होता है?</div>
+  <div class="faq-a">जब React state update asynchronous event handler (जैसे setTimeout, setInterval, या API Call callbacks) के अंदर render snapshot closure में lock हो जाती है, तो उसे outdated value मिलती है। इसी closure issue को stale state bug कहा जाता है, जिसे functional update से आसानी से solve किया जा सकता है।</div>
 </div>
 
 <script type="application/ld+json">
@@ -135,42 +306,42 @@ const removeItem = (itemToRemove) => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React state me direct mutation kyun nahi karna chahiye?",
+      "name": "React useState Functional Update क्यों जरूरी है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Direct mutation se React ka change detection mechanism trigger nahi hota, jisse UI update nahi hota aur bugs aate hain."
+        "text": "यह इसलिए जरूरी है क्योंकि React state updates asynchronous होते हैं और batching process का उपयोग करते हैं। जब हमें current state value के आधार पर ही अगली state calculate करनी होती है, तो direct updates पुराने (stale) data का इस्तेमाल कर सकते हैं। Functional update हमेशा latest queue value को utilize करता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Spread operator (...) kya karta hai?",
+      "name": "क्या Functional Update का use करने से Performance बेहतर होती है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Spread operator purane object ya array ke sabhi elements ko naye container me copy kar deta hai, jisse naya reference banta hai."
+        "text": "हाँ, बिल्कुल! Functional updates के उपयोग से unwanted re-renders और state stale bugs कम होते हैं। इसके अलावा, useEffect hooks में state dependency की आवश्यकता न होने के कारण unnecessary hook triggerings से भी बचा जा सकता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Kya hum nested object ko update kar sakte hain?",
+      "name": "क्या मैं Object State के लिए भी Functional Update कर सकता हूँ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Haan, lekin har level par spread operator use karna padega, jaise { ...state, nested: { ...state.nested, key: 'value' } }."
+        "text": "हाँ! आप state updates के दौरान Spread Operator (...) का उपयोग करके आसानी से old properties को copy कर सकते हैं और सिर्फ target property को dynamic function के जरिए update कर सकते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "Functional update (prevState) ka use kab karein?",
+      "name": "Functional updates में \"prev\" parameter क्या दर्शाता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Jab aapki nai state purani state par depend karti ho, tab functional update ka use karna best practice hai."
+        "text": "\"prev\" या \"prevCount\" React द्वारा runtime पर automatically inject की जाने वाली सबसे latest (current) state value होती है जो queue में update होने के लिए तैयार खड़ी होती है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Best practice kya hai badi objects ke liye?",
+      "name": "Stale State closure bug क्या होता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Badi objects ke liye 'Immer' library ka use karein, jo code ko readable aur clean banati hai."
+        "text": "जब React state update asynchronous event handler (जैसे setTimeout, setInterval, या API Call callbacks) के अंदर render snapshot closure में lock हो जाती है, तो उसे outdated value मिलती है। इसी closure issue को stale state bug कहा जाता है, जिसे functional update से आसानी से solve किया जा सकता है।"
       }
     }
   ]
