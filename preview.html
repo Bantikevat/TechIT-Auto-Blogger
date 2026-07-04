@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useState Hook Complete Guide (with Examples in Hindi)</title>
+    <title>Preview: React useState me Object aur Array Kaise Update Karein (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,113 +16,117 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useState Hook सीखना है? इस complete guide में examples के साथ समझें state management। React beginners के लिए बेस्ट tutorial यहाँ देखें।</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useState mein Object aur Array ko sahi tarike se update kaise karein? Seekhein best practices aur common mistakes se bachne ke aasaan tips yahan.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useState Hook Complete Guide (with Examples in Hindi)</h1>
+    <h1>React useState me Object aur Array Kaise Update Karein (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/DS8L942/458d20b1f00c.png" alt="React useState Hook Complete Guide (with Examples in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useState Hook kya hai aur iska istemal kaise karte hain? Is Hindi guide me hum state management, functional components aur examples dekhenge.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/BKPzC5c2/a62749ac9fdf.png" alt="React useState me Object aur Array Kaise Update Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useState me object aur array ko sahi tarike se update kaise karein? Is guide me hum state immutability aur best practices ko aasan Hindi me samjhenge.
 
-<p>नमस्ते दोस्तों! स्वागत है आपका एक और गहराई वाली चर्चा में। अगर आप <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> में अपना करियर बना रहे हैं या एक बेहतर डेवलपर बनना चाहते हैं, तो <strong>useState hook</strong> को समझना उतना ही जरूरी है जितना कि कार चलाने के लिए स्टियरिंग को समझना। हम अक्सर कोड लिखते समय सोचते हैं, "ये डेटा स्क्रीन पर अपडेट क्यों नहीं हो रहा?" यही वो मोड़ है जहाँ useState आपकी मदद करता है।</p>
+<p>Kya aapne kabhi socha hai ki ReactJS me jab aap <code>useState</code> hook ka use karte hain, toh ek simple string ya number ko update karna toh bahut aasaan hota hai, lekin jaise hi baat <code>Object</code> ya <code>Array</code> ki aati hai, toh data update kyun nahi hota? Aksar naye developers yahi galti karte hain aur fir sochte hain ki unka UI re-render kyun nahi ho raha.</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> useState एक React Hook है जो functional components के अंदर local state को manage करने की सुविधा देता है। यह डेटा में बदलाव होने पर UI को automatically re-render करता है, जिससे आपका वेब पेज user interaction के साथ real-time में अपडेट होता रहता है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me <code>useState</code> object aur array update karne ke liye aapko hamesha naya reference (spread operator <code>...</code>) use karna chahiye. React "Immutability" par kaam karta hai, isliye direct mutate karne ke bajaye hamesha pura object ya array copy karke update karein, jisse React component re-render ho sake.</div>
 
-<h2>useState Hook क्या है और यह क्यों जरूरी है?</h2>
-<p>पुराने समय में, यानी React 16.8 से पहले, state को सिर्फ class components में रखा जा सकता था। लेकिन class components का syntax काफी बड़ा होता था। useState आने के बाद, हम अब साधारण functions के अंदर भी 'memory' रख सकते हैं। जब भी state बदलती है, React उस component को दोबारा 'render' करता है, जिससे लेटेस्ट डेटा यूजर को दिखता है।</p>
+<h2>useState में Object को अपडेट कैसे करें?</h2>
+<p>React me state ek read-only snapshot ki tarah hoti hai. Agar aap direct <code>user.name = "Rahul"</code> jaisa code likhenge, toh React ko pata hi nahi chalega ki state change hui hai. Isliye hamein <strong>Spread Operator</strong> (<code>...</code>) ka use karke object ki copy banani padti hai.</p>
 
-<h2>useState का सिंटैक्स और स्ट्रक्चर</h2>
-<p>इसे इस्तेमाल करना बहुत आसान है। इसका syntax कुछ ऐसा दिखता है:</p>
+<pre><code>import { useState } from 'react';
 
-<pre><code>const [state, setState] = useState(initialValue);</code></pre>
+function UserProfile() {
+  const [user, setUser] = useState({ name: 'Rahul', age: 25, role: 'Developer' });
 
-<ul>
-    <li><strong>state:</strong> यह वो variable है जिसमें आपका data store होता है।</li>
-    <li><strong>setState:</strong> यह एक function है जिसे आप state को update करने के लिए कॉल करते हैं।</li>
-    <li><strong>initialValue:</strong> यह आपकी state की शुरुआती वैल्यू है (जैसे 0, "", या false)।</li>
-</ul>
-
-<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Architecture Diagram</div>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;">User Interaction</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;">setState()</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;">Re-render</div>
-  </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: State update hone par React component ka UI refresh hota hai.</div>
-</div>
-
-<h2>useState कैसे काम करता है: एक प्रैक्टिकल उदाहरण</h2>
-<p>चलिए एक simple counter app बनाते हैं। ध्यान रहे, यहाँ हम direct variable change नहीं कर रहे, बल्कि setter function का उपयोग कर रहे हैं।</p>
-
-<pre><code>import React, { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
+  const updateName = () => {
+    // Sahi tarika: Spread operator se purane data ko preserve karein
+    setUser(prevState => ({
+      ...prevState,
+      name: 'Amit'
+    }));
+  };
 
   return (
     &lt;div&gt;
-      &lt;h1&gt;Count: {count}&lt;/h1&gt;
-      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+      &lt;h1&gt;{user.name} is {user.age} years old&lt;/h1&gt;
+      &lt;button onClick={updateName}&gt;Update Name&lt;/button&gt;
     &lt;/div&gt;
   );
 }</code></pre>
 
-<h2>useState का उपयोग कब करें?</h2>
-<p>आप इसे तब इस्तेमाल करते हैं जब आपको किसी ऐसी चीज़ को ट्रैक करना हो जो समय के साथ बदलेगी। जैसे:</p>
-<ul>
-    <li>Input forms का data</li>
-    <li>Toggles (जैसे dark mode या light mode)</li>
-    <li>API से आया हुआ डेटा</li>
-    <li>Counter या Game score</li>
-</ul>
+<p>Yahan dhyan dein, humne <code>prevState</code> ka use kiya hai. Yeh best practice hai kyunki state updates asynchronous ho sakte hain. Jab aap updated state ko purani state par base karte hain, toh hamesha functional update ka use karna chahiye.</p>
+
+<h2>useState में Array को अपडेट कैसे करें?</h2>
+<p>Array ke case me bhi logic wahi hai. Aap <code>push()</code> ya <code>splice()</code> jaise methods ka use nahi kar sakte kyunki ye original array ko badal dete hain (mutate karte hain). Hamein <code>map()</code>, <code>filter()</code>, ya spread operator ka use karke naya array banana hoga.</p>
+
+<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ State Update Flow</div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Original State</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Spread (...) Copy</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">New State</div>
+  </div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React state update ka immutability flow</div>
+</div>
+
+<h3>Array Update karne ka Code Example:</h3>
+<pre><code>const [items, setItems] = useState(['Apple', 'Banana']);
+
+const addItem = () => {
+  // Naya array create karein aur purane items ko copy karein
+  setItems([...items, 'Mango']);
+};
+
+const removeItem = (itemToRemove) => {
+  // Filter method se naya array banayein
+  setItems(items.filter(item => item !== itemToRemove));
+};</code></pre>
+
+<h2>Common Errors और Debugging</h2>
+<p>Dosto, aksar log <code>error</code> face karte hain jab woh nested objects ke saath kaam karte hain. Agar aapka object deep nested hai, toh sirf ek level ka spread operator kaafi nahi hoga. Tab aapko deep cloning ya <code>immer</code> library ka use karna pad sakta hai.</p>
 
 <table>
   <tr>
-    <th>Feature</th>
-    <th>useState</th>
-    <th>Regular Variable</th>
+    <th>Method</th>
+    <th>Immutability</th>
+    <th>Result</th>
   </tr>
   <tr>
-    <td>UI Update</td>
-    <td>Automatic</td>
-    <td>No</td>
+    <td>push()</td>
+    <td>No (Mutates)</td>
+    <td>React detect nahi karega</td>
   </tr>
   <tr>
-    <td>Memory</td>
-    <td>Maintained</td>
-    <td>Lost on Re-render</td>
+    <td>concat()</td>
+    <td>Yes</td>
+    <td>React detect karega</td>
+  </tr>
+  <tr>
+    <td>Spread (...)</td>
+    <td>Yes</td>
+    <td>Recommended</td>
   </tr>
 </table>
 
-<h2>useState में common mistakes और उन्हें fix कैसे करें</h2>
-<p>दोस्तों, अक्सर नए डेवलपर्स एक <strong>error</strong> करते हैं: वे state को direct modify करने की कोशिश करते हैं (जैसे count = count + 1)। याद रखें, React को पता ही नहीं चलेगा कि state बदल गई है। हमेशा <code>setCount</code> का ही use करें। अगर कभी code में कोई <strong>error</strong> आए, तो React docs को जरूर देखें, <a href="https://react.dev/reference/react/useState" target="_blank" rel="noopener">official documentation</a> इस मामले में बेस्ट है।</p>
+<p>Ek aur important baat, jab aap <code>ReactJS</code> me complex data structures manage karte hain, toh performance ka bhi dhyan rakhein. Har state update re-render trigger karta hai. Agar aapki application bahut badi hai, toh state ko sahi jagah lift karna seekhein.</p>
 
-<h3>Best Practices</h3>
-<ol>
-    <li>हमेशा functional updates का इस्तेमाल करें जब नई state पुरानी state पर निर्भर हो: <code>setCount(prev => prev + 1)</code>।</li>
-    <li>एक component में कई बार useState का इस्तेमाल कर सकते हैं, कोई पाबंदी नहीं है।</li>
-    <li>State को बहुत ज्यादा deep-nesting न करें, अगर object बहुत complex है तो useReducer के बारे में सोचें।</li>
-</ol>
+<h2>Summary</h2>
+<p>Toh dosto, humne aaj seekha ki <code>useState</code> me objects aur arrays ko update karne ka golden rule hai <strong>"Immutability"</strong>. Direct modify karne ke bajaye hamesha purani state ki copy banayein aur usme changes karein. Isse aapke <code>React components</code> sahi se re-render honge aur aapka UI update rahega. Zyada janne ke liye official <a href="https://react.dev/reference/react/useState" target="_blank" rel="noopener">React documentation</a> zaroor check karein.</p>
 
 <div class="faq-accordion">
-  <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: Kya hum useState ko if-else ya loops ke andar use kar sakte hain?</div>
-  <div class="faq-a">Bilkul nahi! Hooks ko hamesha component ke top level par call karna chahiye. Loops ya conditions me ise use karne se "Rules of Hooks" ka violation hota hai.</div>
-  <div class="faq-q">Q2: Kya set state function synchronous hai?</div>
-  <div class="faq-a">React me state updates asynchronous ho sakte hain. Isliye turant baad value check karne par purani value mil sakti hai.</div>
-  <div class="faq-q">Q3: Object ko kaise update karein?</div>
-  <div class="faq-a">Object update karte waqt spread operator (...) ka use karein taaki purani values preserve rahein.</div>
-  <div class="faq-q">Q4: Kya useState class components me chalta hai?</div>
-  <div class="faq-a">Nahi, useState sirf functional components me hi kaam karta hai. Class components me this.state ka use hota hai.</div>
-  <div class="faq-q">Q5: Kya performance issue ho sakta hai?</div>
-  <div class="faq-a">Normal cases me nahi, lekin agar state update bohot frequently ho rahi hai to performance optimize karne ke liye memoization techniques use karni chahiye.</div>
+  <h3 class="faq-h">Frequently Asked Questions (FAQs)</h3>
+  <div class="faq-q">Q1: React state me direct mutation kyun nahi karna chahiye?</div>
+  <div class="faq-a">Direct mutation se React ka change detection mechanism trigger nahi hota, jisse UI update nahi hota aur bugs aate hain.</div>
+  <div class="faq-q">Q2: Spread operator (...) kya karta hai?</div>
+  <div class="faq-a">Spread operator purane object ya array ke sabhi elements ko naye container me copy kar deta hai, jisse naya reference banta hai.</div>
+  <div class="faq-q">Q3: Kya hum nested object ko update kar sakte hain?</div>
+  <div class="faq-a">Haan, lekin har level par spread operator use karna padega, jaise { ...state, nested: { ...state.nested, key: 'value' } }.</div>
+  <div class="faq-q">Q4: Functional update (prevState) ka use kab karein?</div>
+  <div class="faq-a">Jab aapki nai state purani state par depend karti ho, tab functional update ka use karna best practice hai.</div>
+  <div class="faq-q">Q5: Best practice kya hai badi objects ke liye?</div>
+  <div class="faq-a">Badi objects ke liye 'Immer' library ka use karein, jo code ko readable aur clean banati hai.</div>
 </div>
-
-<p>तो दोस्तों, आज हमने useState की दुनिया को बारीकी से समझा। ये React में state management की नींव है। इसे अच्छे से प्रैक्टिस करें और अपने components को dynamic बनाएं!</p>
 
 <script type="application/ld+json">
 {
@@ -131,42 +135,42 @@ function Counter() {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Kya hum useState ko if-else ya loops ke andar use kar sakte hain?",
+      "name": "React state me direct mutation kyun nahi karna chahiye?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Bilkul nahi! Hooks ko hamesha component ke top level par call karna chahiye. Loops ya conditions me ise use karne se Rules of Hooks ka violation hota hai."
+        "text": "Direct mutation se React ka change detection mechanism trigger nahi hota, jisse UI update nahi hota aur bugs aate hain."
       }
     },
     {
       "@type": "Question",
-      "name": "Kya set state function synchronous hai?",
+      "name": "Spread operator (...) kya karta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "React me state updates asynchronous ho sakte hain. Isliye turant baad value check karne par purani value mil sakti hai."
+        "text": "Spread operator purane object ya array ke sabhi elements ko naye container me copy kar deta hai, jisse naya reference banta hai."
       }
     },
     {
       "@type": "Question",
-      "name": "Object ko kaise update karein?",
+      "name": "Kya hum nested object ko update kar sakte hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Object update karte waqt spread operator (...) ka use karein taaki purani values preserve rahein."
+        "text": "Haan, lekin har level par spread operator use karna padega, jaise { ...state, nested: { ...state.nested, key: 'value' } }."
       }
     },
     {
       "@type": "Question",
-      "name": "Kya useState class components me chalta hai?",
+      "name": "Functional update (prevState) ka use kab karein?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nahi, useState sirf functional components me hi kaam karta hai. Class components me this.state ka use hota hai."
+        "text": "Jab aapki nai state purani state par depend karti ho, tab functional update ka use karna best practice hai."
       }
     },
     {
       "@type": "Question",
-      "name": "Kya performance issue ho sakta hai?",
+      "name": "Best practice kya hai badi objects ke liye?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Normal cases me nahi, lekin agar state update bohot frequently ho rahi hai to performance optimize karne ke liye memoization techniques use karni chahiye."
+        "text": "Badi objects ke liye 'Immer' library ka use karein, jo code ko readable aur clean banati hai."
       }
     }
   ]
