@@ -1,17 +1,17 @@
 name: TechIT Catchup Poster
 
-# Fallback jo har 30 min pe check karta — agar last post 90 min se purani ho aur
+# Fallback jo har 30 min pe check karta â€” agar last post 90 min se purani ho aur
 # publishing window (10 AM - 9 PM IST) andar ho, tab automatic ek post publish.
 # Yeh missed hourly slots ke liye safety net hai.
 
 on:
-  # SAFE MODE — automatic catchup band. 3 posts/din wale schedule me
+  # SAFE MODE â€” automatic catchup band. 3 posts/din wale schedule me
   # catchup extra posts bana deta (5 ghante ka gap > 90 min threshold).
   # Jab zaroorat ho, haath se chalao (workflow_dispatch).
   workflow_dispatch:
 
 concurrency:
-  group: auto-poster  # SAME group as auto_poster.yml — overlap se bacha
+  group: auto-poster  # SAME group as auto_poster.yml â€” overlap se bacha
   cancel-in-progress: false
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Check if catchup needed
       id: check
@@ -55,9 +55,9 @@ jobs:
 
     - name: Set up Python
       if: steps.check.outputs.skip != 'true'
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install Deps
       if: steps.check.outputs.skip != 'true'

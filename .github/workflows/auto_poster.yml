@@ -2,8 +2,8 @@ name: TechIT Auto Blog Poster
 
 on:
   schedule:
-    # SAFE MODE — sirf 3 posts/din. Google suspension se bacha.
-    # 9 AM, 2 PM, 5 PM IST — insaan jaisa natural samay.
+    # SAFE MODE â€” sirf 3 posts/din. Google suspension se bacha.
+    # 9 AM, 2 PM, 5 PM IST â€” insaan jaisa natural samay.
     # (POSTS_PER_RUN=1; concurrency overlap rokta hai.)
     - cron: '30 3 * * *'    # 09:00 AM IST
     - cron: '30 8 * * *'    # 02:00 PM IST
@@ -23,12 +23,12 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install Dependencies
       run: |
@@ -46,14 +46,14 @@ jobs:
         PUBLISH_LIVE: ${{ vars.PUBLISH_LIVE || 'false' }}
         # Ek run mein kitne posts banane hain (default 1). vars.POSTS_PER_RUN se badlein.
         POSTS_PER_RUN: ${{ vars.POSTS_PER_RUN || '1' }}
-        # Telegram auto-share + failure alerts (optional — na ho to skip ho jata hai)
+        # Telegram auto-share + failure alerts (optional â€” na ho to skip ho jata hai)
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        # IndexNow key (optional override) — default code mein hai
+        # IndexNow key (optional override) â€” default code mein hai
         INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         # Optional: ImgBB free API key se banner instant CDN par host hoti hai (na ho to repo me save)
         IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
-        # Optional: Google Indexing API service-account JSON (poori JSON paste karein) — har post Google ko submit
+        # Optional: Google Indexing API service-account JSON (poori JSON paste karein) â€” har post Google ko submit
         GOOGLE_INDEXING_SA: ${{ secrets.GOOGLE_INDEXING_SA }}
         # Optional: Multi-platform auto-share (jo set hoga sirf wahi share karega)
         TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}

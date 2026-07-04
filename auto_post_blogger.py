@@ -778,6 +778,41 @@ def share_post_to_telegram(title, post_url, category, seo_desc):
     )
     return notify_telegram(msg)
 
+def check_blogger_auth():
+    """Content banane se PEHLE Blogger OAuth token valid hai ya nahi — jaanch lo.
+    Aisa hone se Gemini/ImgBB quota nahi jalta jab token die hua ho.
+    Returns (ok: bool, error_msg: str).
+    """
+    if not os.path.exists(CREDENTIALS_FILE):
+        return False, f"Credentials file '{CREDENTIALS_FILE}' nahi mili. GitHub Secrets me BLOGGER_CREDENTIALS_JSON set karo."
+    try:
+        if os.path.getsize(CREDENTIALS_FILE) == 0:
+            return False, f"Credentials file khali hai. GitHub Secrets me BLOGGER_CREDENTIALS_JSON sahi paste karo."
+        with open(CREDENTIALS_FILE, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+        if not content:
+            return False, "Credentials file khali hai."
+        creds_data = json.loads(content)
+        creds = Credentials(
+            token=None,
+            refresh_token=creds_data['refresh_token'],
+            client_id=creds_data['client_id'],
+            client_secret=creds_data['client_secret'],
+            token_uri=creds_data.get('token_uri', 'https://oauth2.googleapis.com/token'),
+            scopes=creds_data['scopes']
+        )
+        creds.refresh(Request())
+        return True, ""
+    except Exception as e:
+        err = str(e)
+        if "invalid_grant" in err:
+            return False, ("Blogger OAuth token EXPIRE/REVOKE ho gaya. "
+                           "Laptop pe `python setup_blogger_api.py` chala ke re-authorize karo, "
+                           "phir new blogger_credentials.json ka content GitHub Secret "
+                           "BLOGGER_CREDENTIALS_JSON me paste karo.")
+        return False, f"Blogger auth error: {err}"
+
+
 def publish_to_blogger(title, html_content, category, is_draft=True, seo_description=None):
     print("[INFO] Blogger API authenticate kiya ja raha hai...")
     
@@ -1057,6 +1092,22 @@ def main():
 
     try:
         gemini_key = load_gemini_api_key()
+
+        # EARLY BLOGGER AUTH CHECK — Gemini/ImgBB quota bacha jab token die
+        # (jaise 2 July 2026 ko hua tha — banner+article generate ho gaye, phir blogger auth fail).
+        # Yahan pehle validate karo — fail toh turant exit, ek bhi API token barbaad nahi.
+        print("[INFO] Blogger auth pre-check...")
+        auth_ok, auth_err = check_blogger_auth()
+        if not auth_ok:
+            print(f"[FATAL] Blogger auth fail: {auth_err}")
+            notify_telegram(
+                f"⛔ <b>TechIT: Auto-post ROKA gaya</b>\n\n{auth_err}\n\n"
+                f"Jab tak token theek nahi hoga, koi post nahi banegi.",
+                silent=False,
+            )
+            sys.exit(1)
+        print("[OK] Blogger auth verified — aage badho.")
+
         posted_topics = get_posted_topics()
 
         # COOLDOWN CHECK — hourly schedule ke saath 30 min cooldown (accidental double-fire se bacha).

@@ -2,7 +2,7 @@ name: TechIT Refresh Learning Roadmap
 
 on:
   schedule:
-    # Har Sunday 12:30 PM IST — roadmap.html regen (naye posts add ho jayenge)
+    # Har Sunday 12:30 PM IST â€” roadmap.html regen (naye posts add ho jayenge)
     - cron: '0 7 * * 0'
   workflow_dispatch:
 
@@ -18,12 +18,12 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install Dependencies
       run: |

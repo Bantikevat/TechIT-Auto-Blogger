@@ -2,7 +2,7 @@ name: TechIT Auto-Refresh Old Posts
 
 on:
   schedule:
-    # Har Sunday 11:30 AM IST — ek purana post refresh (SEO freshness)
+    # Har Sunday 11:30 AM IST â€” ek purana post refresh (SEO freshness)
     - cron: '0 6 * * 0'
   workflow_dispatch:
     inputs:
@@ -19,12 +19,12 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install Dependencies
       run: |
