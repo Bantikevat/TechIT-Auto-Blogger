@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React me Multiple useState kaise Manage Karein (in Hindi)</title>
+    <title>Preview: React useEffect Hook Complete Guide (Beginner Friendly in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,406 +16,299 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me multiple useState manage karne me dikkat ho rahi hai? Seekhein complex state ko efficiently manage karne ke best tarike Hindi me.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useEffect Hook को हिन्दी में आसान examples के साथ समझें। इस Beginner friendly guide से components में side effects हैंडल करना सीखें।</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React me Multiple useState kaise Manage Karein (in Hindi)</h1>
+    <h1>React useEffect Hook Complete Guide (Beginner Friendly in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/C5yRtVmn/816fcdd1f0d5.png" alt="React me Multiple useState kaise Manage Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React me multiple useState kaise manage karein? Is Hindi guide me multiple states handle karne ke best methods aur optimization tips seekho.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/F4qPR8Qg/60b72a4739de.png" alt="React useEffect Hook Complete Guide (Beginner Friendly in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+<p>React useEffect Hook क्या है और इसे सही से कैसे इस्तेमाल करें? इस complete Hindi guide में side effects, dependency array और cleanups को आसान भाषा में सीखें।</p>
 
-<p>तो मेरे दोस्तों, कैसे हो आप सब? अगर आप <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" rel="noopener" target="_blank">ReactJS</a> सीख रहे हैं, तो एक समय ऐसा जरूर आया होगा जब आपने एक बड़ा Form बनाया होगा। उस Form में Name, Email, Password, Phone Number, Age, Gender और न जाने क्या-क्या fields होंगी। हर field के लिए एक नया <code>useState</code> लिखना, फिर उसका <code>onChange</code> handler बनाना... देखते ही देखते आपका component 50-100 lines का तो सिर्फ State Management के लिए ही बन जाता है!</p>
+<p>दोस्तों, क्या आपने कभी सोचा है कि जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> में काम करते हैं, तो API call कहाँ करनी चाहिए? या फिर जब कोई dynamic dynamic updates दिखाना हो या background में timer शुरू करना हो, तो वो component lifecycle में कहाँ fit बैठता है? अगर आप भी इस उलझन में हैं, तो यकीन मानिए आप अकेले नहीं हैं। हमारे React development के सफ़र में "React useEffect Hook" एक ऐसा मील का पत्थर है, जिसे समझे बिना आप एक कुशल developer नहीं बन सकते। चलिए, आज आपके इस दोस्त के साथ बैठिए और बेहद सरल, देसी स्टाइल में इसे जड़ से समझते हैं!</p>
 
-<p>एक सीनियर डेवलपर के तौर पर, जब मैं junior developers का कोड review करता हूँ, तो यह सबसे आम गलती दिखती है। कोड काम तो करता है, लेकिन वह बहुत गंदा, unmaintainable और कभी-कभी slow भी हो जाता है। आज हम और आप साथ मिलकर बैठेंगे, चाय की चुस्की लेंगे, और यह समझेंगे कि React me Multiple useState कैसे Manage Karein ताकि आपका कोड एकदम Clean, Professional और Scalable बने।</p>
-
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me Multiple useState manage karne ke do best tarike hain: pehla, alag-alag state variables banana (agar states independent hain), aur dusra, saare states ko ek single Object state me merge karna (complex forms ke liye) aur dynamic key <code>[name]: value</code> ka use karna. Jyada complex state transitions ke liye <code>useReducer</code> hook ka upyog karein.</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useEffect Hook एक built-in Hook है जो functional components में side effects (जैसे API data fetching, subscriptions, timers, या manual DOM updates) को manage करने में मदद करता है। यह class components के lifecycle methods (componentDidMount, componentDidUpdate, और componentWillUnmount) की जगह अकेले काम करता है।</div>
 
 ---
 
-<h2>React में Multiple useState क्या है और इसकी जरूरत क्यों पड़ती है?</h2>
+<h2>React useEffect Hook क्या है और हमें इसकी ज़रूरत क्यों पड़ती है?</h2>
 
-<p>जब हम कोई Dynamic UI बनाते हैं, तो हमें Users के Inputs, Loading States, Modals का Open/Close होना, या Validation Errors को track करना पड़ता है। इन सबको React में State कहा जाता है।</p>
+<p>सरल शब्दों में कहें तो, React का मुख्य काम है UI (User Interface) को render करना और state को manage करना। लेकिन जब भी हमें React के component rendering flow से बाहर की दुनिया से बात करनी पड़ती है, तो उसे हम <strong>"Side Effects"</strong> कहते हैं।</p>
 
-<p>शुरुआत में, हम हर छोटी चीज़ के लिए एक नया State Variable बना देते हैं। जैसे:</p>
+<p>अब आप पूछेंगे, "यार भाई, ये Side Effects क्या होते हैं?"</p>
 
-<pre><code>const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [isLoading, setIsLoading] = useState(false);
-const [isSubmitted, setIsSubmitted] = useState(false);
-</code></pre>
+<ul>
+    <li><strong>Data Fetching:</strong> किसी external database या API से data लोड करना।</li>
+    <li><strong>Direct DOM Manipulation:</strong> React के virtual DOM से हटकर सीधे core browser DOM को बदलना (जैसे document title बदलना)।</li>
+    <li><strong>Timers & Intervals:</strong> Background में <code>setTimeout</code> या <code>setInterval</code> चलाना।</li>
+    <li><strong>Subscriptions:</strong> Websocket connections set-up करना या event listeners (जैसे dynamic scroll/resize trackers) लगाना।</li>
+</ul>
 
-<p>इसे ही हम <strong>Multiple useState</strong> का Use करना कहते हैं। लेकिन ध्यान देने वाली बात ये है कि जब ये States आपस में Related होती हैं (जैसे एक Form की Fields), तो अलग-अलग State Hooks बनाने से कोड की readability खराब हो जाती है। हर State को React अलग से track करता है, जिससे component re-render होने का flow भी पेचीदा हो जाता है। हमें <a href="https://react.dev" rel="noopener" target="_blank">React Official Documentation</a> भी यही सिखाता है कि जो States हमेशा एक साथ बदलती हैं, उन्हें एक ही State Object में रखना बेहतर होता है।</p>
+<p>React components को pure functions होना चाहिए, जिसका मतलब है कि render logic के अंदर सीधे ये side effects नहीं लिखे जा सकते। अगर आप सीधे component के body में API call करेंगे, तो हर single state change और re-render पर वो API बार-बार call होने लगेगी, जिससे आपका application crash हो सकता है। इसी समस्या को सुलझाने के लिए जन्म हुआ <strong>React useEffect Hook</strong> का!</p>
 
 ---
-
-<h2>React में Multiple useState को Manage करने के कौन-से तरीके हैं?</h2>
-
-<p>मेरे दोस्त, इस समस्या को सुलझाने के मुख्य रूप से तीन तरीके हैं। चलिए इन तीनों तरीकों को गहराई से समझते हैं ताकि आपको पता हो कि कब कौन-सा तरीका चुनना है।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React State Update Pattern Flow</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useEffect Lifecycle & Render Flow Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">User Types Input</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Component Render</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Single Handler: handleChange()</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Browser Paint (DOM Updates)</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">setFormData({ ...prev, [name]: value })</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">useEffect Runs (Side Effects)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#ec4899;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(236,72,153,0.4)">Cleanup (Before next run/Unmount)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How a Single Object State handles multiple inputs dynamically with minimal re-renders.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React component rendering sequence showing how browser visual updates complete before side-effects are triggered.</div>
 </div>
-
-<h3>1. Multiple Independent States (अलग-अलग Hooks)</h3>
-<p>यह सबसे आसान और सीधा तरीका है। जब आपके States का आपस में कोई सीधा संबंध न हो (जैसे: एक State Modal open/close करने के लिए है और दूसरी Dark Mode toggle करने के लिए), तब आप इसी तरीके का इस्तेमाल करें।</p>
-
-<h3>2. Single Object State (एक Object में सब कुछ)</h3>
-<p>जब आपके पास बहुत सारी Inputs हों जो एक ही Form का हिस्सा हैं, तो उन सभी को एक JavaScript Object में डाल देना सबसे बेस्ट प्रैक्टिस है। इससे आपका Handler Function सिर्फ एक लाइन का रह जाता है।</p>
-
-<h3>3. useReducer Hook (जटिल State के लिए ब्रह्मास्त्र)</h3>
-<p>जब आपकी State Management बहुत जटिल हो जाए, जहाँ एक State की Value दूसरी State पर निर्भर करती है, तब <code>useReducer</code> सबसे बढ़िया विकल्प है। यह Redux की तरह काम करता है लेकिन इसके लिए किसी external library की जरूरत नहीं पड़ती।</p>
 
 ---
 
-<h2>Multiple Independent States vs Single Object State: दोनों में क्या अंतर है?</h2>
+<h2>useEffect Hook का Basic Syntax क्या है?</h2>
 
-<p>चलिए एक Table के ज़रिए समझते हैं कि इन दोनों Approaches में क्या अंतर है ताकि आपके दिमाग में कोई भी दुविधा न रहे:</p>
+<p>चलिए, सबसे पहले इसके simple structure को देखते हैं। इसे समझने के लिए नीचे दिए गए template को ध्यान से देखिए:</p>
 
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; min-width: 400px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
+<pre><code>import React, { useEffect } from 'react';
+
+useEffect(() =&gt; {
+  // यहाँ पर आपका Side Effect Code आएगा (जैसे API call, subscriptions आदि)
+
+  return () =&gt; {
+    // (Optional) यहाँ पर Cleanup Function आएगा
+  };
+}, [dependencyArray]);</code></pre>
+
+<p>इस code block में मुख्य रूप से तीन महत्वपूर्ण हिस्से हैं:</p>
+<ol>
+    <li><strong>Callback Function:</strong> वह function जिसके अंदर आप अपना side-effect logic लिखते हैं।</li>
+    <li><strong>Dependency Array (Optional):</strong> Arguments की एक array जो React को यह बताती है कि यह hook कब-कब execute होना चाहिए।</li>
+    <li><strong>Cleanup Function (Optional):</strong> एक return function जो component के unmount होने या अगले update से पहले memory leaks को साफ़ (clean) करता है।</li>
+</ol>
+
+---
+
+<h2>Dependency Array के 3 अलग-अलग Scenarios क्या हैं?</h2>
+
+<p>दोस्त, <code>useEffect</code> को control करने की पूरी चाबी इस <strong>Dependency Array</strong> के हाथ में ही होती है। इसके व्यवहार को समझने के लिए हमें इन तीन scenarios को गहराई से समझना होगा:</p>
+
+<h3>Scenario 1: No Dependency Array (कोई array नहीं दी गई)</h3>
+<p>अगर आप दूसरा logic parameter ही न दें, तो यह hook हर single render और re-render के बाद चलेगा।</p>
+<pre><code>useEffect(() =&gt; {
+  console.log("मैं हर render पर चलूँगा!");
+});</code></pre>
+<p><strong>ध्यान देने वाली बात ये है कि:</strong> इसका इस्तेमाल production code में न के बराबर करें, क्योंकि इससे infinite loops और heavy performance overhead की समस्या आ सकती है।</p>
+
+<h3>Scenario 2: Empty Dependency Array (खाली array - <code>[]</code>)</h3>
+<p>जब आप एक खाली bracket <code>[]</code> pass करते हैं, तो React समझ जाता है कि यह component सिर्फ एक बार mount (load) हुआ है। यह बिल्कुल class components के <code>componentDidMount</code> की तरह काम करता है।</p>
+<pre><code>useEffect(() =&gt; {
+  console.log("मैं सिर्फ पहली बार mount होने पर ही चलूँगा!");
+}, []);</code></pre>
+<p><strong>use-case:</strong> शुरुआती API configuration setups या fetch call जो user interface load होते ही सिर्फ एक बार रन होनी चाहिए।</p>
+
+<h3>Scenario 3: Dependency Array with state/props (वैल्यू वाली array)</h3>
+<p>जब आप array के अंदर कोई dynamic variable, state, या prop डालते हैं, तो React उन variables पर अपनी पैनी नज़र रखता है। जब भी उनमें से कोई भी value बदलेगी, <code>useEffect</code> तुरंत फिर से trigger हो जाएगा।</p>
+<pre><code>useEffect(() =&gt; {
+  console.log(`Count बदल गया! नया value है: ${count}`);
+}, [count]);</code></pre>
+
+<hr />
+
+<h3>Quick Reference: Dependency Array Comparison</h3>
+<table>
   <thead>
-    <tr style="background-color: #009879; color: #ffffff; text-align: left; font-weight: bold;">
-      <th style="padding: 12px 15px; border: 1px solid #dddddd;">Feature / Parameter</th>
-      <th style="padding: 12px 15px; border: 1px solid #dddddd;">Multiple Independent States</th>
-      <th style="padding: 12px 15px; border: 1px solid #dddddd;">Single Object State</th>
+    <tr>
+      <th>Dependency Syntax</th>
+      <th>कब Execute होता है?</th>
+      <th>Alternative (Class Component Lifecycle)</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom: 1px solid #dddddd;">
-      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">Code Cleanliness</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">खराब (अगर 5 से ज्यादा states हों)</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">बहुत साफ और सुंदर (Clean Code)</td>
+    <tr>
+      <td><code>useEffect(fn)</code></td>
+      <td>हर render और state change पर</td>
+      <td>None (Runs continuously)</td>
     </tr>
-    <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f3f3;">
-      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">Event Handlers</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">हर input के लिए अलग handler चाहिए</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">सिर्फ एक generic handleChange काफी है</td>
+    <tr>
+      <td><code>useEffect(fn, [])</code></td>
+      <td>सिर्फ एक बार (Initial Mount पर)</td>
+      <td><code>componentDidMount</code></td>
     </tr>
-    <tr style="border-bottom: 1px solid #dddddd;">
-      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">State updates</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">Directly set Value (<code>setValue(val)</code>)</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">Spread Operator (<code>...prev</code>) की जरूरत होती है</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f3f3;">
-      <td style="padding: 12px 15px; font-weight: bold; border: 1px solid #dddddd;">Scalability</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">कम Scalable है</td>
-      <td style="padding: 12px 15px; border: 1px solid #dddddd;">अत्यधिक Scalable है</td>
+    <tr>
+      <td><code>useEffect(fn, [count])</code></td>
+      <td>Mount पर + जब <code>count</code> बदलेगा</td>
+      <td><code>componentDidUpdate</code> (with conditional checks)</td>
     </tr>
   </tbody>
 </table>
 
----
+<hr />
 
-<h2>एक Complex Form State को Single Object के साथ कैसे Handle करें? (Step-by-Step Guide)</h2>
+<h2>Cleanup Function क्या होता है और इसका use कब करें?</h2>
 
-<p>अब हम सीधे कोड में कूदते हैं! मान लीजिए कि हम एक User Registration Form बना रहे हैं। इसमें हम Single Object State का इस्तेमाल करेंगे और सिर्फ एक <code>onChange</code> Handler की मदद से पूरे Form को control करेंगे।</p>
+<p>मान लीजिए आपने एक component लोड होने पर <code>setInterval</code> लगाकर एक counter चालू कर दिया। अब user उस component को छोड़ कर किसी दूसरे page पर चला गया। अगर आपने उस timer को बंद नहीं किया, तो background में वो timer चलता रहेगा और धीरे-धीरे आपके browser की memory को खा जाएगा। इसे ही हम <strong>Memory Leak</strong> कहते हैं।</p>
 
-<h3>Step 1: State Object को Initialize करना</h3>
-<p>सबसे पहले, हम अपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" rel="noopener" target="_blank">React components</a> में <code>useState</code> को एक Object के साथ initialize करेंगे।</p>
+<p>इस गंभीर <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> से बचने के लिए हम React useEffect Hook के अंदर से एक <strong>Cleanup Function</strong> return करते हैं।</p>
 
-<pre><code>const [formData, setFormData] = useState({
-  username: "",
-  email: "",
-  password: "",
-  country: "India",
-  agreeToTerms: false
-});
-</code></pre>
+<h3>Event Listener Cleanup का Real-World Example:</h3>
+<p>चलिए, एक responsive window resize tracker बनाते हैं जो functional component के destroy होते ही memory को completely safe कर देता है:</p>
 
-<h3>Step 2: Generic Handle Change Function बनाना</h3>
-<p>यह इस तकनीक का सबसे जादुई हिस्सा है। हम JavaScript की dynamic key evaluation <code>[name]: value</code> का उपयोग करेंगे।</p>
+<pre><code>import React, { useState, useEffect } from 'react';
 
-<pre><code>const handleChange = (event) => {
-  const { name, value, type, checked } = event.target;
-  
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]: type === "checkbox" ? checked : value
-  }));
-};
-</code></pre>
+function WindowTracker() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-<p><strong>ध्यान देने वाली बात ये है कि:</strong> यहाँ <code>...prevData</code> (Spread Operator) लिखना बहुत जरूरी है। अगर आप इसे नहीं लिखेंगे, तो आपकी पुरानी State पूरी तरह से delete हो जाएगी और सिर्फ नया अपडेटेड field ही बचेगा!</p>
+  useEffect(() =&gt; {
+    const handleResize = () =&gt; {
+      setWindowWidth(window.innerWidth);
+    };
 
-<h3>Step 3: Complete, Production-Ready Code</h3>
-<p>चलिए अब पूरा Working Component देखते हैं जिसे आप सीधे अपने project में use कर सकते हैं:</p>
+    // Event listener set up किया
+    window.addEventListener('resize', handleResize);
 
-<pre><code>import React, { useState } from "react";
-
-const RegistrationForm = () => {
-  // Step 1: Initialize Single Object State
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    country: "India",
-    agreeToTerms: false
-  });
-
-  const [submittedData, setSubmittedData] = useState(null);
-
-  // Step 2: Single Handler for all Inputs
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "checkbox" ? checked : value
-    }));
-  };
-
-  // Step 3: Handle Form Submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmittedData(formData);
-    // Submit logic or API call here
-  };
+    // Cleanup logic return कर रहे हैं
+    return () =&gt; {
+      console.log("Cleanup: Event listener removed!");
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // Empty array, यानी listener सिर्फ एक बार setup होगा
 
   return (
-    <div style={{ maxWidth: "450px", margin: "40px auto", padding: "20px", border: "1px solid #eaeaea", borderRadius: "10px", fontFamily: "Arial, sans-serif", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
-      <h2 style={{ textAlign: "center", color: "#333" }}>Join Our Community</h2>
-      <form onSubmit={handleSubmit}>
+    <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+      <h3>Dynamic Resize Window Tracker</h3>
+      <p>Current Browser Width: <strong>{windowWidth}px</strong></p>
+    </div>
+  );
+}
+
+export default WindowTracker;</code></pre>
+
+<p><strong>यह कैसे काम करता है?</strong> जब <code>WindowTracker</code> screen से हटेगा (unmount होगा), तो React automatically callback component के return block को call करके console पर प्रिंट करेगा और event handler को background से हटा देगा। इससे memory safe रहती है!</p>
+
+---
+
+<h2>Real-World Example: Production-Ready Data Fetching</h2>
+
+<p>चलिए, अब एक production-ready dashboard feature बनाते हैं। इसमें हम API response से users की list load करेंगे, loading animations दिखाएंगे और dynamic network errors को gracefully handle करेंगे। इस example को ध्यान से देखिए और अपने project में practice कीजिए:</p>
+
+<pre><code>import React, { useState, useEffect } from 'react';
+
+function ProductDashboard() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() =&gt; {
+    let activeRequest = true; // Prevents race conditions
+
+    const fetchProducts = async () =&gt; {
+      try {
+        setLoading(true);
+        const response = await fetch('https://fakestoreapi.com/products?limit=5');
         
-        {/* Username Field */}
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter Username"
-            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
-            required
-          />
-        </div>
+        if (!response.ok) {
+          throw new Error('Network settings are not correct or server returned error');
+        }
 
-        {/* Email Field */}
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Email Address</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter Email"
-            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
-            required
-          />
-        </div>
+        const data = await response.json();
+        
+        if (activeRequest) {
+          setProducts(data);
+          setErrorMessage(null);
+        }
+      } catch (err) {
+        if (activeRequest) {
+          setErrorMessage(err.message || "Something went wrong!");
+        }
+      } finally {
+        if (activeRequest) {
+          setLoading(false);
+        }
+      }
+    };
 
-        {/* Password Field */}
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter Password"
-            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
-            required
-          />
-        </div>
+    fetchProducts();
 
-        {/* Dropdown Field */}
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px", fontWeight: "bold" }}>Country</label>
-          <select
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "10px", borderRadius: "5px", border: "1px solid #ccc", boxSizing: "border-box" }}
-          >
-            <option value="India">India</option>
-            <option value="USA">USA</option>
-            <option value="Canada">Canada</option>
-            <option value="UK">UK</option>
-          </select>
-        </div>
+    // Cleanup: cancel asynchronous updates if user navigates away
+    return () =&gt; {
+      activeRequest = false;
+    };
+  }, []); // Run only once on mount
 
-        {/* Checkbox Field */}
-        <div style={{ marginBottom: "20px", display: "flex", alignItems: "center" }}>
-          <input
-            type="checkbox"
-            name="agreeToTerms"
-            id="agreeToTerms"
-            checked={formData.agreeToTerms}
-            onChange={handleChange}
-            style={{ marginRight: "10px" }}
-            required
-          />
-          <label htmlFor="agreeToTerms" style={{ fontSize: "14px" }}>I agree to terms and conditions</label>
-        </div>
-
-        <button type="submit" style={{ width: "100%", padding: "12px", background: "#0070f3", color: "#fff", border: "none", borderRadius: "5px", fontSize: "16px", cursor: "pointer", fontWeight: "bold" }}>
-          Register Now
-        </button>
-      </form>
-
-      {submittedData && (
-        <div style={{ marginTop: "20px", padding: "15px", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px" }}>
-          <h4 style={{ margin: "0 0 10px 0", color: "#166534" }}>Form Submitted Successfully!</h4>
-          <pre style={{ fontSize: "12px", margin: 0, overflowX: "auto" }}>{JSON.stringify(submittedData, null, 2)}</pre>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default RegistrationForm;
-</code></pre>
-
----
-
-<h2>Common Errors और Developer Mistakes (और उन्हें कैसे Fix करें)</h2>
-
-<p>जब आप React में multiple states को object के जरिए manage करते हैं, तो कुछ सामान्य गलतियां (common bugs) होती हैं जो बड़े-बड़े Developers भी कर बैठते हैं। आइए देखते हैं कि वे क्या हैं और उनका समाधान कैसे निकालें:</p>
-
-<h3>गलती #1: React State Direct Mutation (सीधे State बदलना)</h3>
-<p>बहुत से नए डेवलपर्स गलती से State Object को सीधे बदल देते हैं, जैसे:</p>
-<pre><code>// ❌ NEVER DO THIS!
-formData.username = "new_value"; 
-</code></pre>
-<p>अगर आप ऐसा करेंगे, तो React को पता ही नहीं चलेगा कि State बदल चुकी है, क्योंकि Object का memory reference चेंज नहीं हुआ। React re-render नहीं होगा।</p>
-<p><strong>💡 समाधान (Solution):</strong> हमेशा Setter function (<code>setFormData</code>) का उपयोग करें और एक नया Object reference पास करें (Spread Operator के साथ)।</p>
-
-<h3>गलती #2: Nested Object State को गलत तरीके से Update करना</h3>
-<p>मान लीजिए आपकी State ऐसी है:</p>
-<pre><code>const [user, setUser] = useState({
-  name: "",
-  address: {
-    city: "",
-    zip: ""
+  if (loading) {
+    return &lt;div style={{ fontSize: '1.2rem', color: '#06b6d4', padding: '20px' }}&gt;Loading high-quality products...&lt;/div&gt;;
   }
-});
-</code></pre>
-<p>अगर आप सीधे <code>setUser({ ...user, address: { city: "Delhi" } })</code> करेंगे, तो <code>zip</code> गायब हो जाएगा! क्योंकि Nested Objects को भी deep spread करना पड़ता है।</p>
-<p>इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" rel="noopener" target="_blank">error</a> को सुलझाने का सही तरीका यह है:</p>
-<pre><code>setUser((prevUser) => ({
-  ...prevUser,
-  address: {
-    ...prevUser.address,
-    city: "Delhi" // Now zip is preserved!
+
+  if (errorMessage) {
+    return &lt;div style={{ color: '#ef4444', padding: '20px', fontWeight: 'bold' }}&gt;Error: {errorMessage}&lt;/div&gt;;
   }
-}));
-</code></pre>
-
----
-
-<h2>Advanced Technique: useReducer कब इस्तेमाल करना चाहिए?</h2>
-
-<p>मेरे दोस्त, यदि आपके पास कोई ऐसा फॉर्म है जिसमें 10-15 fields हैं, custom validation rules हैं, और एक input बदलने पर दूसरी input की values dynamically update होती हैं, तो Single Object State भी कम पड़ सकती है। यहाँ पर <strong>useReducer Hook</strong> काम आता है।</p>
-
-<p>चलो देखते हैं कि <code>useReducer</code> का ढांचा कैसा होता है:</p>
-
-<pre><code>import React, { useReducer } from "react";
-
-// Initial State Definition
-const initialState = {
-  count: 0,
-  username: "",
-  error: null
-};
-
-// Reducer function that handles state transitions based on Actions
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "SET_FIELD":
-      return {
-        ...state,
-        [action.field]: action.value
-      };
-    case "SET_ERROR":
-      return {
-        ...state,
-        error: action.payload
-      };
-    case "RESET_FORM":
-      return initialState;
-    default:
-      return state;
-  }
-};
-
-const ReducerFormExample = () => {
-  const [state, dispatch] = useReducer(formReducer, initialState);
-
-  const handleInputChange = (e) => {
-    dispatch({
-      type: "SET_FIELD",
-      field: e.target.name,
-      value: e.target.value
-    });
-  };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
-      <h3>useReducer State Management</h3>
-      <input
-        type="text"
-        name="username"
-        value={state.username}
-        onChange={handleInputChange}
-        placeholder="Enter Username"
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-      />
-      <button onClick={() => dispatch({ type: "RESET_FORM" })} style={{ padding: "10px", background: "#ef4444", color: "#fff", border: "none", cursor: "pointer" }}>
-        Reset Form
-      </button>
-    </div>
+    &lt;div style={{ fontFamily: 'Arial, sans-serif', padding: '24px' }}&gt;
+      &lt;h2 style={{ borderBottom: '2px solid #e2e8f0', paddingBottom: '10px' }}&gt;🔥 Trending Store Products&lt;/h2&gt;
+      &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '20px' }}&gt;
+        {products.map((product) =&gt; (
+          &lt;div key={product.id} style={{ display: 'flex', gap: '16px', padding: '16px', border: '1px solid #e2e8f0', borderRadius: '10px' }}&gt;
+            &lt;img src={product.image} alt={product.title} style={{ width: '80px', height: '80px', objectFit: 'contain' }} /&gt;
+            &lt;div&gt;
+              &lt;h4 style={{ margin: '0 0 8px 0' }}&gt;{product.title}&lt;/h4&gt;
+              &lt;p style={{ color: '#059669', fontWeight: 'bold', margin: '0' }}&gt;${product.price}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
   );
-};
+}
 
-export default ReducerFormExample;
-</code></pre>
+export default ProductDashboard;</code></pre>
+
+<p>इस functional component में हमने async/await structure का बेहतरीन इस्तेमाल किया है, साथ ही dynamic errors को track करने के लिए state hook define किए हैं। यहाँ custom component lifecycle के साथ cleanup switch (<code>activeRequest</code>) यह ensure करता है कि slow-network channels पर fast route-change के दौरान user screen unmount होने के बाद component state update न हो (जिससे memory check bypass crash errors नहीं आते)।</p>
 
 ---
 
-<h2>Best Practices: State Management को Super-Optimized कैसे बनाएं?</h2>
+<h2>Common Errors और Performance Issues को कैसे Fix करें?</h2>
 
-<p>एक सीनियर आर्किटेक्ट के नजरिए से, मैं आपको कुछ अनमोल सलाह देना चाहूंगा जो आपकी Application की Performance को एकदम मक्खन जैसी तेज बना देंगी:</p>
+<p>अपने development career में मैंने नए developers को अक्सर इन 3 गलतियों के कारण सिर पकड़ते देखा है:</p>
 
-<ul>
-  <li><strong>Keep State Local:</strong> जब तक किसी state की जरूरत parent या sibling components को न हो, तब तक उसे component के अंदर ही रखें (Lift State Up सिर्फ तभी करें जब सचमुच आवश्यक हो)।</li>
-  <li><strong>Avoid Unnecessary re-renders:</strong> React 18 में State Batching अपने आप काम करती है (यानी एक event handler के अंदर multiple updates होने पर भी React सिर्फ एक बार Render करेगा)। लेकिन, Complex dynamic forms के लिए आप Uncontrolled Inputs (using <code>useRef</code>) पर विचार कर सकते हैं अगर performance critical हो।</li>
-  <li><strong>Form Libraries:</strong> अगर आपका प्रोजेक्ट बहुत बड़ा है और उसमें heavy validations हैं, तो खुद का wheel re-invent न करें। Formik या React Hook Form जैसी बेहतरीन Library का उपयोग करें जो internal states को optimized तरीके से हैंडल करती हैं।</li>
-</ul>
+<h3>1. Infinite Loop का खतरा (The Infinite Render Loop)</h3>
+<p><strong>समस्या:</strong> मान लीजिए आपने <code>useEffect</code> में dynamic state updates किए, लेकिन dependency array देना भूल गए या फिर उसी dependency variable को अन्दर update कर रहे हैं।</p>
+<pre><code>// ❌ Don't do this!
+useEffect(() =&gt; {
+  setCount(count + 1); 
+}, [count]); // Infinite render loops!</code></pre>
+<p><strong>समाधान:</strong> कभी भी direct state modifiers को dependencies array का trigger pointer न बनाएं, जब तक कि आप structural conditioning (जैसे absolute values check limit) न जोड़ रहे हों।</p>
 
-<p>तो दोस्तों, हमने आज क्या-क्या सीखा? React में Multiple useState को Manage करने के लिए अलग-अलग states का उपयोग तभी करें जब वे पूरी तरह स्वतंत्र हों। यदि वे आपस में जुड़ी हुई हैं, तो Single Object State को Dynamic Handlers के साथ इस्तेमाल करना सबसे बेहतरीन तकनीक है। और यदि आपकी Business Logic बहुत अधिक जटिल है, तो बेझिझक <code>useReducer</code> की तरफ़ कदम बढाएं।</p>
+<h3>2. Stale Closures (पुरानी values का lock हो जाना)</h3>
+<p>JavaScript closures की वजह से कई बार <code>useEffect</code> पुराने render variables की outdated values को अपने scope में freeze कर लेता है।</p>
+<p><strong>समाधान:</strong> हमेशा React dynamic actions में updates के समय state updater callbacks (जैसे <code>setCount(prevCount =&gt; prevCount + 1)</code>) का use करें। इससे state calculations को हमेशा brand-new value मिलती है।</p>
+
+<h3>3. Missing Dependency warnings</h3>
+<p>जब भी आप effect structure में component limits के variables (states/props) का use करते हैं, तो ESLint warning show करता है। इन hooks warnings को bypass करने के लिए हमेशा उन dependencies को checklist elements array में register करें। यदि dynamic behavior constant है, तो official guide <a href="https://react.dev/reference/react/useEffect" rel="noopener" target="_blank">React Dev Docs reference instructions</a> की help से optimization standards setup करें।</p>
+
+---
+
+<p>तो दोस्तों, हमने आज मिलकर बेहद बारीकी से समझा कि React useEffect Hook किस तरह काम करता है, lifecycle states को functional components में कैसे transition करते हैं, safe API dynamic handling कैसे लिखते हैं, और cleanups का absolute rules pattern क्या है। इस concept को मजबूत बनाने का एक ही नुस्खा है—आज ही अपने system पर बैठें, कम से कम दो timers या background tracking modules design करें, और error checks handle करके खेलें। कोई भी doubts हो, तो हमेशा की तरह खुलकर अपनी बात रखें। हैप्पी कोडिंग!</p>
 
 ---
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
   
-  <div class="faq-q">Q1: क्या Multiple useState Hooks का उपयोग करने से React App Slow हो जाती है?</div>
-  <div class="faq-a">नहीं, सामान्यतः Multiple useState Hooks का उपयोग करने से App Slow नहीं होती। React 18 का automatic batching feature Multiple State updates को एक ही re-render में process कर लेता है। लेकिन, कोड की Readability और Maintenance के लिहाज से Object State या useReducer का इस्तेमाल करना बेहतर माना जाता है।</div>
+  <div class="faq-q">Q1: क्या हम एक React Component में एक से ज़्यादा useEffect Hooks इस्तेमाल कर सकते हैं?</div>
+  <div class="faq-a">हाँ, बिल्कुल! आप एक ही component में multiple useEffect Hooks का इस्तेमाल कर सकते हैं। यह clean code structures बनाए रखने में मदद करता है, जिससे आप अलग-अलग features (जैसे data fetching और analytics tracker) को अलग code groups में handle कर सकते हैं।</div>
   
-  <div class="faq-q">Q2: Single Object State का उपयोग करते समय Input change होने पर पुराना डेटा क्यों गायब हो जाता है?</div>
-  <div class="faq-a">ऐसा इसलिए होता है क्योंकि आप State Update करते समय Spread Operator (...prev) का उपयोग करना भूल जाते हैं। React में Object State को partial update नहीं किया जा सकता, उसे हमेशा पूरा नया Object चाहिए होता है। इसलिए, हमेशा state update करते समय पुराने fields को spread करना अनिवार्य है।</div>
+  <div class="faq-q">Q2: empty dependency array [] और dependencies न देने में क्या अंतर है?</div>
+  <div class="faq-a">यदि आप empty dependency array [] देते हैं, तो side-effect component render होने के बाद केवल एक बार (initial mount पर) चलता है। लेकिन अगर आप dependency array बिल्कुल नहीं देते, तो हर single re-render पर useEffect का code बार-बार executes होता है, जिससे browser fast slowdowns या network infinite loop loops का शिकार हो सकता है।</div>
   
-  <div class="faq-q">Q3: dynamic bracket notation [e.target.name] का क्या मतलब है?</div>
-  <div class="faq-a">यह ES6 JavaScript की एक शानदार Feature है जिसे Dynamic Property Name कहते हैं। इसकी मदद से हम runtime पर Object की Key का नाम बदल सकते हैं। इससे हमें अलग-अलग input fields (जैसे email, password) के लिए अलग-अलग Event Handlers लिखने की जरूरत नहीं पड़ती।</div>
+  <div class="faq-q">Q3: Cleanup Function कब execute होता है?</div>
+  <div class="faq-a">Cleanup function दो scenarios में trigger होता है: (1) Component के screen से unmount (destroy) होने पर, और (2) उस specific hook cycle के अगले loop updates run होने से ऐन पहले, ताकि पुराने listeners, subscriptions, या stale tasks cleanly clear हो सकें।</div>
   
-  <div class="faq-q">Q4: complex nested states के लिए क्या useState सही विकल्प है?</div>
-  <div class="faq-a">Nested states को useState के साथ manage करना थोड़ा थकाऊ और bug-prone हो सकता है, क्योंकि आपको हर level पर shallow copying करनी पड़ती है। ऐसी स्थिति में, आप या तो useReducer Hook का उपयोग कर सकते हैं या Immer.js जैसी library का सहारा ले सकते हैं जो immutable data को आसान बनाती है।</div>
+  <div class="faq-q">Q4: क्या useEffect async callback support करता है?</div>
+  <div class="faq-a">नहीं, useEffect direct async dynamic functions allow नहीं करता (जैसे `useEffect(async () => {})` invalid है)। क्योंकि async functions implicitly dynamic promises return करते हैं, जबकि useEffect expect करता है कि या तो कुछ न return हो या फिर एक cleanup callback function return हो। इसलिए async process के लिए useEffect block के अंदर एक custom function definition लिखकर उसे execute करना चाहिए।</div>
   
-  <div class="faq-q">Q5: useState vs useReducer: मुझे कब कौन-सा चुनना चाहिए?</div>
-  <div class="faq-a">अगर आपकी state स्वतंत्र है और उसमें simple data types (string, boolean, number) हैं, तो useState का उपयोग करें। यदि आपकी state complex है (जैसे array of objects), या एक action से multiple states पर असर पड़ता है, तो useReducer एक बेहतरीन और maintainable solution है।</div>
+  <div class="faq-q">Q5: Stale Closure Error को कैसे fix कर सकते हैं?</div>
+  <div class="faq-a">Stale closures को solve करने के लिए dependency array में required states/variables को define करें ताकि parameters change होने पर fresh calculations loop triggers हो सकें, अथवा direct reference updates के स्थान पर current updates calculations trigger callbacks function (जैसे variable values updates using setState callbacks) run करें।</div>
 </div>
-
----
 
 <script type="application/ld+json">
 {
@@ -424,42 +317,42 @@ export default ReducerFormExample;
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या Multiple useState Hooks का उपयोग करने से React App Slow हो जाती है?",
+      "name": "क्या हम एक React Component में एक से ज़्यादा useEffect Hooks इस्तेमाल कर सकते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, सामान्यतः Multiple useState Hooks का उपयोग करने से App Slow नहीं होती। React 18 का automatic batching feature Multiple State updates को एक ही re-render में process कर लेता है। लेकिन, कोड की Readability और Maintenance के लिहाज से Object State या useReducer का इस्तेमाल करना बेहतर माना जाता है।"
+        "text": "हाँ, बिल्कुल! आप एक ही component में multiple useEffect Hooks का इस्तेमाल कर सकते हैं। यह clean code structures बनाए रखने में मदद करता है, जिससे आप अलग-अलग features (जैसे data fetching और analytics tracker) को अलग code groups में handle कर सकते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "Single Object State का उपयोग करते समय Input change होने पर पुराना डेटा क्यों गायब हो जाता है?",
+      "name": "empty dependency array [] और dependencies न देने में क्या अंतर है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ऐसा इसलिए होता है क्योंकि आप State Update करते समय Spread Operator (...prev) का उपयोग करना भूल जाते हैं। React में Object State को partial update नहीं किया जा सकता, उसे हमेशा पूरा नया Object चाहिए होता है। इसलिए, हमेशा state update करते समय पुराने fields को spread करना अनिवार्य है।"
+        "text": "यदि आप empty dependency array [] देते हैं, तो side-effect component render होने के बाद केवल एक बार (initial mount पर) चलता है। लेकिन अगर आप dependency array बिल्कुल नहीं देते, तो हर single re-render पर useEffect का code बार-बार executes होता है, जिससे browser fast slowdowns या network infinite loop loops का शिकार हो सकता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "dynamic bracket notation [e.target.name] का क्या मतलब है?",
+      "name": "Cleanup Function कब execute होता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यह ES6 JavaScript की एक शानदार Feature है जिसे Dynamic Property Name कहते हैं। इसकी मदद से हम runtime पर Object की Key का नाम बदल सकते हैं। इससे हमें अलग-अलग input fields के लिए अलग-अलग Event Handlers लिखने की जरूरत नहीं पड़ती।"
+        "text": "Cleanup function दो scenarios में trigger होता है: (1) Component के screen से unmount (destroy) होने पर, और (2) उस specific hook cycle के अगले loop updates run होने से ऐन पहले, ताकि पुराने listeners, subscriptions, या stale tasks cleanly clear हो सकें।"
       }
     },
     {
       "@type": "Question",
-      "name": "complex nested states के लिए क्या useState सही विकल्प है?",
+      "name": "क्या useEffect async callback support करता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nested states को useState के साथ manage करना थोड़ा थकाऊ और bug-prone हो सकता है, क्योंकि आपको हर level पर shallow copying करनी पड़ती है। ऐसी स्थिति में, आप या तो useReducer Hook का उपयोग कर सकते हैं या Immer.js जैसी library का सहारा ले सकते हैं जो immutable data को आसान बनाती है।"
+        "text": "नहीं, useEffect direct async dynamic functions allow नहीं करता (जैसे `useEffect(async () => {})` invalid है)। क्योंकि async functions implicitly dynamic promises return करते हैं, जबकि useEffect expect करता है कि या तो कुछ न return हो या फिर एक cleanup callback function return हो। इसलिए async process के लिए useEffect block के अंदर एक custom function definition लिखकर उसे execute करना चाहिए।"
       }
     },
     {
       "@type": "Question",
-      "name": "useState vs useReducer: मुझे कब कौन-सा चुनना चाहिए?",
+      "name": "Stale Closure Error को कैसे fix कर सकते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "अगर आपकी state स्वतंत्र है और उसमें simple data types (string, boolean, number) हैं, तो useState का उपयोग करें। यदि आपकी state complex है (जैसे array of objects), या एक action से multiple states पर असर पड़ता है, तो useReducer एक बेहतरीन और maintainable solution है।"
+        "text": "Stale closures को solve करने के लिए dependency array में required states/variables को define करें ताकि parameters change होने पर fresh calculations loop triggers हो सकें, अथवा direct reference updates के स्थान पर current updates calculations trigger callbacks function (जैसे variable values updates using setState callbacks) run करें।"
       }
     }
   ]
