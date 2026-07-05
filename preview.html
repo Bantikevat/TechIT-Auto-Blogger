@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useEffect Hook Complete Guide (Beginner Friendly in Hindi)</title>
+    <title>Preview: React useEffect Cleanup Function Kaise Kaam Karta Hai (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,298 +16,121 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useEffect Hook को हिन्दी में आसान examples के साथ समझें। इस Beginner friendly guide से components में side effects हैंडल करना सीखें।</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useEffect cleanup function kya hai? Iske use, memory leaks se bachne aur component unmount hone par ye kaise kaam karta hai, seekhein is guide mein.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useEffect Hook Complete Guide (Beginner Friendly in Hindi)</h1>
+    <h1>React useEffect Cleanup Function Kaise Kaam Karta Hai (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/F4qPR8Qg/60b72a4739de.png" alt="React useEffect Hook Complete Guide (Beginner Friendly in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<p>React useEffect Hook क्या है और इसे सही से कैसे इस्तेमाल करें? इस complete Hindi guide में side effects, dependency array और cleanups को आसान भाषा में सीखें।</p>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/svBGPvFr/b3c88e87d3f1.png" alt="React useEffect Cleanup Function Kaise Kaam Karta Hai (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+<p>React useEffect cleanup function kaise kaam karta hai aur ise memory leaks rokne ke liye kaise sahi tarike se use karein? Is guide me step-by-step seekhein.</p>
 
-<p>दोस्तों, क्या आपने कभी सोचा है कि जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> में काम करते हैं, तो API call कहाँ करनी चाहिए? या फिर जब कोई dynamic dynamic updates दिखाना हो या background में timer शुरू करना हो, तो वो component lifecycle में कहाँ fit बैठता है? अगर आप भी इस उलझन में हैं, तो यकीन मानिए आप अकेले नहीं हैं। हमारे React development के सफ़र में "React useEffect Hook" एक ऐसा मील का पत्थर है, जिसे समझे बिना आप एक कुशल developer नहीं बन सकते। चलिए, आज आपके इस दोस्त के साथ बैठिए और बेहद सरल, देसी स्टाइल में इसे जड़ से समझते हैं!</p>
+<p>Dosto, jab hum <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> me components ke saath kaam karte hain, toh aksar hume browser ke resources (jaise timers, subscriptions, ya event listeners) ko handle karna padta hai. Lekin kya kabhi socha hai ki jab component screen se hat jata hai, tab un resources ka kya hota hai? Yahi par 'cleanup function' ka asli jaadu shuru hota hai.</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useEffect Hook एक built-in Hook है जो functional components में side effects (जैसे API data fetching, subscriptions, timers, या manual DOM updates) को manage करने में मदद करता है। यह class components के lifecycle methods (componentDidMount, componentDidUpdate, और componentWillUnmount) की जगह अकेले काम करता है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useEffect cleanup function ek optional function hai jo useEffect hook ke andar return kiya jata hai. Iska kaam component ke unmount hone par ya re-render se pehle side-effects (jaise timers, subscriptions) ko clear karna hota hai taaki memory leak na ho aur application ki performance maintain rahe.</div>
 
----
+<h2>useEffect cleanup function kya hai aur yeh kyun zaroori hai?</h2>
 
-<h2>React useEffect Hook क्या है और हमें इसकी ज़रूरत क्यों पड़ती है?</h2>
+<p>Jab hum ek component banate hain, toh usme useEffect ka use karke hum API call karte hain ya setTimeOut chalate hain. Agar hum component ke unmount hone ke baad unhe band nahi karenge, toh wo background me chalte rahenge. Isse memory leak ho sakta hai aur aapke app ka <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> handle karna mushkil ho jata hai.</p>
 
-<p>सरल शब्दों में कहें तो, React का मुख्य काम है UI (User Interface) को render करना और state को manage करना। लेकिन जब भी हमें React के component rendering flow से बाहर की दुनिया से बात करनी पड़ती है, तो उसे हम <strong>"Side Effects"</strong> कहते हैं।</p>
-
-<p>अब आप पूछेंगे, "यार भाई, ये Side Effects क्या होते हैं?"</p>
-
+<p>Cleanup function basically 'unsubscribe' ya 'clear' karne ka kaam karta hai. Ye tab chalta hai jab:</p>
 <ul>
-    <li><strong>Data Fetching:</strong> किसी external database या API से data लोड करना।</li>
-    <li><strong>Direct DOM Manipulation:</strong> React के virtual DOM से हटकर सीधे core browser DOM को बदलना (जैसे document title बदलना)।</li>
-    <li><strong>Timers & Intervals:</strong> Background में <code>setTimeout</code> या <code>setInterval</code> चलाना।</li>
-    <li><strong>Subscriptions:</strong> Websocket connections set-up करना या event listeners (जैसे dynamic scroll/resize trackers) लगाना।</li>
+  <li>Component DOM se hata diya jata hai (Unmounting).</li>
+  <li>Effect dobara run hone wala hota hai (cleanup pichle effect ko clear karta hai).</li>
 </ul>
 
-<p>React components को pure functions होना चाहिए, जिसका मतलब है कि render logic के अंदर सीधे ये side effects नहीं लिखे जा सकते। अगर आप सीधे component के body में API call करेंगे, तो हर single state change और re-render पर वो API बार-बार call होने लगेगी, जिससे आपका application crash हो सकता है। इसी समस्या को सुलझाने के लिए जन्म हुआ <strong>React useEffect Hook</strong> का!</p>
-
----
-
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useEffect Lifecycle & Render Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useEffect Lifecycle Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
     <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Component Render</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Browser Paint (DOM Updates)</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useEffect Runs</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">useEffect Runs (Side Effects)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#ec4899;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(236,72,153,0.4)">Cleanup (Before next run/Unmount)</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Cleanup Function</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React component rendering sequence showing how browser visual updates complete before side-effects are triggered.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: useEffect ka lifecycle sequence (Mount -> Effect -> Cleanup)</div>
 </div>
 
----
+<h2>useEffect cleanup function kaise kaam karta hai?</h2>
 
-<h2>useEffect Hook का Basic Syntax क्या है?</h2>
+<p>Ise code ke jariye samajhna sabse aasan hai. Chaliye ek timer ka example lete hain jahan hum interval ko cleanup nahi karenge toh kya dikkat aayegi.</p>
 
-<p>चलिए, सबसे पहले इसके simple structure को देखते हैं। इसे समझने के लिए नीचे दिए गए template को ध्यान से देखिए:</p>
+<pre><code>import React, { useEffect, useState } from 'react';
 
-<pre><code>import React, { useEffect } from 'react';
+function TimerComponent() {
+  const [count, setCount] = useState(0);
 
-useEffect(() =&gt; {
-  // यहाँ पर आपका Side Effect Code आएगा (जैसे API call, subscriptions आदि)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prev) => prev + 1);
+    }, 1000);
 
-  return () =&gt; {
-    // (Optional) यहाँ पर Cleanup Function आएगा
-  };
-}, [dependencyArray]);</code></pre>
+    // Cleanup function
+    return () => {
+      clearInterval(interval);
+      console.log("Timer cleanup ho gaya!");
+    };
+  }, []);
 
-<p>इस code block में मुख्य रूप से तीन महत्वपूर्ण हिस्से हैं:</p>
+  return <h1>Count: {count}</h1>;
+}
+</code></pre>
+
+<p>Yahan return block me jo function hai, wahi cleanup function hai. Jab ye component DOM se hat jayega, React apne aap is function ko call kar dega aur interval ko stop kar dega.</p>
+
+<h2>Cleanup function ka use kab karein?</h2>
+
+<p>Ek senior developer hone ke naate, main aapko suggest karunga ki cleanup function ka use in cases me zaroor karein:</p>
 <ol>
-    <li><strong>Callback Function:</strong> वह function जिसके अंदर आप अपना side-effect logic लिखते हैं।</li>
-    <li><strong>Dependency Array (Optional):</strong> Arguments की एक array जो React को यह बताती है कि यह hook कब-कब execute होना चाहिए।</li>
-    <li><strong>Cleanup Function (Optional):</strong> एक return function जो component के unmount होने या अगले update से पहले memory leaks को साफ़ (clean) करता है।</li>
+  <li><strong>Event Listeners:</strong> Agar aap <code>window.addEventListener</code> use kar rahe hain, toh unmount par <code>removeEventListener</code> zaroor karein.</li>
+  <li><strong>Timers:</strong> <code>setInterval</code> ya <code>setTimeout</code> ko clear karne ke liye.</li>
+  <li><strong>API Abort:</strong> Agar user page se dur chala gaya, toh ongoing API requests ko cancel karne ke liye <code>AbortController</code> ka use karein.</li>
+  <li><strong>WebSockets:</strong> Connection ko close karne ke liye.</li>
 </ol>
 
----
+<h2>Comparison: Without Cleanup vs With Cleanup</h2>
 
-<h2>Dependency Array के 3 अलग-अलग Scenarios क्या हैं?</h2>
-
-<p>दोस्त, <code>useEffect</code> को control करने की पूरी चाबी इस <strong>Dependency Array</strong> के हाथ में ही होती है। इसके व्यवहार को समझने के लिए हमें इन तीन scenarios को गहराई से समझना होगा:</p>
-
-<h3>Scenario 1: No Dependency Array (कोई array नहीं दी गई)</h3>
-<p>अगर आप दूसरा logic parameter ही न दें, तो यह hook हर single render और re-render के बाद चलेगा।</p>
-<pre><code>useEffect(() =&gt; {
-  console.log("मैं हर render पर चलूँगा!");
-});</code></pre>
-<p><strong>ध्यान देने वाली बात ये है कि:</strong> इसका इस्तेमाल production code में न के बराबर करें, क्योंकि इससे infinite loops और heavy performance overhead की समस्या आ सकती है।</p>
-
-<h3>Scenario 2: Empty Dependency Array (खाली array - <code>[]</code>)</h3>
-<p>जब आप एक खाली bracket <code>[]</code> pass करते हैं, तो React समझ जाता है कि यह component सिर्फ एक बार mount (load) हुआ है। यह बिल्कुल class components के <code>componentDidMount</code> की तरह काम करता है।</p>
-<pre><code>useEffect(() =&gt; {
-  console.log("मैं सिर्फ पहली बार mount होने पर ही चलूँगा!");
-}, []);</code></pre>
-<p><strong>use-case:</strong> शुरुआती API configuration setups या fetch call जो user interface load होते ही सिर्फ एक बार रन होनी चाहिए।</p>
-
-<h3>Scenario 3: Dependency Array with state/props (वैल्यू वाली array)</h3>
-<p>जब आप array के अंदर कोई dynamic variable, state, या prop डालते हैं, तो React उन variables पर अपनी पैनी नज़र रखता है। जब भी उनमें से कोई भी value बदलेगी, <code>useEffect</code> तुरंत फिर से trigger हो जाएगा।</p>
-<pre><code>useEffect(() =&gt; {
-  console.log(`Count बदल गया! नया value है: ${count}`);
-}, [count]);</code></pre>
-
-<hr />
-
-<h3>Quick Reference: Dependency Array Comparison</h3>
 <table>
-  <thead>
-    <tr>
-      <th>Dependency Syntax</th>
-      <th>कब Execute होता है?</th>
-      <th>Alternative (Class Component Lifecycle)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>useEffect(fn)</code></td>
-      <td>हर render और state change पर</td>
-      <td>None (Runs continuously)</td>
-    </tr>
-    <tr>
-      <td><code>useEffect(fn, [])</code></td>
-      <td>सिर्फ एक बार (Initial Mount पर)</td>
-      <td><code>componentDidMount</code></td>
-    </tr>
-    <tr>
-      <td><code>useEffect(fn, [count])</code></td>
-      <td>Mount पर + जब <code>count</code> बदलेगा</td>
-      <td><code>componentDidUpdate</code> (with conditional checks)</td>
-    </tr>
-  </tbody>
+  <tr>
+    <th>Scenario</th>
+    <th>Without Cleanup</th>
+    <th>With Cleanup</th>
+  </tr>
+  <tr>
+    <td>Memory Usage</td>
+    <td>High (Unnecessary processes)</td>
+    <td>Optimized</td>
+  </tr>
+  <tr>
+    <td>Performance</td>
+    <td>Slows down the app</td>
+    <td>Smooth</td>
+  </tr>
+  <tr>
+    <td>Bug Risk</td>
+    <td>High (State update on unmounted component)</td>
+    <td>Zero</td>
+  </tr>
 </table>
 
-<hr />
+<h2>Common errors jo beginners karte hain</h2>
 
-<h2>Cleanup Function क्या होता है और इसका use कब करें?</h2>
+<p>Sabse badi galti hoti hai cleanup function ko bhool jana. Agar aap <code>useEffect</code> ke andar kuch bhi asynchronous start kar rahe hain, toh usko stop karne ka mechanism cleanup function hi hota hai. Dusri galti hai dependencies ko sahi se set na karna. Agar dependencies change hoti hain, toh purana effect cleanup hota hai aur naya effect start hota hai.</p>
 
-<p>मान लीजिए आपने एक component लोड होने पर <code>setInterval</code> लगाकर एक counter चालू कर दिया। अब user उस component को छोड़ कर किसी दूसरे page पर चला गया। अगर आपने उस timer को बंद नहीं किया, तो background में वो timer चलता रहेगा और धीरे-धीरे आपके browser की memory को खा जाएगा। इसे ही हम <strong>Memory Leak</strong> कहते हैं।</p>
-
-<p>इस गंभीर <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> से बचने के लिए हम React useEffect Hook के अंदर से एक <strong>Cleanup Function</strong> return करते हैं।</p>
-
-<h3>Event Listener Cleanup का Real-World Example:</h3>
-<p>चलिए, एक responsive window resize tracker बनाते हैं जो functional component के destroy होते ही memory को completely safe कर देता है:</p>
-
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function WindowTracker() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() =&gt; {
-    const handleResize = () =&gt; {
-      setWindowWidth(window.innerWidth);
-    };
-
-    // Event listener set up किया
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup logic return कर रहे हैं
-    return () =&gt; {
-      console.log("Cleanup: Event listener removed!");
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); // Empty array, यानी listener सिर्फ एक बार setup होगा
-
-  return (
-    <div style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h3>Dynamic Resize Window Tracker</h3>
-      <p>Current Browser Width: <strong>{windowWidth}px</strong></p>
-    </div>
-  );
-}
-
-export default WindowTracker;</code></pre>
-
-<p><strong>यह कैसे काम करता है?</strong> जब <code>WindowTracker</code> screen से हटेगा (unmount होगा), तो React automatically callback component के return block को call करके console पर प्रिंट करेगा और event handler को background से हटा देगा। इससे memory safe रहती है!</p>
-
----
-
-<h2>Real-World Example: Production-Ready Data Fetching</h2>
-
-<p>चलिए, अब एक production-ready dashboard feature बनाते हैं। इसमें हम API response से users की list load करेंगे, loading animations दिखाएंगे और dynamic network errors को gracefully handle करेंगे। इस example को ध्यान से देखिए और अपने project में practice कीजिए:</p>
-
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function ProductDashboard() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  useEffect(() =&gt; {
-    let activeRequest = true; // Prevents race conditions
-
-    const fetchProducts = async () =&gt; {
-      try {
-        setLoading(true);
-        const response = await fetch('https://fakestoreapi.com/products?limit=5');
-        
-        if (!response.ok) {
-          throw new Error('Network settings are not correct or server returned error');
-        }
-
-        const data = await response.json();
-        
-        if (activeRequest) {
-          setProducts(data);
-          setErrorMessage(null);
-        }
-      } catch (err) {
-        if (activeRequest) {
-          setErrorMessage(err.message || "Something went wrong!");
-        }
-      } finally {
-        if (activeRequest) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchProducts();
-
-    // Cleanup: cancel asynchronous updates if user navigates away
-    return () =&gt; {
-      activeRequest = false;
-    };
-  }, []); // Run only once on mount
-
-  if (loading) {
-    return &lt;div style={{ fontSize: '1.2rem', color: '#06b6d4', padding: '20px' }}&gt;Loading high-quality products...&lt;/div&gt;;
-  }
-
-  if (errorMessage) {
-    return &lt;div style={{ color: '#ef4444', padding: '20px', fontWeight: 'bold' }}&gt;Error: {errorMessage}&lt;/div&gt;;
-  }
-
-  return (
-    &lt;div style={{ fontFamily: 'Arial, sans-serif', padding: '24px' }}&gt;
-      &lt;h2 style={{ borderBottom: '2px solid #e2e8f0', paddingBottom: '10px' }}&gt;🔥 Trending Store Products&lt;/h2&gt;
-      &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '20px' }}&gt;
-        {products.map((product) =&gt; (
-          &lt;div key={product.id} style={{ display: 'flex', gap: '16px', padding: '16px', border: '1px solid #e2e8f0', borderRadius: '10px' }}&gt;
-            &lt;img src={product.image} alt={product.title} style={{ width: '80px', height: '80px', objectFit: 'contain' }} /&gt;
-            &lt;div&gt;
-              &lt;h4 style={{ margin: '0 0 8px 0' }}&gt;{product.title}&lt;/h4&gt;
-              &lt;p style={{ color: '#059669', fontWeight: 'bold', margin: '0' }}&gt;${product.price}&lt;/p&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        ))}
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default ProductDashboard;</code></pre>
-
-<p>इस functional component में हमने async/await structure का बेहतरीन इस्तेमाल किया है, साथ ही dynamic errors को track करने के लिए state hook define किए हैं। यहाँ custom component lifecycle के साथ cleanup switch (<code>activeRequest</code>) यह ensure करता है कि slow-network channels पर fast route-change के दौरान user screen unmount होने के बाद component state update न हो (जिससे memory check bypass crash errors नहीं आते)।</p>
-
----
-
-<h2>Common Errors और Performance Issues को कैसे Fix करें?</h2>
-
-<p>अपने development career में मैंने नए developers को अक्सर इन 3 गलतियों के कारण सिर पकड़ते देखा है:</p>
-
-<h3>1. Infinite Loop का खतरा (The Infinite Render Loop)</h3>
-<p><strong>समस्या:</strong> मान लीजिए आपने <code>useEffect</code> में dynamic state updates किए, लेकिन dependency array देना भूल गए या फिर उसी dependency variable को अन्दर update कर रहे हैं।</p>
-<pre><code>// ❌ Don't do this!
-useEffect(() =&gt; {
-  setCount(count + 1); 
-}, [count]); // Infinite render loops!</code></pre>
-<p><strong>समाधान:</strong> कभी भी direct state modifiers को dependencies array का trigger pointer न बनाएं, जब तक कि आप structural conditioning (जैसे absolute values check limit) न जोड़ रहे हों।</p>
-
-<h3>2. Stale Closures (पुरानी values का lock हो जाना)</h3>
-<p>JavaScript closures की वजह से कई बार <code>useEffect</code> पुराने render variables की outdated values को अपने scope में freeze कर लेता है।</p>
-<p><strong>समाधान:</strong> हमेशा React dynamic actions में updates के समय state updater callbacks (जैसे <code>setCount(prevCount =&gt; prevCount + 1)</code>) का use करें। इससे state calculations को हमेशा brand-new value मिलती है।</p>
-
-<h3>3. Missing Dependency warnings</h3>
-<p>जब भी आप effect structure में component limits के variables (states/props) का use करते हैं, तो ESLint warning show करता है। इन hooks warnings को bypass करने के लिए हमेशा उन dependencies को checklist elements array में register करें। यदि dynamic behavior constant है, तो official guide <a href="https://react.dev/reference/react/useEffect" rel="noopener" target="_blank">React Dev Docs reference instructions</a> की help से optimization standards setup करें।</p>
-
----
-
-<p>तो दोस्तों, हमने आज मिलकर बेहद बारीकी से समझा कि React useEffect Hook किस तरह काम करता है, lifecycle states को functional components में कैसे transition करते हैं, safe API dynamic handling कैसे लिखते हैं, और cleanups का absolute rules pattern क्या है। इस concept को मजबूत बनाने का एक ही नुस्खा है—आज ही अपने system पर बैठें, कम से कम दो timers या background tracking modules design करें, और error checks handle करके खेलें। कोई भी doubts हो, तो हमेशा की तरह खुलकर अपनी बात रखें। हैप्पी कोडिंग!</p>
-
----
+<p>Aur adhik jankari ke liye aap <a href="https://react.dev/reference/react/useEffect" target="_blank" rel="noopener">official React Documentation</a> padh sakte hain.</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  
-  <div class="faq-q">Q1: क्या हम एक React Component में एक से ज़्यादा useEffect Hooks इस्तेमाल कर सकते हैं?</div>
-  <div class="faq-a">हाँ, बिल्कुल! आप एक ही component में multiple useEffect Hooks का इस्तेमाल कर सकते हैं। यह clean code structures बनाए रखने में मदद करता है, जिससे आप अलग-अलग features (जैसे data fetching और analytics tracker) को अलग code groups में handle कर सकते हैं।</div>
-  
-  <div class="faq-q">Q2: empty dependency array [] और dependencies न देने में क्या अंतर है?</div>
-  <div class="faq-a">यदि आप empty dependency array [] देते हैं, तो side-effect component render होने के बाद केवल एक बार (initial mount पर) चलता है। लेकिन अगर आप dependency array बिल्कुल नहीं देते, तो हर single re-render पर useEffect का code बार-बार executes होता है, जिससे browser fast slowdowns या network infinite loop loops का शिकार हो सकता है।</div>
-  
-  <div class="faq-q">Q3: Cleanup Function कब execute होता है?</div>
-  <div class="faq-a">Cleanup function दो scenarios में trigger होता है: (1) Component के screen से unmount (destroy) होने पर, और (2) उस specific hook cycle के अगले loop updates run होने से ऐन पहले, ताकि पुराने listeners, subscriptions, या stale tasks cleanly clear हो सकें।</div>
-  
-  <div class="faq-q">Q4: क्या useEffect async callback support करता है?</div>
-  <div class="faq-a">नहीं, useEffect direct async dynamic functions allow नहीं करता (जैसे `useEffect(async () => {})` invalid है)। क्योंकि async functions implicitly dynamic promises return करते हैं, जबकि useEffect expect करता है कि या तो कुछ न return हो या फिर एक cleanup callback function return हो। इसलिए async process के लिए useEffect block के अंदर एक custom function definition लिखकर उसे execute करना चाहिए।</div>
-  
-  <div class="faq-q">Q5: Stale Closure Error को कैसे fix कर सकते हैं?</div>
-  <div class="faq-a">Stale closures को solve करने के लिए dependency array में required states/variables को define करें ताकि parameters change होने पर fresh calculations loop triggers हो सकें, अथवा direct reference updates के स्थान पर current updates calculations trigger callbacks function (जैसे variable values updates using setState callbacks) run करें।</div>
+  <div class="faq-q">Q1: Kya cleanup function har render pe chalta hai?</div>
+  <div class="faq-a">Cleanup function tab chalta hai jab effect dobara run hone wala ho (dependency change hone par) ya component unmount ho raha ho. Ye sirf component ke pehle mount par nahi chalta.</div>
+  <div class="faq-q">Q2: Kya main useEffect me cleanup function return na karun toh kya hoga?</div>
+  <div class="faq-a">Kuch nahi hoga agar aapka effect koi memory intensive kaam nahi kar raha. Lekin agar aap timers ya event listeners use kar rahe hain, toh memory leak hone ka khatra rahega.</div>
+  <div class="faq-q">Q3: Component unmount hone par cleanup function kaise trigger hota hai?</div>
+  <div class="faq-a">React internal lifecycles ko track karta hai. Jaise hi component tree se hat-ta hai, React component ke unmounting phase me cleanup function ko execute kar deta hai.</div>
+  <div class="faq-q">Q4: Kya cleanup function async ho sakta hai?</div>
+  <div class="faq-a">Nahi, cleanup function ko synchronous hona chahiye kyunki use immediately execute hona hota hai.</div>
+  <div class="faq-q">Q5: Cleanup function best practices kya hain?</div>
+  <div class="faq-a">Hamesha resources ko 'clean' karein, dependencies ko array me include karein aur memory leak se bachne ke liye har subscription ko unsubscribe zaroor karein.</div>
 </div>
 
 <script type="application/ld+json">
@@ -317,42 +140,42 @@ useEffect(() =&gt; {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या हम एक React Component में एक से ज़्यादा useEffect Hooks इस्तेमाल कर सकते हैं?",
+      "name": "Kya cleanup function har render pe chalta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! आप एक ही component में multiple useEffect Hooks का इस्तेमाल कर सकते हैं। यह clean code structures बनाए रखने में मदद करता है, जिससे आप अलग-अलग features (जैसे data fetching और analytics tracker) को अलग code groups में handle कर सकते हैं।"
+        "text": "Cleanup function tab chalta hai jab effect dobara run hone wala ho ya component unmount ho raha ho."
       }
     },
     {
       "@type": "Question",
-      "name": "empty dependency array [] और dependencies न देने में क्या अंतर है?",
+      "name": "Kya main useEffect me cleanup function return na karun toh kya hoga?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यदि आप empty dependency array [] देते हैं, तो side-effect component render होने के बाद केवल एक बार (initial mount पर) चलता है। लेकिन अगर आप dependency array बिल्कुल नहीं देते, तो हर single re-render पर useEffect का code बार-बार executes होता है, जिससे browser fast slowdowns या network infinite loop loops का शिकार हो सकता है।"
+        "text": "Agar aap timers ya event listeners use kar rahe hain, toh memory leak hone ka khatra rahega."
       }
     },
     {
       "@type": "Question",
-      "name": "Cleanup Function कब execute होता है?",
+      "name": "Component unmount hone par cleanup function kaise trigger hota hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cleanup function दो scenarios में trigger होता है: (1) Component के screen से unmount (destroy) होने पर, और (2) उस specific hook cycle के अगले loop updates run होने से ऐन पहले, ताकि पुराने listeners, subscriptions, या stale tasks cleanly clear हो सकें।"
+        "text": "React internal lifecycles ko track karta hai aur component unmount hone par automatically cleanup function ko call karta hai."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useEffect async callback support करता है?",
+      "name": "Kya cleanup function async ho sakta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, useEffect direct async dynamic functions allow नहीं करता (जैसे `useEffect(async () => {})` invalid है)। क्योंकि async functions implicitly dynamic promises return करते हैं, जबकि useEffect expect करता है कि या तो कुछ न return हो या फिर एक cleanup callback function return हो। इसलिए async process के लिए useEffect block के अंदर एक custom function definition लिखकर उसे execute करना चाहिए।"
+        "text": "Nahi, cleanup function synchronous hona chahiye."
       }
     },
     {
       "@type": "Question",
-      "name": "Stale Closure Error को कैसे fix कर सकते हैं?",
+      "name": "Cleanup function best practices kya hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Stale closures को solve करने के लिए dependency array में required states/variables को define करें ताकि parameters change होने पर fresh calculations loop triggers हो सकें, अथवा direct reference updates के स्थान पर current updates calculations trigger callbacks function (जैसे variable values updates using setState callbacks) run करें।"
+        "text": "Hamesha resources ko clean karein, dependencies manage karein aur subscriptions ko unsubscribe karein."
       }
     }
   ]
