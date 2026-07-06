@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useEffect Dependency Array Complete Guide (in Hindi)</title>
+    <title>Preview: React useEffect Infinite Loop Kaise Fix Karein (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,110 +16,94 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useEffect dependency array को समझें इस complete guide से। जानिए कब और कैसे use करें ताकि आपके React app का performance बेहतरीन हो सके। अभी पढ़ें!</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">Kya aapka React useEffect baar-baar trigger ho raha hai? Is guide mein seekhein useEffect infinite loop ko fix karne ke aasaan aur best techniques!</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useEffect Dependency Array Complete Guide (in Hindi)</h1>
-    <p><strong>Category:</strong> ReactJS</p>
+    <h1>React useEffect Infinite Loop Kaise Fix Karein (in Hindi)</h1>
+    <p><strong>Category:</strong> Error Solving</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/YB35qxf1/1d55b485e529.png" alt="React useEffect Dependency Array Complete Guide (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useEffect dependency array kya hai aur ise sahi tarike se kaise use karein? Is complete Hindi guide me best practices aur examples seekhein.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/1J7sxz1s/f6c95e4060fe.png" alt="React useEffect Infinite Loop Kaise Fix Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useEffect infinite loop kaise fix karein? Is detailed guide mein hum React hooks ke common error aur unke perfect solution ko step-by-step seekhenge.
 
-<p>Doston, jab hum <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> me kaam karte hain, toh <strong>useEffect</strong> hook humara sabse bada saathi hota hai. Lekin aksar naye developers yahan galti kar dete hain—kabhi infinite loop me phas jaate hain, toh kabhi data update nahi hota. Aaj hum <strong>useEffect dependency array</strong> ke concept ko aise samjhenge ki aapko dobara isme kabhi koi <strong>error</strong> nahi aayega.</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useEffect infinite loop ka main kaaran hai dependency array ka sahi istemal na karna ya state update ke dauran effect trigger hona. Isse fix karne ke liye, apne useEffect hook ke dependency array [ ] ko check karein aur ensure karein ki state ka update direct loop create na kare.</div>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useEffect dependency array ka kaam ye decide karna hai ki effect kab chalega. Agar array empty [] hai, toh ye sirf component mount hone par chalega. Agar usme dependencies (jaise state ya props) daal di, toh ye unke change hone par trigger hoga. Agar array hi omit kar diya, toh ye har render par chalega.</div>
+<p>Doston, kya aapke sath kabhi aisa hua hai ki aapne koi <strong>ReactJS</strong> application chalayi aur browser hang ho gaya? Console mein "Too many re-renders" ka error flash kar raha hai? Yeh darr aur pareshani har us developer ne jheli hai jo <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> ke sath kaam karta hai. Aaj hum is <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> ko जड़ से खत्म करना सीखेंगे.</p>
 
-<h2>useEffect dependency array kya hai aur ye kaise kaam karta hai?</h2>
-
-<p>Simple shabdon me kahein toh, dependency array <strong>useEffect</strong> ko ek "condition" deta hai. Ye batata hai ki "Bhai, jab tak ye variable na badle, tab tak dobara apna kaam mat karna."</p>
+<h2>useEffect infinite loop क्या है और यह क्यों होता है?</h2>
+<p>Jab hum <code>useEffect</code> ka use karte hain, to React ko batana padta hai ki yeh effect kab run hona chahiye. Agar hum dependency array (<code>[]</code>) ko sahi se manage nahi karte, to React har render par useEffect ko fire karta hai. Agar us effect ke andar koi <code>setState</code> function call ho raha hai, to woh phir se re-render trigger karta hai, aur loop chalu ho jata hai.</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useEffect Lifecycle Flow</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useEffect Execution Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 10px;border-radius:10px;font-size:12px;font-weight:600">Mounting</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Component Render</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 10px;border-radius:10px;font-size:12px;font-weight:600">Effect Triggered</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useEffect Trigger</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 10px;border-radius:10px;font-size:12px;font-weight:600">Cleanup Function</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">State Update</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: useEffect ka execution cycle jab state ya props update hote hain.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: State update ke baad component wapas render hota hai, jisse useEffect phir se run hota hai.</div>
 </div>
 
-<h2>useEffect dependency array ke 3 main scenarios</h2>
+<h2>useEffect infinite loop कैसे fix करें (Step-by-Step)?</h2>
+<p>Infinite loop ko fix karne ke liye humein kuch best practices follow karni chahiye:</p>
 
-<p>Chaliye isse code ke zariye samajhte hain. Dhyan dijiye ki hum kab kya use kar rahe hain:</p>
+<ol>
+  <li><strong>Dependency Array check karein:</strong> Agar aapka effect sirf component load hone par chalna chahiye, to empty array <code>[]</code> zaroor dein.</li>
+  <li><strong>State update logic:</strong> Agar state update zaroori hai, to ensure karein ki woh conditional ho.</li>
+  <li><strong>Functional updates ka use karein:</strong> <code>setCount(prev => prev + 1)</code> ka use karein taaki dependency array mein pura state object na daalna pade.</li>
+</ol>
 
-<h3>1. Empty Dependency Array []</h3>
-<p>Jab aap array ko khaali chhod dete hain, toh <strong>useEffect</strong> sirf ek baar chalta hai—jab component pehli baar screen par load (mount) hota hai.</p>
-<pre><code>useEffect(() => {
-  console.log("Main sirf ek baar chalunga!");
-}, []); // Empty array</code></pre>
+<pre><code>import { useState, useEffect } from 'react';
 
-<h3>2. Dependency Array with Values [data]</h3>
-<p>Jab aap array me koi variable daalte hain, toh React har render ke baad check karta hai: "Kya 'data' ki value pehle se alag hai?" Agar haan, toh effect fir se chalega.</p>
-<pre><code>useEffect(() => {
-  console.log("Data badal gaya hai:", data);
-}, [data]); // Jab data change hoga, tabhi chalega</code></pre>
+function Counter() {
+  const [count, setCount] = useState(0);
 
-<h3>3. No Dependency Array</h3>
-<p>Agar aap array hi nahi dete, toh ye har re-render par chalega, jo ki aksar performance ke liye kharab hota hai.</p>
+  useEffect(() => {
+    // Sahi tarika: sirf ek baar chalega
+    console.log("Component mounted");
+  }, []); 
 
-<h2>Comparison Table: Dependency Arrays</h2>
+  return &lt;div&gt;Count: {count}&lt;/div&gt;;
+}
+</code></pre>
+
+<h2>Dependency Array के common pitfalls क्या हैं?</h2>
+<p>Kai baar hum galti se objects ya arrays ko dependency array mein daal dete hain. Yaad rakhein, JavaScript mein objects ka reference check hota hai, na ki value. Har render par naya object banta hai, jisse React ko lagta hai ki value badal gayi hai.</p>
+
 <table>
   <tr>
-    <th>Dependency Array</th>
-    <th>Execution Timing</th>
-  </tr>
-  <tr>
-    <td>No Array</td>
-    <td>Every render</td>
+    <th>Scenario</th>
+    <th>Result</th>
   </tr>
   <tr>
     <td>Empty Array []</td>
-    <td>Only on mount</td>
+    <td>Sirf Mounting par run hoga</td>
   </tr>
   <tr>
-    <td>With variables [prop, state]</td>
-    <td>On mount + when listed values change</td>
+    <td>No Array</td>
+    <td>Har Render par run hoga</td>
+  </tr>
+  <tr>
+    <td>[state]</td>
+    <td>Sirf jab state change hogi</td>
   </tr>
 </table>
 
-<h2>useEffect me common mistakes aur unhe kaise fix karein</h2>
-
-<p>Bahut se developers <strong>useEffect</strong> ke andar <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> face karte hain kyunki wo dependencies bhool jaate hain. React ka official <a href="https://react.dev/reference/react/useEffect" target="_blank" rel="noopener">documentation</a> suggest karta hai ki humein har us variable ko dependencies me zaroor daalna chahiye jo effect ke andar use ho raha hai.</p>
-
-<p><strong>Infinite Loop se kaise bachein?</strong></p>
-<p>Agar aap useEffect ke andar hi <code>setState</code> call kar rahe hain aur usi state ko dependency array me daal diya, toh wo infinite loop ban jayega. Isse bachne ke liye logic ko clean rakhein aur <code>functional updates</code> ka use karein.</p>
-
-<pre><code>// Bad Practice: Infinite loop
-useEffect(() => {
-  setCount(count + 1);
-}, [count]);
-
-// Good Practice: Functional update
-useEffect(() => {
-  setCount(prev => prev + 1);
-}, []); // No dependency needed</code></pre>
-
 <h2>Best Practices for React Performance</h2>
-<ul>
-  <li><strong>Cleanup Function:</strong> Hamesha return statement ka use karein agar aap API calls ya event listeners handle kar rahe hain.</li>
-  <li><strong>Keep it simple:</strong> Ek useEffect me ek hi responsibility rakhein.</li>
-  <li><strong>Dependency Order:</strong> Hamesha dependencies ko clearly mention karein taki debugging aasaan ho.</li>
-</ul>
+<p>Performance ko behtar banane ke liye hamesha <a href="https://react.dev/reference/react/useEffect" target="_blank" rel="noopener">official React documentation</a> ko follow karein. Excessive re-renders se bachne ke liye <code>useMemo</code> aur <code>useCallback</code> ka sahi istemal karein. Jab aap <strong>MERN Stack</strong> projects par kaam kar rahe hote hain, to data fetching ke liye <code>useEffect</code> use karte waqt cleaning function ka use zaroor karein.</p>
 
 <div class="faq-accordion">
-  <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: Agar main dependency array me object ya array pass karun toh kya hoga?</div>
-  <div class="faq-a">React 'referential equality' check karta hai. Agar aap object har render me naya create kar rahe hain, toh effect baar-baar chalega. Iske liye useMemo ya useCallback ka use karein.</div>
-  <div class="faq-q">Q2: Kya useEffect me async function likh sakte hain?</div>
-  <div class="faq-a">Directly nahi. useEffect ko async nahi bana sakte. Aapko function ke andar ek async function define karke use call karna hoga.</div>
-  <div class="faq-q">Q3: Cleanup function kab call hota hai?</div>
-  <div class="faq-a">Jab component unmount hota hai ya jab dependency badalne se pehle naya effect chalne wala hota hai.</div>
-  <div class="faq-q">Q4: Kya main bina useEffect ke data fetch kar sakta hoon?</div>
-  <div class="faq-a">Haan, aajkal TanStack Query (React Query) ka use zyada recommended hai kyunki wo caching aur state management ko behtar handle karta hai.</div>
-  <div class="faq-q">Q5: Dependency array omit karne ka kya nuksan hai?</div>
-  <div class="faq-a">Isse component ka performance slow ho sakta hai kyunki wo har bar unnecessary calculations karega aur infinite re-renders ka khatra badh jayega.</div>
+  <h3 class="faq-h">Frequently Asked Questions (FAQs)</h3>
+  <div class="faq-q">Q1: Infinite loop ka pata kaise chale?</div>
+  <div class="faq-a">Browser console mein "Too many re-renders" ka error aaye toh samajh jayein ki useEffect infinite loop mein phans gaya hai.</div>
+  <div class="faq-q">Q2: Kya useEffect mein API call karte waqt dependency array jaruri hai?</div>
+  <div class="faq-a">Haan, agar aap empty array nahi denge, to API call har render par trigger hogi, jo server par load badhayegi.</div>
+  <div class="faq-q">Q3: Functional updates kya hote hain?</div>
+  <div class="faq-a">Ye state ko update karne ka tareeka hai jahan hum old state ki value access karte hain (e.g., prev => prev + 1), isse dependency array mein state variable ki jarurat nahi padti.</div>
+  <div class="faq-q">Q4: Kya main object ko dependency array mein daal sakta hoon?</div>
+  <div class="faq-a">Object ko directly daalne se bachein, kyunki reference change hone par loop chal sakta hai. Use JSON.stringify ya specific primitive values.</div>
+  <div class="faq-q">Q5: Error solving mein kya dikkat aati hai?</div>
+  <div class="faq-a">Aksar developers logic ko useEffect ke bahar nahi nikaalte, jis se purani state refer hoti rehti hai. Hamesha clean code likhein.</div>
 </div>
 
 <script type="application/ld+json">
@@ -129,33 +113,33 @@ useEffect(() => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Agar main dependency array me object ya array pass karun toh kya hoga?",
-      "acceptedAnswer": { "@type": "Answer", "text": "React referential equality check karta hai. Agar object har render me naya create ho raha hai, toh effect baar-baar chalega." }
+      "name": "Infinite loop ka pata kaise chale?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Browser console mein 'Too many re-renders' ka error aaye toh samajh jayein ki useEffect infinite loop mein phans gaya hai." }
     },
     {
       "@type": "Question",
-      "name": "Kya useEffect me async function likh sakte hain?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Directly nahi, useEffect ko async nahi bana sakte. Aapko function ke andar async function define karke call karna chahiye." }
+      "name": "Kya useEffect mein API call karte waqt dependency array jaruri hai?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Haan, agar aap empty array nahi denge, to API call har render par trigger hogi, jo server par load badhayegi." }
     },
     {
       "@type": "Question",
-      "name": "Cleanup function kab call hota hai?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Jab component unmount hota hai ya naya effect chalne se pehle." }
+      "name": "Functional updates kya hote hain?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ye state ko update karne ka tareeka hai jahan hum old state ki value access karte hain, isse dependency array mein state variable ki jarurat nahi padti." }
     },
     {
       "@type": "Question",
-      "name": "Kya main bina useEffect ke data fetch kar sakta hoon?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Haan, React Query jaise libraries ka use karna zyada behtar aur modern approach hai." }
+      "name": "Kya main object ko dependency array mein daal sakta hoon?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Object ko directly daalne se bachein, kyunki reference change hone par loop chal sakta hai." }
     },
     {
       "@type": "Question",
-      "name": "Dependency array omit karne ka kya nuksan hai?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Performance issues aur infinite loops hone ka khatra badh jata hai." }
+      "name": "Error solving mein kya dikkat aati hai?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Aksar developers logic ko useEffect ke bahar nahi nikaalte, jis se purani state refer hoti rehti hai." }
     }
   ]
 }
 </script>
 
-<p>Toh doston, humne aaj seekha ki <strong>useEffect</strong> dependency array sirf ek feature nahi, balki React performance control karne ka ek tool hai. Ise sahi se samajhne ke baad aapka code aur bhi clean aur fast ban jayega. Happy coding!</p>
+<p>Toh doston, humne aaj seekha ki kaise <code>useEffect</code> ke infinite loop ko pakda jaye aur use fixed code ke saath kaise resolve karein. Yaad rakhein, React mein state management aur lifecycle methods par pakad hona bahut zaroori hai agar aap ek expert developer banna chahte hain.</p>
 </body>
 </html>
