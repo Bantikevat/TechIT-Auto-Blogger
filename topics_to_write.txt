@@ -1,4 +1,3 @@
-React input me type nahi ho raha kaise solve kare (in Hindi)
 React useContext Hook aur Context API Kaise Kaam Karta Hai (in Hindi)
 React me Multiple Contexts Kaise Combine Karein (in Hindi)
 React Context vs Redux Kab Kya Use Karein (in Hindi)
