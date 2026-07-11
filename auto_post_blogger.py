@@ -88,13 +88,6 @@ def load_gemini_api_key():
         print("[ERROR] Gemini API Key is required to generate articles.")
         sys.exit(1)
 
-def _atomic_write_text(path, content):
-    """Race-safe write: temp file me likh ke rename. Do parallel runs se corruption bacha."""
-    tmp = f"{path}.tmp.{os.getpid()}"
-    with open(tmp, "w", encoding="utf-8") as f:
-        f.write(content)
-    os.replace(tmp, path)  # Windows aur POSIX dono par atomic
-
 def get_posted_topics():
     if os.path.exists(TRACKER_FILE):
         try:
@@ -107,7 +100,8 @@ def get_posted_topics():
 def save_posted_topic(topic):
     posted = get_posted_topics()
     posted.append(topic)
-    _atomic_write_text(TRACKER_FILE, json.dumps(posted, indent=4, ensure_ascii=False))
+    with open(TRACKER_FILE, "w", encoding="utf-8") as f:
+        json.dump(posted, f, indent=4)
 
 def call_gemini(gemini_key, prompt):
     models = ["gemini-3.5-flash", "gemini-3.1-flash-lite"]
@@ -242,9 +236,11 @@ def select_topic(gemini_key, posted_topics):
             if lines:
                 selected_topic = lines[0]
                 remaining_topics = lines[1:]
-
-                # Atomic write — parallel runs se race/corruption bacha
-                _atomic_write_text(QUEUE_FILE, "\n".join(remaining_topics) + ("\n" if remaining_topics else ""))
+                
+                # Write remaining topics back to keep queue updated
+                with open(QUEUE_FILE, "w", encoding="utf-8") as f:
+                    for t in remaining_topics:
+                        f.write(t + "\n")
                 
                 print(f"[OK] Found custom topic in queue: '{selected_topic}'")
                 
@@ -633,14 +629,7 @@ def generate_article_content(gemini_key, topic, category):
         if article_html.endswith("```"):
             article_html = article_html[:-3]
         article_html = article_html.strip()
-
-        # QUALITY GATE: Gemini kabhi kabhi rate-limit/timeout par adha-adhoora response deta hai.
-        # Aisa content publish ho jaye to blog par 200-shabd wala toota post dikhta hai.
-        # 2000 chars threshold = kam se kam ~300-400 shabd (real article usually 8000+ chars).
-        if len(article_html) < 2000:
-            print(f"[ERROR] Article bahut chota mila ({len(article_html)} chars). Gemini ne adhura response bheja — publish skip.")
-            return None
-
+        
         # Balance HTML tags to prevent SAXParseException XML issues
         article_html = fix_html_tags(article_html)
         
@@ -778,41 +767,6 @@ def share_post_to_telegram(title, post_url, category, seo_desc):
     )
     return notify_telegram(msg)
 
-def check_blogger_auth():
-    """Content banane se PEHLE Blogger OAuth token valid hai ya nahi — jaanch lo.
-    Aisa hone se Gemini/ImgBB quota nahi jalta jab token die hua ho.
-    Returns (ok: bool, error_msg: str).
-    """
-    if not os.path.exists(CREDENTIALS_FILE):
-        return False, f"Credentials file '{CREDENTIALS_FILE}' nahi mili. GitHub Secrets me BLOGGER_CREDENTIALS_JSON set karo."
-    try:
-        if os.path.getsize(CREDENTIALS_FILE) == 0:
-            return False, f"Credentials file khali hai. GitHub Secrets me BLOGGER_CREDENTIALS_JSON sahi paste karo."
-        with open(CREDENTIALS_FILE, "r", encoding="utf-8") as f:
-            content = f.read().strip()
-        if not content:
-            return False, "Credentials file khali hai."
-        creds_data = json.loads(content)
-        creds = Credentials(
-            token=None,
-            refresh_token=creds_data['refresh_token'],
-            client_id=creds_data['client_id'],
-            client_secret=creds_data['client_secret'],
-            token_uri=creds_data.get('token_uri', 'https://oauth2.googleapis.com/token'),
-            scopes=creds_data['scopes']
-        )
-        creds.refresh(Request())
-        return True, ""
-    except Exception as e:
-        err = str(e)
-        if "invalid_grant" in err:
-            return False, ("Blogger OAuth token EXPIRE/REVOKE ho gaya. "
-                           "Laptop pe `python setup_blogger_api.py` chala ke re-authorize karo, "
-                           "phir new blogger_credentials.json ka content GitHub Secret "
-                           "BLOGGER_CREDENTIALS_JSON me paste karo.")
-        return False, f"Blogger auth error: {err}"
-
-
 def publish_to_blogger(title, html_content, category, is_draft=True, seo_description=None):
     print("[INFO] Blogger API authenticate kiya ja raha hai...")
     
@@ -857,10 +811,42 @@ def publish_to_blogger(title, html_content, category, is_draft=True, seo_descrip
             "content": html_content,
             "labels": labels
         }
-        # Search Description (meta description) — theme isko <b:if data:view.description> se pick karta hai
+        # META DESCRIPTION — 3 tareeke se unique per post ensure karo:
+        # (1) customMetaData JSON (future theme use), (2) searchDescription Blogger field,
+        # (3) visible SEO intro paragraph — theme ka JS content-snippet isko pick karega,
+        #     og:description bhi unique hoga, aur reader ke liye bhi TL;DR banega.
         if seo_description:
-            desc = seo_description.strip()[:160]
+            desc_clean = seo_description.strip()
+            desc = desc_clean[:160]
             post_body["customMetaData"] = json.dumps({"description": desc})
+            # Blogger ka apna searchDescription field — sometimes accepted
+            post_body["searchDescription"] = desc
+
+            # Visible SEO intro paragraph — banner ke turant baad prepend
+            intro_html = (
+                f'<p class="techit-seo-intro" style="font-size:1.05em;line-height:1.7;'
+                f'color:#0d1b2a;padding:14px 18px;background:linear-gradient(to right,#ecfdff,#f0f9ff);'
+                f'border-left:4px solid #06b6d4;border-radius:8px;margin:8px 0 24px 0;">'
+                f'<strong style="color:#06b6d4;">✨ Quick Answer:</strong> {desc_clean}</p>\n'
+            )
+            # Banner div ke andar mat daalo — uske BAAD daalo
+            banner_marker = 'techit-hero-banner'
+            if banner_marker in html_content[:600]:
+                # Banner div ka closing </div> dhundo
+                banner_start = html_content.find(banner_marker)
+                div_end = html_content.find('</div>', banner_start)
+                if div_end != -1:
+                    insert_pos = div_end + len('</div>')
+                    # newline agla ho to skip
+                    if insert_pos < len(html_content) and html_content[insert_pos] == '\n':
+                        insert_pos += 1
+                    html_content = html_content[:insert_pos] + intro_html + html_content[insert_pos:]
+                else:
+                    html_content = intro_html + html_content
+            else:
+                html_content = intro_html + html_content
+            # post_body me updated content set karo
+            post_body["content"] = html_content
         
         print(f"[INFO] Blog Post ko Blogger par upload kiya ja raha hai ({'Draft' if is_draft else 'Live'})...")
         
@@ -1011,10 +997,9 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
         topic, category = select_topic(gemini_key, posted_topics)
 
     # 2. Generate Content
-    # Bug fix: agar topic me kahin bhi "in Hindi" hai to dobara mat lagao (title duplicate se bacha).
-    # Queue topics aksar "(Composition in Hindi)" / "(Explained in Hindi)" jaise suffix rakhte hain —
-    # sirf "(in hindi)" exact match check karna kaafi nahi tha.
-    if "in hindi" in topic.lower():
+    # Bug fix: agar topic me pehle se "(in Hindi)" hai to dobara mat lagao (title duplicate se bacha)
+    _topic_lower = topic.lower()
+    if "(in hindi)" in _topic_lower or "(in hindi )" in _topic_lower:
         title = topic  # already has it
     else:
         title = f"{topic} (In Hindi)"
@@ -1092,22 +1077,6 @@ def main():
 
     try:
         gemini_key = load_gemini_api_key()
-
-        # EARLY BLOGGER AUTH CHECK — Gemini/ImgBB quota bacha jab token die
-        # (jaise 2 July 2026 ko hua tha — banner+article generate ho gaye, phir blogger auth fail).
-        # Yahan pehle validate karo — fail toh turant exit, ek bhi API token barbaad nahi.
-        print("[INFO] Blogger auth pre-check...")
-        auth_ok, auth_err = check_blogger_auth()
-        if not auth_ok:
-            print(f"[FATAL] Blogger auth fail: {auth_err}")
-            notify_telegram(
-                f"⛔ <b>TechIT: Auto-post ROKA gaya</b>\n\n{auth_err}\n\n"
-                f"Jab tak token theek nahi hoga, koi post nahi banegi.",
-                silent=False,
-            )
-            sys.exit(1)
-        print("[OK] Blogger auth verified — aage badho.")
-
         posted_topics = get_posted_topics()
 
         # COOLDOWN CHECK — hourly schedule ke saath 30 min cooldown (accidental double-fire se bacha).
