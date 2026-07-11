@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useCallback Hook Kab aur Kaise Use Karein (in Hindi)</title>
+    <title>Preview: React useCallback Common Mistakes Aur Solutions (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,278 +16,265 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me performance optimize karna chahte hain? Seekhiye useCallback hook kab aur kaise use karein simple Hindi me aur code fast banayein.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useCallback use karte waqt ye common mistakes na karein! Janein inke best solutions aur apne React app ki performance ko maximize karein.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useCallback Hook Kab aur Kaise Use Karein (in Hindi)</h1>
+    <h1>React useCallback Common Mistakes Aur Solutions (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/kg6YpszK/0e7785b147eb.png" alt="React useCallback Hook Kab aur Kaise Use Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useCallback Hook kab aur kaise use karein? Is tutorial me step-by-step seekhein kaise function memoization se performance optimize karein.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/gFzcV7P3/267bc27c68c8.png" alt="React useCallback Common Mistakes Aur Solutions (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useCallback use करते वक़्त होने वाली common mistakes और उनके simple solutions को इस complete Hindi guide में live code के साथ सीखें।
 
-<p>क्या आपके <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">React components</a> बिना किसी ठोस वजह के बार-बार re-render हो रहे हैं? जब भी आप अपने पैरेंट स्टेट (Parent State) को बदलते हैं, तो क्या आपके चाइल्ड कंपोनेंट्स भी बिना वजह दोबारा रेंडर होने लगते हैं? मेरे प्यारे दोस्तों, अगर आप भी इस समस्या से जूझ रहे हैं, तो चाय की चुस्की लीजिए क्योंकि आज हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">ReactJS</a> के एक बहुत ही शक्तिशाली हथियार यानी <strong>React useCallback Hook</strong> का पोस्टमार्टम करने वाले हैं।</p>
+<p>क्या आपका React app भी बिना किसी वजह के बार-बार re-render हो रहा है? आपने performance सुधारने के लिए <code>useCallback</code> Hook तो लगा दिया, लेकिन फिर भी performance बेहतर होने के बजाय और खराब हो गई? घबराइए मत, आप अकेले नहीं हैं! ReactJS ecosystem में नए और यहाँ तक कि अनुभवी डेवलपर्स भी इस Hook का गलत इस्तेमाल कर बैठते हैं। आज हम और आप, दो पुराने दोस्तों की तरह बैठकर, इस Hook के सारे राज़ खोलेंगे और जानेंगे कि आखिर सही तरीका क्या है।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useCallback Hook एक ऐसा Hook है जो आपके functions को memoize करता है। यह हर re-render पर नए function instance बनने से रोकता है, जिससे child components को unnecessary re-render होने से बचाया जा सकता है और performance बेहतर होती है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useCallback Hook का इस्तेमाल child components में unnecessary renders को रोकने के लिए functions को memoize (cache) करने के लिए किया जाता है। इसकी सबसे बड़ी गलती इसे बिना React.memo के इस्तेमाल करना और dependency array को खाली छोड़कर stale closure errors पैदा करना है।</div>
 
-<h2>React useCallback Hook क्या है?</h2>
+<h2>React useCallback क्या है और यह कैसे काम करता है?</h2>
 
-<p>सरल शब्दों में कहें तो, <code>useCallback</code> एक ऐसा Hook है जो आपके function के instance (यानी उसके reference) को cache (या memoize) कर लेता है। </p>
+<p>दोस्तों, इस बात को गहराई से समझते हैं। जब भी आपका <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">ReactJS</a> component re-render होता है, तो उसके अंदर लिखे गए सारे functions फिर से नए सिरे से (re-created) बनते हैं। JavaScript में, functions ऑब्जेक्ट्स होते हैं, और दो ऑब्जेक्ट्स कभी भी आपस में बराबर नहीं होते, भले ही उनका कोड बिल्कुल एक जैसा हो। इसे हम <strong>Referential Equality</strong> कहते हैं।</p>
 
-<p>जब भी कोई React Component re-render होता है, तो उसके अंदर लिखे गए सभी functions दोबारा से नए सिरे से (re-create) बनते हैं। भले ही उन functions के अंदर का कोड बिल्कुल न बदला हो, लेकिन JavaScript की दुनिया में उनका memory reference बदल जाता है। <code>useCallback</code> का मुख्य काम इसी re-creation को रोकना है जब तक कि उसकी dependencies न बदलें।</p>
-
-<p>चलिए इसे एक आधिकारिक दस्तावेज के माध्यम से भी समझते हैं। जैसा कि <a href="https://react.dev/reference/react/useCallback" target="_blank" rel="noopener">Official React Docs</a> में बताया गया है, यह Hook आपके component के renders के बीच में किसी function definition को cache करने की अनुमति देता है।</p>
-
-<h2>React में Referential Equality क्या बला है?</h2>
-
-<p>दोस्तो, <code>useCallback</code> को समझने से पहले हमें JavaScript की एक बुनियादी अवधारणा को समझना होगा, जिसे <strong>Referential Equality</strong> कहते हैं।</p>
-
-<p>JavaScript में primitives (जैसे strings, numbers, booleans) की तुलना उनकी values से होती है:</p>
-
-<pre><code>const a = 5;
-const b = 5;
-console.log(a === b); // Output: true
-</code></pre>
-
-<p>लेकिन objects, arrays और functions के साथ ऐसा नहीं होता। इनकी तुलना उनके memory location (reference) से होती है:</p>
-
-<pre><code>const functionOne = () => console.log("Hello World");
-const functionTwo = () => console.log("Hello World");
-
-console.log(functionOne === functionTwo); // Output: false
-</code></pre>
-
-<p>भले ही दोनों functions का काम और कोड बिल्कुल एक जैसा है, लेकिन JavaScript इन्हें दो अलग-अलग डिब्बों (memory allocation) में रखता है। इसलिए ये दोनों आपस में बराबर नहीं हैं। </p>
-
-<p>जब भी आपका React Component रेंडर होता है, तो हर बार एक नया function बनता है, जिससे उसका memory address बदल जाता है। अगर आप इस function को किसी child component में props के रूप में पास कर रहे हैं, तो child component को लगता है कि "अरे! नया prop आया है!" और वह बिना वजह दोबारा re-render हो जाता है।</p>
-
-<h2>useCallback Hook कैसे काम करता है? (Architecture Flow)</h2>
-
-<p>आइए इसे एक सुंदर चित्र के माध्यम से समझते हैं कि बिना <code>useCallback</code> के और <code>useCallback</code> के साथ हमारा React application कैसे व्यवहार करता है।</p>
+<p>जब आप एक Parent Component में कोई function बनाते हैं और उसे Prop के रूप में Child Component में भेजते हैं, तो हर render पर उस function का एक नया reference बनता है। React को लगता है कि Prop बदल गया है, और वह Child Component को दोबारा render कर देता है। इसी समस्या को हल करने के लिए हम <a href="https://react.dev/reference/react/useCallback" target="_blank" rel="noopener">useCallback</a> का इस्तेमाल करते हैं। यह Hook हमारे function को memory में cache (memoize) कर लेता है और जब तक dependencies नहीं बदलतीं, तब तक पुराना reference ही वापस करता है।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Function Lifecycle Flow</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Callback Memoization Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Component Render</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Parent Render</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#eab308;color:#000;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(234,179,8,0.4)">Re-create Function</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Check Dependency Array</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useCallback (Checks Cache)</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Same Ref Restored</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Returns Memoized Reference</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">No Child Render</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How useCallback intercepts function re-creation during renders</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How useCallback preserves reference to avoid child component re-renders</div>
 </div>
 
-<p>ध्यान देने वाली बात ये है कि <code>useCallback</code> खुद कोई जादू नहीं करता, बल्कि यह React के internal storage में आपके function को सुरक्षित रख लेता है और हर render पर वही पुराना Reference लौटाता है जब तक कि dependency array की कोई value न बदले।</p>
+<h2>React useCallback Common Mistakes और उनके Solutions क्या हैं?</h2>
 
-<h2>useCallback Hook का use कब करें? (Real-World Use Cases)</h2>
+<p>चलिए, अब सीधे मुद्दे पर आते हैं और देखते हैं कि डेवलपर्स अक्सर कहाँ गलती करते हैं और उन्हें कैसे सही किया जाए। इन गलतियों को समझकर आप अपने App की performance को आसमान पर ले जा सकते हैं।</p>
 
-<p>दोस्तो, हर जगह आँख बंद करके <code>useCallback</code> का उपयोग करना आपके application की performance को सुधारने के बजाय उसे और धीमा कर सकता है (क्योंकि Hook को चलाने का भी अपना एक overhead होता है)। </p>
+<h3>Mistake 1: React.memo के बिना useCallback का इस्तेमाल करना</h3>
+<p>यह सबसे बड़ी और सबसे आम गलती है। डेवलपर्स को लगता है कि सिर्फ <code>useCallback</code> का उपयोग कर लेने से उनका App super-fast हो जाएगा। ध्यान देने वाली बात ये है कि अगर आपका Child Component <code>React.memo</code> से wrapped नहीं है, तो Parent Component के render होने पर Child Component भी दोबारा render होगा, चाहे आपने Prop में भेजा गया function memoize किया हो या नहीं!</p>
 
-<p>आपको इसका उपयोग केवल निम्नलिखित परिस्थितियों में करना चाहिए:</p>
+<h4>गलत तरीका (The Incorrect Way):</h4>
+<pre><code>import React, { useState, useCallback } from 'react';
 
+// Child Component जो memoized नहीं है
+const EasyButton = ({ onClick, children }) => {
+  console.log(`${children} render ho raha hai!`);
+  return (
+    &lt;button onClick={onClick} style={{ padding: '10px 20px', margin: '10px' }}&gt;
+      {children}
+    &lt;/button&gt;
+  );
+};
+
+export const ParentComponentOne = () => {
+  const [count, setCount] = useState(0);
+  const [otherState, setOtherState] = useState(false);
+
+  // function memoize तो है, लेकिन इसका कोई फायदा नहीं होगा
+  const incrementCount = useCallback(() => {
+    setCount((prev) => prev + 1);
+  }, []);
+
+  return (
+    &lt;div style={{ padding: '20px', border: '1px solid #ccc' }}&gt;
+      &lt;h3&gt;Count: {count}&lt;/h3&gt;
+      &lt;EasyButton onClick={incrementCount}&gt;Increment&lt;/EasyButton&gt;
+      &lt;button onClick={() => setOtherState(!otherState)}&gt;
+        Toggle State ({String(otherState)})
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+
+<p><strong>समस्या:</strong> जब आप 'Toggle State' बटन पर क्लिक करेंगे, तो <code>EasyButton</code> भी फिर से render होगा, भले ही उसका onClick prop बदला न हो। ऐसा इसलिए क्योंकि <code>EasyButton</code> एक साधारण functional component है जो हर parent render पर re-evaluate होता है।</p>
+
+<h4>सही तरीका (The Solution):</h4>
+<p>इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">error</a> को fix करने के लिए आपको Child Component को <code>React.memo</code> के अंदर wrap करना होगा। चलिए देखते हैं कैसे:</p>
+
+<pre><code>import React, { useState, useCallback } from 'react';
+
+// Child Component को React.memo से wrap किया गया है
+const MemoizedButton = React.memo(({ onClick, children }) => {
+  console.log(`${children} render ho raha hai! (Optimized)`);
+  return (
+    &lt;button onClick={onClick} style={{ padding: '10px 20px', margin: '10px', background: '#06b6d4', color: '#fff', border: 'none', borderRadius: '5px' }}&gt;
+      {children}
+    &lt;/button&gt;
+  );
+});
+
+MemoizedButton.displayName = 'MemoizedButton';
+
+export const CorrectParentComponentOne = () => {
+  const [count, setCount] = useState(0);
+  const [otherState, setOtherState] = useState(false);
+
+  // अब यह सही तरीके से काम करेगा
+  const incrementCount = useCallback(() => {
+    setCount((prev) => prev + 1);
+  }, []);
+
+  return (
+    &lt;div style={{ padding: '20px', border: '1px solid #06b6d4', borderRadius: '10px' }}&gt;
+      &lt;h3&gt;Count: {count}&lt;/h3&gt;
+      &lt;MemoizedButton onClick={incrementCount}&gt;Increment&lt;/MemoizedButton&gt;
+      &lt;button onClick={() => setOtherState(!otherState)} style={{ padding: '10px 20px' }}&gt;
+        Toggle State ({String(otherState)})
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+
+<p>अब जब आप 'Toggle State' पर क्लिक करेंगे, तो <code>MemoizedButton</code> का console.log प्रिंट नहीं होगा, क्योंकि उसका props dynamic रूप से समान (referentially identical) है।</p>
+
+<h3>Mistake 2: Stale Closures और Empty Dependency Array की गलती</h3>
+<p>यह गलती सबसे खतरनाक है क्योंकि इससे performance की समस्या नहीं, बल्कि functional logical bugs पैदा होते हैं। जब आप dependency array को खाली (<code>[]</code>) छोड़ देते हैं, तो React में चलने वाला Closure पुरानी state values को 'lock' कर लेता है। इसे 'Stale Closure' कहते हैं।</p>
+
+<h4>गलत तरीका (The Incorrect Way):</h4>
+<pre><code>import React, { useState, useCallback } from 'react';
+
+export const StaleClosureComponent = () => {
+  const [text, setText] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  // Empty dependency array के कारण text हमेशा empty string ही रहेगा
+  const addMessage = useCallback(() => {
+    setMessages((prevMessages) => [...prevMessages, text]);
+  }, []); // यहाँ [text] होना चाहिए था!
+
+  return (
+    &lt;div style={{ padding: '20px' }}&gt;
+      &lt;h3&gt;Stale Closure Example&lt;/h3&gt;
+      &lt;input 
+        type="text" 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+        placeholder="Type something..."
+        style={{ padding: '8px', marginRight: '10px' }}
+      /&gt;
+      &lt;button onClick={addMessage} style={{ padding: '8px 16px' }}&gt;Add Message&lt;/button&gt;
+      &lt;ul&gt;
+        {messages.map((msg, index) => (
+          &lt;li key={index}&gt;Message: "{msg}"&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+
+<p><strong>समस्या:</strong> आप इनपुट बॉक्स में चाहे जो भी लिखें, 'Add Message' दबाने पर हमेशा एक खाली स्ट्रिंग (empty string) ही लिस्ट में जोड़ी जाएगी। ऐसा इसलिए हुआ क्योंकि <code>useCallback</code> ने पहले render के समय की <code>text</code> की value (जो कि <code>''</code> थी) को cache कर लिया था।</p>
+
+<h4>सही तरीका (The Solution):</h4>
+<p>इसे सुधारने के दो तरीके हैं। पहला यह कि dependency array में उस variable को डालें, या फिर functional updates का सही इस्तेमाल करें।</p>
+
+<pre><code>import React, { useState, useCallback } from 'react';
+
+export const CorrectClosureComponent = () => {
+  const [text, setText] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  // Solution: Dependency Array में 'text' को शामिल किया
+  const addMessage = useCallback(() => {
+    if (text.trim() === '') return;
+    setMessages((prevMessages) => [...prevMessages, text]);
+    setText(''); // input clear करने के लिए
+  }, [text]); // 'text' बदलने पर function re-create होगा
+
+  return (
+    &lt;div style={{ padding: '20px', border: '1px solid #10b981', borderRadius: '10px' }}&gt;
+      &lt;h3&gt;Correct Closure Example&lt;/h3&gt;
+      &lt;input 
+        type="text" 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+        placeholder="Type something..."
+        style={{ padding: '8px', marginRight: '10px' }}
+      /&gt;
+      &lt;button onClick={addMessage} style={{ padding: '8px 16px', backgroundColor: '#10b981', color: '#fff', border: 'none', borderRadius: '4px' }}&gt;
+        Add Message
+      &lt;/button&gt;
+      &lt;ul&gt;
+        {messages.map((msg, index) => (
+          &lt;li key={index}&gt;Message: "{msg}"&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+
+<h3>Mistake 3: useCallback का हर जगह (Over-optimization) इस्तेमाल करना</h3>
+<p>कुछ डेवलपर्स सोचते हैं कि "चलो सुरक्षित रहते हैं, हर function को ही useCallback से wrap कर देते हैं!" दोस्तों, यह एक बहुत बड़ी भूल है। </p>
+<p><code>useCallback</code> मुफ्त में नहीं आता। इसके अपने overheads हैं:
 <ul>
-  <li><strong>चाइल्ड कंपोनेंट्स का Unnecessary Re-rendering रोकना:</strong> जब आप किसी child component को props के रूप में function पास कर रहे हों, और वह child component <code>React.memo</code> से optimized हो।</li>
-  <li><strong>Custom Hooks में:</strong> यदि आप कोई Custom Hook बना रहे हैं और उसमें कोई function return कर रहे हैं, तो उसे <code>useCallback</code> से wrap करना एक अच्छी practice माना जाता है ताकि consumers उसे बिना डरे dependency array में उपयोग कर सकें।</li>
-  <li><strong>useEffect की dependency में:</strong> अगर आपका function किसी <code>useEffect</code> के अंदर इस्तेमाल हो रहा है और आप उस function को dependency array में पास कर रहे हैं।</li>
+  <li>हर render पर dependency array की तुलना (Shallow Comparison) की जाती है।</li>
+  <li>React को memory में function और उसके dependency references को बनाए रखना पड़ता है।</li>
+  <li>यदि आप साधारण inline calculations या click handlers को wrap कर रहे हैं जो किसी child component में prop बनकर नहीं जा रहे, तो आप performance बढ़ाने के बजाय उसे धीमा कर रहे हैं।</li>
 </ul>
+</p>
 
-<h2>useCallback Hook vs useMemo Hook में क्या अंतर है?</h2>
+<h2>useCallback vs useMemo में क्या अंतर है?</h2>
 
-<p>अक्सर नए डेवलपर्स इन दोनों Hooks के बीच भ्रमित हो जाते हैं। दोनों ही memoization का काम करते हैं, लेकिन दोनों में एक बहुत ही बुनियादी अंतर है जिसे आपको हमेशा याद रखना चाहिए।</p>
+<p>अक्सर नए डेवलपर्स इन दोनों Hooks के बीच भ्रमित हो जाते हैं। चलिए इस तालिका (Table) के माध्यम से दोनों का अंतर साफ़ और स्पष्ट रूप से समझते हैं:</p>
 
-<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:16px;text-align:left;border:1px solid #cbd5e1;">
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; text-align: left;">
   <thead>
-    <tr style="background-color:#f1f5f9;">
-      <th style="padding:12px;border:1px solid #cbd5e1;">Feature</th>
-      <th style="padding:12px;border:1px solid #cbd5e1;">useCallback Hook</th>
-      <th style="padding:12px;border:1px solid #cbd5e1;">useMemo Hook</th>
+    <tr style="background-color: #0f172a; color: #ffffff;">
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">Feature</th>
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">useCallback Hook</th>
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">useMemo Hook</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td style="padding:12px;border:1px solid #cbd5e1;"><strong>मुख्य उद्देश्य (Purpose)</strong></td>
-      <td style="padding:12px;border:1px solid #cbd5e1;">पूरे के पूरे function definition (reference) को cache करना।</td>
-      <td style="padding:12px;border:1px solid #cbd5e1;">किसी function के output (value) को cache करना।</td>
+    <tr style="background-color: #f8fafc;">
+      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">क्या वापस करता है? (Returns)</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">वही <strong>Function</strong> खुद (Memoized Callback)</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">Function को execute करने के बाद मिलने वाली <strong>Value</strong> (Memoized Value)</td>
     </tr>
     <tr>
-      <td style="padding:12px;border:1px solid #cbd5e1;"><strong>क्या return करता है?</strong></td>
-      <td style="padding:12px;border:1px solid #cbd5e1;">एक Memoized Function</td>
-      <td style="padding:12px;border:1px solid #cbd5e1;">एक Memoized Value / Result</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">मुख्य उद्देश्य (Main Use Case)</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">Child Components में unnecessary renders को रोकना</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">Heavy Computations/Calculations को बार-बार होने से बचाना</td>
     </tr>
-    <tr>
-      <td style="padding:12px;border:1px solid #cbd5e1;"><strong>उपयोग का तरीका (Syntax)</strong></td>
-      <td style="padding:12px;border:1px solid #cbd5e1;"><code>useCallback(() => fn, [deps])</code></td>
-      <td style="padding:12px;border:1px solid #cbd5e1;"><code>useMemo(() => calculateValue(), [deps])</code></td>
+    <tr style="background-color: #f8fafc;">
+      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">Syntax अंतर</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;"><code>useCallback(() => fn, [deps])</code></td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;"><code>useMemo(() => calculateValue(), [deps])</code></td>
     </tr>
   </tbody>
 </table>
 
-<h2>useCallback Hook को कैसे Implement करें? (Step-by-Step Practical Code)</h2>
+<h2>React App Performance Optimize करने के Step-by-Step Best Practices</h2>
 
-<p>चलिए अब सीधे कोडिंग स्क्रीन पर चलते हैं। हम एक ऐसी समस्या का निर्माण करेंगे जहाँ बिना वजह re-render हो रहा हो, और फिर <code>useCallback</code> की मदद से उस समस्या को हल करेंगे।</p>
+<p>यदि आप अपने React components की performance को बेहतरीन बनाना चाहते हैं, तो इन स्टेप्स का पालन करें:</p>
 
-<h3>Step 1: Unoptimized Code (जहाँ समस्या है)</h3>
+<ol>
+  <li><strong>First Measure, Then Optimize:</strong> पहले React Profiler का उपयोग करके यह जांचें कि क्या वास्तव में कोई component बेवजह re-render होकर Performance bottleneck बना रहा है। बिना मापे optimization करना समय की बर्बादी है।</li>
+  <li><strong>Use React.memo with Care:</strong> सिर्फ उन्हीं components को memoize करें जो बहुत बड़े हैं या जो बहुत बार re-render होते हैं। छोटे-मोटे components को render होने देना ही बेहतर होता है।</li>
+  <li><strong>Correct Dependencies:</strong> ESLint React Hooks plugin का इस्तेमाल करें। यह आपको खुद ब खुद चेतावनी देगा कि आपकी dependency array में कौन सी value गायब है।</li>
+  <li><strong>Functional State Updates:</strong> जब भी संभव हो, <code>useState</code> के functional updater pattern (जैसे <code>setCount(prev => prev + 1)</code>) का इस्तेमाल करें ताकि dependency array में state variable को डालने से बचा जा सके।</li>
+</ol>
 
-<p>नीचे दिए गए कोड में, हमारे पास एक <code>ParentComponent</code> है और एक <code>ChildComponent</code> (जो <code>React.memo</code> से घिरा हुआ है) है।</p>
-
-<pre><code>import React, { useState } from 'react';
-
-// Child Component जो React.memo का उपयोग कर रहा है
-const ChildComponent = React.memo(({ handleClick }) => {
-  console.log("ChildComponent Rendered! 🔴");
-  return (
-    &lt;div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}&gt;
-      &lt;h3&gt;चाइल्ड कंपोनेंट&lt;/h3&gt;
-      &lt;button onClick={handleClick} style={{ padding: '8px 12px', background: '#06b6d4', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}&gt;
-        चाइल्ड बटन दबाएं
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-});
-
-export default function ParentComponent() {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState("");
-
-  // यह function हर render पर दोबारा बनेगा
-  const handleButtonClick = () => {
-    console.log("Button clicked!");
-  };
-
-  return (
-    &lt;div style={{ padding: '24px', maxWidth: '500px', margin: '0 auto' }}&gt;
-      &lt;h2&gt;Parent Component&lt;/h2&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-      &lt;button onClick={() => setCount(count + 1)} style={{ padding: '8px 12px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}&gt;
-        Increment Count
-      &lt;/button&gt;
-
-      &lt;div style={{ marginTop: '15px' }}&gt;
-        &lt;input 
-          type="text" 
-          value={text} 
-          onChange={(e) => setText(e.target.value)} 
-          placeholder="यहाँ कुछ टाइप करें..." 
-          style={{ padding: '8px', width: '100%', boxSizing: 'border-box' }}
-        /&gt;
-      &lt;/div&gt;
-
-      &lt;ChildComponent handleClick={handleButtonClick} /&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-
-<p><strong>समस्या क्या है?</strong> जब भी आप "Increment Count" बटन दबाते हैं या input box में कुछ टाइप करते हैं, तो <code>ParentComponent</code> का state बदलता है और वह re-render होता है। इसके कारण <code>handleButtonClick</code> का एक नया instance बनता है। </p>
-
-<p>यद्यपि <code>ChildComponent</code> को <code>React.memo</code> से wrap किया गया है, फिर भी वह console में "ChildComponent Rendered! 🔴" छापेगा, क्योंकि उसे मिलने वाला <code>handleClick</code> prop हर बार नए reference के साथ आ रहा है।</p>
-
-<h3>Step 2: Optimized Code (useCallback के साथ समाधान)</h3>
-
-<p>अब हम इस समस्या को <code>useCallback</code> का उपयोग करके हल करेंगे। ध्यान दें कि हम कैसे <code>handleButtonClick</code> को memoize करते हैं।</p>
-
-<pre><code>import React, { useState, useCallback } from 'react';
-
-// Child Component जो React.memo का उपयोग कर रहा है
-const ChildComponent = React.memo(({ handleClick }) => {
-  console.log("ChildComponent Rendered! 🟢 (Optimized)");
-  return (
-    &lt;div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}&gt;
-      &lt;h3&gt;चाइल्ड कंपोनेंट&lt;/h3&gt;
-      &lt;button onClick={handleClick} style={{ padding: '8px 12px', background: '#06b6d4', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}&gt;
-        चाइल्ड बटन दबाएं
-      &lt;/button&gt;
-    &lt;/div&gt;
-  );
-});
-
-export default function ParentComponent() {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState("");
-
-  // useCallback की मदद से function को cache किया गया
-  const handleButtonClick = useCallback(() => {
-    console.log("Button clicked!");
-  }, []); // Empty dependency array का मतलब यह सिर्फ mount के समय बनेगा
-
-  return (
-    &lt;div style={{ padding: '24px', maxWidth: '500px', margin: '0 auto' }}&gt;
-      &lt;h2&gt;Parent Component (Optimized)&lt;/h2&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-      &lt;button onClick={() => setCount(count + 1)} style={{ padding: '8px 12px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}&gt;
-        Increment Count
-      &lt;/button&gt;
-
-      &lt;div style={{ marginTop: '15px' }}&gt;
-        &lt;input 
-          type="text" 
-          value={text} 
-          onChange={(e) => setText(e.target.value)} 
-          placeholder="यहाँ कुछ टाइप करें..." 
-          style={{ padding: '8px', width: '100%', boxSizing: 'border-box' }}
-        /&gt;
-      &lt;/div&gt;
-
-      &lt;ChildComponent handleClick={handleButtonClick} /&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-
-<p><strong>जादू देखिए!</strong> अब जब आप "Increment Count" दबाएंगे या input box में टाइप करेंगे, तो console में "ChildComponent Rendered! 🟢 (Optimized)" दोबारा प्रिंट नहीं होगा। क्योंकि React जानता है कि <code>handleButtonClick</code> का Reference वही पुराना वाला ही है!</p>
-
-<h2>Common Errors और Best Practices क्या हैं?</h2>
-
-<p>React में विकास करते समय, अक्सर डेवलपर्स <code>useCallback</code> के साथ कुछ गलतियां कर बैठते हैं जिससे गंभीर बग्स पैदा हो जाते हैं। आइए उनके बारे में चर्चा करते हैं ताकि आप उन गलतियों से बच सकें।</p>
-
-<h3>1. Stale Closures (पुरानी State का फंस जाना)</h3>
-
-<p>यह सबसे आम <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">error</a> या समस्या है जो डेवलपर्स को परेशान करती है। जब आप dependency array को खाली छोड़ देते हैं, लेकिन function के अंदर किसी state का उपयोग कर रहे होते हैं, तो closure पुरानी state की value को ही याद रखता है।</p>
-
-<pre><code>// ❌ गलत तरीका - Stale Closure Issue
-const handleLogCount = useCallback(() => {
-  console.log("Current count is:", count); // यह हमेशा पुरानी/शुरुआती value ही दिखाएगा
-}, []); // count को dependency array में होना चाहिए था!
-</code></pre>
-
-<p><strong>समाधान:</strong> हमेशा उन सभी external variables या states को dependency array में डालें जिनका उपयोग आप function के अंदर कर रहे हैं।</p>
-
-<pre><code>//  सही तरीका
-const handleLogCount = useCallback(() => {
-  console.log("Current count is:", count);
-}, [count]); // अब count बदलने पर reference अपडेट होगा
-</code></pre>
-
-<h3>2. हर function पर useCallback लगा देना</h3>
-
-<p>ध्यान रखें, <code>useCallback</code> मुफ्त नहीं आता। हर बार जब आप इसका उपयोग करते हैं, तो React को एक extra function array allocation और comparison logic चलाना पड़ता है। </p>
-
-<p>अगर आपका Child Component हल्का-फुल्का है और re-render होने में कोई भारी computation नहीं ले रहा है, तो <code>useCallback</code> का उपयोग न करें। साधारण functions को बिना किसी Hook के वैसे ही रहने देना सबसे बेहतर अभ्यास है।</p>
-
-<h2>निष्कर्ष और टेकअवे</h2>
-
-<p>तो दोस्तों, आज हमने सीखा कि React में performance optimization कितना महत्वपूर्ण है और <strong>React useCallback Hook</strong> कैसे काम करता है। चलिए इसके मुख्य बातों को संक्षेप में याद कर लेते हैं:</p>
-
-<ul>
-  <li><code>useCallback</code> का मुख्य काम functions को memoize करना और referential equality को बनाए रखना है।</li>
-  <li>इसका उपयोग हमेशा <code>React.memo</code> के साथ किया जाना चाहिए ताकि child components का फालतू रेंडर रोका जा सके।</li>
-  <li>dependency array का विशेष ध्यान रखें ताकि stale closures जैसी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">error</a> का सामना न करना पड़े।</li>
-  <li>हर साधारण function को <code>useCallback</code> में न लपेटें, इसे केवल भारी ऑपरेशन्स और बड़े कंपोनेंट ट्री के लिए सुरक्षित रखें।</li>
-</ul>
+<p>तो दोस्तों, हमने आज विस्तार से सीखा कि <code>useCallback</code> का सही इस्तेमाल कैसे किया जाता है और किन सामान्य गलतियों से बचना चाहिए। आशा है कि अब आप अपने प्रोजेक्ट्स में इन गलतियों को नहीं दोहराएंगे। कोडिंग करते रहिए, सीखते रहिए और कोई भी सवाल हो तो बेझिझक पूछिए!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: React useCallback Hook का मुख्य काम क्या है?</div>
-  <div class="faq-a">useCallback Hook का मुख्य काम component के re-render होने पर functions को दोबारा से re-create होने से बचाना और उनके references को cache करना है।</div>
-  <div class="faq-q">Q2: क्या मुझे हर React component के हर function में useCallback लगाना चाहिए?</div>
-  <div class="faq-a">बिल्कुल नहीं! हर जगह इसका उपयोग करने से performance सुधरने की बजाय बिगड़ सकती है क्योंकि Hook को evaluate करने का भी अपना internal overhead होता है। इसका उपयोग केवल तभी करें जब function किसी memoized child component में prop के रूप में जा रहा हो।</div>
-  <div class="faq-q">Q3: useCallback और useMemo में सबसे बड़ा अंतर क्या है?</div>
-  <div class="faq-a">useCallback सीधे पूरे function reference को cache करता है, जबकि useMemo किसी function के return होने वाले result/value को cache करता है।</div>
-  <div class="faq-q">Q4: Stale Closure की समस्या क्या होती है?</div>
-  <div class="faq-a">जब आप useCallback की dependency array में उस state को शामिल नहीं करते हैं जिसका उपयोग function के अंदर किया जा रहा है, तो function हमेशा पुरानी state value का ही उपयोग करता है। इसे stale closure कहा जाता है।</div>
-  <div class="faq-q">Q5: क्या useCallback के बिना React application अधूरी है?</div>
-  <div class="faq-a">नहीं, यह केवल एक optimization hook है। आपका application इसके बिना भी बिल्कुल सही काम करेगा, लेकिन बड़े applications में performance सुधारने के लिए यह अत्यधिक अनुशंसित है।</div>
+  <div class="faq-q">Q1: क्या मुझे हर arrow function को useCallback में wrap करना चाहिए?</div>
+  <div class="faq-a">नहीं, बिल्कुल नहीं! केवल उन्हीं arrow functions को wrap करें जिन्हें आप props के रूप में उन child components में भेज रहे हैं जो React.memo से optimized हैं। साधारण inline handlers के लिए इसका इस्तेमाल performance घटा सकता है।</div>
+  <div class="faq-q">Q2: Stale Closure की समस्या को कैसे पहचानें?</div>
+  <div class="faq-a">यदि आपके callback function में state या props की पुरानी values दिखाई दे रही हैं, या UI update होने पर भी variable की पुरानी value ही process हो रही है, तो समझ जाएं कि यह Stale Closure है। इसे ठीक करने के लिए dependency array को सही करें।</div>
+  <div class="faq-q">Q3: React.memo और useCallback में क्या संबंध है?</div>
+  <div class="faq-a">ये दोनों एक टीम की तरह काम करते हैं। React.memo बच्चे (Child) को अनावश्यक renders से बचाता है, लेकिन तभी जब उसके props न बदलें। useCallback यह सुनिश्चित करता है कि parent component के re-render होने पर भी props (functions) का reference न बदले।</div>
+  <div class="faq-q">Q4: क्या dependency array में function डालना safe है?</div>
+  <div class="faq-a">हाँ, बशर्ते वह function भी memoized हो (यानी उसे भी useCallback से wrap किया गया हो)। अगर आप एक non-memoized function को dependency में डालेंगे, तो हर render पर parent उसे नया समझेगा, जिससे infinite rendering loop भी हो सकता है।</div>
+  <div class="faq-q">Q5: क्या React 19 में useCallback की ज़रूरत खत्म हो जाएगी?</div>
+  <div class="faq-a">React का नया compiler (React Forget) ऑटोमैटिकली components और memoization को handle करने में सक्षम हो रहा है। लेकिन वर्तमान versions में और legacy codebases को maintain करने के लिए useCallback की समझ होना बेहद ज़रूरी है।</div>
 </div>
 
 <script type="application/ld+json">
@@ -297,42 +284,42 @@ const handleLogCount = useCallback(() => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React useCallback Hook का मुख्य काम क्या है?",
+      "name": "क्या मुझे हर arrow function को useCallback में wrap करना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "useCallback Hook का मुख्य काम component के re-render होने पर functions को दोबारा से re-create होने से बचाना और उनके references को cache करना है."
+        "text": "नहीं, बिल्कुल नहीं! केवल उन्हीं arrow functions को wrap करें जिन्हें आप props के रूप में उन child components में भेज रहे हैं जो React.memo से optimized हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या मुझे हर React component के हर function में useCallback लगाना चाहिए?",
+      "name": "Stale Closure की समस्या को कैसे पहचानें?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "बिल्कुल नहीं! हर जगह इसका उपयोग करने से performance सुधरने की बजाय बिगड़ सकती है क्योंकि Hook को evaluate करने का भी अपना internal overhead होता है. इसका उपयोग केवल तभी करें जब function किसी memoized child component में prop के रूप में जा रहा हो."
+        "text": "यदि आपके callback function में state या props की पुरानी values दिखाई दे रही हैं, तो समझ जाएं कि यह Stale Closure है। इसे ठीक करने के लिए dependency array को सही करें।"
       }
     },
     {
       "@type": "Question",
-      "name": "useCallback और useMemo में सबसे बड़ा अंतर क्या है?",
+      "name": "React.memo और useCallback में क्या संबंध है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "useCallback सीधे पूरे function reference को cache करता है, जबकि useMemo किसी function के return होने वाले result/value को cache करता है."
+        "text": "ये दोनों एक टीम की तरह काम करते हैं। React.memo बच्चे को अनावश्यक renders से बचाता है, और useCallback यह सुनिश्चित करता है कि parent के re-render होने पर props (functions) का reference न बदले।"
       }
     },
     {
       "@type": "Question",
-      "name": "Stale Closure की समस्या क्या होती है?",
+      "name": "क्या dependency array में function डालना safe है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "जब आप useCallback की dependency array में उस state को शामिल नहीं करते हैं जिसका उपयोग function के अंदर किया जा रहा है, तो function हमेशा पुरानी state value का ही उपयोग करता है. इसे stale closure कहा जाता है."
+        "text": "हाँ, बशर्ते वह function भी memoized हो। अगर आप एक non-memoized function को dependency में डालेंगे, तो हर render पर reference बदलने से infinite loops हो सकते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useCallback के बिना React application अधूरी है?",
+      "name": "क्या React 19 में useCallback की ज़रूरत खत्म हो जाएगी?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, यह केवल एक optimization hook है. आपका application इसके बिना भी बिल्कुल सही काम करेगा, लेकिन बड़े applications में performance सुधारने के लिए यह अत्यधिक अनुशंसित है."
+        "text": "React Compiler memoization को खुद संभाल सकता है, लेकिन आज के React apps को maintain करने और performance concepts को गहराई से समझने के लिए इसकी जानकारी अनिवार्य है।"
       }
     }
   ]
