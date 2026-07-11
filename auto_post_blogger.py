@@ -411,6 +411,14 @@ def compose_banner(bg_bytes, clean_title, category):
     draw.rounded_rectangle([60, 56, 60 + cw + 52, 56 + 54], radius=27, fill=(6, 182, 212))
     draw.text((60 + 26, 56 + 11), cat, font=badge_font, fill=(4, 18, 28))
 
+    # CTA — top-right (yellow accent for click-through)
+    cta_font = _load_font("Bold", 26)
+    cta_text = "SIKHEN HINDI MEIN →"
+    ctw = draw.textlength(cta_text, font=cta_font)
+    cta_x = W - 60 - ctw - 44
+    draw.rounded_rectangle([cta_x, 60, W - 60, 60 + 50], radius=25, fill=(255, 204, 0))
+    draw.text((cta_x + 22, 60 + 12), cta_text, font=cta_font, fill=(20, 20, 20))
+
     # Title — auto-fit font size so it wraps in <= 4 lines
     title_font, lines = None, []
     for fs in (70, 62, 54, 48, 42):
@@ -1003,6 +1011,17 @@ def create_one_post(gemini_key, posted_topics, is_interactive, is_draft):
         title = topic  # already has it
     else:
         title = f"{topic} (In Hindi)"
+
+    # SEO: Google search me sirf ~60 chars dikhta hai — usse zyada trim karo taaki
+    # snippet me title poori dikhe aur click-through rate badhe.
+    if len(title) > 60:
+        # Pehle "(In Hindi)" hata do agar exists, phir title trim karo, phir "(Hindi)" chhota add karo
+        base = re.sub(r'\s*\((?:in|In)\s*[Hh]indi\)\s*$', '', title).strip()
+        if len(base) > 52:
+            # 52 chars me trim, saf shabd tak
+            base = base[:52].rsplit(' ', 1)[0] if ' ' in base[:52] else base[:52]
+        title = f"{base} (Hindi)"
+        print(f"[INFO] Title trimmed to fit Google (~60 chars): \"{title}\"")
     print(f"\n[INFO] Blog generate ho raha hai: \"{title}\"")
     content_html = generate_article_content(gemini_key, topic, category)
     if not content_html:
