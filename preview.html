@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useReducer vs useState Kab Use Karein (in Hindi)</title>
+    <title>Preview: React useCallback Hook Kab aur Kaise Use Karein (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,404 +16,278 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">Confused ki React me useState use karein ya useReducer? Is simple Hindi guide me dono ke differences aur use cases ko aasan bhasha me samjhein.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me performance optimize karna chahte hain? Seekhiye useCallback hook kab aur kaise use karein simple Hindi me aur code fast banayein.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useReducer vs useState Kab Use Karein (in Hindi)</h1>
+    <h1>React useCallback Hook Kab aur Kaise Use Karein (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/ycM9hVFY/b22d4d83e54b.png" alt="React useReducer vs useState Kab Use Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useReducer vs useState का उपयोग कब और कैसे करें? इस विस्तृत हिन्दी गाइड में स्टेट मैनेजमेंट, कोड उदाहरण और बेस्ट प्रैक्टिसेज को गहराई से सीखें।
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/kg6YpszK/0e7785b147eb.png" alt="React useCallback Hook Kab aur Kaise Use Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useCallback Hook kab aur kaise use karein? Is tutorial me step-by-step seekhein kaise function memoization se performance optimize karein.
 
-<p>जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> में नए-नए प्रोजेक्ट्स बनाना शुरू करते हैं, तो useState हुक हमारा सबसे पहला और पक्का दोस्त बनता है। लेकिन जैसे-जैसे हमारी एप्लीकेशन का साइज बढ़ता है और स्टेट्स आपस में उलझने लगती हैं, हमारे सामने एक बड़ा सवाल आता है—क्या अभी भी हमें useState ही इस्तेमाल करना चाहिए, या अब useReducer का सहारा लेने का समय आ गया है?</p>
+<p>क्या आपके <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">React components</a> बिना किसी ठोस वजह के बार-बार re-render हो रहे हैं? जब भी आप अपने पैरेंट स्टेट (Parent State) को बदलते हैं, तो क्या आपके चाइल्ड कंपोनेंट्स भी बिना वजह दोबारा रेंडर होने लगते हैं? मेरे प्यारे दोस्तों, अगर आप भी इस समस्या से जूझ रहे हैं, तो चाय की चुस्की लीजिए क्योंकि आज हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">ReactJS</a> के एक बहुत ही शक्तिशाली हथियार यानी <strong>React useCallback Hook</strong> का पोस्टमार्टम करने वाले हैं।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> अगर आपकी स्टेट सरल है (जैसे primitive values या simple objects) तो <strong>useState</strong> का उपयोग करें। लेकिन जब स्टेट में जटिल लॉजिक, मल्टीपल सब-वैल्यूज, या एक स्टेट का बदलाव दूसरी स्टेट पर निर्भर करता है, तब <strong>React useReducer vs useState</strong> की जंग में <strong>useReducer</strong> को चुनना सबसे बेस्ट और स्केलेबल तरीका है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useCallback Hook एक ऐसा Hook है जो आपके functions को memoize करता है। यह हर re-render पर नए function instance बनने से रोकता है, जिससे child components को unnecessary re-render होने से बचाया जा सकता है और performance बेहतर होती है।</div>
 
-<p>दोस्तों, इस व्यावहारिक ब्लॉग में हम इन दोनों Hooks के बीच के अंतर को बिल्कुल जीरो से एडवांस लेवल तक समझेंगे, प्रैक्टिकल कोड देखेंगे, और यह भी जानेंगे कि बड़े प्रोजेक्ट्स में परफॉरमेंस को बनाए रखने के लिए कौन सा हुक कब इस्तेमाल करना चाहिए।</p>
+<h2>React useCallback Hook क्या है?</h2>
 
----
+<p>सरल शब्दों में कहें तो, <code>useCallback</code> एक ऐसा Hook है जो आपके function के instance (यानी उसके reference) को cache (या memoize) कर लेता है। </p>
 
-<h2>React में State Management क्या है और यह क्यों जरूरी है?</h2>
+<p>जब भी कोई React Component re-render होता है, तो उसके अंदर लिखे गए सभी functions दोबारा से नए सिरे से (re-create) बनते हैं। भले ही उन functions के अंदर का कोड बिल्कुल न बदला हो, लेकिन JavaScript की दुनिया में उनका memory reference बदल जाता है। <code>useCallback</code> का मुख्य काम इसी re-creation को रोकना है जब तक कि उसकी dependencies न बदलें।</p>
 
-<p>React में State मूल रूप से एक कंपोनेंट की मेमोरी होती है। यह वह डेटा होल्ड करती है जो यूजर इंटरैक्शन, API रिस्पांस, या किसी अन्य इवेंट के कारण बदल सकता है। जब भी स्टेट बदलती है, React उस <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> को फिर से रेंडर (Re-render) करता है ताकि स्क्रीन पर नया डेटा दिखाई दे सके।</p>
+<p>चलिए इसे एक आधिकारिक दस्तावेज के माध्यम से भी समझते हैं। जैसा कि <a href="https://react.dev/reference/react/useCallback" target="_blank" rel="noopener">Official React Docs</a> में बताया गया है, यह Hook आपके component के renders के बीच में किसी function definition को cache करने की अनुमति देता है।</p>
 
-<p>जैसे-जैसे आपकी एप्लीकेशन बढ़ती है, स्टेट का स्ट्रक्चर भी जटिल हो जाता है। उदाहरण के लिए, एक सिंपल Counter एप्लीकेशन में केवल एक नंबर को ट्रैक करना होता है, जो कि बहुत आसान है। लेकिन एक Shopping Cart, Multi-step Form, या Dashboard में दर्जनों वेरिएबल्स होते हैं जो एक-दूसरे पर निर्भर करते हैं। यहीं पर सही स्टेट मैनेजमेंट टूल का चुनाव करना महत्वपूर्ण हो जाता है ताकि आपका कोड क्लीन, टेस्टेबल और मेंटेनेबल रहे।</p>
+<h2>React में Referential Equality क्या बला है?</h2>
 
----
+<p>दोस्तो, <code>useCallback</code> को समझने से पहले हमें JavaScript की एक बुनियादी अवधारणा को समझना होगा, जिसे <strong>Referential Equality</strong> कहते हैं।</p>
 
-<h2>useState Hook क्या है और यह कैसे काम करता है?</h2>
+<p>JavaScript में primitives (जैसे strings, numbers, booleans) की तुलना उनकी values से होती है:</p>
 
-<p>useState हुक React का सबसे बुनियादी हुक है। यह आपको फंक्शनल कॉम्पोनेंट्स के अंदर लोकल स्टेट जोड़ने की अनुमति देता है। इसका सिंटैक्स बेहद सरल और सीधा है।</p>
+<pre><code>const a = 5;
+const b = 5;
+console.log(a === b); // Output: true
+</code></pre>
 
-<p>ध्यान देने वाली बात ये है कि useState हमें एक एरे (Array) देता है, जिसमें पहली वैल्यू हमारी करंट स्टेट होती है और दूसरी वैल्यू एक सेटर फंक्शन (Setter Function) होती है जो उस स्टेट को अपडेट करती है।</p>
+<p>लेकिन objects, arrays और functions के साथ ऐसा नहीं होता। इनकी तुलना उनके memory location (reference) से होती है:</p>
 
-<h3>useState का एक लाइव उदाहरण: Signup Form</h3>
-<p>चलिए एक व्यावहारिक उदाहरण देखते हैं जहाँ हम एक साधारण Signup Form की स्टेट्स को useState का उपयोग करके मैनेज कर रहे हैं:</p>
+<pre><code>const functionOne = () => console.log("Hello World");
+const functionTwo = () => console.log("Hello World");
+
+console.log(functionOne === functionTwo); // Output: false
+</code></pre>
+
+<p>भले ही दोनों functions का काम और कोड बिल्कुल एक जैसा है, लेकिन JavaScript इन्हें दो अलग-अलग डिब्बों (memory allocation) में रखता है। इसलिए ये दोनों आपस में बराबर नहीं हैं। </p>
+
+<p>जब भी आपका React Component रेंडर होता है, तो हर बार एक नया function बनता है, जिससे उसका memory address बदल जाता है। अगर आप इस function को किसी child component में props के रूप में पास कर रहे हैं, तो child component को लगता है कि "अरे! नया prop आया है!" और वह बिना वजह दोबारा re-render हो जाता है।</p>
+
+<h2>useCallback Hook कैसे काम करता है? (Architecture Flow)</h2>
+
+<p>आइए इसे एक सुंदर चित्र के माध्यम से समझते हैं कि बिना <code>useCallback</code> के और <code>useCallback</code> के साथ हमारा React application कैसे व्यवहार करता है।</p>
+
+<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Function Lifecycle Flow</div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Component Render</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#eab308;color:#000;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(234,179,8,0.4)">Re-create Function</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useCallback (Checks Cache)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Returns Memoized Reference</div>
+  </div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How useCallback intercepts function re-creation during renders</div>
+</div>
+
+<p>ध्यान देने वाली बात ये है कि <code>useCallback</code> खुद कोई जादू नहीं करता, बल्कि यह React के internal storage में आपके function को सुरक्षित रख लेता है और हर render पर वही पुराना Reference लौटाता है जब तक कि dependency array की कोई value न बदले।</p>
+
+<h2>useCallback Hook का use कब करें? (Real-World Use Cases)</h2>
+
+<p>दोस्तो, हर जगह आँख बंद करके <code>useCallback</code> का उपयोग करना आपके application की performance को सुधारने के बजाय उसे और धीमा कर सकता है (क्योंकि Hook को चलाने का भी अपना एक overhead होता है)। </p>
+
+<p>आपको इसका उपयोग केवल निम्नलिखित परिस्थितियों में करना चाहिए:</p>
+
+<ul>
+  <li><strong>चाइल्ड कंपोनेंट्स का Unnecessary Re-rendering रोकना:</strong> जब आप किसी child component को props के रूप में function पास कर रहे हों, और वह child component <code>React.memo</code> से optimized हो।</li>
+  <li><strong>Custom Hooks में:</strong> यदि आप कोई Custom Hook बना रहे हैं और उसमें कोई function return कर रहे हैं, तो उसे <code>useCallback</code> से wrap करना एक अच्छी practice माना जाता है ताकि consumers उसे बिना डरे dependency array में उपयोग कर सकें।</li>
+  <li><strong>useEffect की dependency में:</strong> अगर आपका function किसी <code>useEffect</code> के अंदर इस्तेमाल हो रहा है और आप उस function को dependency array में पास कर रहे हैं।</li>
+</ul>
+
+<h2>useCallback Hook vs useMemo Hook में क्या अंतर है?</h2>
+
+<p>अक्सर नए डेवलपर्स इन दोनों Hooks के बीच भ्रमित हो जाते हैं। दोनों ही memoization का काम करते हैं, लेकिन दोनों में एक बहुत ही बुनियादी अंतर है जिसे आपको हमेशा याद रखना चाहिए।</p>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:16px;text-align:left;border:1px solid #cbd5e1;">
+  <thead>
+    <tr style="background-color:#f1f5f9;">
+      <th style="padding:12px;border:1px solid #cbd5e1;">Feature</th>
+      <th style="padding:12px;border:1px solid #cbd5e1;">useCallback Hook</th>
+      <th style="padding:12px;border:1px solid #cbd5e1;">useMemo Hook</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:12px;border:1px solid #cbd5e1;"><strong>मुख्य उद्देश्य (Purpose)</strong></td>
+      <td style="padding:12px;border:1px solid #cbd5e1;">पूरे के पूरे function definition (reference) को cache करना।</td>
+      <td style="padding:12px;border:1px solid #cbd5e1;">किसी function के output (value) को cache करना।</td>
+    </tr>
+    <tr>
+      <td style="padding:12px;border:1px solid #cbd5e1;"><strong>क्या return करता है?</strong></td>
+      <td style="padding:12px;border:1px solid #cbd5e1;">एक Memoized Function</td>
+      <td style="padding:12px;border:1px solid #cbd5e1;">एक Memoized Value / Result</td>
+    </tr>
+    <tr>
+      <td style="padding:12px;border:1px solid #cbd5e1;"><strong>उपयोग का तरीका (Syntax)</strong></td>
+      <td style="padding:12px;border:1px solid #cbd5e1;"><code>useCallback(() => fn, [deps])</code></td>
+      <td style="padding:12px;border:1px solid #cbd5e1;"><code>useMemo(() => calculateValue(), [deps])</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>useCallback Hook को कैसे Implement करें? (Step-by-Step Practical Code)</h2>
+
+<p>चलिए अब सीधे कोडिंग स्क्रीन पर चलते हैं। हम एक ऐसी समस्या का निर्माण करेंगे जहाँ बिना वजह re-render हो रहा हो, और फिर <code>useCallback</code> की मदद से उस समस्या को हल करेंगे।</p>
+
+<h3>Step 1: Unoptimized Code (जहाँ समस्या है)</h3>
+
+<p>नीचे दिए गए कोड में, हमारे पास एक <code>ParentComponent</code> है और एक <code>ChildComponent</code> (जो <code>React.memo</code> से घिरा हुआ है) है।</p>
 
 <pre><code>import React, { useState } from 'react';
 
-export function SimpleSignupForm() {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [agreeToTerms, setAgreeToTerms] = useState(false);
+// Child Component जो React.memo का उपयोग कर रहा है
+const ChildComponent = React.memo(({ handleClick }) => {
+  console.log("ChildComponent Rendered! 🔴");
+  return (
+    &lt;div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}&gt;
+      &lt;h3&gt;चाइल्ड कंपोनेंट&lt;/h3&gt;
+      &lt;button onClick={handleClick} style={{ padding: '8px 12px', background: '#06b6d4', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}&gt;
+        चाइल्ड बटन दबाएं
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const registrationData = { username, email, password, agreeToTerms };
-    console.log('Registered User Details:', registrationData);
+export default function ParentComponent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+
+  // यह function हर render पर दोबारा बनेगा
+  const handleButtonClick = () => {
+    console.log("Button clicked!");
   };
 
   return (
-    &lt;form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}&gt;
-      &lt;h2&gt;Register Account&lt;/h2&gt;
-      
-      &lt;div style={{ marginBottom: '15px' }}&gt;
-        &lt;label style={{ display: 'block', marginBottom: '5px' }}&gt;Username:&lt;/label&gt;
+    &lt;div style={{ padding: '24px', maxWidth: '500px', margin: '0 auto' }}&gt;
+      &lt;h2&gt;Parent Component&lt;/h2&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)} style={{ padding: '8px 12px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}&gt;
+        Increment Count
+      &lt;/button&gt;
+
+      &lt;div style={{ marginTop: '15px' }}&gt;
         &lt;input 
           type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
-          style={{ width: '100%', padding: '8px' }}
+          value={text} 
+          onChange={(e) => setText(e.target.value)} 
+          placeholder="यहाँ कुछ टाइप करें..." 
+          style={{ padding: '8px', width: '100%', boxSizing: 'border-box' }}
         /&gt;
       &lt;/div&gt;
 
-      &lt;div style={{ marginBottom: '15px' }}&gt;
-        &lt;label style={{ display: 'block', marginBottom: '5px' }}&gt;Email:&lt;/label&gt;
-        &lt;input 
-          type="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          style={{ width: '100%', padding: '8px' }}
-        /&gt;
-      &lt;/div&gt;
-
-      &lt;div style={{ marginBottom: '15px' }}&gt;
-        &lt;label style={{ display: 'block', marginBottom: '5px' }}&gt;Password:&lt;/label&gt;
-        &lt;input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          style={{ width: '100%', padding: '8px' }}
-        /&gt;
-      &lt;/div&gt;
-
-      &lt;div style={{ marginBottom: '15px' }}&gt;
-        &lt;input 
-          type="checkbox" 
-          id="terms"
-          checked={agreeToTerms} 
-          onChange={(e) => setAgreeToTerms(e.target.checked)} 
-        /&gt;
-        &lt;label htmlFor="terms" style={{ marginLeft: '8px' }}&gt;I agree to terms and conditions&lt;/label&gt;
-      &lt;/div&gt;
-
-      &lt;button type="submit" style={{ padding: '10px 15px', background: '#06b6d4', color: '#fff', border: 'none', cursor: 'pointer' }}&gt;
-        Submit
-      &lt;/button&gt;
-    &lt;/form&gt;
-  );
-}
-</code></pre>
-
-<p>इस उदाहरण में, हमारे पास 4 अलग-अलग स्टेट्स हैं। यह तब तक तो ठीक है जब तक हमारी फॉर्म रिक्वायरमेंट साधारण हैं। लेकिन सोचिए, अगर हमारे पास 15-20 इनपुट फील्ड्स हों, और उनके वैलिडेशन लॉजिक्स भी एक-दूसरे से जुड़े हों, तो इतने सारे सेटर फंक्शन्स को संभालना हमारे कोड को बहुत गन्दा और अन-ऑर्गनाइज्ड बना देगा।</p>
-
----
-
-<h2>useReducer Hook क्या है और यह जटिल स्टेट को कैसे आसान बनाता है?</h2>
-
-<p>useReducer हुक उन डेवलपर्स के लिए एक वरदान है जो Redux जैसे स्टेट मैनेजमेंट लाइब्रेरी से परिचित हैं। यह बड़ी या जटिल स्टेट को संभालने के लिए एक अधिक संरचित (Structured) तरीका प्रदान करता है।</p>
-
-<p>जब एक स्टेट में बदलाव दूसरे स्टेट पर निर्भर करता है, या जब बहुत सारे एक्शन्स (जैसे ADD, REMOVE, UPDATE) एक सिंगल स्टेट ऑब्जेक्ट पर होते हैं, तो useReducer का उपयोग करना सबसे बेहतरीन विकल्प होता है।</p>
-
-<h3>useReducer कैसे काम करता है?</h3>
-<p>useReducer मुख्य रूप से तीन चीजों पर काम करता है:</p>
-<ul>
-  <li><strong>Reducer Function:</strong> एक शुद्ध फंक्शन (Pure Function) जो वर्तमान स्टेट (Current State) और एक्शन (Action) को लेता है और एक नई स्टेट रिटर्न करता है।</li>
-  <li><strong>Initial State:</strong> वह शुरुआती स्टेट जो हम कॉम्पोनेंट लोड होने पर सेट करते हैं।</li>
-  <li><strong>Dispatch Method:</strong> एक ट्रिगर फंक्शन जिसके द्वारा हम Reducer को कोई भी 'Action' भेजते हैं।</li>
-</ul>
-
-<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useReducer State Flow Diagram</div>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">UI / User Action</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Dispatch(action)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Reducer (Pure Function)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">New State & Re-render</div>
-  </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: flow representation of dispatching actions to transform state in React applications.</div>
-</div>
-
-<h3>useReducer का एक लाइव उदाहरण: Ecommerce Shopping Cart</h3>
-<p>चलिए एक रियल-वर्ल्ड शॉपिंग कार्ट का उदाहरण देखते हैं जहाँ आइटम्स को जोड़ना, हटाना, मात्रा (Quantity) बढ़ाना और कार्ट खाली करना जैसी कई स्टेट ट्रांजिशन्स शामिल हैं:</p>
-
-<pre><code>import React, { useReducer } from 'react';
-
-const initialState = {
-  cartItems: [],
-  totalPrice: 0
-};
-
-function cartReducer(state, action) {
-  switch (action.type) {
-    case 'ADD_TO_CART': {
-      const existingIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
-      let updatedCartItems;
-      
-      if (existingIndex &gt;= 0) {
-        updatedCartItems = state.cartItems.map((item, idx) => 
-          idx === existingIndex ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      } else {
-        updatedCartItems = [...state.cartItems, { ...action.payload, quantity: 1 }];
-      }
-      
-      const newTotal = updatedCartItems.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-      return { ...state, cartItems: updatedCartItems, totalPrice: newTotal };
-    }
-
-    case 'REMOVE_FROM_CART': {
-      const updatedCartItems = state.cartItems.filter(item => item.id !== action.payload);
-      const newTotal = updatedCartItems.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-      return { ...state, cartItems: updatedCartItems, totalPrice: newTotal };
-    }
-
-    case 'UPDATE_QUANTITY': {
-      const updatedCartItems = state.cartItems.map(item =&gt; {
-        if (item.id === action.payload.id) {
-          return { ...item, quantity: Math.max(1, action.payload.quantity) };
-        }
-        return item;
-      });
-      const newTotal = updatedCartItems.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-      return { ...state, cartItems: updatedCartItems, totalPrice: newTotal };
-    }
-
-    case 'CLEAR_CART':
-      return { cartItems: [], totalPrice: 0 };
-
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`);
-  }
-}
-
-export function ShoppingCartComponent() {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
-
-  const productsList = [
-    { id: 'p1', name: 'Developer Laptop', price: 1200 },
-    { id: 'p2', name: 'Mechanical Keyboard', price: 150 },
-    { id: 'p3', name: 'Ergonomic Mouse', price: 80 }
-  ];
-
-  return (
-    &lt;div style={{ padding: '24px', maxWidth: '600px', margin: 'auto', fontFamily: 'sans-serif' }}&gt;
-      &lt;h2&gt;🛒 Professional Shopping Cart&lt;/h2&gt;
-      
-      &lt;h3&gt;Products Available:&lt;/h3&gt;
-      &lt;div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}&gt;
-        {productsList.map(prod =&gt; (
-          &lt;div key={prod.id} style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '6px' }}&gt;
-            &lt;p style={{ margin: '0 0 8px 0' }}&gt;&lt;strong&gt;{prod.name}&lt;/strong&gt; - ${prod.price}&lt;/p&gt;
-            &lt;button 
-              onClick={() =&gt; dispatch({ type: 'ADD_TO_CART', payload: prod })}
-              style={{ background: '#2563eb', color: '#fff', border: 'none', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer' }}
-            &gt;
-              Add to Cart
-            &lt;/button&gt;
-          &lt;/div&gt;
-        ))}
-      &lt;/div&gt;
-
-      &lt;h3&gt;Your Cart Summary:&lt;/h3&gt;
-      {state.cartItems.length === 0 ? (
-        &lt;p&gt;Your cart is currently empty.&lt;/p>
-      ) : (
-        &lt;div&gt;
-          &lt;ul style={{ paddingLeft: '20px' }}&gt;
-            {state.cartItems.map(item =&gt; (
-              &lt;li key={item.id} style={{ marginBottom: '10px' }}&gt;
-                {item.name} (Qty: {item.quantity}) - ${item.price * item.quantity}
-                &lt;button 
-                  onClick={() =&gt; dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity + 1 } })}
-                  style={{ margin: '0 5px', padding: '2px 6px' }}
-                &gt;
-                  +
-                &lt;/button&gt;
-                &lt;button 
-                  onClick={() =&gt; dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity - 1 } })}
-                  style={{ margin: '0 5px', padding: '2px 6px' }}
-                &gt;
-                  -
-                &lt;/button&gt;
-                &lt;button 
-                  onClick={() =&gt; dispatch({ type: 'REMOVE_FROM_CART', payload: item.id })}
-                  style={{ marginLeft: '10px', background: '#dc2626', color: '#fff', border: 'none', padding: '3px 8px', borderRadius: '4px', cursor: 'pointer' }}
-                &gt;
-                  Remove
-                &lt;/button&gt;
-              &lt;/li&gt;
-            ))}
-          &lt;/ul&gt;
-          &lt;h4&gt;Total Price: ${state.totalPrice}&lt;/h4&gt;
-          &lt;button 
-            onClick={() =&gt; dispatch({ type: 'CLEAR_CART' })}
-            style={{ background: '#4b5563', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer' }}
-          &gt;
-            Clear Cart
-          &lt;/button&gt;
-        &lt;/div&gt;
-      )}
+      &lt;ChildComponent handleClick={handleButtonClick} /&gt;
     &lt;/div&gt;
   );
 }
 </code></pre>
 
-<p>इस कोड को ध्यान से देखिए। सारे कार्ट ऑपरेशन्स (Add, Remove, Update, Clear) कॉम्पोनेंट के UI कोड से पूरी तरह अलग एक सिंगल <code>cartReducer</code> फंक्शन के अंदर लिखे गए हैं। यह पृथक्करण (Separation of Concerns) कोड को क्लीन, रीडेबल और टेस्ट करने में बहुत आसान बनाता है।</p>
+<p><strong>समस्या क्या है?</strong> जब भी आप "Increment Count" बटन दबाते हैं या input box में कुछ टाइप करते हैं, तो <code>ParentComponent</code> का state बदलता है और वह re-render होता है। इसके कारण <code>handleButtonClick</code> का एक नया instance बनता है। </p>
 
----
+<p>यद्यपि <code>ChildComponent</code> को <code>React.memo</code> से wrap किया गया है, फिर भी वह console में "ChildComponent Rendered! 🔴" छापेगा, क्योंकि उसे मिलने वाला <code>handleClick</code> prop हर बार नए reference के साथ आ रहा है।</p>
 
-<h2>React useReducer vs useState में मुख्य अंतर क्या हैं?</h2>
+<h3>Step 2: Optimized Code (useCallback के साथ समाधान)</h3>
 
-<p>चाहें तो आप हर जगह useReducer इस्तेमाल कर सकते हैं, या फिर केवल useState से भी काम चला सकते हैं, लेकिन स्मार्ट डेवलपर सही काम के लिए सही टूल चुनते हैं। नीचे दी गई टेबल आपको दोनों के बीच मुख्य अंतर को समझने में मदद करेगी:</p>
+<p>अब हम इस समस्या को <code>useCallback</code> का उपयोग करके हल करेंगे। ध्यान दें कि हम कैसे <code>handleButtonClick</code> को memoize करते हैं।</p>
 
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif;">
-  <thead>
-    <tr style="background-color: #06b6d4; color: white; text-align: left;">
-      <th style="padding: 12px; border: 1px solid #ddd;">फीचर / पैरामीटर</th>
-      <th style="padding: 12px; border: 1px solid #ddd;">useState Hook</th>
-      <th style="padding: 12px; border: 1px solid #ddd;">useReducer Hook</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">स्टेट का प्रकार</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">साधारण (Primitive, Simple Object, Strings)</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">जटिल और नेस्टेड (Complex Objects, Nested Arrays)</td>
-    </tr>
-    <tr style="background-color: #f9f9f9;">
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">स्टेट अपडेट लॉजिक</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">कॉम्पोनेंट के अंदर (Inline with UI code)</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">कॉम्पोनेंट के बाहर (Centralized Reducer Function)</td>
-    </tr>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">रीडेबिलिटी और मेंटेनेंस</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">कम स्टेट्स के लिए बेहतरीन, ज्यादा होने पर बिखरा हुआ</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">बड़े और जटिल स्टेट लॉजिक्स के लिए बहुत साफ-सुथरा</td>
-    </tr>
-    <tr style="background-color: #f9f9f9;">
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">टेस्टेबिलिटी (Testing)</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">अलग से टेस्ट करना मुश्किल है (UI के साथ टेस्ट होता है)</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">बहुत आसान है, क्योंकि Reducer एक Pure Function है</td>
-    </tr>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">लर्निंग कर्व (Learning Curve)</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">बहुत आसान और क्विक</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">मध्यम (Reducer, Action, Payload समझना होता है)</td>
-    </tr>
-  </tbody>
-</table>
+<pre><code>import React, { useState, useCallback } from 'react';
 
----
+// Child Component जो React.memo का उपयोग कर रहा है
+const ChildComponent = React.memo(({ handleClick }) => {
+  console.log("ChildComponent Rendered! 🟢 (Optimized)");
+  return (
+    &lt;div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc' }}&gt;
+      &lt;h3&gt;चाइल्ड कंपोनेंट&lt;/h3&gt;
+      &lt;button onClick={handleClick} style={{ padding: '8px 12px', background: '#06b6d4', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}&gt;
+        चाइल्ड बटन दबाएं
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+});
 
-<h2>React useReducer vs useState का use कब करें? (Practical Rules)</h2>
+export default function ParentComponent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
 
-<p>क्या आपको अभी भी निर्णय लेने में भ्रम है? कोई बात नहीं! आप नीचे दिए गए सरल नियमों को अपने प्रोजेक्ट्स में लागू कर सकते हैं:</p>
+  // useCallback की मदद से function को cache किया गया
+  const handleButtonClick = useCallback(() => {
+    console.log("Button clicked!");
+  }, []); // Empty dependency array का मतलब यह सिर्फ mount के समय बनेगा
 
-<h3>useState का उपयोग करें जब:</h3>
-<ol>
-  <li>आपकी स्टेट पूरी तरह से स्वतंत्र है (जैसे एक इनपुट फील्ड, सिर्फ एक बुलेटिन / toggle, या एक ओपन/क्लोज साइडबार)।</li>
-  <li>स्टेट केवल स्ट्रिंग्स, नंबर्स, या बुलियन्स जैसी सरल वैल्यूज को होल्ड करती है।</li>
-  <li>स्टेट अपडेट करने का लॉजिक कॉम्पोनेंट के अंदर 1 या 2 लाइन्स का ही है।</li>
-  <li>आपको यूनिट टेस्टिंग लिखने की कोई विशेष आवश्यकता नहीं है।</li>
-</ol>
+  return (
+    &lt;div style={{ padding: '24px', maxWidth: '500px', margin: '0 auto' }}&gt;
+      &lt;h2&gt;Parent Component (Optimized)&lt;/h2&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;button onClick={() => setCount(count + 1)} style={{ padding: '8px 12px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}&gt;
+        Increment Count
+      &lt;/button&gt;
 
-<h3>useReducer का उपयोग करें जब:</h3>
-<ol>
-  <li>स्टेट ट्रांजिशन्स का फ्लो जटिल है और एक बदलाव से दूसरे वैल्यू पर असर पड़ता है (जैसे ई-कॉमर्स कार्ट, जटिल फ़िल्टर सिस्टम)।</li>
-  <li>आपकी स्टेट में बहुत सारी सब-वैल्यूज (Nested Object) शामिल हैं।</li>
-  <li>आप स्टेट अपडेट लॉजिक को कॉम्पोनेंट के रेंडरिंग लॉजिक से पूरी तरह से अलग और क्लीन रखना चाहते हैं।</li>
-  <li>आपको स्टेट म्यूटेशन्स के लिए गहरे यूनिट टेस्ट्स लिखने की आवश्यकता है।</li>
-  <li>आप React Context API का उपयोग करके ग्लोबल स्टेट मैनेज कर रहे हैं (useContext + useReducer एक मिनी-रेडक्स की तरह काम करता है)।</li>
-</ol>
+      &lt;div style={{ marginTop: '15px' }}&gt;
+        &lt;input 
+          type="text" 
+          value={text} 
+          onChange={(e) => setText(e.target.value)} 
+          placeholder="यहाँ कुछ टाइप करें..." 
+          style={{ padding: '8px', width: '100%', boxSizing: 'border-box' }}
+        /&gt;
+      &lt;/div&gt;
 
-<p>अगर आप React के बेस्ट प्रैक्टिसेज के बारे में अधिक विस्तार से जानना चाहते हैं, तो आप <a href="https://react.dev" rel="noopener" target="_blank">Official React Documentation</a> पर जा सकते हैं जो हमेशा सबसे विश्वसनीय गाइडलाइन प्रदान करता है।</p>
-
----
-
-<h2>Common Errors और Debugging: डेवलपर्स कहाँ गलती करते हैं?</h2>
-
-<p>दोस्तों, चलिए अब उन गलतियों पर बात करते हैं जो डेवलपर्स अक्सर करते हैं और फिर घंटों बग्स को फिक्स करने में बिता देते हैं।</p>
-
-<h3>1. Reducer में State को सीधे Mutate करना</h3>
-<p>यह सबसे आम <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> है। React का रेंडरिंग सिस्टम उथली तुलना (Shallow Comparison) पर निर्भर करता है। अगर आप स्टेट ऑब्जेक्ट को डायरेक्ट बदल देते हैं, तो React को पता ही नहीं चलेगा कि स्टेट बदली है और स्क्रीन री-रेंडर नहीं होगी।</p>
-
-<pre><code>// ❌ गलत तरीका (Do NOT do this!)
-function badReducer(state, action) {
-  if (action.type === 'ADD_ITEM') {
-    state.cartItems.push(action.payload); // Direct mutation! React won't re-render!
-    return state;
-  }
-}
-
-//  सही तरीका (Always do this!)
-function goodReducer(state, action) {
-  if (action.type === 'ADD_ITEM') {
-    return {
-      ...state,
-      cartItems: [...state.cartItems, action.payload] // Immutable update
-    };
-  }
+      &lt;ChildComponent handleClick={handleButtonClick} /&gt;
+    &lt;/div&gt;
+  );
 }
 </code></pre>
 
-<h3>2. Action Types का गलत नाम (Typo Errors)</h3>
-<p>Reducer में स्ट्रिंग्स के साथ सीधे तुलना करते समय स्पेलिंग की गलतियां होना आम है। जैसे आपने dispatch करते समय <code>'ADD_TO_CART'</code> लिखा और reducer में <code>'ADD_TO_CARD'</code> से चेक किया। इसे आसानी से <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">fix error</a> करने के लिए हमेशा Action Types के लिए CONSTANTS का उपयोग करें:</p>
+<p><strong>जादू देखिए!</strong> अब जब आप "Increment Count" दबाएंगे या input box में टाइप करेंगे, तो console में "ChildComponent Rendered! 🟢 (Optimized)" दोबारा प्रिंट नहीं होगा। क्योंकि React जानता है कि <code>handleButtonClick</code> का Reference वही पुराना वाला ही है!</p>
 
-<pre><code>// Define action types as constants
-const ACTIONS = {
-  ADD: 'ADD_TO_CART',
-  REMOVE: 'REMOVE_FROM_CART',
-  CLEAR: 'CLEAR_CART'
-};
+<h2>Common Errors और Best Practices क्या हैं?</h2>
 
-// dispatch inside component
-dispatch({ type: ACTIONS.ADD, payload: product });
+<p>React में विकास करते समय, अक्सर डेवलपर्स <code>useCallback</code> के साथ कुछ गलतियां कर बैठते हैं जिससे गंभीर बग्स पैदा हो जाते हैं। आइए उनके बारे में चर्चा करते हैं ताकि आप उन गलतियों से बच सकें।</p>
+
+<h3>1. Stale Closures (पुरानी State का फंस जाना)</h3>
+
+<p>यह सबसे आम <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">error</a> या समस्या है जो डेवलपर्स को परेशान करती है। जब आप dependency array को खाली छोड़ देते हैं, लेकिन function के अंदर किसी state का उपयोग कर रहे होते हैं, तो closure पुरानी state की value को ही याद रखता है।</p>
+
+<pre><code>// ❌ गलत तरीका - Stale Closure Issue
+const handleLogCount = useCallback(() => {
+  console.log("Current count is:", count); // यह हमेशा पुरानी/शुरुआती value ही दिखाएगा
+}, []); // count को dependency array में होना चाहिए था!
 </code></pre>
 
----
+<p><strong>समाधान:</strong> हमेशा उन सभी external variables या states को dependency array में डालें जिनका उपयोग आप function के अंदर कर रहे हैं।</p>
 
-<h2>Performance and Scalability Best Practices</h2>
+<pre><code>//  सही तरीका
+const handleLogCount = useCallback(() => {
+  console.log("Current count is:", count);
+}, [count]); // अब count बदलने पर reference अपडेट होगा
+</code></pre>
 
-<p>बड़े प्रोजेक्ट्स में परफॉरमेंस को बेहतर बनाए रखने के लिए इन टिप्स को ध्यान में रखें:</p>
+<h3>2. हर function पर useCallback लगा देना</h3>
+
+<p>ध्यान रखें, <code>useCallback</code> मुफ्त नहीं आता। हर बार जब आप इसका उपयोग करते हैं, तो React को एक extra function array allocation और comparison logic चलाना पड़ता है। </p>
+
+<p>अगर आपका Child Component हल्का-फुल्का है और re-render होने में कोई भारी computation नहीं ले रहा है, तो <code>useCallback</code> का उपयोग न करें। साधारण functions को बिना किसी Hook के वैसे ही रहने देना सबसे बेहतर अभ्यास है।</p>
+
+<h2>निष्कर्ष और टेकअवे</h2>
+
+<p>तो दोस्तों, आज हमने सीखा कि React में performance optimization कितना महत्वपूर्ण है और <strong>React useCallback Hook</strong> कैसे काम करता है। चलिए इसके मुख्य बातों को संक्षेप में याद कर लेते हैं:</p>
+
 <ul>
-  <li><strong>Avoid Inline Functions in Dispatch:</strong> कॉम्पोनेंट के JSX में सीधे बड़े कस्टमाइज्ड फंक्शन्स लिखने के बजाय, एक्शन्स को क्लीन रूप से हैंडलर्स में रैप करें।</li>
-  <li><strong>Keep Reducer Pure:</strong> Reducer में कभी भी API कॉल्स, लोकलस्टोरेज रीड/राइट, या <code>Date.now()</code> जैसे साइड-इफेक्ट्स न डालें। वे बिल्कुल शुद्ध (Pure) होने चाहिए। हमेशा साइड इफेक्ट्स को कॉम्पोनेंट के <code>useEffect</code> में संभालें और फिर डेटा को dispatch करें।</li>
-  <li><strong>Memoize Callbacks:</strong> अगर आप सेटर फंक्शन्स या dispatch को चाइल्ड कॉम्पोनेंट्स में पास कर रहे हैं, तो ध्यान रखें कि <code>dispatch</code> फ़ंक्शन हमेशा स्थिर (Stable) रहता है, इसलिए इसे <code>useCallback</code> के डिपेंडेंसी एरे में पास करने की आवश्यकता नहीं होती।</li>
+  <li><code>useCallback</code> का मुख्य काम functions को memoize करना और referential equality को बनाए रखना है।</li>
+  <li>इसका उपयोग हमेशा <code>React.memo</code> के साथ किया जाना चाहिए ताकि child components का फालतू रेंडर रोका जा सके।</li>
+  <li>dependency array का विशेष ध्यान रखें ताकि stale closures जैसी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">error</a> का सामना न करना पड़े।</li>
+  <li>हर साधारण function को <code>useCallback</code> में न लपेटें, इसे केवल भारी ऑपरेशन्स और बड़े कंपोनेंट ट्री के लिए सुरक्षित रखें।</li>
 </ul>
-
----
-
-<p>तो दोस्तों, हमने आज सीखा कि कैसे <strong>React useReducer vs useState</strong> के बीच का चुनाव आपकी कोडिंग लाइफ को बेहद आसान और व्यवस्थित बना सकता है। जब बात छोटे कॉम्पोनेंट्स की हो, तो useState के साथ जाएं और बिना किसी संकोच के तुरंत कोड लिखना शुरू करें। लेकिन जब चीजें जटिल होने लगें और कॉम्पोनेंट भारी होने लगे, तो बिना संकोच किए useReducer को अपनाएं। यह आपके कोड को भविष्य के लिए स्केलेबल और सुंदर रखेगा। हैप्पी कोडिंग!</p>
-
----
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: क्या useReducer हुक useState से ज्यादा फास्ट है?</div>
-  <div class="faq-a">नहीं, परफॉरमेंस के मामले में दोनों में कोई बहुत बड़ा अंतर नहीं है। useReducer भी परदे के पीछे useState के समान री-रेंडरिंग मेकैनिज्म का उपयोग करता है। यह केवल आपके कोड को अधिक ऑर्गनाइज्ड और पठनीय (Readable) बनाता है।</div>
-  <div class="faq-q">Q2: क्या मैं एक ही कॉम्पोनेंट में useState और useReducer दोनों का उपयोग कर सकता हूँ?</div>
-  <div class="faq-a">हाँ, बिल्कुल! आप दोनों को एक साथ इस्तेमाल कर सकते हैं। उदाहरण के लिए, एक शॉपिंग कार्ट की मुख्य स्टेट को आप useReducer से और उस कार्ट के केवल एक छोटे से UI पॉपअप की ओपन/क्लोज स्टेट को useState से मैनेज कर सकते हैं।</div>
-  <div class="faq-q">Q3: क्या useReducer के आने के बाद Redux का उपयोग बंद हो गया है?</div>
-  <div class="faq-a">नहीं, Redux एक बहुत बड़ा और शक्तिशाली ग्लोबल स्टेट मैनेजमेंट टूल है जिसमें डेव-टूल्स (Redux DevTools), मिडलवेयर (Middleware), और एक्स्ट्रा स्टेट लॉजिक्स होते हैं। useReducer मुख्य रूप से लोकल कॉम्पोनेंट लेवल या Context API के साथ मिलकर सीमित ग्लोबल लेवल स्टेट को मैनेज करने के लिए होता है।</div>
-  <div class="faq-q">Q4: Reducer फ़ंक्शन में "Pure Function" होने का क्या मतलब है?</div>
-  <div class="faq-a">Pure Function का मतलब है कि अगर आप समान इनपुट (State & Action) देंगे, तो वह हमेशा बिल्कुल समान आउटपुट (New State) देगा। इसमें कोई साइड इफेक्ट जैसे API कॉल्स, रैंडम नंबर जनरेशन, या कॉम्पोनेंट के बाहर के वेरिएबल्स को बदलना नहीं होना चाहिए।</div>
-  <div class="faq-q">Q5: क्या useReducer का उपयोग केवल बड़े फॉर्म्स में ही करना चाहिए?</div>
-  <div class="faq-a">नहीं, आप किसी भी ऐसे कॉम्पोनेंट में इसका उपयोग कर सकते हैं जहाँ स्टेट अपडेट करने के कई अलग-अलग तरीके या एक्शन्स (जैसे dynamic lists, complex filters, dashboards, dynamic workflows) शामिल होते हैं।</div>
+  <div class="faq-q">Q1: React useCallback Hook का मुख्य काम क्या है?</div>
+  <div class="faq-a">useCallback Hook का मुख्य काम component के re-render होने पर functions को दोबारा से re-create होने से बचाना और उनके references को cache करना है।</div>
+  <div class="faq-q">Q2: क्या मुझे हर React component के हर function में useCallback लगाना चाहिए?</div>
+  <div class="faq-a">बिल्कुल नहीं! हर जगह इसका उपयोग करने से performance सुधरने की बजाय बिगड़ सकती है क्योंकि Hook को evaluate करने का भी अपना internal overhead होता है। इसका उपयोग केवल तभी करें जब function किसी memoized child component में prop के रूप में जा रहा हो।</div>
+  <div class="faq-q">Q3: useCallback और useMemo में सबसे बड़ा अंतर क्या है?</div>
+  <div class="faq-a">useCallback सीधे पूरे function reference को cache करता है, जबकि useMemo किसी function के return होने वाले result/value को cache करता है।</div>
+  <div class="faq-q">Q4: Stale Closure की समस्या क्या होती है?</div>
+  <div class="faq-a">जब आप useCallback की dependency array में उस state को शामिल नहीं करते हैं जिसका उपयोग function के अंदर किया जा रहा है, तो function हमेशा पुरानी state value का ही उपयोग करता है। इसे stale closure कहा जाता है।</div>
+  <div class="faq-q">Q5: क्या useCallback के बिना React application अधूरी है?</div>
+  <div class="faq-a">नहीं, यह केवल एक optimization hook है। आपका application इसके बिना भी बिल्कुल सही काम करेगा, लेकिन बड़े applications में performance सुधारने के लिए यह अत्यधिक अनुशंसित है।</div>
 </div>
 
 <script type="application/ld+json">
@@ -423,42 +297,42 @@ dispatch({ type: ACTIONS.ADD, payload: product });
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या useReducer हुक useState से ज्यादा फास्ट है?",
+      "name": "React useCallback Hook का मुख्य काम क्या है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, परफॉरमेंस के मामले में दोनों में कोई बहुत बड़ा अंतर नहीं है। useReducer भी परदे के पीछे useState के समान री-रेंडरिंग मेकैनिज्म का उपयोग करता है। यह केवल आपके कोड को अधिक ऑर्गनाइज्ड और पठनीय बनाता है।"
+        "text": "useCallback Hook का मुख्य काम component के re-render होने पर functions को दोबारा से re-create होने से बचाना और उनके references को cache करना है."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या मैं एक ही कॉम्पोनेंट में useState और useReducer दोनों का उपयोग कर सकता हूँ?",
+      "name": "क्या मुझे हर React component के हर function में useCallback लगाना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! आप दोनों को एक साथ इस्तेमाल कर सकते हैं। उदाहरण के लिए, एक शॉपिंग कार्ट की मुख्य स्टेट को आप useReducer से और उस कार्ट के केवल एक छोटे से UI पॉपअप की ओपन/क्लोज स्टेट को useState से मैनेज कर सकते हैं।"
+        "text": "बिल्कुल नहीं! हर जगह इसका उपयोग करने से performance सुधरने की बजाय बिगड़ सकती है क्योंकि Hook को evaluate करने का भी अपना internal overhead होता है. इसका उपयोग केवल तभी करें जब function किसी memoized child component में prop के रूप में जा रहा हो."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useReducer के आने के बाद Redux का उपयोग बंद हो गया है?",
+      "name": "useCallback और useMemo में सबसे बड़ा अंतर क्या है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, Redux एक बहुत बड़ा और शक्तिशाली ग्लोबल स्टेट मैनेजमेंट टूल है जिसमें डेव-टूल्स, मिडलवेयर, और एक्स्ट्रा स्टेट लॉजिक्स होते हैं। useReducer मुख्य रूप से लोकल कॉम्पोनेंट लेवल या Context API के साथ मिलकर सीमित ग्लोबल लेवल स्टेट को मैनेज करने के लिए होता है।"
+        "text": "useCallback सीधे पूरे function reference को cache करता है, जबकि useMemo किसी function के return होने वाले result/value को cache करता है."
       }
     },
     {
       "@type": "Question",
-      "name": "Reducer फ़ंक्शन में 'Pure Function' होने का क्या मतलब है?",
+      "name": "Stale Closure की समस्या क्या होती है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Pure Function का मतलब है कि अगर आप समान इनपुट देंगे, तो वह हमेशा बिल्कुल समान आउटपुट देगा। इसमें कोई साइड इफेक्ट जैसे API कॉल्स, रैंडम नंबर जनरेशन, या कॉम्पोनेंट के बाहर के वेरिएबल्स को बदलना नहीं होना चाहिए।"
+        "text": "जब आप useCallback की dependency array में उस state को शामिल नहीं करते हैं जिसका उपयोग function के अंदर किया जा रहा है, तो function हमेशा पुरानी state value का ही उपयोग करता है. इसे stale closure कहा जाता है."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useReducer का उपयोग केवल बड़े फॉर्म्स में ही करना चाहिए?",
+      "name": "क्या useCallback के बिना React application अधूरी है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, आप किसी भी ऐसे कॉम्पोनेंट में इसका उपयोग कर सकते हैं जहाँ स्टेट अपडेट करने के कई अलग-अलग तरीके या एक्शन्स शामिल होते हैं।"
+        "text": "नहीं, यह केवल एक optimization hook है. आपका application इसके बिना भी बिल्कुल सही काम करेगा, लेकिन बड़े applications में performance सुधारने के लिए यह अत्यधिक अनुशंसित है."
       }
     }
   ]
