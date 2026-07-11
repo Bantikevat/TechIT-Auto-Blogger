@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useMemo vs useCallback Difference (in Hindi)</title>
+    <title>Preview: React useLayoutEffect Kya Hai (useEffect Se Kaise (Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,312 +16,318 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में useMemo और useCallback में क्या अंतर है? आसान हिंदी में समझें कि performance optimize करने के लिए कब और किसका इस्तेमाल करना चाहिए।</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में useLayoutEffect क्या है और यह useEffect से कैसे अलग है? आसान हिंदी में जानें इन दोनों Hooks का मुख्य अंतर, वर्किंग और Use Cases.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useMemo vs useCallback Difference (in Hindi)</h1>
+    <h1>React useLayoutEffect Kya Hai (useEffect Se Kaise (Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/YFjGfNt7/1043ba48824b.png" alt="React useMemo vs useCallback Difference (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useMemo vs useCallback in Hindi: इस गाइड में hooks के अंतर, optimization और performance tuning को आसान हिंदी में समझें।
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/S7BRRC5b/4e6332360c45.png" alt="React useLayoutEffect Kya Hai (useEffect Se Kaise Alag in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useLayoutEffect kya hai aur yeh useEffect se kaise alag hai? Is Hindi guide me layouts, visual flickering, rendering aur hooks ko step-by-step seekhein.
 
-<p>दोस्तों, क्या आपके <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> बार-बार फालतू में re-render हो रहे हैं? आपने performance बढ़ाने के लिए useMemo और useCallback के बारे में सुना तो होगा, लेकिन अक्सर डेवलपर्स इन दोनों के बीच कन्फ्यूज हो जाते हैं कि कब कौन सा Hook इस्तेमाल करना है। मेरे 50 साल के प्रोग्रामिंग अनुभव (और React के बचपन से इसे देखने के नाते) में मैंने देखा है कि डेवलपर्स बिना सोचे-समझे इन्हें हर जगह लगा देते हैं, जिससे कोड बेहतर होने के बजाय और धीमा हो जाता है। आज हम और आप साथ मिलकर इस उलझन को हमेशा के लिए खत्म करेंगे।</p>
+<p>दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> में कोई dynamic UI component बनाया—जैसे कि कोई Custom Tooltip, dropdown, या modal—और जब वो स्क्रीन पर लोड होता है, तो एक मामूली से सेकंड के लिए वह अपनी सही जगह से खिसक कर कहीं और दिखता है, और फिर तुरंत सही जगह पर आ जाता है? इसे हम React की दुनिया में <strong>Visual Flickering</strong> या <strong>Layout Shift</strong> कहते हैं।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React में <strong>useMemo</strong> किसी expensive calculation के <em>value (result)</em> को memoize (cache) करता है, जबकि <strong>useCallback</strong> पूरे <em>function definition (reference)</em> को memoize करता है ताकि फालतू re-renders को रोका जा सके। useMemo value लौटाता है और useCallback function लौटाता है।</div>
+<p>जब आप इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> या UI bug को सुलझाने के लिए Google करते हैं, तो अक्सर आपको एक सलाह मिलती है: <em>"useEffect की जगह React useLayoutEffect का इस्तेमाल करो!"</em> लेकिन रुकिए, ऐसा क्यों? क्या ये दोनों hooks दिखने में और काम करने में एक जैसे नहीं हैं? आखिर इन दोनों के पीछे का JavaScript runtime और browser pipeline का क्या खेल है?</p>
 
----
+<p>आज आपका यह सीनियर डेवलपर दोस्त आपको बहुत ही आसान, मज़ेदार और गहरी technical हिंदी में समझाएगा कि <strong>React useLayoutEffect क्या है</strong>, यह <code>useEffect</code> से कैसे अलग है, और कब आपको कौन सा hook इस्तेमाल करना चाहिए। तो चलिए, अपनी कॉफ़ी की चुस्की लीजिए और मेरे साथ इस deep-dive pair-programming session में शामिल हो जाइए!</p>
 
-<h2>React rendering कैसे काम करती है और Performance की समस्या कहाँ आती है?</h2>
-
-<p>दोस्तों, सबसे पहले हमें यह समझना होगा कि React पर्दे के पीछे काम कैसे करता है। जब भी किसी component का State या Props बदलता है, तो React उस पूरे component को फिर से render करता है। इसका मतलब है कि उस component के अंदर लिखे गए सभी variables और functions दोबारा से मेमोरी में क्रिएट होते हैं।</p>
-
-<p>अब जावास्क्रिप्ट (JavaScript) के एक बेसिक नियम को याद कीजिए - <strong>Reference Equality</strong>।</p>
-
-<pre><code>// JavaScript Reference Check
-const functionOne = () => console.log("Hello");
-const functionTwo = () => console.log("Hello");
-
-console.log(functionOne === functionTwo); // Output: false
-</code></pre>
-
-<p>भले ही दोनों functions बिल्कुल एक जैसे दिखते हैं, लेकिन मेमोरी में उनका एड्रेस अलग-अलग होता है। इसलिए, जब भी आपका component re-render होता है, तो उसके अंदर घोषित किए गए पुराने functions और objects डिलीट हो जाते हैं और नए memory reference के साथ नए बन जाते हैं।</p>
-
-<p>ध्यान देने वाली बात ये है कि अगर आप इन functions को किसी Child Component में props के रूप में भेज रहे हैं, तो Child Component को लगेगा कि उसे नया prop मिला है, और वह भी बिना किसी कारण दोबारा render (re-render) हो जाएगा। इसी फालतू re-rendering को रोकने के लिए React हमें दो अस्त्र देता है: <code>useMemo</code> और <code>useCallback</code>।</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useLayoutEffect एक synchronous hook है जो DOM elements के अपडेट होने के तुरंत बाद और ब्राउज़र द्वारा स्क्रीन पेंट (paint) करने से ठीक पहले चलता है। यह UI flickering को रोकने के लिए layouts को measure और update करने के काम आता है, जबकि useEffect asynchronous होता है जो paint के बाद चलता है।</div>
 
 ---
 
-<h2>useMemo Hook क्या है और यह कैसे काम करता है?</h2>
+<h2>React rendering और browser painting क्या होती है? (The core concept)</h2>
 
-<p>सरल शब्दों में कहें तो, <code>useMemo</code> का काम है किसी भारी-भरकम (expensive) calculation के परिणाम को याद रखना (Cache करना)। यह तभी दोबारा कैलकुलेट करेगा जब उसके Dependencies बदलेंगे।</p>
+<p>दोस्तों, <code>useLayoutEffect</code> को गहराई से समझने के लिए हमें सबसे पहले यह समझना होगा कि जब भी React में कोई State बदलती है, तो React Component के रेंडर होने से लेकर हमारी स्क्रीन पर पिक्सल (pixels) दिखने तक का सफ़र कैसा होता है। अगर आप इस Lifecycle को समझ गए, तो समझो आपको पूरा खेल समझ आ गया!</p>
 
-<p>मान लीजिए आपके पास एक ऐसा फ़ंक्शन है जो 10 लाख डेटा रिकॉर्ड्स को फ़िल्टर करता है। अगर आप इसे सामान्य रूप से लिखेंगे, तो हर छोटे-से-छोटे render (जैसे कि कोई UI toggle button दबाने पर) पर वह 10 लाख रिकॉर्ड्स वाला लूप दोबारा चलेगा, जिससे आपका ऐप लैग (lag) करने लगेगा।</p>
+<p>जब भी कोई component रेंडर होता है, तो मुख्य रूप से 3 बड़े steps होते हैं:</p>
 
-<h3>useMemo का Syntax:</h3>
+<ul>
+  <li><strong>Render:</strong> React आपके components को कॉल करता है, Virtual DOM तैयार करता है, और यह तय करता है कि UI में क्या बदलाव करने हैं।</li>
+  <li><strong>Commit:</strong> React इन बदलावों को असली DOM (Real DOM) में डाल देता है (DOM mutation)। इस स्टेज पर, elements DOM में तो आ जाते हैं, लेकिन ब्राउज़र ने उन्हें अभी स्क्रीन पर ड्रा (paint) नहीं किया होता है।</li>
+  <li><strong>Paint:</strong> ब्राउज़र नए DOM structures का layout calculate करता है और स्क्रीन पर पिक्सल को paint करता है। अब यूजर को स्क्रीन पर बदलाव दिखने लगते हैं।</li>
+</ul>
 
-<pre><code>const memoizedValue = useMemo(() => {
-  return computeExpensiveValue(a, b);
-}, [a, b]);
-</code></pre>
+<p>अब यहीं पर सारा अंतर आता है कि हमारे ये दोनों Hooks कब execution queue में आते हैं!</p>
 
-<p>यहाँ <code>useMemo</code> पहले पैरामीटर के रूप में एक फ़ंक्शन लेता है जो वैल्यू रिटर्न करता है, और दूसरे पैरामीटर के रूप में dependencies की array लेता है। जब तक <code>a</code> या <code>b</code> की वैल्यू नहीं बदलेगी, तब तक React पिछली सेव की हुई वैल्यू को ही डायरेक्ट इस्तेमाल करेगा, फ़ंक्शन को दोबारा रन नहीं करेगा।</p>
-
----
-
-<h2>useCallback Hook क्या है और इसकी जरूरत क्यों पड़ती है?</h2>
-
-<p>अब बात करते हैं <code>useCallback</code> की। जहाँ <code>useMemo</code> किसी वैल्यू (जैसे array, object, number, string) को सेव करता है, वहीं <code>useCallback</code> पूरे के पूरे <strong>फ़ंक्शन के रेफरेंस (Function Reference)</strong> को ही मेमोरी में लॉक कर देता है।</p>
-
-<p>यह तब बहुत काम आता है जब आप किसी Callback Function को किसी ऐसे Child Component में पास करते हैं जिसे आपने <code>React.memo</code> से ऑप्टिमाइज़ किया हुआ है।</p>
-
-<h3>useCallback का Syntax:</h3>
-
-<pre><code>const memoizedCallback = useCallback(() => {
-  doSomething(a, b);
-}, [a, b]);
-</code></pre>
-
-<p>ध्यान दें: <code>useCallback(fn, deps)</code> असल में <code>useMemo(() => fn, deps)</code> के बिल्कुल बराबर है। यह केवल एक syntactical sugar है ताकि आपको फ़ंक्शन रिटर्न करने के लिए एक्स्ट्रा फ़ंक्शन रैपर न लिखना पड़े।</p>
+<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Render & Paint Flow Diagram</div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">React Render & DOM Commit</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">useLayoutEffect (Synchronous)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Browser Paint (Screen Updated)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useEffect (Asynchronous)</div>
+  </div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Execution difference between useLayoutEffect and useEffect in React Lifecycle.</div>
+</div>
 
 ---
 
-<h2>React useMemo vs useCallback में मुख्य अंतर क्या है? (Comparison Table)</h2>
+<h2>React useLayoutEffect क्या है? (What is useLayoutEffect?)</h2>
 
-<p>चलो दोस्तों, इन दोनों के बीच के अंतर को एक साफ़-सुथरी टेबल के ज़रिए समझते हैं ताकि इंटरव्यू में भी आप इसका सॉलिड जवाब दे सकें:</p>
+<p><strong>React useLayoutEffect</strong> एक ऐसा hook है जिसका signature बिल्कुल <code>useEffect</code> जैसा ही होता है, लेकिन इसका व्यवहार synchronous (सिंक्रोनस) होता है। </p>
 
-<table class="table-styled" style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif;">
+<p>जब React DOM को बदल देता है (यानी commit phase के बाद), तो ब्राउज़र को स्क्रीन री-पेंट करने का मौका मिलने से ठीक पहले <code>useLayoutEffect</code> चलता है। इसका मतलब है कि इसके अंदर लिखा गया कोई भी कोड तब तक ब्राउज़र को स्क्रीन पर नया visual दिखाने से रोके रखेगा (blocking execution), जब तक कि यह पूरी तरह से execute नहीं हो जाता।</p>
+
+<p>यदि आप इस hook के अंदर state बदलते हैं, तो React तुरंत re-render ट्रिगर करेगा और नया UI बना देगा, और यूजर को स्क्रीन पर पुराना state कभी भी नहीं दिखेगा। यानी कि बीच का कोई visual flicker यूजर की आँखों के सामने नहीं आएगा।</p>
+
+<h3>useLayoutEffect का Syntax</h3>
+<p>इसका सिंटैक्स बिल्कुल वही है जो आप हर रोज़ <code>useEffect</code> के साथ इस्तेमाल करते हैं:</p>
+
+<pre><code>import { useLayoutEffect, useState, useRef } from 'react';
+
+function MyComponent() {
+  const [width, setWidth] = useState(0);
+  const elementRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (elementRef.current) {
+      // DOM से सीधा width measure करना
+      setWidth(elementRef.current.getBoundingClientRect().width);
+    }
+  }, []); // Dependency array
+
+  return (
+    &lt;div ref={elementRef}&gt;
+      My width is {width}px
+    &lt;/div>
+  );
+}</code></pre>
+
+---
+
+<h2>React useLayoutEffect vs useEffect में अंतर (Comparison Table)</h2>
+
+<p>ध्यान देने वाली बात ये है कि 90% से ज़्यादा मामलों में आपको सिर्फ <code>useEffect</code> का ही इस्तेमाल करना चाहिए। लेकिन उस बचे हुए 10% के लिए, आपको इन दोनों के बीच का अंतर कंठस्थ होना चाहिए। चलिए एक clean comparison table देखते हैं:</p>
+
+<table>
   <thead>
-    <tr style="background-color: #0f172a; color: #ffffff; text-align: left;">
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">Feature / Parameter</th>
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">useMemo Hook</th>
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">useCallback Hook</th>
+    <tr>
+      <th>Feature</th>
+      <th>useEffect Hook</th>
+      <th>useLayoutEffect Hook</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="background-color: #f8fafc;">
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">मुख्य उद्देश्य (Purpose)</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Expensive Calculation के Output Value को कैश करना।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Function की definition/reference को री-क्रिएट होने से बचाना।</td>
+    <tr>
+      <td><strong>Execution Timing</strong></td>
+      <td>Asynchronous (ब्राउज़र के paint करने के बाद)</td>
+      <td>Synchronous (DOM updates के बाद, paint से पहले)</td>
     </tr>
     <tr>
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">क्या रिटर्न करता है? (Returns)</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">फ़ंक्शन के एक्ज़ीक्यूशन का <strong>Result (Value)</strong>.</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">वह खुद <strong>Executable Function</strong> का reference.</td>
-    </tr>
-    <tr style="background-color: #f8fafc;">
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">कब यूज़ करें? (When to use)</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">जब heavy calculations (जैसे sorting, filtering) करनी हों।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">जब child component को callback props पास करने हों ताकि री-रेंडर न हो।</td>
+      <td><strong>Blocking behavior</strong></td>
+      <td>Non-blocking (यह UI rendering को नहीं रोकता)</td>
+      <td>Blocking (जब तक यह खत्म नहीं होता, ब्राउज़र स्क्रीन paint नहीं करता)</td>
     </tr>
     <tr>
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">Syntax Example</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;"><code>useMemo(() => value, [deps])</code></td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;"><code>useCallback(() => { ... }, [deps])</code></td>
+      <td><strong>Best Use Case</strong></td>
+      <td>Data fetching, API calls, Event listeners setup</td>
+      <td>DOM layout measurements, positions calculate करना, flickering रोकना</td>
+    </tr>
+    <tr>
+      <td><strong>Performance Impact</strong></td>
+      <td>बहुत अच्छा (performance-friendly)</td>
+      <td>ज़्यादा इस्तेमाल से UI slow या laggy हो सकता है</td>
+    </tr>
+    <tr>
+      <td><strong>Server-Side Rendering (SSR)</strong></td>
+      <td>SSR और hydration के साथ आसानी से काम करता है</td>
+      <td>SSR पर warning देता है (Next.js/Gatsby में issues आते हैं)</td>
     </tr>
   </tbody>
 </table>
 
 ---
 
-<h2>Architecture Flow: Memory में Value vs Function Cache कैसे होता है?</h2>
+<h2>Visual Flickering की समस्या क्या है? (The Problem Explained)</h2>
 
-<p>इस आर्किटेक्चरल डायग्राम को देखकर आपको समझ आएगा कि रेंडरिंग के समय React का इंजन इन दोनों हुक्स के साथ कैसा व्यवहार करता है:</p>
+<p>मान लीजिए कि हम एक tooltip बना रहे हैं जो एक बटन के ऊपर दिखाई देनी चाहिए। जब यूजर बटन पर होवर (hover) करता है, तो हम tooltip को DOM में डालते हैं। </p>
+<p>लेकिन tooltip का size क्या है, यह तो हमें तब पता चलेगा जब वो DOM में render होगी! अब अगर हम tooltip की position (left, top coordinates) को <code>useEffect</code> की मदद से calculate करके state में अपडेट करते हैं, तो क्या होगा?</p>
 
-<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Memoization Architecture Flow</div>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">State Trigger</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useMemo: Returns Cached VALUE</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">|</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">useCallback: Returns Cached FUNCTION</div>
-  </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: rendering के दौरान फालतू recalculation और नए function instances को रोकना।</div>
-</div>
-
----
-
-<h2>Production-Ready Code Example: चलिए दोनों Hooks को एक साथ लाइव समझते हैं</h2>
-
-<p>अब थ्योरी तो बहुत हो गई, चलिए एक रियल-वर्ल्ड प्रोडक्शन-रेडी कोड उदाहरण देखते हैं। इस उदाहरण में हमारे पास एक प्रोडक्ट लिस्ट है जिसे हम फ़िल्टर करेंगे (useMemo का उपयोग करके) और एक डिलीट एक्शन है जो हम चाइल्ड कंपोनेंट में पास करेंगे (useCallback का उपयोग करके)।</p>
-
-<p>यहाँ हम <code>React.memo</code> का भी उपयोग करेंगे ताकि आप लाइव देख सकें कि कैसे कंपोनेंट का री-रेंडर रुकता है।</p>
-
-<pre><code>import React, { useState, useMemo, useCallback } from 'react';
-
-// यह एक चाइल्ड कंपोनेंट है जिसे हम React.memo में रैप कर रहे हैं।
-// यह केवल तभी दोबारा रेंडर होगा जब इसके props (onDelete या item) बदलेंगे।
-const ProductItem = React.memo(({ item, onDelete }) => {
-  console.log(`ProductItem Renders: ${item.name}`);
-  return (
-    <div style={{
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      padding: '10px', 
-      borderBottom: '1px solid #ccc'
-    }}>
-      <span>{item.name} - ₹{item.price}</span>
-      <button 
-        onClick={() => onDelete(item.id)} 
-        style={{ backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer' }}
-      >
-        Delete
-      </button>
-    </div>
-  );
-});
-
-// मुख्य पैरेंट कंपोनेंट
-export default function ProductDashboard() {
-  const [products, setProducts] = useState([
-    { id: 1, name: 'Samsung Galaxy S23', price: 74999 },
-    { id: 2, name: 'Apple iPhone 15', price: 79999 },
-    { id: 3, name: 'OnePlus 11R', price: 39999 },
-    { id: 4, name: 'Google Pixel 8', price: 75999 },
-  ]);
-
-  const [filterText, setFilterText] = useState('');
-  const [themeDark, setThemeDark] = useState(false);
-
-  // 1. useMemo का उपयोग: जब थीम टॉगल होगी, तब फ़िल्टरिंग दोबारा नहीं चलेगी।
-  // फ़िल्टर तभी चलेगा जब 'products' या 'filterText' में बदलाव होगा।
-  const filteredProducts = useMemo(() => {
-    console.log("Filtering products calculation running...");
-    return products.filter(product => 
-      product.name.toLowerCase().includes(filterText.toLowerCase())
-    );
-  }, [products, filterText]);
-
-  // 2. useCallback का उपयोग: यह सुनिश्चित करता है कि onDelete का रेफरेंस न बदले।
-  // अगर हम यहाँ useCallback न लगाएं, तो 'themeDark' बदलने पर भी onDelete नया बन जाएगा, 
-  // जिससे ProductItem (चाइल्ड) फालतू में री-रेंडर होगा।
-  const handleDelete = useCallback((id) => {
-    setProducts((prevProducts) => prevProducts.filter(p => p.id !== id));
-  }, []); // खाली डिपेंडेंसी क्योंकि setProducts का स्टेट अपडेशन फंक्शन सेफ है
-
-  return (
-    <div style={{
-      padding: '24px',
-      backgroundColor: themeDark ? '#1e293b' : '#ffffff',
-      color: themeDark ? '#ffffff' : '#000000',
-      minHeight: '100vh',
-      transition: 'all 0.3s ease'
-    }}>
-      <h1>📱 Product Dashboard (React Performance Optimization)</h1>
-      
-      <div style={{ margin: '20px 0' }}>
-        <button 
-          onClick={() => setThemeDark(!themeDark)}
-          style={{ padding: '8px 16px', cursor: 'pointer', marginRight: '10px' }}
-        >
-          Toggle Dark Mode ({themeDark ? "ON" : "OFF"})
-        </button>
-
-        <input 
-          type="text" 
-          placeholder="Search items..." 
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-          style={{ padding: '8px', width: '250px' }}
-        />
-      </div>
-
-      <div style={{ marginTop: '20px', border: '1px solid #ccc', borderRadius: '8px', padding: '16px' }}>
-        <h3>Products List</h3>
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
-            <ProductItem 
-              key={product.id} 
-              item={product} 
-              onDelete={handleDelete} 
-            />
-          ))
-        ) : (
-          <p>No products match your search query!</p>
-        )}
-      </div>
-    </div>
-  );
-}
-</code></pre>
-
-<h3>इस कोड में क्या खास है? (Step-by-Step Analysis):</h3>
 <ol>
-  <li><strong>Theme Toggle Test:</strong> जब आप "Toggle Dark Mode" बटन पर क्लिक करते हैं, तो ऐप का थीम स्टेट बदलता है। लेकिन ध्यान से देखें, console में "Filtering products calculation running..." प्रिंट नहीं होगा। ऐसा इसलिए क्योंकि <code>useMemo</code> ने फ़िल्टर किए हुए परिणाम को कैश कर लिया है।</li>
-  <li><strong>React.memo integration:</strong> <code>ProductItem</code> कंपोनेंट <code>React.memo</code> से सुरक्षित है। जब थीम बदलती है, तो <code>handleDelete</code> फ़ंक्शन का मेमोरी रेफरेंस <code>useCallback</code> के कारण वही रहता है। नतीजतन, कोई भी <code>ProductItem</code> दोबारा रेंडर नहीं होता।</li>
+  <li>React tooltip को रेंडर करता है डिफ़ॉल्ट position (जैसे 0, 0) पर।</li>
+  <li>ब्राउज़र इसे स्क्रीन पर 0, 0 पोजीशन पर paint कर देता है। (यूजर को एक झटके के लिए tooltip 0, 0 पर दिखती है)।</li>
+  <li>पेंट के तुरंत बाद, <code>useEffect</code> फायर होता है। वह tooltip का real width/height मापता है और उसकी सही पोजीशन (जैसे left: 150px, top: 80px) सेट करता है।</li>
+  <li>State चेंज होती है, React re-render करता है और अब ब्राउज़र सही पोजीशन पर paint करता है।</li>
 </ol>
 
----
-
-<h2>Common Errors और Debugging: डेवलपर्स कहाँ गलती करते हैं?</h2>
-
-<p>दोस्तों, बड़े प्रोजेक्ट्स में काम करते हुए कई बार कोडर्स ऐसी गलतियाँ कर बैठते हैं जिससे ऐप क्रैश या स्लो हो जाता है। यहाँ कुछ मुख्य गलतियों और उनके समाधान (solution to <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">fix error</a>) दिए गए हैं:</p>
-
-<h3>1. Missing Dependencies in Dependency Array</h3>
-<p>यह सबसे आम <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> है। यदि आप dependency array में वह variable लिखना भूल जाते हैं जिसका उपयोग आपने Hook के अंदर किया है, तो Hook हमेशा पुरानी (stale) वैल्यू का उपयोग करेगा। इसे <strong>Stale Closure</strong> कहते हैं।</p>
-
-<pre><code>// ❌ गलत तरीका (Stale Closure Issue)
-const logValue = useCallback(() => {
-  console.log(count); // 'count' हमेशा पुराना ही रहेगा क्योंकि dependency array खाली है!
-}, []); 
-
-//  सही तरीका
-const logValue = useCallback(() => {
-  console.log(count);
-}, [count]); 
-</code></pre>
-
-<h3>2. Over-optimizing / Premature Optimization</h3>
-<p>हर साधारण फ़ंक्शन या वैल्यू पर <code>useCallback</code> या <code>useMemo</code> लगाने की गलती बिल्कुल न करें। इन Hooks को मेमोरी में स्टोर करने और डिपेंडेंसी चेक करने की भी अपनी एक ओवरहेड कॉस्ट (Performance Cost) होती है।</p>
-<p>अगर आपका फ़ंक्शन बहुत छोटा है (जैसे कि सिर्फ़ एक स्टेट को सेट करना) और वह किसी जटिल चाइल्ड कंपोनेंट में पास नहीं हो रहा है, तो सामान्य फ़ंक्शन का ही उपयोग करें।</p>
+<p>इसके परिणामस्वरूप यूजर को एक बहुत ही भद्दा <strong>flicker (झटका)</strong> महसूस होता है, जो आपकी application की UX क्वालिटी को खराब करता है।</p>
 
 ---
 
-<h2>Best Practices: Performance Optimization कब करना चाहिए और कब नहीं?</h2>
+<h2>useLayoutEffect इसे कैसे हल करता है? (The Solution in Action)</h2>
 
-<p>मेरे 50 साल के तजुर्बे की बात याद रखना दोस्तों - "Optimization is good, but premature optimization is root of all evil in coding." चलिए इसे आसान नियमों में बाँटते हैं:</p>
+<p>अगर हम इसी काम के लिए <code>useLayoutEffect</code> का उपयोग करते हैं, तो कहानी पूरी बदल जाती है:</p>
 
-<ul>
-  <li><strong>useMemo का उपयोग तब करें जब:</strong>
-    <ul>
-      <li>आप कोई भारी लूप चला रहे हैं (जैसे 1000+ आइटम्स को सॉर्ट, मैप या फ़िल्टर करना)।</li>
-      <li>आप किसी जटिल mathematical calculations (जैसे फ़ैक्टोरियल, ग्राफ नोड्स आदि) का परिणाम स्टोर कर रहे हैं।</li>
-      <li>आप किसी ऑब्जेक्ट/एरे को दूसरे कस्टम हुक के डिपेंडेंसी के रूप में पास कर रहे हैं।</li>
-    </ul>
-  </li>
-  <li><strong>useCallback का उपयोग तब करें जब:</strong>
-    <ul>
-      <li>आप किसी callback फ़ंक्शन को <code>React.memo</code> वाले Child Component में प्रोप के रूप में भेज रहे हैं।</li>
-      <li>वह फ़ंक्शन किसी अन्य custom hook या <code>useEffect</code> की dependency array में शामिल हो।</li>
-    </ul>
-  </li>
-  <li><strong>इस्तेमाल कब न करें?</strong>
-    <ul>
-      <li>साधारण क्लिक हैंडलर्स जैसे <code>const handleClick = () => alert('Hi')</code> पर ये हुक्स लगाने का कोई फायदा नहीं है।</li>
-      <li>जब पैरेंट री-रेंडर होने पर चाइल्ड कंपोनेंट का भी रेंडर होना लाज़मी हो और उसे रोका न जा सके।</li>
-    </ul>
-  </li>
-</ul>
+<ol>
+  <li>React tooltip को DOM में डालता है।</li>
+  <li>ब्राउज़र अभी स्क्रीन पेंट करने ही वाला था कि <code>useLayoutEffect</code> बीच में आ जाता है और कहता है "रुको! पहले मुझे काम करने दो।"</li>
+  <li>हम synchronous तरीके से tooltip का size मापते हैं और उसी समय उसकी position state को अपडेट कर देते हैं।</li>
+  <li>React तुरंत re-render करता है और नई position को DOM में अपडेट कर देता है।</li>
+  <li>अब ब्राउज़र पहली बार में ही tooltip को बिल्कुल सही जगह (left: 150px, top: 80px) पर paint करता है।</li>
+</ol>
 
-<p>अगर आप इसके बारे में और भी गहराई से जानना चाहते हैं, तो <a href="https://react.dev" rel="noopener" target="_blank">React Official Documentation</a> पर जाकर हुक्स के डिज़ाइन प्रिंसिपल्स पढ़ सकते हैं।</p>
+<p>यूजर को कोई झटका या flickering दिखाई नहीं देती! सब कुछ एकदम smooth मक्खन की तरह होता है।</p>
 
 ---
 
-<p>तो दोस्तों, हमने आज विस्तार से सीखा कि useMemo और useCallback का सही उपयोग कैसे किया जाता है और इनके बीच का बारीक अंतर क्या है। उम्मीद है अब आपके रिएक्ट ऐप्स सुपर-फ़ास्ट चलेंगे और फ़ालतू री-रेंडर्स बंद हो जाएंगे। अपने अगले कोड में इसका प्रयोग ज़रूर करके देखें और कोई भी समस्या हो तो बेझिझक पूछें!</p>
+<h2>Production-Ready Code Example: Tooltip Positioning Component</h2>
+
+<p>चलिए, एक असली production-ready code लिखते हैं। इस उदाहरण में, हम एक dynamic Tooltip component बनाएंगे जो किसी बटन के ठीक नीचे उसकी dynamic height और width के आधार पर खुद को position करेगी।</p>
+
+<p>ध्यान से देखिए कि हम कैसे <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> का उपयोग करके इस interactive component को तैयार करते हैं।</p>
+
+<pre><code>import React, { useState, useRef, useLayoutEffect } from 'react';
+
+// Main Tooltip Wrapper Component
+export default function TooltipExample() {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const buttonRef = useRef(null);
+  const tooltipRef = useRef(null);
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
+
+  useLayoutEffect(() => {
+    // अगर tooltip विज़िबल नहीं है, तो कुछ करने की ज़रुरत नहीं है
+    if (!showTooltip || !buttonRef.current || !tooltipRef.current) {
+      return;
+    }
+
+    // बटन और टूलटिप दोनों की exact position और dimensions निकालना
+    const buttonRect = buttonRef.current.getBoundingClientRect();
+    const tooltipRect = tooltipRef.current.getBoundingClientRect();
+
+    // टूलटिप को बटन के ठीक नीचे और सेंटर में प्लेस करने का लॉजिक
+    const calculatedTop = buttonRect.bottom + window.scrollY + 10; // 10px का गैप
+    const calculatedLeft = buttonRect.left + window.scrollX + (buttonRect.width / 2) - (tooltipRect.width / 2);
+
+    // Coordinate state को सिंक्रोनसली सेट करना
+    setCoords({
+      top: calculatedTop,
+      left: calculatedLeft,
+    });
+  }, [showTooltip]); // जब भी showTooltip की state बदलेगी, यह रन होगा
+
+  return (
+    &lt;div style={{ padding: '80px', textAlign: 'center', fontFamily: 'sans-serif' }}&gt;
+      &lt;h2&gt;React useLayoutEffect Real-world Tooltip Example&lt;/h2&gt;
+      &lt;p&gt;Hover on the button below to see dynamic smooth positioning!&lt;/p&gt;
+
+      &lt;button
+        ref={buttonRef}
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        style={{
+          padding: '12px 24px',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          backgroundColor: '#06b6d4',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '8px',
+          transition: 'background 0.3s',
+        }}
+      &gt;
+        Hover Me!
+      &lt;/button&gt;
+
+      {showTooltip && (
+        &lt;div
+          ref={tooltipRef}
+          style={{
+            position: 'absolute',
+            top: `${coords.top}px`,
+            left: `${coords.left}px`,
+            backgroundColor: '#1e293b',
+            color: '#fff',
+            padding: '8px 12px',
+            borderRadius: '6px',
+            fontSize: '14px',
+            whiteSpace: 'nowrap',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+            zIndex: 9999,
+          }}
+        &gt;
+          🚀 Awesome Dynamic Tooltip!
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+<p>इस code को अपने local project में रन करके देखिए। अगर आप <code>useLayoutEffect</code> की जगह <code>useEffect</code> लिखेंगे और अपनी screen refresh rate को धीमा करेंगे (या low-end mobile check करेंगे), तो आपको साफ-साफ दिखेगा कि <code>useEffect</code> के केस में tooltip पहले कहीं और बनती है और फिर खिसक कर बटन के नीचे आती है, जबकि <code>useLayoutEffect</code> में यह समस्या हमेशा के लिए हल हो जाती है!</p>
+
+---
+
+<h2>Server-Side Rendering (SSR) और useLayoutEffect की समस्या (Next.js React Error)</h2>
+
+<p>यदि आप <a href="https://itinfohubs.blogspot.com/search/label/NextJS">Next.js</a> या किसी भी Server-Side Rendering (SSR) framework का उपयोग कर रहे हैं, तो आपको console में एक बहुत ही डरावनी warning देखने को मिल सकती है:</p>
+
+<blockquote>
+  "Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the HTML... Use useEffect instead."
+</blockquote>
+
+<h3>ऐसा क्यों होता है?</h3>
+<p>क्योंकि Server (NodeJS <a href="https://itinfohubs.blogspot.com/search/label/NodeJS">Runtime</a>) के पास कोई browser window या real DOM tree नहीं होता है। Server सिर्फ HTML generate करता है। चूंकि <code>useLayoutEffect</code> को DOM layout मापने की आवश्यकता होती है और Server पर कोई DOM ही नहीं है, इसलिए React परेशान हो जाता है।</p>
+
+<h3>इस Error को Solve कैसे करें?</h3>
+<p>इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> को सुलझाने का सबसे आसान और professional तरीका है कि आप एक custom safety checking wrap तैयार करें, जिसे हम <strong>Isomorphic Layout Effect</strong> कहते हैं।</p>
+
+<pre><code>import { useEffect, useLayoutEffect } from 'react';
+
+// यह चेक करता है कि हम browser environment में हैं या server environment में
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' 
+  ? useLayoutEffect 
+  : useEffect;
+
+export default useIsomorphicLayoutEffect;</code></pre>
+
+<p>अब आप अपने components में सीधे <code>useLayoutEffect</code> इंपोर्ट करने के बजाय इस custom <code>useIsomorphicLayoutEffect</code> का इस्तेमाल करें। यह server पर बिना किसी warning के <code>useEffect</code> की तरह काम करेगा, और client-side पर synchronous <code>useLayoutEffect</code> की तरह!</p>
+
+---
+
+<h2>Best Practices & Performance Guidelines</h2>
+
+<p>मेरे 50 सालों के प्रोग्रामिंग तजुर्बे का निचोड़ (philosophy) ये है कि: <strong>"जिस औजार की जहाँ ज़रूरत हो, वहीं इस्तेमाल करो। बिना वजह हर पेंच को हथौड़े से मत ठोंको!"</strong></p>
+
+<p>यहाँ कुछ बहुत महत्वपूर्ण नियम हैं जिन्हें आपको हमेशा याद रखना है:</p>
+
+<ol>
+  <li><strong>Default to useEffect:</strong> हमेशा अपनी शुरुआत <code>useEffect</code> से ही करें। API integration, analytics logs, set timeouts, and state management जैसी चीज़ें हमेशा <code>useEffect</code> में ही होनी चाहिए।</li>
+  <li><strong>Do NOT block the paint:</strong> क्योंकि <code>useLayoutEffect</code> synchronous है, अगर आपने इसके अंदर कोई भारी loop चला दिया या कोई heavy CPU calculation कर दी, तो आपकी पूरी application freeze हो जाएगी और यूजर को स्क्रीन पर कुछ भी हलचल नहीं दिखेगी।</li>
+  <li><strong>Keep hooks small:</strong> हमेशा hooks के dependencies array को सही से manage करें ताकि बेवजह re-computations न हों।</li>
+  <li><strong>Use refs carefully:</strong> Layout calculation के लिए हमेशा Element Refs (<code>useRef</code>) का उपयोग करें, सीधे document elements को query selector से ढूँढना (जैसे <code>document.getElementById</code>) React के standards के खिलाफ है।</li>
+</ol>
+
+<p>अगर आप React Hooks के बारे में और अधिक गहराई से जानना चाहते हैं, तो <a href="https://react.dev" target="_blank" rel="noopener">Official React Documentation</a> पर जाकर इसके specs को ज़रूर पढ़ें।</p>
+
+---
+
+<p>तो दोस्तों, हमने आज क्या-क्या सीखा? हमने समझा कि React useLayoutEffect एक बहुत ही ताकतवर synchronous hook है, जो विशेष रूप से UI elements की measurements लेने और visual layout shift/flickering को रोकने के लिए डिज़ाइन किया गया है। लेकिन performance को ध्यान में रखते हुए, इसे सोच-समझकर केवल ज़रूरी जगहों पर ही इस्तेमाल करना चाहिए।</p>
+
+<p>अगर आपको यह deep-dive, pair-programming style ब्लॉग ट्यूटोरियल पसंद आया हो, तो इसे अपने डेवलपर दोस्तों के साथ शेयर करना बिल्कुल मत भूलना! कोडिंग करते रहिए, नया सीखते रहिए, और खुश रहिए!</p>
 
 ---
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: क्या useMemo और useCallback का अधिक उपयोग करने से ऐप धीमा हो सकता है?</div>
-  <div class="faq-a">हाँ, बिल्कुल! हर Hook को री-रेंडर के समय डिपेंडेंसी ऐरे के तत्वों की तुलना करनी पड़ती है, जिसमें CPU टाइम खर्च होता है। साथ ही, इनके कारण मेमोरी ओवरहेड बढ़ता है। केवल भारी कैलकुलेशन या भारी कंपोनेंट री-रेंडर्स को रोकने के लिए ही इनका उपयोग करें।</div>
-  <div class="faq-q">Q2: क्या useCallback के बिना React.memo काम करेगा?</div>
-  <div class="faq-a">यदि आप चाइल्ड कंपोनेंट में कोई फ़ंक्शन प्रोप के रूप में भेज रहे हैं और उसे useCallback से नहीं लपेटते, तो पैरेंट के री-रेंडर होने पर नया फ़ंक्शन रेफरेंस जनरेट होगा। इस कारण React.memo प्रोप्स में बदलाव समझकर चाइल्ड को दोबारा रेंडर कर देगा। इसलिए इन दोनों का तालमेल ज़रूरी है।</div>
-  <div class="faq-q">Q3: React compiler (React Forget) के आने के बाद क्या हमें इन Hooks की ज़रूरत होगी?</div>
-  <div class="faq-a">भविष्य में आने वाला React Compiler खुद-ब-खुद कोड को ऑप्टिमाइज़ कर देगा, जिससे कई मामलों में useMemo और useCallback को मैन्युअली लिखने की ज़रूरत नहीं पड़ेगी। लेकिन पुराने कोडबेस को संभालने और React के अंतर्निहित व्यवहार को समझने के लिए आज भी इनका गहरा ज्ञान आवश्यक है।</div>
-  <div class="faq-q">Q4: क्या Dependency Array में खाली ऐरे [] डालने से क्या होता है?</div>
-  <div class="faq-a">खाली ऐरे [] डालने से React को यह संकेत मिलता है कि यह वैल्यू या फ़ंक्शन केवल component के माउंट (initial render) होते समय ही कैलकुलेट या इनिशियलाइज़ होना चाहिए और उसके बाद कभी भी दोबारा चेंज नहीं होना चाहिए।</div>
-  <div class="faq-q">Q5: क्या React Context API के साथ useMemo का उपयोग किया जा सकता है?</div>
-  <div class="faq-a">हाँ, Context API में value ऑब्जेक्ट को useMemo के अंदर रैप करना एक बहुत ही बेहतरीन प्रैक्टिस है। इससे कॉन्टेक्स्ट का उपभोग (consume) करने वाले कंपोनेंट्स अनावश्यक री-रेंडरिंग से बच जाते हैं जब तक कि सचमुच कॉन्टेक्स्ट स्टेट में बदलाव न हो।</div>
+  
+  <div class="faq-q">Q1: React useLayoutEffect क्या है और यह क्यों महत्वपूर्ण है?</div>
+  <div class="faq-a">React useLayoutEffect एक synchronous React hook है जो DOM में बदलाव होने के तुरंत बाद और ब्राउज़र द्वारा स्क्रीन पर पिक्सल पेंट करने से पहले चलता है। यह UI के खिसकने या झटके खाने (visual flickering) को रोकने के लिए महत्वपूर्ण है।</div>
+  
+  <div class="faq-q">Q2: मुझे useLayoutEffect का उपयोग कब करना चाहिए?</div>
+  <div class="faq-a">जब भी आपको DOM elements का आकार (size), चौड़ाई-ऊंचाई (dimensions) या पोजीशन (position) मापनी हो और उसके आधार पर तुरंत UI में styles या states बदलनी हों, तब useLayoutEffect का उपयोग करें।</div>
+  
+  <div class="faq-q">Q3: क्या useLayoutEffect का उपयोग API Calls के लिए किया जा सकता है?</div>
+  <div class="faq-a">नहीं, API calls या data fetching जैसे asynchronous कार्यों के लिए useLayoutEffect का उपयोग बिल्कुल नहीं करना चाहिए। यह synchronous होने के कारण रेंडरिंग को ब्लॉक करता है, जिससे performance खराब हो सकती है। इसके लिए हमेशा useEffect का उपयोग करें।</div>
+  
+  <div class="faq-q">Q4: Next.js (SSR) में useLayoutEffect का उपयोग करने पर warning क्यों आती है?</div>
+  <div class="faq-a">Server-Side Rendering (SSR) के दौरान Server पर कोई वास्तविक DOM या window object मौजूद नहीं होता है। चूंकि useLayoutEffect को layout मापने के लिए DOM की आवश्यकता होती है, इसलिए React सर्वर पर इसे निष्पादित नहीं कर पाता और warning दिखाता है।</div>
+  
+  <div class="faq-q">Q5: Isomorphic Layout Effect क्या होता है?</div>
+  <div class="faq-a">यह एक custom hook है जो environment की जांच करता है। यदि कोड browser में चल रहा है तो यह useLayoutEffect का उपयोग करता है, और यदि server (SSR) पर चल रहा है तो यह बिना किसी warning के useEffect का उपयोग करता है।</div>
 </div>
 
 <script type="application/ld+json">
@@ -331,42 +337,42 @@ const logValue = useCallback(() => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या useMemo और useCallback का अधिक उपयोग करने से ऐप धीमा हो सकता है?",
+      "name": "React useLayoutEffect क्या है और यह क्यों महत्वपूर्ण है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! हर Hook को री-रेंडर के समय डिपेंडेंसी ऐरे के तत्वों की तुलना करनी पड़ती है, जिसमें CPU टाइम खर्च होता है। साथ ही, इनके कारण मेमोरी ओवरहेड बढ़ता है। केवल भारी कैलकुलेशन या भारी कंपोनेंट री-रेंडर्स को रोकने के लिए ही इनका उपयोग करें।"
+        "text": "React useLayoutEffect एक synchronous React hook है जो DOM में बदलाव होने के तुरंत बाद और ब्राउज़र द्वारा स्क्रीन पर पिक्सल पेंट करने से पहले चलता है। यह UI के खिसकने या झटके खाने (visual flickering) को रोकने के लिए महत्वपूर्ण है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useCallback के बिना React.memo काम करेगा?",
+      "name": "मुझे useLayoutEffect का उपयोग कब करना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यदि आप चाइल्ड कंपोनेंट में कोई फ़ंक्शन प्रोप के रूप में भेज रहे हैं और उसे useCallback से नहीं लपेटते, तो पैरेंट के री-रेंडर होने पर नया फ़ंक्शन रेफरेंस जनरेट होगा। इस कारण React.memo प्रोप्स में बदलाव समझकर चाइल्ड को दोबारा रेंडर कर देगा। इसलिए इन दोनों का तालमेल ज़रूरी है।"
+        "text": "जब भी आपको DOM elements का आकार (size), चौड़ाई-ऊंचाई (dimensions) या पोजीशन (position) मापनी हो और उसके आधार पर तुरंत UI में styles या states बदलनी हों, तब useLayoutEffect का उपयोग करें।"
       }
     },
     {
       "@type": "Question",
-      "name": "React compiler (React Forget) के आने के बाद क्या हमें इन Hooks की ज़रूरत होगी?",
+      "name": "क्या useLayoutEffect का उपयोग API Calls के लिए किया जा सकता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "भविष्य में आने वाला React Compiler खुद-ब-खुद कोड को ऑप्टिमाइज़ कर देगा, जिससे कई मामलों में useMemo और useCallback को मैन्युअली लिखने की ज़रूरत नहीं पड़ेगी। लेकिन पुराने कोडबेस को संभालने और React के अंतर्निहित व्यवहार को समझने के लिए आज भी इनका गहरा ज्ञान आवश्यक है।"
+        "text": "नहीं, API calls या data fetching जैसे asynchronous कार्यों के लिए useLayoutEffect का उपयोग बिल्कुल नहीं करना चाहिए। यह synchronous होने के कारण रेंडरिंग को ब्लॉक करता है, जिससे performance खराब हो सकती है। इसके लिए हमेशा useEffect का उपयोग करें।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Dependency Array में खाली ऐरे [] डालने से क्या होता है?",
+      "name": "Next.js (SSR) में useLayoutEffect का उपयोग करने पर warning क्यों आती है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "खाली ऐरे [] डालने से React को यह संकेत मिलता है कि यह वैल्यू या फ़ंक्शन केवल component के माउंट (initial render) होते समय ही कैलकुलेट या इनिशियलाइज़ होना चाहिए और उसके बाद कभी भी दोबारा चेंज नहीं होना चाहिए।"
+        "text": "Server-Side Rendering (SSR) के दौरान Server पर कोई वास्तविक DOM या window object मौजूद नहीं होता है। चूंकि useLayoutEffect को layout मापने के लिए DOM की आवश्यकता होती है, इसलिए React सर्वर पर इसे निष्पादित नहीं कर पाता और warning दिखाता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या React Context API के साथ useMemo का उपयोग किया जा सकता है?",
+      "name": "Isomorphic Layout Effect क्या होता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, Context API में value ऑब्जेक्ट को useMemo के अंदर रैप करना एक बहुत ही बेहतरीन प्रैक्टिस है। इससे कॉन्टेक्स्ट का उपभोग (consume) करने वाले कंपोनेंट्स अनावश्यक री-रेंडरिंग से बच जाते हैं जब तक कि सचमुच कॉन्टेक्स्ट स्टेट में बदलाव न हो।"
+        "text": "यह एक custom hook है जो environment की जांच करता है। यदि कोड browser में चल रहा है तो यह useLayoutEffect का उपयोग करता है, और यदि server (SSR) पर चल रहा है तो यह बिना किसी warning के useEffect का उपयोग करता है।"
       }
     }
   ]
