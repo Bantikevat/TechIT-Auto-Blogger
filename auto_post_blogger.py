@@ -823,6 +823,14 @@ def publish_to_blogger(title, html_content, category, is_draft=True, seo_descrip
             "content": html_content,
             "labels": labels
         }
+        # IMAGES field — Blogger ko force karo direct ImgBB URL use kare (proxy resize bacha).
+        # Content me first <img> ka src nikaal ke images metadata me set karo.
+        import re as _re
+        _img_match = _re.search(r'<img[^>]+src=["\']([^"\']+)["\']', html_content)
+        if _img_match:
+            _img_url = _img_match.group(1)
+            post_body["images"] = [{"url": _img_url}]
+
         # META DESCRIPTION — 3 tareeke se unique per post ensure karo:
         # (1) customMetaData JSON (future theme use), (2) searchDescription Blogger field,
         # (3) visible SEO intro paragraph — theme ka JS content-snippet isko pick karega,
