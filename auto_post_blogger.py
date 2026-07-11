@@ -411,13 +411,17 @@ def compose_banner(bg_bytes, clean_title, category):
     draw.rounded_rectangle([60, 56, 60 + cw + 52, 56 + 54], radius=27, fill=(6, 182, 212))
     draw.text((60 + 26, 56 + 11), cat, font=badge_font, fill=(4, 18, 28))
 
-    # CTA — top-right (yellow accent for click-through)
-    cta_font = _load_font("Bold", 26)
-    cta_text = "SIKHEN HINDI MEIN →"
+    # CTA — top-right (bigger yellow badge for click-through, OCR-friendly English)
+    cta_font = _load_font("Bold", 34)
+    cta_text = "READ NOW →"
     ctw = draw.textlength(cta_text, font=cta_font)
-    cta_x = W - 60 - ctw - 44
-    draw.rounded_rectangle([cta_x, 60, W - 60, 60 + 50], radius=25, fill=(255, 204, 0))
-    draw.text((cta_x + 22, 60 + 12), cta_text, font=cta_font, fill=(20, 20, 20))
+    cta_pad_x, cta_pad_y = 30, 15
+    cta_h = 62
+    cta_x = W - 60 - ctw - (cta_pad_x * 2)
+    # Yellow gradient-like double-layer for depth
+    draw.rounded_rectangle([cta_x + 4, 60 + 4, W - 60 + 4, 60 + cta_h + 4], radius=31, fill=(0, 0, 0, 100))  # shadow
+    draw.rounded_rectangle([cta_x, 60, W - 60, 60 + cta_h], radius=31, fill=(255, 204, 0))
+    draw.text((cta_x + cta_pad_x, 60 + cta_pad_y), cta_text, font=cta_font, fill=(20, 20, 20))
 
     # Title — auto-fit font size so it wraps in <= 4 lines
     title_font, lines = None, []
