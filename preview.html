@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useTransition Hook Complete Guide (React 18 (Hindi)</title>
+    <title>Preview: React useDeferredValue Hook Kya Hai (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,311 +16,247 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React 18 का useTransition hook क्या है? इस complete guide में सीखें कैसे अपनी React app की performance को बेहतर बनाएं। आसान Hindi में अभी पढ़ें!</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React useDeferredValue hook kya hai? Janie kaise ye hook heavy UI updates ko delay karke aapke React app ki performance ko fast aur smooth banata hai.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useTransition Hook Complete Guide (React 18 (Hindi)</h1>
+    <h1>React useDeferredValue Hook Kya Hai (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/LzBfSHDP/5ef3ba87a57b.png" alt="React useTransition Hook Complete Guide (React 18 in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useTransition Hook क्या है? React 18 के इस powerful feature से slow UI renders को smoothly handle करना सीखें इस complete Hindi guide में!
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/B224thBT/2881982367be.png" alt="React useDeferredValue Hook Kya Hai (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useDeferredValue Hook kya hai? Is Hindi guide me slow rendering aur UI lag ko fix karne ka tarika code implementation ke sath seekhein.
 
-<p>मान लीजिए आप अपनी <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> एप्लीकेशन में एक बड़ा heavy data filter या search bar बना रहे हैं। जैसे ही user input box में कुछ टाइप करता है, पूरा UI एक सेकंड के लिए freeze हो जाता है। User बार-बार बटन दबाता है, लेकिन स्क्रीन हिलती तक नहीं! ऐसा इसलिए होता है क्योंकि React डिफ़ॉल्ट रूप से हर State Update को समान प्राथमिकता (priority) देता है। लेकिन क्या हो अगर हम React को बता सकें कि कौन सा काम ज़्यादा ज़रूरी है और किसे बाद में भी किया जा सकता है? यहीं पर एंट्री होती है React 18 के सबसे जादुई feature यानी <strong>React useTransition Hook</strong> की!</p>
+<p>तो मेरे डेवलपर दोस्तों, क्या आपने कभी ऐसा महसूस किया है कि जब आप अपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> में किसी heavy search input पर तेज़ी से टाइप करते हैं, तो आपका कीबोर्ड और इनपुट फील्ड दोनों अटकने (lag होने) लगते हैं? ऐसा इसलिए होता है क्योंकि React हर एक कीस्ट्रोक पर पूरी भारी-भरकम लिस्ट को दोबारा रेंडर करने की कोशिश करता है, जिससे ब्राउज़र का मेन थ्रेड ब्लॉक हो जाता है। इसी सिरदर्द को हमेशा के लिए खत्म करने के लिए React 18 में एक चमत्कारी हुक पेश किया गया था, जिसका नाम है <strong>useDeferredValue Hook</strong>।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useTransition Hook एक React 18 Concurrent hook है जो बिना UI को block किए कुछ State Updates को 'Transitions' (कम प्राथमिकता वाले कार्यों) के रूप में mark करने की अनुमति देता है। यह high-priority updates (जैसे typing) को low-priority updates (जैसे search result rendering) के कारण lag होने से बचाता है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useDeferredValue Hook React 18 का एक powerful performance optimization hook है जो UI के heavy rendering updates को defer (postpone) करता है। जब state तेज़ी से बदलती है, तो यह main status update को block किए बिना background में process करता है, जिससे UI lag-free और responsive बनी रहती है।</div>
 
-<h2>React useTransition Hook क्या है और इसकी ज़रूरत क्यों पड़ी?</h2>
+<h2>React useDeferredValue Hook क्या है और इसकी जरूरत क्यों पड़ी?</h2>
 
-<p>React 17 और उससे पुराने वर्शन्स में, React के काम करने का तरीका बिल्कुल synchronous था। इसका मतलब यह है कि अगर कोई State Update ट्रिगर हुआ है, तो React उसे पूरा प्रोसेस करने के बाद ही स्क्रीन पर नया बदलाव दिखाएगा। इस बीच, user browser के साथ कोई इंटरैक्शन (जैसे click या scroll) नहीं कर पाता था। इसे हम <strong>Blocking Rendering</strong> कहते हैं।</p>
+<p>सरल शब्दों में कहें तो, <strong>useDeferredValue Hook</strong> हमें किसी भी value के अपडेट को "non-urgent" (कम जरूरी) घोषित करने की अनुमति देता है। इसका मतलब यह है कि जब यूजर इनपुट में कुछ लिखता है, तो नया इनपुट तुरंत स्क्रीन पर दिखना चाहिए (यह urgent है), लेकिन उस इनपुट के आधार पर नीचे रेंडर होने वाली बड़ी लिस्ट थोड़ा रुक कर भी अपडेट होगी तो चलेगा (यह non-urgent है)।</p>
 
-<p>React 18 में <a href="https://react.dev" rel="noopener" target="_blank">React Official Documentation</a> के अनुसार <strong>Concurrent Rendering</strong> का concept लाया गया। इसका मतलब है कि React अब एक समय पर कई काम कर सकता है, और ज़रूरत पड़ने पर किसी भारी रेंडरिंग टास्क को बीच में रोक (pause) कर user के clicks या inputs को पहले हैंडल कर सकता है।</p>
-
-<p>जब हम <code>useTransition</code> का इस्तेमाल करते हैं, तो हम React को साफ़ शब्दों में बताते हैं: <em>"भाई देखो, यह जो State Update है, यह बहुत भारी है। इसे बैकग्राउंड में आराम से करो। अगर इस बीच user कुछ और टाइप करता है, तो पहले उसका काम करो, इसे बाद में निपटा लेना।"</em></p>
-
-<h2>Urgent Updates vs Non-Urgent (Transition) Updates में क्या अंतर है?</h2>
-
-<p>React में हमारे पास दो मुख्य प्रकार के updates होते हैं:</p>
-
-<ul>
-  <li><strong>Urgent Updates:</strong> ये वे बदलाव हैं जो user को तुरंत स्क्रीन पर दिखने चाहिए। जैसे - input field में character टाइप होना, dropdown का खुलना, या किसी toggle button पर click होना। अगर इनमें 100ms का भी delay हो, तो user को UI बहुत slow और laggy लगता है।</li>
-  <li><strong>Transition Updates (Non-Urgent):</strong> ये वे काम हैं जो background में हो सकते हैं और अगर इनमें थोड़ा समय भी लगे (जैसे आधा सेकंड), तो user को कोई बुरा नहीं लगेगा। जैसे - search results का filter होना, एक tab से दूसरे heavy tab पर switch होना, या charts/graphs का render होना।</li>
-</ul>
+<p>React 18 से पहले, जब भी हम किसी <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> एप्लीकेशन में स्टेट को अपडेट करते थे, तो React उसे तुरंत रेंडर करने की कोशिश करता था। इसे "Synchronous Rendering" कहते हैं। अगर आपके पेज पर कोई ऐसा कंपोनेंट है जो रेंडर होने में 200ms का समय लेता है, और यूजर हर 50ms में कीबोर्ड का बटन दबा रहा है, तो ब्राउज़र का मेन थ्रेड चोक हो जाएगा। इसी समस्या को सुलझाने के लिए Concurrent Rendering का कांसेप्ट लाया गया, जिसके अंतर्गत useDeferredValue Hook काम करता है।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React 18 State Update Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useDeferredValue Work Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">User Typing (Urgent)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Browser Thread Free</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">List Filtering (Transition)</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">User Keystroke (Input State Changes)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Immediate UI Update (Responsive Input)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Deferred Value Processing (Background Render)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How useTransition prioritizes immediate input over heavy background rendering.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React UI main update ko interrupt kiye bina value ko defer karta hai.</div>
 </div>
 
-<h2>useTransition Hook का Syntax कैसे काम करता है?</h2>
+<h2>useDeferredValue Hook कैसे काम करता है?</h2>
 
-<p>चलिए देखते हैं कि <code>useTransition</code> को अपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> में कैसे import और initialize करते हैं:</p>
+<p>ध्यान देने वाली बात ये है कि <code>useDeferredValue</code> कोई नया स्टेट नहीं बनाता है, बल्कि यह आपकी मौजूदा स्टेट की एक "deferred copy" यानी कि एक धीमी कॉपी तैयार करता है।</p>
 
-<pre><code>import { useTransition, useState } from 'react';
+<p>जब भी आपकी असली स्टेट बदलती है, तो React तुरंत नए वैल्यू के साथ पहला रेंडर चलाता है (urgent update)। इस रेंडर के दौरान, <code>useDeferredValue</code> से मिलने वाली वैल्यू पुरानी ही रहती है। इसके तुरंत बाद, React बैकग्राउंड में एक दूसरा रेंडर शुरू करता है जिसमें deferred value को नई वैल्यू के साथ अपडेट कर दिया जाता है (non-urgent update)।</p>
 
-const [isPending, startTransition] = useTransition();
-</code></pre>
+<p>अगर बैकग्राउंड रेंडरिंग के दौरान यूजर फिर से कोई नया बटन दबा देता है, तो React समझदारी दिखाते हुए पुराने बैकग्राउंड रेंडर को बीच में ही छोड़ (abort) देता है और नए यूजर इनपुट को प्रायोरिटी देता है। यही कारण है कि आपका UI कभी भी हैंग या फ्रीज नहीं होता।</p>
 
-<p>यहाँ <code>useTransition</code> हमें एक array return करता है जिसमें दो चीज़ें होती हैं:</p>
+<h2>React useDeferredValue Hook का Syntax</h2>
 
-<ol>
-  <li><strong>isPending (boolean):</strong> यह एक flag है जो बताता है कि आपका transition update अभी भी background में चल रहा है या पूरा हो चुका है। इसका use करके हम UI में कोई loader, spinner या blurred effect दिखा सकते हैं।</li>
-  <li><strong>startTransition (function):</strong> यह एक wrapper function है। इसके अंदर हम उस State Update function को डालते हैं जिसे हम low-priority बनाना चाहते हैं।</li>
-</ol>
+<p>इसका सिंटैक्स बेहद आसान और सीधा है। आपको बस अपनी उस स्टेट को इस हुक के अंदर पास करना होता है जिसे आप धीमा करना चाहते हैं:</p>
 
-<h2>बिना useTransition के समस्या: Slow Search Filter Scenario</h2>
+<pre><code>import { useState, useDeferredValue } from 'react';
 
-<p>दोस्तों, पहले हम बिना useTransition के एक practical code देखते हैं, ताकि आपको असली समस्या समझ आए। मान लीजिए हमारे पास एक ऐसी list है जिसमें 15,000 items हैं, और हम उसे user input के आधार पर filter कर रहे हैं।</p>
-
-<pre><code>import React, { useState } from 'react';
-
-// 15,000 items की heavy list generate करना
-const largeList = Array.from({ length: 15000 }, (_, index) => `Item #${index + 1}`);
-
-function HeavySearchWithoutTransition() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredList, setFilteredList] = useState(largeList);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    
-    // Urgent Update: Input box में text तुरंत दिखना चाहिए
-    setSearchTerm(value);
-
-    // Heavy Update: 15,000 rows को filter करना (यह UI को freeze कर देता है)
-    const filtered = largeList.filter(item => item.includes(value));
-    setFilteredList(filtered);
-  };
-
-  return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h2>Slow List Filtering (Without useTransition)</h2>
-      <input 
-        type="text" 
-        value={searchTerm} 
-        onChange={handleChange} 
-        placeholder="Type to search..."
-        style={{ padding: '8px', width: '300px', fontSize: '16px' }}
-      />
-      <p>Results count: {filteredList.length}</p>
-      <div style={{ maxHeight: '300px', overflowY: 'auto', border: '1px solid #ccc', marginTop: '10px' }}>
-        {filteredList.map((item, index) => (
-          <div key={index} style={{ padding: '5px', borderBottom: '1px solid #eee' }}>
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default HeavySearchWithoutTransition;
-</code></pre>
-
-<p><strong>इस कोड में समस्या क्या है?</strong> जैसे ही आप input field में तेजी से टाइप करेंगे, आपको महसूस होगा कि keyboard से type किए गए letters स्क्रीन पर अटक-अटक कर आ रहे हैं। ऐसा इसलिए हो रहा है क्योंकि <code>setSearchTerm(value)</code> और <code>setFilteredList(filtered)</code> दोनों एक साथ synchronous तरीके से चलते हैं, जिससे main thread block हो जाता है।</p>
-
-<h2>समाधान: useTransition के साथ Production-Ready Code</h2>
-
-<p>चलिए अब इसी component को <code>useTransition</code> का इस्तेमाल करके super fast और user-friendly बनाते हैं। ध्यान दें कि हमने कैसे <code>isPending</code> का इस्तेमाल करके UI को responsive रखा है:</p>
-
-<pre><code>import React, { useState, useTransition } from 'react';
-
-// 15,000 items की heavy list generate करना
-const largeList = Array.from({ length: 15000 }, (_, index) => `Item #${index + 1}`);
-
-function FastSearchWithTransition() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredList, setFilteredList] = useState(largeList);
+function MyComponent() {
+  const [text, setText] = useState("");
   
-  // useTransition hook initialize करना
-  const [isPending, startTransition] = useTransition();
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    
-    // 1. Urgent Update (Immediate UI response)
-    setSearchTerm(value);
-
-    // 2. Non-Urgent Update wrapped inside startTransition
-    startTransition(() => {
-      const filtered = largeList.filter(item => item.includes(value));
-      setFilteredList(filtered);
-    });
-  };
+  // text की deferred copy तैयार करना
+  const deferredText = useDeferredValue(text);
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial', maxWidth: '600px', margin: '0 auto' }}>
-      <h2>Responsive List Filtering (With useTransition)</h2>
-      
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <input 
-          type="text" 
-          value={searchTerm} 
-          onChange={handleChange} 
-          placeholder="Type to search smoothly..."
-          style={{ padding: '10px', width: '100%', fontSize: '16px', borderRadius: '6px', border: '1px solid #ccc' }}
-        />
-        
-        {/* isPending का उपयोग करके Loading text दिखाना */}
-        {isPending && <span style={{ color: '#06b6d4', fontWeight: 'bold' }}>Updating...</span>}
-      </div>
-
-      <p style={{ marginTop: '15px' }}>Results count: {filteredList.length}</p>
-      
-      {/* List opacity changes based on isPending for better UX */}
-      <div style={{ 
-        maxHeight: '300px', 
-        overflowY: 'auto', 
-        border: '1px solid #ddd', 
-        borderRadius: '8px',
-        marginTop: '10px',
-        opacity: isPending ? 0.6 : 1,
-        transition: 'opacity 0.2s ease'
-      }}>
-        {filteredList.map((item, index) => (
-          <div key={index} style={{ padding: '8px 12px', borderBottom: '1px solid #f0f0f0' }}>
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
+    &lt;div&gt;
+      &lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;
+      &lt;HeavyList text={deferredText} /&gt;
+    &lt;/div&gt;
   );
-}
+}</code></pre>
 
-export default FastSearchWithTransition;
-</code></pre>
+<p>यहाँ पर ध्यान दें कि हमने <code>&lt;input&gt;</code> के value attribute में <code>text</code> (original state) का इस्तेमाल किया है ताकि टाइपिंग एकदम स्मूथ रहे, और <code>&lt;HeavyList&gt;</code> को हमने <code>deferredText</code> भेजा है ताकि वह बैकग्राउंड में शांति से रेंडर हो सके।</p>
 
-<p><strong>क्या बदलाव आया?</strong> अब जब आप input box में टाइप करेंगे, तो text तुरंत टाइप होगा बिना किसी lag के! React background में filter processing करेगा और जब processing पूरी हो जाएगी, तो list को update कर देगा। इस दौरान user screen पर smooth loading indicator (Updating...) देख सकता है।</p>
+<h2>Production-Ready complete Code Example</h2>
 
-<h2>useTransition vs Normal Updates: Direct Comparison Table</h2>
+<p>चलिए, एक पूरा और वर्किंग कोड लिखकर देखते हैं। हम एक ऐसी एप्लीकेशन बनाएंगे जिसमें एक सर्च इनपुट होगा और 5000 आइटम्स की एक बहुत बड़ी लिस्ट होगी। हम देखेंगे कि कैसे <code>useDeferredValue</code> हमारे UI को सुपर-फास्ट बना देता है।</p>
 
-<p>आइए इन दोनों के अंतर को एक clear table के ज़रिए समझते हैं ताकि इंटरव्यू में भी आप आसानी से जवाब दे सकें:</p>
+<p>सबसे पहले, एक फ़ाइल बनाएं जिसका नाम <code>HeavyList.jsx</code> होगा। इस कंपोनेंट को ध्यान से देखें, हमने यहाँ पर <strong>React.memo</strong> का इस्तेमाल किया है। यह बहुत महत्वपूर्ण है, जिसके बारे में हम आगे चर्चा करेंगे।</p>
 
-<table>
+<pre><code>import React, { useMemo } from 'react';
+
+// React.memo का उपयोग करना अनिवार्य है ताकि फालतू रेंडरिंग न हो
+const HeavyList = React.memo(({ query }) => {
+  // 10,000 डमी आइटम्स बनाना जो CPU पर भारी पड़ें
+  const items = useMemo(() => {
+    const list = [];
+    for (let i = 0; i < 10000; i++) {
+      list.push(`Item Number #${i + 1}`);
+    }
+    return list;
+  }, []);
+
+  // डमी आइटम्स को यूजर के इनपुट (query) के आधार पर फ़िल्टर करना
+  const filteredItems = useMemo(() => {
+    if (!query) return items;
+    return items.filter(item => item.toLowerCase().includes(query.toLowerCase()));
+  }, [query, items]);
+
+  return (
+    &lt;ul style={{ 
+      maxHeight: '300px', 
+      overflowY: 'scroll', 
+      border: '1px solid #ccc', 
+      padding: '10px',
+      borderRadius: '8px',
+      marginTop: '15px'
+    }}&gt;
+      {filteredItems.map((item, index) => (
+        &lt;li key={index} style={{ padding: '5px 0', borderBottom: '1px solid #eee' }}&gt;
+          {item}
+        &lt;/li>
+      ))}
+      {filteredItems.length === 0 && &lt;li&gt;कोई मैच नहीं मिला!&lt;/li&gt;}
+    &lt;/ul&gt;
+  );
+});
+
+HeavyList.displayName = 'HeavyList';
+
+export default HeavyList;</code></pre>
+
+<p>अब हम अपना मुख्य कंपोनेंट यानी <code>App.jsx</code> बनाएंगे, जहाँ पर हम इस <code>HeavyList</code> का उपयोग करेंगे और <code>useDeferredValue</code> की जादुई ताकत को देखेंगे।</p>
+
+<pre><code>import { useState, useDeferredValue } from 'react';
+import HeavyList from './HeavyList';
+
+export default function App() {
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  // यहाँ पर useDeferredValue का जादू शुरू होता है
+  const deferredSearchTerm = useDeferredValue(searchTerm);
+
+  // यह चेक करने के लिए कि क्या रेंडरिंग अभी भी बैकग्राउंड में पेंडिंग है
+  const isStale = searchTerm !== deferredSearchTerm;
+
+  return (
+    &lt;div style={{ maxWidth: '500px', margin: '40px auto', fontFamily: 'sans-serif', padding: '20px' }}&gt;
+      &lt;h2&gt;React useDeferredValue Demo&lt;/h2&gt;
+      &lt;p&gt;नीचे दिए गए इनपुट में तेज़ी से टाइप करके देखें, आपका इनपुट बिल्कुल भी लैग नहीं करेगा!&lt;/p&gt;
+      
+      &lt;input
+        type="text"
+        placeholder="यहाँ टाइप करें (e.g., #1000)..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{
+          width: '100%',
+          padding: '12px 16px',
+          fontSize: '16px',
+          borderRadius: '8px',
+          border: '2px solid #2563eb',
+          outline: 'none',
+          boxSizing: 'border-box'
+        }}
+      /&gt;
+
+      {/* अगर बैकग्राउंड में लिस्ट रेंडर हो रही है, तो हम यूजर को इंडिकेशन दे सकते हैं */}
+      &lt;div style={{
+        marginTop: '10px',
+        fontSize: '14px',
+        color: '#6b7280',
+        transition: 'opacity 0.2s',
+        opacity: isStale ? 0.5 : 1
+      }}&gt;
+        {isStale ? "बैकग्राउंड में लिस्ट अपडेट हो रही है..." : "अप-टू-डेट"}
+      &lt;/div&gt;
+
+      &lt;HeavyList query={deferredSearchTerm} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+<h2>useDeferredValue vs Debounce vs Throttle: क्या अंतर है?</h2>
+
+<p>बहुत से डेवलपर्स को यह कन्फ्यूजन रहता है कि जब हमारे पास पहले से ही Debounce और Throttle जैसी तकनीकें हैं, तो फिर <code>useDeferredValue</code> की क्या जरूरत है? तो चलिए इस अंतर को एक साफ़ टेबल के जरिए समझते हैं:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; text-align: left;">
   <thead>
-    <tr>
-      <th>Feature</th>
-      <th>Normal State Update (Default)</th>
-      <th>Transition Update (useTransition)</th>
+    <tr style="background-color: #1e293b; color: white;">
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">विशेषता (Feature)</th>
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">useDeferredValue</th>
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">Debouncing</th>
+      <th style="padding: 12px; border: 1px solid #cbd5e1;">Throttling</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Priority Level</strong></td>
-      <td>High (Urgent) - Immediate rendering</td>
-      <td>Low (Non-Urgent) - Background rendering</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">समय सीमा (Timing)</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">ब्राउज़र के थ्रेड फ्री होने पर तुरंत चलता है (No fixed delay)।</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">एक निश्चित समय (e.g., 300ms) तक रुकने के बाद चलता है।</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">एक निश्चित अंतराल (e.g., 200ms) पर लगातार चलता रहता है।</td>
+    </tr>
+    <tr style="background-color: #f8fafc;">
+      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">User Experience</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">सुपर स्मूथ, जैसे ही मशीन फ्री होगी UI अपडेट हो जाएगा।</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">यूजर को टाइपिंग बंद करने के बाद थोड़ा इंतजार करना पड़ता है।</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">लगातार हैंग-फ्री अनुभव देने की कोशिश करता है लेकिन लैग हो सकता है।</td>
     </tr>
     <tr>
-      <td><strong>UI Blocking</strong></td>
-      <td>हाँ, heavy components में UI freeze हो जाता है</td>
-      <td>नहीं, browser main thread हमेशा responsive रहता है</td>
-    </tr>
-    <tr>
-      <td><strong>State Interruption</strong></td>
-      <td>नहीं हो सकता, render cycle पूरा करना ही पड़ता है</td>
-      <td>हाँ, नया input आते ही पुराना render बीच में रद्द हो जाता है</td>
-    </tr>
-    <tr>
-      <td><strong>Loading State</strong></td>
-      <td>मैन्युअली loader state manage करनी पड़ती है</td>
-      <td><code>isPending</code> flag स्वतः built-in मिलता है</td>
-    </tr>
-    <tr>
-      <td><strong>Use Case</strong></td>
-      <td>Inputs, toggles, dialog modals open/close</td>
-      <td>Large lists rendering, graphs, tab switching</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">API Calls</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">सिर्फ Local UI Rendering और CPU heavy tasks के लिए सही है।</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">Network / API calls को कम करने के लिए सबसे बेस्ट है।</td>
+      <td style="padding: 12px; border: 1px solid #cbd5e1;">Scroll event या Resize event को हैंडल करने के लिए बेस्ट है।</td>
     </tr>
   </tbody>
 </table>
 
-<h2>useTransition vs useDeferredValue में क्या अंतर है?</h2>
+<h2>useDeferredValue vs useTransition: कौन सा कब इस्तेमाल करें?</h2>
 
-<p>कई डेवलपर्स इन दोनों hooks के बीच भ्रमित (confuse) हो जाते हैं क्योंकि दोनों का काम performance को optimize करना ही है। लेकिन दोनों में एक बड़ा बुनियादी अंतर है:</p>
-
-<ul>
-  <li><strong>useTransition:</strong> इसका इस्तेमाल तब किया जाता है जब आपके पास <em>State Update Code</em> का access हो (जैसे आप <code>startTransition(() =&gt; setState(...))</code> लिख सकते हैं)।</li>
-  <li><strong>useDeferredValue:</strong> इसका इस्तेमाल तब किया जाता है जब आपको <strong>Props</strong> या किसी external library से कोई value मिल रही हो जिसे आप direct control नहीं कर सकते (जैसे <code>const deferredValue = useDeferredValue(externalQuery)</code>)।</li>
-</ul>
-
-<h2>useTransition का इस्तेमाल करते समय किन Common Errors से बचें?</h2>
-
-<p>दोस्तों, इस hook का उपयोग करते समय कुछ ऐसी गलतियाँ हैं जो लगभग हर developer करता है। चलिए उन्हें समझते हैं ताकि आप आसानी से किसी भी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> को solve कर सकें:</p>
-
-<h3>1. Do NOT wrap synchronous operations that aren't state updates</h3>
-<p><code>startTransition</code> के अंदर केवल वही code होना चाहिए जो React State को change करता है। आप इसके अंदर direct heavy calculations (बिना state update के) नहीं डाल सकते।</p>
-
-<pre><code>// ❌ गलत तरीका (This will not optimize anything)
-startTransition(() => {
-  const heavyValue = performHeavyMath(); // State set नहीं हो रहा है
-});
-
-//   सही तरीका
-const [value, setValue] = useState();
-startTransition(() => {
-  const result = performHeavyMath();
-  setValue(result); // State Update wrapper के अंदर है
-});
-</code></pre>
-
-<h3>2. Can't use with Controlled Inputs directly</h3>
-<p>कभी भी input field के <code>value</code> attribute से जुड़े state को <code>startTransition</code> में न डालें। ऐसा करने से input fill करते समय keystrokes block या lag होने लगेंगे।</p>
-
-<pre><code>// ❌ बहुत बड़ी गलती!
-const handleChange = (e) => {
-  startTransition(() => {
-    setInputValue(e.target.value); // Input laggy हो जाएगा!
-  });
-};
-</code></pre>
-
-<h3>3. Async functions within startTransition</h3>
-<p>अगर आपको <code>startTransition</code> के अंदर कोई API call या asynchronous कार्य करना है, तो ध्यान रहे कि React 18 में async updates को wrapped state handles की तरह handle करने के नियम अलग हैं। यदि आप <code>setTimeout</code> या <code>fetch</code> का use कर रहे हैं, तो state update को synchronous wrapper में ही रखें:</p>
-
-<pre><code>// ❌ गलत तरीका (React immediately assumes transition is finished)
-startTransition(async () => {
-  await fetchResults();
-  setResults(data);
-});
-
-//   सही तरीका
-const handleFetch = async () => {
-  const data = await fetchResults();
-  startTransition(() => {
-    setResults(data);
-  });
-};
-</code></pre>
-
-<h2>Performance Optimization Best Practices</h2>
-
-<p>यदि आप अपनी React apps को scalable और fast बनाना चाहते हैं, तो इन बातों का विशेष ध्यान रखें:</p>
+<p>यह भी एक बहुत ही कॉमन इंटरव्यू क्वेश्चन है। दोनों ही हुक्स React 18 के Concurrent features का हिस्सा हैं और रेंडरिंग को ऑप्टिमाइज़ करते हैं, लेकिन दोनों के काम करने का तरीका अलग है:</p>
 
 <ul>
-  <li><strong>Don't Overuse:</strong> हर state update को transition में डालने की गलती न करें। केवल वहीं use करें जहाँ heavy rendering के कारण UI freeze की समस्या आ रही हो।</li>
-  <li><strong>Combine with useMemo:</strong> यदि आपकी child elements बहुत heavy हैं, तो component tree को render होने से बचाने के लिए <code>useMemo</code> या <code>React.memo</code> का useTransition के साथ combo बनायें।</li>
-  <li><strong>Provide Visual Feedback:</strong> जब <code>isPending</code> true हो, तो screen पर loading spinner या opacity reduce करना न भूलें ताकि user को पता चले कि application crash नहीं हुई है, बल्कि processing चल रही है।</li>
+  <li><strong>useTransition:</strong> इसका उपयोग तब किया जाता है जब आपके पास स्टेट अपडेट करने वाला फंक्शन (जैसे <code>setSearchTerm</code>) उपलब्ध होता है। आप अपने स्टेट चेंज करने वाले कोड को <code>startTransition(() =&gt; { ... })</code> के अंदर रैप करते हैं।</li>
+  <li><strong>useDeferredValue:</strong> इसका उपयोग तब किया जाता है जब आपके पास सिर्फ एक वैल्यू होती है, जो आपको शायद किसी पैरेंट कंपोनेंट या थर्ड-पार्टी लाइब्रेरी से props के रूप में मिल रही हो, और आपका सीधे स्टेट अपडेटर फंक्शन पर कोई कंट्रोल न हो।</li>
 </ul>
 
-<p>तो दोस्तों, आज हमने सीखा कि React 18 का useTransition hook कैसे हमारे user experience को 10x बेहतर बना सकता है। हमने synchronous rendering की समस्या को समझा, background updates का architectural flow देखा, और एक production-ready search list component को code किया। अब इसे अपने live projects में इस्तेमाल करें और अपनी web apps को smoother बनाएँ!</p>
+<p>अधिक जानकारी और कोर कांसेप्ट को गहराई से समझने के लिए आप <a href="https://react.dev/reference/react/useDeferredValue" rel="noopener" target="_blank">Official React Docs</a> को भी पढ़ सकते हैं।</p>
+
+<h2>useDeferredValue का use करते समय होने वाली Common Errors और उन्हें कैसे सुधारें?</h2>
+
+<p>दोस्तों, इस हुक का इस्तेमाल करते समय कई नए और यहाँ तक कि अनुभवी डेवलपर्स भी कुछ बड़ी गलतियां कर बैठते हैं जिससे उनकी एप्लीकेशन में अजीब सा बिहेवियर या <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> देखने को मिलता है। चलिए उन पर नज़र डालते हैं ताकि आप उन गलतियों से बच सकें:</p>
+
+<h3>1. Child Component को Memoize न करना (The Biggest Mistake)</h3>
+<p>अगर आपने पैरेंट कंपोनेंट में <code>useDeferredValue</code> का उपयोग किया है, लेकिन जिस चाइल्ड कंपोनेंट को आप वह वैल्यू भेज रहे हैं उसे <code>React.memo</code> से रैप नहीं किया है, तो आपका ऑप्टिमाइज़ेशन बिल्कुल बेकार चला जाएगा! क्योंकि हर इनपुट चेंज पर पैरेंट फिर से रेंडर होगा और बिना मेमोइजेशन के चाइल्ड भी दोबारा रेंडर होने लगेगा।</p>
+
+<p><strong>समाधान:</strong> हमेशा अपने चाइल्ड कंपोनेंट को <code>React.memo</code> से सुरक्षित करें जैसा कि हमने ऊपर कोड एग्जांपल में किया है।</p>
+
+<h3>2. Dynamic Object Reference को Pass करना</h3>
+<p>अगर आप <code>useDeferredValue</code> के अंदर कोई नया ऑब्जेक्ट या ऐरे हर रेंडर पर सीधे बना कर पास कर रहे हैं, जैसे:</p>
+<pre><code>const deferredValue = useDeferredValue({ query: text }); // गलत तरीका</code></pre>
+<p>तो यह हर रेंडर पर एक नया मेमोरी एड्रेस बनाएगा, जिससे React को लगेगा कि वैल्यू बदल गई है और वह ऑप्टिमाइज़ेशन को सही से नहीं चला पाएगा। हमेशा प्रिमिटिव वैल्यू (String, Number, Boolean) को ही पास करें या ऑब्जेक्ट्स को <code>useMemo</code> के साथ इस्तेमाल करें।</p>
+
+<h2>Toh dosto, humne aaj seekha...</h2>
+
+<p>आज के इस डिटेल्ड ट्यूटोरियल में हमने देखा कि React 18 का useDeferredValue Hook कैसे हमारी एप्लीकेशन की परफॉरमेंस को बूस्ट कर सकता है। हमने समझा कि कैसे यह भारी-भरकम कैलकुलेशन और लिस्ट रेंडरिंग को बैकग्राउंड में धकेल कर हमारे इनपुट फील्ड्स को सुपर-रिस्पॉन्सिव रखता है। बस याद रखें, इसका इस्तेमाल हर जगह नहीं करना है, बल्कि सिर्फ वहीं करना है जहाँ बहुत ज्यादा डेटा प्रोसेस हो रहा हो और यूजर को लैग महसूस हो रहा हो। इसे अपने प्रोजेक्ट में इम्प्लीमेंट करें और अपनी वेब ऐप्स को मक्खन की तरह स्मूथ बनाएं!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: क्या useTransition से API requests fast हो जाती हैं?</div>
-  <div class="faq-a">नहीं, useTransition API requests को तेज़ नहीं बनाता। इसका मुख्य काम React Rendering performance को optimize करना है, ताकि भारी UI elements को render करते समय browser main thread block न हो और user interface responsive बना रहे।</div>
-  <div class="faq-q">Q2: क्या हम एक Component में multiple useTransition hooks का उपयोग कर सकते हैं?</div>
-  <div class="faq-a">हाँ, आप एक ही component में multiple useTransition hooks का उपयोग कर सकते हैं, लेकिन आम तौर पर इसकी आवश्यकता नहीं होती। एक ही `startTransition` instance का उपयोग विभिन्न State Updates को wrap करने के लिए किया जा सकता है।</div>
-  <div class="faq-q">Q3: React useTransition और Debouncing में क्या अंतर है?</div>
-  <div class="faq-a">Debouncing एक set delay (जैसे 300ms) के बाद कार्य को trigger करता है, जिससे render cycle टल जाता है। useTransition कोई artificial delay नहीं जोड़ता; यह तुरंत background में render करना शुरू कर देता है, लेकिन user inputs को high priority देकर UI responsive रखता है।</div>
-  <div class="faq-q">Q4: क्या useTransition का उपयोग React 17 या उससे पुराने versions में किया जा सकता है?</div>
-  <div class="faq-a">नहीं, useTransition React 18 का built-in concurrent mode feature है। इसका उपयोग करने के लिए आपका React version कम से कम 18 या उससे ऊपर होना चाहिए और root rendering के लिए ReactDOM.createRoot का उपयोग होना आवश्यक है।</div>
-  <div class="faq-q">Q5: क्या isPending state को custom styling के लिए use किया जा सकता है?</div>
-  <div class="faq-a">हाँ, बिल्कुल! isPending true होने पर आप heavy list component की opacity कम कर सकते हैं, inputs को partially disable कर सकते हैं, या spinner/loading animation screen पर render कर सकते हैं, जिससे UX बेहतर होता है।</div>
+  
+  <div class="faq-q">Q1: क्या useDeferredValue हमारे API Requests को कम कर सकता है?</div>
+  <div class="faq-a">नहीं, useDeferredValue मुख्य रूप से ब्राउज़र के अंदर होने वाली रेंडरिंग और CPU-bound परफॉरमेंस को ऑप्टिमाइज़ करने के लिए है। अगर आप टाइपिंग पर होने वाली नेटवर्क API कॉल्स को कम करना चाहते हैं, तो आपको Debouncing का ही इस्तेमाल करना चाहिए।</div>
+  
+  <div class="faq-q">Q2: React.memo का useDeferredValue के साथ उपयोग करना क्यों जरूरी है?</div>
+  <div class="faq-a">जब स्टेट बदलती है, तो पैरेंट कंपोनेंट तुरंत रेंडर होता है। अगर चाइल्ड कंपोनेंट React.memo से रैप नहीं होगा, तो वह भी तुरंत रेंडर हो जाएगा, जिससे useDeferredValue का बैकग्राउंड में रेंडर होने का उद्देश्य ही समाप्त हो जाएगा।</div>
+  
+  <div class="faq-q">Q3: क्या useDeferredValue की वजह से UI पर पुरानी वैल्यू दिखाई देती है?</div>
+  <div class="faq-a">हाँ, बहुत ही कम समय (मिलीसेकंड्स) के लिए जब तक नया रेंडर बैकग्राउंड में पूरा नहीं हो जाता, तब तक यूजर को स्क्रीन पर पुराना डेटा दिखता है। आप "isStale" लॉजिक का उपयोग करके यूजर को एक हल्का स्पिनर या डिम इफ़ेक्ट दिखा सकते हैं।</div>
+  
+  <div class="faq-q">Q4: useTransition और useDeferredValue में से कौन सा बेहतर है?</div>
+  <div class="faq-a">दोनों अपने-अपने स्थान पर बेहतरीन हैं। अगर आपके पास स्टेट चेंज फंक्शन (setSearch) का एक्सेस है तो useTransition बेहतर है। लेकिन अगर आपको पैरेंट से केवल रेडीमेड वैल्यू या प्रोप्स मिल रहे हैं, तो useDeferredValue ही एकमात्र और सबसे बढ़िया विकल्प है।</div>
+  
+  <div class="faq-q">Q5: क्या useDeferredValue को हर इनपुट फील्ड में यूज़ करना चाहिए?</div>
+  <div class="faq-a">बिल्कुल नहीं! सामान्य फॉर्म इनपुट्स या छोटी लिस्ट्स में इसका उपयोग करने से ओवरहेड बढ़ सकता है। इसका उपयोग केवल तभी करें जब रेंडरिंग सचमुच बहुत हैवी हो और स्क्रीन लैग कर रही हो।</div>
 </div>
 
 <script type="application/ld+json">
@@ -330,42 +266,42 @@ const handleFetch = async () => {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या useTransition से API requests fast हो जाती हैं?",
+      "name": "क्या useDeferredValue हमारे API Requests को कम कर सकता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, useTransition API requests को तेज़ नहीं बनाता। इसका मुख्य काम React Rendering performance को optimize करना है, ताकि भारी UI elements को render करते समय browser main thread block न हो और user interface responsive बना रहे।"
+        "text": "नहीं, useDeferredValue मुख्य रूप से ब्राउज़र के अंदर होने वाली रेंडरिंग और CPU-bound परफॉरमेंस को ऑप्टिमाइज़ करने के लिए है। अगर आप टाइपिंग पर होने वाली नेटवर्क API कॉल्स को कम करना चाहते हैं, तो आपको Debouncing का ही इस्तेमाल करना चाहिए।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या हम एक Component में multiple useTransition hooks का उपयोग कर सकते हैं?",
+      "name": "React.memo का useDeferredValue के साथ उपयोग करना क्यों जरूरी है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, आप एक ही component में multiple useTransition hooks का उपयोग कर सकते हैं, लेकिन आम तौर पर इसकी आवश्यकता नहीं होती। एक ही `startTransition` instance का उपयोग विभिन्न State Updates को wrap करने के लिए किया जा सकता है।"
+        "text": "जब स्टेट बदलती है, तो पैरेंट कंपोनेंट तुरंत रेंडर होता है। अगर चाइल्ड कंपोनेंट React.memo से रैप नहीं होगा, तो वह भी तुरंत रेंडर हो जाएगा, जिससे useDeferredValue का बैकग्राउंड में रेंडर होने का उद्देश्य ही समाप्त हो जाएगा।"
       }
     },
     {
       "@type": "Question",
-      "name": "React useTransition और Debouncing में क्या अंतर है?",
+      "name": "क्या useDeferredValue की वजह से UI पर पुरानी वैल्यू दिखाई देती है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Debouncing एक set delay (जैसे 300ms) के बाद कार्य को trigger करता है, जिससे render cycle टल जाता है। useTransition कोई artificial delay नहीं जोड़ता; यह तुरंत background में render करना शुरू कर देता है, लेकिन user inputs को high priority देकर UI responsive रखता है।"
+        "text": "हाँ, बहुत ही कम समय (मिलीसेकंड्स) के लिए जब तक नया रेंडर बैकग्राउंड में पूरा नहीं हो जाता, तब तक यूजर को स्क्रीन पर पुराना डेटा दिखता है। आप 'isStale' लॉजिक का उपयोग करके यूजर को एक हल्का स्पिनर या डिम इफ़ेक्ट दिखा सकते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useTransition का उपयोग React 17 या उससे पुराने versions में किया जा सकता है?",
+      "name": "useTransition और useDeferredValue में से कौन सा बेहतर है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, useTransition React 18 का built-in concurrent mode feature है। इसका उपयोग करने के लिए आपका React version कम से कम 18 या उससे ऊपर होना चाहिए और root rendering के लिए ReactDOM.createRoot का उपयोग होना आवश्यक है।"
+        "text": "दोनों अपने-अपने स्थान पर बेहतरीन हैं। अगर आपके पास स्टेट चेंज फंक्शन (setSearch) का एक्सेस है तो useTransition बेहतर है। लेकिन अगर आपको पैरेंट से केवल रेडीमेड वैल्यू या प्रोप्स मिल रहे हैं, तो useDeferredValue ही एकमात्र और सबसे बढ़िया विकल्प है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या isPending state को custom styling के लिए use किया जा सकता है?",
+      "name": "क्या useDeferredValue को हर इनपुट फील्ड में यूज़ करना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! isPending true होने पर आप heavy list component की opacity कम कर सकते हैं, inputs को partially disable कर सकते हैं, या spinner/loading animation screen पर render कर सकते हैं, जिससे UX बेहतर होता है।"
+        "text": "बिल्कुल नहीं! सामान्य फॉर्म इनपुट्स या छोटी लिस्ट्स में इसका उपयोग करने से ओवरहेड बढ़ सकता है। इसका उपयोग केवल तभी करें जब रेंडरिंग सचमुच बहुत हैवी हो और स्क्रीन लैग कर रही हो।"
       }
     }
   ]
