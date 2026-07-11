@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React useLayoutEffect Kya Hai (useEffect Se Kaise (Hindi)</title>
+    <title>Preview: React useTransition Hook Complete Guide (React 18 (Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,318 +16,311 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में useLayoutEffect क्या है और यह useEffect से कैसे अलग है? आसान हिंदी में जानें इन दोनों Hooks का मुख्य अंतर, वर्किंग और Use Cases.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React 18 का useTransition hook क्या है? इस complete guide में सीखें कैसे अपनी React app की performance को बेहतर बनाएं। आसान Hindi में अभी पढ़ें!</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React useLayoutEffect Kya Hai (useEffect Se Kaise (Hindi)</h1>
+    <h1>React useTransition Hook Complete Guide (React 18 (Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/S7BRRC5b/4e6332360c45.png" alt="React useLayoutEffect Kya Hai (useEffect Se Kaise Alag in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React useLayoutEffect kya hai aur yeh useEffect se kaise alag hai? Is Hindi guide me layouts, visual flickering, rendering aur hooks ko step-by-step seekhein.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/LzBfSHDP/5ef3ba87a57b.png" alt="React useTransition Hook Complete Guide (React 18 in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React useTransition Hook क्या है? React 18 के इस powerful feature से slow UI renders को smoothly handle करना सीखें इस complete Hindi guide में!
 
-<p>दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> में कोई dynamic UI component बनाया—जैसे कि कोई Custom Tooltip, dropdown, या modal—और जब वो स्क्रीन पर लोड होता है, तो एक मामूली से सेकंड के लिए वह अपनी सही जगह से खिसक कर कहीं और दिखता है, और फिर तुरंत सही जगह पर आ जाता है? इसे हम React की दुनिया में <strong>Visual Flickering</strong> या <strong>Layout Shift</strong> कहते हैं।</p>
+<p>मान लीजिए आप अपनी <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> एप्लीकेशन में एक बड़ा heavy data filter या search bar बना रहे हैं। जैसे ही user input box में कुछ टाइप करता है, पूरा UI एक सेकंड के लिए freeze हो जाता है। User बार-बार बटन दबाता है, लेकिन स्क्रीन हिलती तक नहीं! ऐसा इसलिए होता है क्योंकि React डिफ़ॉल्ट रूप से हर State Update को समान प्राथमिकता (priority) देता है। लेकिन क्या हो अगर हम React को बता सकें कि कौन सा काम ज़्यादा ज़रूरी है और किसे बाद में भी किया जा सकता है? यहीं पर एंट्री होती है React 18 के सबसे जादुई feature यानी <strong>React useTransition Hook</strong> की!</p>
 
-<p>जब आप इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> या UI bug को सुलझाने के लिए Google करते हैं, तो अक्सर आपको एक सलाह मिलती है: <em>"useEffect की जगह React useLayoutEffect का इस्तेमाल करो!"</em> लेकिन रुकिए, ऐसा क्यों? क्या ये दोनों hooks दिखने में और काम करने में एक जैसे नहीं हैं? आखिर इन दोनों के पीछे का JavaScript runtime और browser pipeline का क्या खेल है?</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useTransition Hook एक React 18 Concurrent hook है जो बिना UI को block किए कुछ State Updates को 'Transitions' (कम प्राथमिकता वाले कार्यों) के रूप में mark करने की अनुमति देता है। यह high-priority updates (जैसे typing) को low-priority updates (जैसे search result rendering) के कारण lag होने से बचाता है।</div>
 
-<p>आज आपका यह सीनियर डेवलपर दोस्त आपको बहुत ही आसान, मज़ेदार और गहरी technical हिंदी में समझाएगा कि <strong>React useLayoutEffect क्या है</strong>, यह <code>useEffect</code> से कैसे अलग है, और कब आपको कौन सा hook इस्तेमाल करना चाहिए। तो चलिए, अपनी कॉफ़ी की चुस्की लीजिए और मेरे साथ इस deep-dive pair-programming session में शामिल हो जाइए!</p>
+<h2>React useTransition Hook क्या है और इसकी ज़रूरत क्यों पड़ी?</h2>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React useLayoutEffect एक synchronous hook है जो DOM elements के अपडेट होने के तुरंत बाद और ब्राउज़र द्वारा स्क्रीन पेंट (paint) करने से ठीक पहले चलता है। यह UI flickering को रोकने के लिए layouts को measure और update करने के काम आता है, जबकि useEffect asynchronous होता है जो paint के बाद चलता है।</div>
+<p>React 17 और उससे पुराने वर्शन्स में, React के काम करने का तरीका बिल्कुल synchronous था। इसका मतलब यह है कि अगर कोई State Update ट्रिगर हुआ है, तो React उसे पूरा प्रोसेस करने के बाद ही स्क्रीन पर नया बदलाव दिखाएगा। इस बीच, user browser के साथ कोई इंटरैक्शन (जैसे click या scroll) नहीं कर पाता था। इसे हम <strong>Blocking Rendering</strong> कहते हैं।</p>
 
----
+<p>React 18 में <a href="https://react.dev" rel="noopener" target="_blank">React Official Documentation</a> के अनुसार <strong>Concurrent Rendering</strong> का concept लाया गया। इसका मतलब है कि React अब एक समय पर कई काम कर सकता है, और ज़रूरत पड़ने पर किसी भारी रेंडरिंग टास्क को बीच में रोक (pause) कर user के clicks या inputs को पहले हैंडल कर सकता है।</p>
 
-<h2>React rendering और browser painting क्या होती है? (The core concept)</h2>
+<p>जब हम <code>useTransition</code> का इस्तेमाल करते हैं, तो हम React को साफ़ शब्दों में बताते हैं: <em>"भाई देखो, यह जो State Update है, यह बहुत भारी है। इसे बैकग्राउंड में आराम से करो। अगर इस बीच user कुछ और टाइप करता है, तो पहले उसका काम करो, इसे बाद में निपटा लेना।"</em></p>
 
-<p>दोस्तों, <code>useLayoutEffect</code> को गहराई से समझने के लिए हमें सबसे पहले यह समझना होगा कि जब भी React में कोई State बदलती है, तो React Component के रेंडर होने से लेकर हमारी स्क्रीन पर पिक्सल (pixels) दिखने तक का सफ़र कैसा होता है। अगर आप इस Lifecycle को समझ गए, तो समझो आपको पूरा खेल समझ आ गया!</p>
+<h2>Urgent Updates vs Non-Urgent (Transition) Updates में क्या अंतर है?</h2>
 
-<p>जब भी कोई component रेंडर होता है, तो मुख्य रूप से 3 बड़े steps होते हैं:</p>
+<p>React में हमारे पास दो मुख्य प्रकार के updates होते हैं:</p>
 
 <ul>
-  <li><strong>Render:</strong> React आपके components को कॉल करता है, Virtual DOM तैयार करता है, और यह तय करता है कि UI में क्या बदलाव करने हैं।</li>
-  <li><strong>Commit:</strong> React इन बदलावों को असली DOM (Real DOM) में डाल देता है (DOM mutation)। इस स्टेज पर, elements DOM में तो आ जाते हैं, लेकिन ब्राउज़र ने उन्हें अभी स्क्रीन पर ड्रा (paint) नहीं किया होता है।</li>
-  <li><strong>Paint:</strong> ब्राउज़र नए DOM structures का layout calculate करता है और स्क्रीन पर पिक्सल को paint करता है। अब यूजर को स्क्रीन पर बदलाव दिखने लगते हैं।</li>
+  <li><strong>Urgent Updates:</strong> ये वे बदलाव हैं जो user को तुरंत स्क्रीन पर दिखने चाहिए। जैसे - input field में character टाइप होना, dropdown का खुलना, या किसी toggle button पर click होना। अगर इनमें 100ms का भी delay हो, तो user को UI बहुत slow और laggy लगता है।</li>
+  <li><strong>Transition Updates (Non-Urgent):</strong> ये वे काम हैं जो background में हो सकते हैं और अगर इनमें थोड़ा समय भी लगे (जैसे आधा सेकंड), तो user को कोई बुरा नहीं लगेगा। जैसे - search results का filter होना, एक tab से दूसरे heavy tab पर switch होना, या charts/graphs का render होना।</li>
 </ul>
 
-<p>अब यहीं पर सारा अंतर आता है कि हमारे ये दोनों Hooks कब execution queue में आते हैं!</p>
-
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Render & Paint Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React 18 State Update Flow Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">React Render & DOM Commit</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">useLayoutEffect (Synchronous)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Browser Paint (Screen Updated)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useEffect (Asynchronous)</div>
+    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">User Typing (Urgent)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Browser Thread Free</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">List Filtering (Transition)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Execution difference between useLayoutEffect and useEffect in React Lifecycle.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: How useTransition prioritizes immediate input over heavy background rendering.</div>
 </div>
 
----
+<h2>useTransition Hook का Syntax कैसे काम करता है?</h2>
 
-<h2>React useLayoutEffect क्या है? (What is useLayoutEffect?)</h2>
+<p>चलिए देखते हैं कि <code>useTransition</code> को अपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> में कैसे import और initialize करते हैं:</p>
 
-<p><strong>React useLayoutEffect</strong> एक ऐसा hook है जिसका signature बिल्कुल <code>useEffect</code> जैसा ही होता है, लेकिन इसका व्यवहार synchronous (सिंक्रोनस) होता है। </p>
+<pre><code>import { useTransition, useState } from 'react';
 
-<p>जब React DOM को बदल देता है (यानी commit phase के बाद), तो ब्राउज़र को स्क्रीन री-पेंट करने का मौका मिलने से ठीक पहले <code>useLayoutEffect</code> चलता है। इसका मतलब है कि इसके अंदर लिखा गया कोई भी कोड तब तक ब्राउज़र को स्क्रीन पर नया visual दिखाने से रोके रखेगा (blocking execution), जब तक कि यह पूरी तरह से execute नहीं हो जाता।</p>
+const [isPending, startTransition] = useTransition();
+</code></pre>
 
-<p>यदि आप इस hook के अंदर state बदलते हैं, तो React तुरंत re-render ट्रिगर करेगा और नया UI बना देगा, और यूजर को स्क्रीन पर पुराना state कभी भी नहीं दिखेगा। यानी कि बीच का कोई visual flicker यूजर की आँखों के सामने नहीं आएगा।</p>
+<p>यहाँ <code>useTransition</code> हमें एक array return करता है जिसमें दो चीज़ें होती हैं:</p>
 
-<h3>useLayoutEffect का Syntax</h3>
-<p>इसका सिंटैक्स बिल्कुल वही है जो आप हर रोज़ <code>useEffect</code> के साथ इस्तेमाल करते हैं:</p>
+<ol>
+  <li><strong>isPending (boolean):</strong> यह एक flag है जो बताता है कि आपका transition update अभी भी background में चल रहा है या पूरा हो चुका है। इसका use करके हम UI में कोई loader, spinner या blurred effect दिखा सकते हैं।</li>
+  <li><strong>startTransition (function):</strong> यह एक wrapper function है। इसके अंदर हम उस State Update function को डालते हैं जिसे हम low-priority बनाना चाहते हैं।</li>
+</ol>
 
-<pre><code>import { useLayoutEffect, useState, useRef } from 'react';
+<h2>बिना useTransition के समस्या: Slow Search Filter Scenario</h2>
 
-function MyComponent() {
-  const [width, setWidth] = useState(0);
-  const elementRef = useRef(null);
+<p>दोस्तों, पहले हम बिना useTransition के एक practical code देखते हैं, ताकि आपको असली समस्या समझ आए। मान लीजिए हमारे पास एक ऐसी list है जिसमें 15,000 items हैं, और हम उसे user input के आधार पर filter कर रहे हैं।</p>
 
-  useLayoutEffect(() => {
-    if (elementRef.current) {
-      // DOM से सीधा width measure करना
-      setWidth(elementRef.current.getBoundingClientRect().width);
-    }
-  }, []); // Dependency array
+<pre><code>import React, { useState } from 'react';
+
+// 15,000 items की heavy list generate करना
+const largeList = Array.from({ length: 15000 }, (_, index) => `Item #${index + 1}`);
+
+function HeavySearchWithoutTransition() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredList, setFilteredList] = useState(largeList);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    
+    // Urgent Update: Input box में text तुरंत दिखना चाहिए
+    setSearchTerm(value);
+
+    // Heavy Update: 15,000 rows को filter करना (यह UI को freeze कर देता है)
+    const filtered = largeList.filter(item => item.includes(value));
+    setFilteredList(filtered);
+  };
 
   return (
-    &lt;div ref={elementRef}&gt;
-      My width is {width}px
-    &lt;/div>
+    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+      <h2>Slow List Filtering (Without useTransition)</h2>
+      <input 
+        type="text" 
+        value={searchTerm} 
+        onChange={handleChange} 
+        placeholder="Type to search..."
+        style={{ padding: '8px', width: '300px', fontSize: '16px' }}
+      />
+      <p>Results count: {filteredList.length}</p>
+      <div style={{ maxHeight: '300px', overflowY: 'auto', border: '1px solid #ccc', marginTop: '10px' }}>
+        {filteredList.map((item, index) => (
+          <div key={index} style={{ padding: '5px', borderBottom: '1px solid #eee' }}>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
   );
-}</code></pre>
+}
 
----
+export default HeavySearchWithoutTransition;
+</code></pre>
 
-<h2>React useLayoutEffect vs useEffect में अंतर (Comparison Table)</h2>
+<p><strong>इस कोड में समस्या क्या है?</strong> जैसे ही आप input field में तेजी से टाइप करेंगे, आपको महसूस होगा कि keyboard से type किए गए letters स्क्रीन पर अटक-अटक कर आ रहे हैं। ऐसा इसलिए हो रहा है क्योंकि <code>setSearchTerm(value)</code> और <code>setFilteredList(filtered)</code> दोनों एक साथ synchronous तरीके से चलते हैं, जिससे main thread block हो जाता है।</p>
 
-<p>ध्यान देने वाली बात ये है कि 90% से ज़्यादा मामलों में आपको सिर्फ <code>useEffect</code> का ही इस्तेमाल करना चाहिए। लेकिन उस बचे हुए 10% के लिए, आपको इन दोनों के बीच का अंतर कंठस्थ होना चाहिए। चलिए एक clean comparison table देखते हैं:</p>
+<h2>समाधान: useTransition के साथ Production-Ready Code</h2>
+
+<p>चलिए अब इसी component को <code>useTransition</code> का इस्तेमाल करके super fast और user-friendly बनाते हैं। ध्यान दें कि हमने कैसे <code>isPending</code> का इस्तेमाल करके UI को responsive रखा है:</p>
+
+<pre><code>import React, { useState, useTransition } from 'react';
+
+// 15,000 items की heavy list generate करना
+const largeList = Array.from({ length: 15000 }, (_, index) => `Item #${index + 1}`);
+
+function FastSearchWithTransition() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredList, setFilteredList] = useState(largeList);
+  
+  // useTransition hook initialize करना
+  const [isPending, startTransition] = useTransition();
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    
+    // 1. Urgent Update (Immediate UI response)
+    setSearchTerm(value);
+
+    // 2. Non-Urgent Update wrapped inside startTransition
+    startTransition(() => {
+      const filtered = largeList.filter(item => item.includes(value));
+      setFilteredList(filtered);
+    });
+  };
+
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial', maxWidth: '600px', margin: '0 auto' }}>
+      <h2>Responsive List Filtering (With useTransition)</h2>
+      
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <input 
+          type="text" 
+          value={searchTerm} 
+          onChange={handleChange} 
+          placeholder="Type to search smoothly..."
+          style={{ padding: '10px', width: '100%', fontSize: '16px', borderRadius: '6px', border: '1px solid #ccc' }}
+        />
+        
+        {/* isPending का उपयोग करके Loading text दिखाना */}
+        {isPending && <span style={{ color: '#06b6d4', fontWeight: 'bold' }}>Updating...</span>}
+      </div>
+
+      <p style={{ marginTop: '15px' }}>Results count: {filteredList.length}</p>
+      
+      {/* List opacity changes based on isPending for better UX */}
+      <div style={{ 
+        maxHeight: '300px', 
+        overflowY: 'auto', 
+        border: '1px solid #ddd', 
+        borderRadius: '8px',
+        marginTop: '10px',
+        opacity: isPending ? 0.6 : 1,
+        transition: 'opacity 0.2s ease'
+      }}>
+        {filteredList.map((item, index) => (
+          <div key={index} style={{ padding: '8px 12px', borderBottom: '1px solid #f0f0f0' }}>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default FastSearchWithTransition;
+</code></pre>
+
+<p><strong>क्या बदलाव आया?</strong> अब जब आप input box में टाइप करेंगे, तो text तुरंत टाइप होगा बिना किसी lag के! React background में filter processing करेगा और जब processing पूरी हो जाएगी, तो list को update कर देगा। इस दौरान user screen पर smooth loading indicator (Updating...) देख सकता है।</p>
+
+<h2>useTransition vs Normal Updates: Direct Comparison Table</h2>
+
+<p>आइए इन दोनों के अंतर को एक clear table के ज़रिए समझते हैं ताकि इंटरव्यू में भी आप आसानी से जवाब दे सकें:</p>
 
 <table>
   <thead>
     <tr>
       <th>Feature</th>
-      <th>useEffect Hook</th>
-      <th>useLayoutEffect Hook</th>
+      <th>Normal State Update (Default)</th>
+      <th>Transition Update (useTransition)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>Execution Timing</strong></td>
-      <td>Asynchronous (ब्राउज़र के paint करने के बाद)</td>
-      <td>Synchronous (DOM updates के बाद, paint से पहले)</td>
+      <td><strong>Priority Level</strong></td>
+      <td>High (Urgent) - Immediate rendering</td>
+      <td>Low (Non-Urgent) - Background rendering</td>
     </tr>
     <tr>
-      <td><strong>Blocking behavior</strong></td>
-      <td>Non-blocking (यह UI rendering को नहीं रोकता)</td>
-      <td>Blocking (जब तक यह खत्म नहीं होता, ब्राउज़र स्क्रीन paint नहीं करता)</td>
+      <td><strong>UI Blocking</strong></td>
+      <td>हाँ, heavy components में UI freeze हो जाता है</td>
+      <td>नहीं, browser main thread हमेशा responsive रहता है</td>
     </tr>
     <tr>
-      <td><strong>Best Use Case</strong></td>
-      <td>Data fetching, API calls, Event listeners setup</td>
-      <td>DOM layout measurements, positions calculate करना, flickering रोकना</td>
+      <td><strong>State Interruption</strong></td>
+      <td>नहीं हो सकता, render cycle पूरा करना ही पड़ता है</td>
+      <td>हाँ, नया input आते ही पुराना render बीच में रद्द हो जाता है</td>
     </tr>
     <tr>
-      <td><strong>Performance Impact</strong></td>
-      <td>बहुत अच्छा (performance-friendly)</td>
-      <td>ज़्यादा इस्तेमाल से UI slow या laggy हो सकता है</td>
+      <td><strong>Loading State</strong></td>
+      <td>मैन्युअली loader state manage करनी पड़ती है</td>
+      <td><code>isPending</code> flag स्वतः built-in मिलता है</td>
     </tr>
     <tr>
-      <td><strong>Server-Side Rendering (SSR)</strong></td>
-      <td>SSR और hydration के साथ आसानी से काम करता है</td>
-      <td>SSR पर warning देता है (Next.js/Gatsby में issues आते हैं)</td>
+      <td><strong>Use Case</strong></td>
+      <td>Inputs, toggles, dialog modals open/close</td>
+      <td>Large lists rendering, graphs, tab switching</td>
     </tr>
   </tbody>
 </table>
 
----
+<h2>useTransition vs useDeferredValue में क्या अंतर है?</h2>
 
-<h2>Visual Flickering की समस्या क्या है? (The Problem Explained)</h2>
+<p>कई डेवलपर्स इन दोनों hooks के बीच भ्रमित (confuse) हो जाते हैं क्योंकि दोनों का काम performance को optimize करना ही है। लेकिन दोनों में एक बड़ा बुनियादी अंतर है:</p>
 
-<p>मान लीजिए कि हम एक tooltip बना रहे हैं जो एक बटन के ऊपर दिखाई देनी चाहिए। जब यूजर बटन पर होवर (hover) करता है, तो हम tooltip को DOM में डालते हैं। </p>
-<p>लेकिन tooltip का size क्या है, यह तो हमें तब पता चलेगा जब वो DOM में render होगी! अब अगर हम tooltip की position (left, top coordinates) को <code>useEffect</code> की मदद से calculate करके state में अपडेट करते हैं, तो क्या होगा?</p>
+<ul>
+  <li><strong>useTransition:</strong> इसका इस्तेमाल तब किया जाता है जब आपके पास <em>State Update Code</em> का access हो (जैसे आप <code>startTransition(() =&gt; setState(...))</code> लिख सकते हैं)।</li>
+  <li><strong>useDeferredValue:</strong> इसका इस्तेमाल तब किया जाता है जब आपको <strong>Props</strong> या किसी external library से कोई value मिल रही हो जिसे आप direct control नहीं कर सकते (जैसे <code>const deferredValue = useDeferredValue(externalQuery)</code>)।</li>
+</ul>
 
-<ol>
-  <li>React tooltip को रेंडर करता है डिफ़ॉल्ट position (जैसे 0, 0) पर।</li>
-  <li>ब्राउज़र इसे स्क्रीन पर 0, 0 पोजीशन पर paint कर देता है। (यूजर को एक झटके के लिए tooltip 0, 0 पर दिखती है)।</li>
-  <li>पेंट के तुरंत बाद, <code>useEffect</code> फायर होता है। वह tooltip का real width/height मापता है और उसकी सही पोजीशन (जैसे left: 150px, top: 80px) सेट करता है।</li>
-  <li>State चेंज होती है, React re-render करता है और अब ब्राउज़र सही पोजीशन पर paint करता है।</li>
-</ol>
+<h2>useTransition का इस्तेमाल करते समय किन Common Errors से बचें?</h2>
 
-<p>इसके परिणामस्वरूप यूजर को एक बहुत ही भद्दा <strong>flicker (झटका)</strong> महसूस होता है, जो आपकी application की UX क्वालिटी को खराब करता है।</p>
+<p>दोस्तों, इस hook का उपयोग करते समय कुछ ऐसी गलतियाँ हैं जो लगभग हर developer करता है। चलिए उन्हें समझते हैं ताकि आप आसानी से किसी भी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> को solve कर सकें:</p>
 
----
+<h3>1. Do NOT wrap synchronous operations that aren't state updates</h3>
+<p><code>startTransition</code> के अंदर केवल वही code होना चाहिए जो React State को change करता है। आप इसके अंदर direct heavy calculations (बिना state update के) नहीं डाल सकते।</p>
 
-<h2>useLayoutEffect इसे कैसे हल करता है? (The Solution in Action)</h2>
+<pre><code>// ❌ गलत तरीका (This will not optimize anything)
+startTransition(() => {
+  const heavyValue = performHeavyMath(); // State set नहीं हो रहा है
+});
 
-<p>अगर हम इसी काम के लिए <code>useLayoutEffect</code> का उपयोग करते हैं, तो कहानी पूरी बदल जाती है:</p>
+//   सही तरीका
+const [value, setValue] = useState();
+startTransition(() => {
+  const result = performHeavyMath();
+  setValue(result); // State Update wrapper के अंदर है
+});
+</code></pre>
 
-<ol>
-  <li>React tooltip को DOM में डालता है।</li>
-  <li>ब्राउज़र अभी स्क्रीन पेंट करने ही वाला था कि <code>useLayoutEffect</code> बीच में आ जाता है और कहता है "रुको! पहले मुझे काम करने दो।"</li>
-  <li>हम synchronous तरीके से tooltip का size मापते हैं और उसी समय उसकी position state को अपडेट कर देते हैं।</li>
-  <li>React तुरंत re-render करता है और नई position को DOM में अपडेट कर देता है।</li>
-  <li>अब ब्राउज़र पहली बार में ही tooltip को बिल्कुल सही जगह (left: 150px, top: 80px) पर paint करता है।</li>
-</ol>
+<h3>2. Can't use with Controlled Inputs directly</h3>
+<p>कभी भी input field के <code>value</code> attribute से जुड़े state को <code>startTransition</code> में न डालें। ऐसा करने से input fill करते समय keystrokes block या lag होने लगेंगे।</p>
 
-<p>यूजर को कोई झटका या flickering दिखाई नहीं देती! सब कुछ एकदम smooth मक्खन की तरह होता है।</p>
+<pre><code>// ❌ बहुत बड़ी गलती!
+const handleChange = (e) => {
+  startTransition(() => {
+    setInputValue(e.target.value); // Input laggy हो जाएगा!
+  });
+};
+</code></pre>
 
----
+<h3>3. Async functions within startTransition</h3>
+<p>अगर आपको <code>startTransition</code> के अंदर कोई API call या asynchronous कार्य करना है, तो ध्यान रहे कि React 18 में async updates को wrapped state handles की तरह handle करने के नियम अलग हैं। यदि आप <code>setTimeout</code> या <code>fetch</code> का use कर रहे हैं, तो state update को synchronous wrapper में ही रखें:</p>
 
-<h2>Production-Ready Code Example: Tooltip Positioning Component</h2>
+<pre><code>// ❌ गलत तरीका (React immediately assumes transition is finished)
+startTransition(async () => {
+  await fetchResults();
+  setResults(data);
+});
 
-<p>चलिए, एक असली production-ready code लिखते हैं। इस उदाहरण में, हम एक dynamic Tooltip component बनाएंगे जो किसी बटन के ठीक नीचे उसकी dynamic height और width के आधार पर खुद को position करेगी।</p>
+//   सही तरीका
+const handleFetch = async () => {
+  const data = await fetchResults();
+  startTransition(() => {
+    setResults(data);
+  });
+};
+</code></pre>
 
-<p>ध्यान से देखिए कि हम कैसे <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> का उपयोग करके इस interactive component को तैयार करते हैं।</p>
+<h2>Performance Optimization Best Practices</h2>
 
-<pre><code>import React, { useState, useRef, useLayoutEffect } from 'react';
+<p>यदि आप अपनी React apps को scalable और fast बनाना चाहते हैं, तो इन बातों का विशेष ध्यान रखें:</p>
 
-// Main Tooltip Wrapper Component
-export default function TooltipExample() {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const buttonRef = useRef(null);
-  const tooltipRef = useRef(null);
-  const [coords, setCoords] = useState({ top: 0, left: 0 });
+<ul>
+  <li><strong>Don't Overuse:</strong> हर state update को transition में डालने की गलती न करें। केवल वहीं use करें जहाँ heavy rendering के कारण UI freeze की समस्या आ रही हो।</li>
+  <li><strong>Combine with useMemo:</strong> यदि आपकी child elements बहुत heavy हैं, तो component tree को render होने से बचाने के लिए <code>useMemo</code> या <code>React.memo</code> का useTransition के साथ combo बनायें।</li>
+  <li><strong>Provide Visual Feedback:</strong> जब <code>isPending</code> true हो, तो screen पर loading spinner या opacity reduce करना न भूलें ताकि user को पता चले कि application crash नहीं हुई है, बल्कि processing चल रही है।</li>
+</ul>
 
-  useLayoutEffect(() => {
-    // अगर tooltip विज़िबल नहीं है, तो कुछ करने की ज़रुरत नहीं है
-    if (!showTooltip || !buttonRef.current || !tooltipRef.current) {
-      return;
-    }
-
-    // बटन और टूलटिप दोनों की exact position और dimensions निकालना
-    const buttonRect = buttonRef.current.getBoundingClientRect();
-    const tooltipRect = tooltipRef.current.getBoundingClientRect();
-
-    // टूलटिप को बटन के ठीक नीचे और सेंटर में प्लेस करने का लॉजिक
-    const calculatedTop = buttonRect.bottom + window.scrollY + 10; // 10px का गैप
-    const calculatedLeft = buttonRect.left + window.scrollX + (buttonRect.width / 2) - (tooltipRect.width / 2);
-
-    // Coordinate state को सिंक्रोनसली सेट करना
-    setCoords({
-      top: calculatedTop,
-      left: calculatedLeft,
-    });
-  }, [showTooltip]); // जब भी showTooltip की state बदलेगी, यह रन होगा
-
-  return (
-    &lt;div style={{ padding: '80px', textAlign: 'center', fontFamily: 'sans-serif' }}&gt;
-      &lt;h2&gt;React useLayoutEffect Real-world Tooltip Example&lt;/h2&gt;
-      &lt;p&gt;Hover on the button below to see dynamic smooth positioning!&lt;/p&gt;
-
-      &lt;button
-        ref={buttonRef}
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
-        style={{
-          padding: '12px 24px',
-          fontSize: '16px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          backgroundColor: '#06b6d4',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '8px',
-          transition: 'background 0.3s',
-        }}
-      &gt;
-        Hover Me!
-      &lt;/button&gt;
-
-      {showTooltip && (
-        &lt;div
-          ref={tooltipRef}
-          style={{
-            position: 'absolute',
-            top: `${coords.top}px`,
-            left: `${coords.left}px`,
-            backgroundColor: '#1e293b',
-            color: '#fff',
-            padding: '8px 12px',
-            borderRadius: '6px',
-            fontSize: '14px',
-            whiteSpace: 'nowrap',
-            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-            zIndex: 9999,
-          }}
-        &gt;
-          🚀 Awesome Dynamic Tooltip!
-        &lt;/div&gt;
-      )}
-    &lt;/div&gt;
-  );
-}</code></pre>
-
-<p>इस code को अपने local project में रन करके देखिए। अगर आप <code>useLayoutEffect</code> की जगह <code>useEffect</code> लिखेंगे और अपनी screen refresh rate को धीमा करेंगे (या low-end mobile check करेंगे), तो आपको साफ-साफ दिखेगा कि <code>useEffect</code> के केस में tooltip पहले कहीं और बनती है और फिर खिसक कर बटन के नीचे आती है, जबकि <code>useLayoutEffect</code> में यह समस्या हमेशा के लिए हल हो जाती है!</p>
-
----
-
-<h2>Server-Side Rendering (SSR) और useLayoutEffect की समस्या (Next.js React Error)</h2>
-
-<p>यदि आप <a href="https://itinfohubs.blogspot.com/search/label/NextJS">Next.js</a> या किसी भी Server-Side Rendering (SSR) framework का उपयोग कर रहे हैं, तो आपको console में एक बहुत ही डरावनी warning देखने को मिल सकती है:</p>
-
-<blockquote>
-  "Warning: useLayoutEffect does nothing on the server, because its effect cannot be encoded into the HTML... Use useEffect instead."
-</blockquote>
-
-<h3>ऐसा क्यों होता है?</h3>
-<p>क्योंकि Server (NodeJS <a href="https://itinfohubs.blogspot.com/search/label/NodeJS">Runtime</a>) के पास कोई browser window या real DOM tree नहीं होता है। Server सिर्फ HTML generate करता है। चूंकि <code>useLayoutEffect</code> को DOM layout मापने की आवश्यकता होती है और Server पर कोई DOM ही नहीं है, इसलिए React परेशान हो जाता है।</p>
-
-<h3>इस Error को Solve कैसे करें?</h3>
-<p>इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> को सुलझाने का सबसे आसान और professional तरीका है कि आप एक custom safety checking wrap तैयार करें, जिसे हम <strong>Isomorphic Layout Effect</strong> कहते हैं।</p>
-
-<pre><code>import { useEffect, useLayoutEffect } from 'react';
-
-// यह चेक करता है कि हम browser environment में हैं या server environment में
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' 
-  ? useLayoutEffect 
-  : useEffect;
-
-export default useIsomorphicLayoutEffect;</code></pre>
-
-<p>अब आप अपने components में सीधे <code>useLayoutEffect</code> इंपोर्ट करने के बजाय इस custom <code>useIsomorphicLayoutEffect</code> का इस्तेमाल करें। यह server पर बिना किसी warning के <code>useEffect</code> की तरह काम करेगा, और client-side पर synchronous <code>useLayoutEffect</code> की तरह!</p>
-
----
-
-<h2>Best Practices & Performance Guidelines</h2>
-
-<p>मेरे 50 सालों के प्रोग्रामिंग तजुर्बे का निचोड़ (philosophy) ये है कि: <strong>"जिस औजार की जहाँ ज़रूरत हो, वहीं इस्तेमाल करो। बिना वजह हर पेंच को हथौड़े से मत ठोंको!"</strong></p>
-
-<p>यहाँ कुछ बहुत महत्वपूर्ण नियम हैं जिन्हें आपको हमेशा याद रखना है:</p>
-
-<ol>
-  <li><strong>Default to useEffect:</strong> हमेशा अपनी शुरुआत <code>useEffect</code> से ही करें। API integration, analytics logs, set timeouts, and state management जैसी चीज़ें हमेशा <code>useEffect</code> में ही होनी चाहिए।</li>
-  <li><strong>Do NOT block the paint:</strong> क्योंकि <code>useLayoutEffect</code> synchronous है, अगर आपने इसके अंदर कोई भारी loop चला दिया या कोई heavy CPU calculation कर दी, तो आपकी पूरी application freeze हो जाएगी और यूजर को स्क्रीन पर कुछ भी हलचल नहीं दिखेगी।</li>
-  <li><strong>Keep hooks small:</strong> हमेशा hooks के dependencies array को सही से manage करें ताकि बेवजह re-computations न हों।</li>
-  <li><strong>Use refs carefully:</strong> Layout calculation के लिए हमेशा Element Refs (<code>useRef</code>) का उपयोग करें, सीधे document elements को query selector से ढूँढना (जैसे <code>document.getElementById</code>) React के standards के खिलाफ है।</li>
-</ol>
-
-<p>अगर आप React Hooks के बारे में और अधिक गहराई से जानना चाहते हैं, तो <a href="https://react.dev" target="_blank" rel="noopener">Official React Documentation</a> पर जाकर इसके specs को ज़रूर पढ़ें।</p>
-
----
-
-<p>तो दोस्तों, हमने आज क्या-क्या सीखा? हमने समझा कि React useLayoutEffect एक बहुत ही ताकतवर synchronous hook है, जो विशेष रूप से UI elements की measurements लेने और visual layout shift/flickering को रोकने के लिए डिज़ाइन किया गया है। लेकिन performance को ध्यान में रखते हुए, इसे सोच-समझकर केवल ज़रूरी जगहों पर ही इस्तेमाल करना चाहिए।</p>
-
-<p>अगर आपको यह deep-dive, pair-programming style ब्लॉग ट्यूटोरियल पसंद आया हो, तो इसे अपने डेवलपर दोस्तों के साथ शेयर करना बिल्कुल मत भूलना! कोडिंग करते रहिए, नया सीखते रहिए, और खुश रहिए!</p>
-
----
+<p>तो दोस्तों, आज हमने सीखा कि React 18 का useTransition hook कैसे हमारे user experience को 10x बेहतर बना सकता है। हमने synchronous rendering की समस्या को समझा, background updates का architectural flow देखा, और एक production-ready search list component को code किया। अब इसे अपने live projects में इस्तेमाल करें और अपनी web apps को smoother बनाएँ!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  
-  <div class="faq-q">Q1: React useLayoutEffect क्या है और यह क्यों महत्वपूर्ण है?</div>
-  <div class="faq-a">React useLayoutEffect एक synchronous React hook है जो DOM में बदलाव होने के तुरंत बाद और ब्राउज़र द्वारा स्क्रीन पर पिक्सल पेंट करने से पहले चलता है। यह UI के खिसकने या झटके खाने (visual flickering) को रोकने के लिए महत्वपूर्ण है।</div>
-  
-  <div class="faq-q">Q2: मुझे useLayoutEffect का उपयोग कब करना चाहिए?</div>
-  <div class="faq-a">जब भी आपको DOM elements का आकार (size), चौड़ाई-ऊंचाई (dimensions) या पोजीशन (position) मापनी हो और उसके आधार पर तुरंत UI में styles या states बदलनी हों, तब useLayoutEffect का उपयोग करें।</div>
-  
-  <div class="faq-q">Q3: क्या useLayoutEffect का उपयोग API Calls के लिए किया जा सकता है?</div>
-  <div class="faq-a">नहीं, API calls या data fetching जैसे asynchronous कार्यों के लिए useLayoutEffect का उपयोग बिल्कुल नहीं करना चाहिए। यह synchronous होने के कारण रेंडरिंग को ब्लॉक करता है, जिससे performance खराब हो सकती है। इसके लिए हमेशा useEffect का उपयोग करें।</div>
-  
-  <div class="faq-q">Q4: Next.js (SSR) में useLayoutEffect का उपयोग करने पर warning क्यों आती है?</div>
-  <div class="faq-a">Server-Side Rendering (SSR) के दौरान Server पर कोई वास्तविक DOM या window object मौजूद नहीं होता है। चूंकि useLayoutEffect को layout मापने के लिए DOM की आवश्यकता होती है, इसलिए React सर्वर पर इसे निष्पादित नहीं कर पाता और warning दिखाता है।</div>
-  
-  <div class="faq-q">Q5: Isomorphic Layout Effect क्या होता है?</div>
-  <div class="faq-a">यह एक custom hook है जो environment की जांच करता है। यदि कोड browser में चल रहा है तो यह useLayoutEffect का उपयोग करता है, और यदि server (SSR) पर चल रहा है तो यह बिना किसी warning के useEffect का उपयोग करता है।</div>
+  <div class="faq-q">Q1: क्या useTransition से API requests fast हो जाती हैं?</div>
+  <div class="faq-a">नहीं, useTransition API requests को तेज़ नहीं बनाता। इसका मुख्य काम React Rendering performance को optimize करना है, ताकि भारी UI elements को render करते समय browser main thread block न हो और user interface responsive बना रहे।</div>
+  <div class="faq-q">Q2: क्या हम एक Component में multiple useTransition hooks का उपयोग कर सकते हैं?</div>
+  <div class="faq-a">हाँ, आप एक ही component में multiple useTransition hooks का उपयोग कर सकते हैं, लेकिन आम तौर पर इसकी आवश्यकता नहीं होती। एक ही `startTransition` instance का उपयोग विभिन्न State Updates को wrap करने के लिए किया जा सकता है।</div>
+  <div class="faq-q">Q3: React useTransition और Debouncing में क्या अंतर है?</div>
+  <div class="faq-a">Debouncing एक set delay (जैसे 300ms) के बाद कार्य को trigger करता है, जिससे render cycle टल जाता है। useTransition कोई artificial delay नहीं जोड़ता; यह तुरंत background में render करना शुरू कर देता है, लेकिन user inputs को high priority देकर UI responsive रखता है।</div>
+  <div class="faq-q">Q4: क्या useTransition का उपयोग React 17 या उससे पुराने versions में किया जा सकता है?</div>
+  <div class="faq-a">नहीं, useTransition React 18 का built-in concurrent mode feature है। इसका उपयोग करने के लिए आपका React version कम से कम 18 या उससे ऊपर होना चाहिए और root rendering के लिए ReactDOM.createRoot का उपयोग होना आवश्यक है।</div>
+  <div class="faq-q">Q5: क्या isPending state को custom styling के लिए use किया जा सकता है?</div>
+  <div class="faq-a">हाँ, बिल्कुल! isPending true होने पर आप heavy list component की opacity कम कर सकते हैं, inputs को partially disable कर सकते हैं, या spinner/loading animation screen पर render कर सकते हैं, जिससे UX बेहतर होता है।</div>
 </div>
 
 <script type="application/ld+json">
@@ -337,42 +330,42 @@ export default useIsomorphicLayoutEffect;</code></pre>
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React useLayoutEffect क्या है और यह क्यों महत्वपूर्ण है?",
+      "name": "क्या useTransition से API requests fast हो जाती हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "React useLayoutEffect एक synchronous React hook है जो DOM में बदलाव होने के तुरंत बाद और ब्राउज़र द्वारा स्क्रीन पर पिक्सल पेंट करने से पहले चलता है। यह UI के खिसकने या झटके खाने (visual flickering) को रोकने के लिए महत्वपूर्ण है।"
+        "text": "नहीं, useTransition API requests को तेज़ नहीं बनाता। इसका मुख्य काम React Rendering performance को optimize करना है, ताकि भारी UI elements को render करते समय browser main thread block न हो और user interface responsive बना रहे।"
       }
     },
     {
       "@type": "Question",
-      "name": "मुझे useLayoutEffect का उपयोग कब करना चाहिए?",
+      "name": "क्या हम एक Component में multiple useTransition hooks का उपयोग कर सकते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "जब भी आपको DOM elements का आकार (size), चौड़ाई-ऊंचाई (dimensions) या पोजीशन (position) मापनी हो और उसके आधार पर तुरंत UI में styles या states बदलनी हों, तब useLayoutEffect का उपयोग करें।"
+        "text": "हाँ, आप एक ही component में multiple useTransition hooks का उपयोग कर सकते हैं, लेकिन आम तौर पर इसकी आवश्यकता नहीं होती। एक ही `startTransition` instance का उपयोग विभिन्न State Updates को wrap करने के लिए किया जा सकता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या useLayoutEffect का उपयोग API Calls के लिए किया जा सकता है?",
+      "name": "React useTransition और Debouncing में क्या अंतर है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, API calls या data fetching जैसे asynchronous कार्यों के लिए useLayoutEffect का उपयोग बिल्कुल नहीं करना चाहिए। यह synchronous होने के कारण रेंडरिंग को ब्लॉक करता है, जिससे performance खराब हो सकती है। इसके लिए हमेशा useEffect का उपयोग करें।"
+        "text": "Debouncing एक set delay (जैसे 300ms) के बाद कार्य को trigger करता है, जिससे render cycle टल जाता है। useTransition कोई artificial delay नहीं जोड़ता; यह तुरंत background में render करना शुरू कर देता है, लेकिन user inputs को high priority देकर UI responsive रखता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Next.js (SSR) में useLayoutEffect का उपयोग करने पर warning क्यों आती है?",
+      "name": "क्या useTransition का उपयोग React 17 या उससे पुराने versions में किया जा सकता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Server-Side Rendering (SSR) के दौरान Server पर कोई वास्तविक DOM या window object मौजूद नहीं होता है। चूंकि useLayoutEffect को layout मापने के लिए DOM की आवश्यकता होती है, इसलिए React सर्वर पर इसे निष्पादित नहीं कर पाता और warning दिखाता है।"
+        "text": "नहीं, useTransition React 18 का built-in concurrent mode feature है। इसका उपयोग करने के लिए आपका React version कम से कम 18 या उससे ऊपर होना चाहिए और root rendering के लिए ReactDOM.createRoot का उपयोग होना आवश्यक है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Isomorphic Layout Effect क्या होता है?",
+      "name": "क्या isPending state को custom styling के लिए use किया जा सकता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यह एक custom hook है जो environment की जांच करता है। यदि कोड browser में चल रहा है तो यह useLayoutEffect का उपयोग करता है, और यदि server (SSR) पर चल रहा है तो यह बिना किसी warning के useEffect का उपयोग करता है।"
+        "text": "हाँ, बिल्कुल! isPending true होने पर आप heavy list component की opacity कम कर सकते हैं, inputs को partially disable कर सकते हैं, या spinner/loading animation screen पर render कर सकते हैं, जिससे UX बेहतर होता है।"
       }
     }
   ]
