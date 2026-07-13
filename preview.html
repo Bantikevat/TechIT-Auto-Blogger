@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React me Custom Hooks Kaise Banayein (Step-by-Step (Hindi)</title>
+    <title>Preview: React me useLocalStorage Custom Hook Kaise Banayein (Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,329 +16,128 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">Kya aap React Custom Hooks seekhna chahte hain? Is step-by-step guide mein jaanein ki reusable logic kaise banayein. Abhi padhein aur master banein!</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me useLocalStorage custom hook kaise banayein? Is step-by-step Hindi guide se local storage data ko easily manage karna seekhein.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React me Custom Hooks Kaise Banayein (Step-by-Step (Hindi)</h1>
+    <h1>React me useLocalStorage Custom Hook Kaise Banayein (Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/RpmvSQKZ/d465615df76e.png" alt="React me Custom Hooks Kaise Banayein (Step-by-Step in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React me Custom Hooks Kaise Banayein? Is Hindi guide me code reusability, clean code patterns aur state management ko live examples se step-by-step seekhein.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/Q72mb0W9/e2705309b305.png" alt="React me useLocalStorage Custom Hook Kaise Banayein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+<p>React me useLocalStorage custom hook kaise banayein? Is comprehensive guide me hum custom hooks ka power use karke browser storage ko asani se manage karna seekhenge.</p>
 
-<p>सोचिए, आप एक बेहतरीन <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> प्रोजेक्ट बना रहे हैं। आपको एक Component में API से डेटा फैच (fetch) करना है। आपने <code>useState</code> और <code>useEffect</code> का सेटअप किया। सब बढ़िया चल रहा है! लेकिन तभी आपको दूसरे, तीसरे और चौथे Components में भी वही सेम API fetching लॉजिक, लोडिंग स्टेट (loading state), और एरर हैंडलिंग (error handling) लिखनी पड़ती है। अब आप बार-बार वही कोड कॉपी-पेस्ट कर रहे हैं। क्या यह एक सीनियर डेवलपर का तरीका है? बिल्कुल नहीं!</p>
+<p>Dosto, kya aap kabhi aise situation me phase hain jahan page refresh hote hi aapka pura state gayab ho jata hai? Yeh problem aksar developers face karte hain jab woh <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> applications banate hain. Aaj hum seekhenge ki kaise hum browser ke localStorage ke saath state ko sync kar sakte hain ek clean aur reusable <strong>useLocalStorage</strong> hook banakar.</p>
 
-<p>इसी सिरदर्द को हमेशा के लिए खत्म करने के लिए हम Custom Hooks का इस्तेमाल करते हैं। चलिए आज इस मास्टर-क्लास ट्यूटोरियल में गहराई से समझते हैं कि <strong>React me Custom Hooks Kaise Banayein</strong> और अपनी कोडिंग लाइफ को कैसे आसान बनाएं।</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> useLocalStorage ek custom hook hai jo React state aur browser localStorage ko automatically sync karta hai. Iska use karke aap data ko page reload ke baad bhi preserve kar sakte hain. Yeh `useState` ki tarah hi kaam karta hai lekin data ko JSON format me serialise karke localStorage me store kar deta hai.</div>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me Custom Hooks JavaScript के ऐसे फंक्शन्स होते हैं जिनका नाम हमेशा "use" से शुरू होता है। ये कंपोनेंट्स के बीच Stateful Logic को बिना कंपोनेंट ट्री को बदले शेयर करने में मदद करते हैं। इन्हें बनाने के लिए आप अपने बार-बार इस्तेमाल होने वाले State और Effects को एक सिंगल फंक्शन में रैप करके रिटर्न कर देते हैं।</div>
+<h2>useLocalStorage Hook kya hai aur iski zaroorat kyun padti hai?</h2>
 
-<h2>React me Custom Hooks क्या हैं और इनकी ज़रूरत क्यों है?</h2>
+<p>Jab hum React me `useState` use karte hain, toh woh sirf memory me rehta hai. Browser refresh hote hi memory reset ho jati hai. Agar aapko user ki preferences (jaise Theme: Dark/Light) ya shopping cart ka data save rakhna hai, toh aapko baar-baar <code>localStorage.setItem</code> aur <code>getItem</code> likhna padta hai. Yeh code baar-baar repeat karna boring aur error-prone hota hai. Yahan custom hooks ki entry hoti hai!</p>
 
-<p>दोस्तों, सीधे शब्दों में कहें तो Custom Hooks आपके द्वारा बनाए गए खुद के Hooks होते हैं। React में पहले से ही कुछ Built-in Hooks मिलते हैं जैसे <code>useState</code>, <code>useEffect</code>, <code>useRef</code>, और <code>useContext</code>। जब हम इन बुनियादी Hooks को मिलाकर अपना खुद का एक कस्टमाइज्ड फंक्शन बनाते हैं जो किसी खास प्रॉब्लम को सॉल्व करता है, तो उसे <strong>Custom Hook</strong> कहा जाता है।</p>
+<h2>useLocalStorage custom hook kaise banayein? (Step-by-Step)</h2>
 
-<p>इसकी ज़रूरत क्यों पड़ती है? इसके पीछे 3 मुख्य कारण हैं:</p>
-
-<ul>
-  <li><strong>DRY Principle (Don't Repeat Yourself):</strong> आपको एक ही लॉजिक को बार-बार अलग-अलग फाइलों में लिखने की ज़रूरत नहीं पड़ती।</li>
-  <li><strong>Clean and Readable Code:</strong> आपका कंपोनेंट सिर्फ UI रेंडर करने पर ध्यान देता है, न कि भारी-भरकम कैलकुलेशन या API कॉल्स के लॉजिक पर।</li>
-  <li><strong>Easy Maintenance:</strong> अगर भविष्य में API fetching के तरीके में कोई बदलाव करना पड़े, तो आपको 10 फाइलों में जाकर कोड नहीं बदलना होगा। आपको सिर्फ अपने Custom Hook में बदलाव करना होगा।</li>
-</ul>
-
-<p>जब आप बड़े स्केलेबल <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack">MERN Stack</a> एप्लीकेशन्स बनाते हैं, तब कोड को आर्गेनाइज्ड रखने में Custom Hooks सबसे महत्वपूर्ण भूमिका निभाते हैं।</p>
-
-<h2>React Custom Hooks vs Standard React Components में क्या अंतर है?</h2>
-
-<p>अक्सर नए डेवलपर्स के मन में यह सवाल आता है कि जब हमारे पास Components हैं, तो फिर Custom Hooks की क्या जरूरत है? चलिए इस टेबल के ज़रिए इनके बुनियादी अंतर को समझते हैं:</p>
-
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; text-align: left;">
-  <thead>
-    <tr style="background-color: #f3f4f6; border-bottom: 2px solid #e5e7eb;">
-      <th style="padding: 12px; border: 1px solid #e5e7eb;">फ़ीचर (Feature)</th>
-      <th style="padding: 12px; border: 1px solid #e5e7eb;">React Components</th>
-      <th style="padding: 12px; border: 1px solid #e5e7eb;">Custom Hooks</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom: 1px solid #e5e7eb;">
-      <td style="padding: 12px; border: 1px solid #e5e7eb;"><strong>मुख्य उद्देश्य (Purpose)</strong></td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">UI (User Interface) को री-यूज़ेबल बनाना।</td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">Stateful Logic को री-यूज़ेबल बनाना।</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #e5e7eb;">
-      <td style="padding: 12px; border: 1px solid #e5e7eb;"><strong>रिटर्न वैल्यू (Return Value)</strong></td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">हमेशा JSX (HTML जैसी संरचना) रिटर्न करते हैं।</td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">डेटा, ऑब्जेक्ट्स, एरेज़ या फंक्शन्स रिटर्न कर सकते हैं।</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #e5e7eb;">
-      <td style="padding: 12px; border: 1px solid #e5e7eb;"><strong>Hooks का इस्तेमाल</strong></td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">अपने अंदर अन्य Hooks का उपयोग कर सकते हैं।</td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">अपने अंदर भी React के सभी Built-in Hooks का उपयोग कर सकते हैं।</td>
-    </tr>
-    <tr style="border-bottom: 1px solid #e5e7eb;">
-      <td style="padding: 12px; border: 1px solid #e5e7eb;"><strong>नामकरण नियम (Naming Rule)</strong></td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">नाम हमेशा Capital letter से शुरू होता है (e.g., UserProfile)।</td>
-      <td style="padding: 12px; border: 1px solid #e5e7eb;">नाम हमेशा "use" कीवर्ड से शुरू होना चाहिए (e.g., useFetch)।</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>React Custom Hooks कैसे काम करते हैं? (Architecture Diagram)</h2>
-
-<p>ध्यान देने वाली बात ये है कि Custom Hooks कोई जादुई चीज़ नहीं हैं। ये केवल स्टेटफुल लॉजिक शेयर करते हैं, न कि खुद की स्टेट को। जब भी कोई कंपोनेंट किसी Custom Hook को कॉल करता है, तो उस Hook के अंदर मौजूद सभी States और Effects उस कंपोनेंट के लिए पूरी तरह से इंडिपेंडेंट (स्वतंत्र) होते हैं।</p>
-
-<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Hook Reusability Architecture</div>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Component A</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">← [Isolated State]</div>
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Custom Hook (useFetch)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">[Isolated State] →</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Component B</div>
-  </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Custom Hook shares the structure and logic, but State is isolated for each consuming component.</div>
-</div>
-
-<h2>Custom Hooks बनाने के नियम (Rules of Hooks)</h2>
-
-<p>इससे पहले कि हम कोड लिखना शुरू करें, आपको <a href="https://react.dev/reference/react/hooks" target="_blank" rel="noopener">Official React Hooks Rules</a> के नियमों को हमेशा ध्यान में रखना चाहिए। अगर आप इन नियमों का पालन नहीं करेंगे, तो React कंपाइलर एरर थ्रो करेगा:</p>
+<p>Chaliye, ek robust aur production-ready hook banate hain. Hum yahan <code>useState</code> aur <code>useEffect</code> ka sahi istemal karenge.</p>
 
 <ol>
-  <li><strong>"use" उपसर्ग (Prefix):</strong> आपके हुक का नाम हमेशा 'use' से शुरू होना चाहिए जैसे <code>useFetch</code>, <code>useAuth</code>, <code>useLocalStorage</code>। अगर आप ऐसा नहीं करते, तो React यह नहीं पहचान पाएगा कि यह एक Hook है, और वह Hooks के नियमों की जांच नहीं कर पाएगा।</li>
-  <li><strong>सिर्फ Top-Level पर कॉल करें:</strong> कभी भी Hooks को Loops, Conditions, या Nested Functions के अंदर कॉल न करें। उन्हें हमेशा अपने React फ़ंक्शन के सबसे ऊपर ही कॉल करें।</li>
-  <li><strong>सिर्फ React फ़ंक्शन्स से कॉल करें:</strong> Hooks को केवल React Functional Components या किसी अन्य Custom Hook के अंदर से ही कॉल किया जा सकता है। साधारण JavaScript फ़ंक्शन्स से इन्हें कॉल न करें।</li>
+  <li><strong>Initial State Setup:</strong> Sabse pehle localStorage se value get karenge.</li>
+  <li><strong>State Initialization:</strong> <code>useState</code> ko function pass karenge taaki lazily initialization ho sake.</li>
+  <li><strong>Sync Mechanism:</strong> <code>useEffect</code> ka use karke jab bhi state change ho, localStorage update kar denge.</li>
 </ol>
 
-<h2>Step-by-Step: React में useFetch Custom Hook कैसे बनाएं?</h2>
-
-<p>चलिए, अब हाथों को थोड़ा गंदा करते हैं और एक असली, प्रोडक्शन-रेडी (production-ready) <code>useFetch</code> Custom Hook बनाते हैं। यह हुक किसी भी API URL से डेटा फ़ैच करेगा, लोडिंग और एरर स्टेट्स को मैनेज करेगा, और क्लीन-अप (cleanup) भी संभालेगा ताकि मेमोरी लीक न हो।</p>
-
-<h3>Step 1: Custom Hook फ़ाइल बनाना</h3>
-<p>सबसे पहले अपने प्रोजेक्ट के <code>src</code> फ़ोल्डर के अंदर <code>hooks</code> नाम का एक फ़ोल्डर बनाएं। इस फ़ोल्डर में <code>useFetch.js</code> नाम की एक नई फ़ाइल बनाएं और नीचे दिया गया कोड लिखें:</p>
-
-<pre><code>import { useState, useEffect } from 'react';
-
-function useFetch(url) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // AbortController का उपयोग API कॉल को कैंसिल करने के लिए किया जाता है अगर कंपोनेंट अनमाउंट हो जाए
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(url, { signal });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP Error! Status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        setData(result);
-        setError(null);
-      } catch (err) {
-        if (err.name !== 'AbortError') {
-          setError(err.message);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-
-    // Cleanup फ़ंक्शन
-    return () => {
-      abortController.abort();
-    };
-  }, [url]); // जब भी URL बदलेगा, यह इफेक्ट दोबारा चलेगा
-
-  return { data, loading, error };
-}
-
-export default useFetch;
-</code></pre>
-
-<h3>कोड को बारीकी से समझें:</h3>
-<ul>
-  <li><strong>AbortController:</strong> यह बहुत महत्वपूर्ण है! मान लीजिए आपका यूजर एक पेज से दूसरे पेज पर तुरंत चला जाता है, तो पुराना अधूरा नेटवर्क रिक्वेस्ट बैकग्राउंड में चलता रहेगा। <code>abortController.abort()</code> उसे तुरंत रोक देता है, जिससे परफॉरमेंस सुधरती है।</li>
-  <li><strong>Dependency Array <code>[url]</code>:</strong> जब भी कंपोनेंट में URL बदलता है, यह हुक समझ जाता है कि अब नए एंडपॉइंट से डेटा लाना है, और खुद को दोबारा रन करता है।</li>
-  <li><strong>Return Object:</strong> हम यहाँ से <code>{ data, loading, error }</code> भेज रहे हैं ताकि इस्तेमाल करने वाला कंपोनेंट आसानी से इन्हें डीस्ट्रक्चर (destructure) कर सके।</li>
-</ul>
-
-<h3>Step 2: अपने Custom Hook को Component में इस्तेमाल करना</h3>
-<p>अब अपने <code>src/App.js</code> फ़ाइल को खोलें और इस कस्टम हुक का उपयोग करके सर्वर से डेटा रेंडर करें।</p>
-
-<pre><code>import React from 'react';
-import useFetch from './hooks/useFetch';
-
-function App() {
-  // JSONPlaceholder API का उपयोग कर रहे हैं
-  const { data, loading, error } = useFetch('https://jsonplaceholder.typicode.com/posts/1');
-
-  if (loading) {
-    return (
-      <div style={{ padding: '20px', textAlign: 'center', fontSize: '18px' }}>
-        डेटा लोड हो रहा है, कृपया प्रतीक्षा करें...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div style={{ padding: '20px', color: 'red', textAlign: 'center' }}>
-        त्रुटि: {error}
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ maxWidth: '600px', margin: '50px auto', padding: '20px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', borderRadius: '10px', backgroundColor: '#fff' }}>
-      <h1 style={{ color: '#0f172a', borderBottom: '2px solid #f1f5f9', paddingBottom: '10px' }}>
-        सिंगल पोस्ट विवरण (Post Details)
-      </h1>
-      <h2 style={{ color: '#2563eb', fontSize: '20px', marginTop: '15px' }}>
-        {data?.title}
-      </h2>
-      <p style={{ color: '#475569', lineHeight: '1.6', marginTop: '10px' }}>
-        {data?.body}
-      </p>
-    </div>
-  );
-}
-
-export default App;
-</code></pre>
-
-<p>देखा दोस्तों! हमारा <code>App.js</code> कंपोनेंट कितना साफ-सुथरा और सुंदर दिख रहा है। उसे इस बात से कोई फर्क नहीं पड़ता कि API कॉल Axios से हो रही है या Fetch API से। उसे सिर्फ डेटा, लोडिंग और एरर से मतलब है। यह है असली पावर React Custom Hooks की!</p>
-
-<h2>एक और व्यावहारिक उदाहरण: useLocalStorage Hook</h2>
-
-<p>चलो एक और बेहतरीन उदाहरण देखते हैं। अक्सर हमें यूजर की सेटिंग्स (जैसे Dark Mode या Auth Token) को ब्राउज़र के <code>localStorage</code> में सेव करना पड़ता है। हर बार <code>localStorage.getItem</code> और <code>setItem</code> लिखना काफी थकाऊ होता है। इसके लिए हम एक <code>useLocalStorage</code> Custom Hook बनाएंगे।</p>
-
-<h3>Hook का कोड (hooks/useLocalStorage.js):</h3>
-<pre><code>import { useState, useEffect } from 'react';
+<pre><code>import { useState, useEffect } from "react";
 
 function useLocalStorage(key, initialValue) {
-  // स्टेट को इनिशियलाइज़ करते समय ही लोकल स्टोरेज चेक करें
+  // State ko initialize karo localStorage ki value ya default value se
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      console.error("Local Storage से डेटा रीड करने में एरर आई: ", error);
+      console.error("Error reading localStorage", error);
       return initialValue;
     }
   });
 
-  // जब भी storedValue या key बदलेगी, हम लोकल स्टोरेज अपडेट करेंगे
+  // State update hone par localStorage update karo
   useEffect(() => {
     try {
       window.localStorage.setItem(key, JSON.stringify(storedValue));
     } catch (error) {
-      console.error("Local Storage में डेटा सेट करने में एरर आई: ", error);
+      console.error("Error setting localStorage", error);
     }
   }, [key, storedValue]);
 
   return [storedValue, setStoredValue];
 }
 
-export default useLocalStorage;
-</code></pre>
+export default useLocalStorage;</code></pre>
 
-<h3>इस Hook का उपयोग करना (App.js):</h3>
-<pre><code>import React from 'react';
-import useLocalStorage from './hooks/useLocalStorage';
+<div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Architecture Diagram</div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">React Component</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">↔</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useLocalStorage Hook</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">↔</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">localStorage</div>
+  </div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Hook React state aur Browser Storage ke beech bridge ban kar kaam karta hai.</div>
+</div>
 
-function App() {
-  // useLocalStorage का उपयोग बिल्कुल useState की तरह होता है!
-  const [theme, setTheme] = useLocalStorage('my-app-theme', 'light');
+<h2>useLocalStorage ka use kaise karein?</h2>
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+<p>Ab is hook ko apne components me use karna bahut aasaan hai. Dekhiye niche diya gaya example:</p>
 
-  const pageStyle = {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    transition: 'all 0.3s ease',
-    backgroundColor: theme === 'light' ? '#ffffff' : '#0f172a',
-    color: theme === 'light' ? '#000000' : '#ffffff',
-  };
+<pre><code>function App() {
+  const [name, setName] = useLocalStorage("username", "Guest");
 
   return (
-    <div style={pageStyle}>
-      <h1>करेंट थीम: {theme.toUpperCase()}</h1>
-      <button 
-        onClick={toggleTheme} 
-        style={{
-          padding: '12px 24px',
-          fontSize: '16px',
-          cursor: 'pointer',
-          marginTop: '20px',
-          borderRadius: '8px',
-          border: 'none',
-          backgroundColor: '#3b82f6',
-          color: '#fff',
-          fontWeight: 'bold'
-        }}
-      >
-        थीम बदलें (Toggle Theme)
-      </button>
-    </div>
+    &lt;div&gt;
+      &lt;h1&gt;Welcome, {name}!&lt;/h1&gt;
+      &lt;input 
+        type="text" 
+        value={name} 
+        onChange={(e) =&gt; setName(e.target.value)} 
+      /&gt;
+    &lt;/div&gt;
   );
-}
+}</code></pre>
 
-export default App;
-</code></pre>
+<h2>Edge Cases aur Best Practices</h2>
 
-<p>अब यदि यूजर इस बटन पर क्लिक करके डार्क थीम सेट करता है और पेज को रिफ्रेश करता है, तब भी थीम वैसी ही रहेगी। कितना आसान है ना?</p>
+<p>Dosto, hamesha dhyan rakhein ki <code>localStorage</code> sirf strings store karta hai. Isliye <code>JSON.stringify</code> aur <code>JSON.parse</code> ka use karna mandatory hai. Ek aur important baat: agar user ka browser private mode me hai ya cookies disable hain, toh <code>localStorage.setItem</code> throw kar sakta hai ek <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a>. Isliye hamesha try-catch block ka use karein, jaisa humne upar wale code me kiya hai.</p>
 
-<h2>Custom Hooks बनाते समय कौन-सी Common Errors आती हैं और उन्हें कैसे Fix करें?</h2>
+<table border="1" style="width:100%; border-collapse: collapse; margin: 20px 0;">
+  <tr>
+    <th style="padding:10px; background:#f1f5f9;">Feature</th>
+    <th style="padding:10px; background:#f1f5f9;">useState</th>
+    <th style="padding:10px; background:#f1f5f9;">useLocalStorage</th>
+  </tr>
+  <tr>
+    <td style="padding:10px;">Persistence</td>
+    <td style="padding:10px;">No (Refresh on load)</td>
+    <td style="padding:10px;">Yes (Across sessions)</td>
+  </tr>
+  <tr>
+    <td style="padding:10px;">Complexity</td>
+    <td style="padding:10px;">Basic</td>
+    <td style="padding:10px;">Advanced</td>
+  </tr>
+</table>
 
-<p>जब आप पहली बार Custom Hooks बनाएंगे, तो कुछ गलतियां होना बिल्कुल स्वाभाविक है। आइए बात करते हैं उन मुख्य समस्याओं की जो अक्सर डेवलपर्स को परेशान करती हैं, और उनका <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">Error Solving</a> तरीका क्या है:</p>
-
-<h3>1. "React Hook 'useMyHook' is called conditionally" एरर</h3>
-<p><strong>समस्या:</strong> जब आप किसी <code>if</code> कंडीशन या लूप के अंदर हुक को डाल देते हैं, तो React की आंतरिक स्टेट इंडेक्स बिगड़ जाती है।</p>
-<p><strong>समाधान:</strong> हुक को हमेशा फ़ंक्शन की सबसे टॉप लाइन पर कॉल करें। कंडीशन की जांच हुक के *बाद* होनी चाहिए, न कि पहले।</p>
-
-<h3>2. Infinite Loop (अनंत लूप) की समस्या</h3>
-<p><strong>समस्या:</strong> अगर आप अपने Custom Hook के अंदर कोई ऑब्जेक्ट या एरे रिटर्न कर रहे हैं और उसे सीधे <code>useEffect</code> की डिपेंडेंसी लिस्ट में रख रहे हैं, तो जावास्क्रिप्ट की "Referential Equality" की वजह से कंपोनेंट बार-बार रेंडर होगा और इनफिनिटी लूप शुरू हो जाएगा।</p>
-<p><strong>समाधान:</strong> अपने हुक से रिटर्न होने वाले फंक्शन्स को मेमोइज़ करने के लिए <code>useCallback</code> का उपयोग करें और ऑब्जेक्ट्स के लिए <code>useMemo</code> का उपयोग करें।</p>
-
-<h3>3. "Sharing State" समझ लेना</h3>
-<p><strong>समस्या:</strong> नए डेवलपर्स को लगता है कि अगर उन्होंने Component A और Component B में एक ही Custom Hook का इस्तेमाल किया है, तो वे दोनों एक ही स्टेट शेयर करेंगे। ऐसा नहीं है!</p>
-<p><strong>समाधान:</strong> याद रखें, Custom Hooks केवल 'लॉजिक' शेयर करते हैं, 'स्टेट' नहीं। हर कंपोनेंट की अपनी खुद की आइसोलेटेड स्टेट होती है। अगर आपको ग्लोबल स्टेट शेयर करनी है, तो आपको <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React Context API</a> या Redux का उपयोग करना चाहिए।</p>
-
-<h2>Performance Optimization और Best Practices</h2>
-
-<p>जब आप प्रोडक्शन लेवल पर बड़े एप्लीकेशन्स के लिए कस्टम हुक डिज़ाइन करते हैं, तो परफॉरमेंस का ख्याल रखना बेहद ज़रूरी होता है:</p>
-
-<ul>
-  <li><strong>Memoization का इस्तेमाल करें:</strong> अगर आपका हुक कोई भारी कैलकुलेशन करता है या कोई फ़ंक्शन रिटर्न करता है, तो उसे <code>useMemo</code> और <code>useCallback</code> से रैप करें। इससे अनचाहे री-रेंडर रुकेंगे।</li>
-  <li><strong>क्लीनअप (Cleanup) हमेशा लिखें:</strong> जब भी आप किसी हुक में इवेंट लिसनर (Event Listener), टाइमर (setTimeout/setInterval) या एपीआई कॉल्स का उपयोग करते हैं, तो सुनिश्चित करें कि <code>useEffect</code> के रिटर्न ब्लॉक में उन्हें क्लियर/कैंसिल कर दिया जाए।</li>
-  <li><strong>सिंगल रिस्पॉन्सिबिलिटी (Single Responsibility Principle):</strong> एक ही हुक के अंदर पूरी दुनिया का काम न करें। `useFetchAndAuthAndTheme` जैसा हुक न बनाएं। हर हुक का सिर्फ एक काम होना चाहिए।</li>
-</ul>
-
-<p>तो दोस्तों, हमने आज विस्तार से सीखा कि React में Custom Hooks कैसे बनाए जाते हैं, उनके नियम क्या हैं, और बेस्ट प्रैक्टिसेज क्या हैं। अब आपकी बारी है! अपने प्रोजेक्ट्स से डुप्लीकेट कोड को हटाएं और कस्टम हुक्स बनाना शुरू करें। कोडिंग करते रहिए और खुश रहिए!</p>
+<p>Toh dosto, aaj humne seekha ki kaise custom hooks humare code ko dry (Don't Repeat Yourself) rakhte hain. <a href="https://react.dev/" rel="noopener" target="_blank">Official React documentation</a> ko bhi zaroor padhein depth me samajhne ke liye.</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: क्या Custom Hooks ग्लोबल स्टेट शेयर करते हैं?</div>
-  <div class="faq-a">नहीं, Custom Hooks ग्लोबल स्टेट शेयर नहीं करते हैं। जब भी कोई कंपोनेंट किसी कस्टम हुक को इम्पोर्ट करता है, तो उसे उस हुक के अंदर मौजूद स्टेट की पूरी तरह से नई और स्वतंत्र (independent) कॉपी मिलती है।</div>
-  <div class="faq-q">Q2: क्या Custom Hook का नाम 'use' से ही शुरू करना अनिवार्य है?</div>
-  <div class="faq-a">हाँ, यह बेहद ज़रूरी है। React के रूल्स के मुताबिक, हुक का नाम 'use' से शुरू होना चाहिए (जैसे useAuth, useTheme)। इसी कन्वेंशन की मदद से React का लिंटर यह समझ पाता है कि यह एक हुक है और इस पर हुक के नियम लागू करने हैं।</div>
-  <div class="faq-q">Q3: क्या हम एक Custom Hook के अंदर React के Built-in Hooks का उपयोग कर सकते हैं?</div>
-  <div class="faq-a">बिल्कुल! कस्टम हुक का मुख्य आधार ही यही है। आप इसके अंदर useState, useEffect, useContext, useMemo आदि किसी भी इन-बिल्ट हुक का इस्तेमाल करके अपनी कस्टमाइज्ड फंक्शनलिटी बना सकते हैं।</div>
-  <div class="faq-q">Q4: Context API और Custom Hooks में क्या अंतर है?</div>
-  <div class="faq-a">Context API का उपयोग ग्लोबल स्टेट (Global State) को कंपोनेंट ट्री में शेयर करने के लिए होता है, जिससे प्रॉप-ड्रिलिंग (Prop Drilling) से बचा जा सके। वहीं Custom Hooks का उपयोग केवल री-यूज़ेबल फंक्शनल लॉजिक (Reusable Logic) को शेयर करने के लिए किया जाता है।</div>
-  <div class="faq-q">Q5: क्या कस्टम हुक्स बिना JSX के सिर्फ डेटा रिटर्न कर सकते हैं?</div>
-  <div class="faq-a">हाँ, कस्टम हुक्स आम तौर पर कोई JSX रिटर्न नहीं करते। वे केवल स्टेट वेरिएबल्स, ऑब्जेक्ट्स, एरेज़, या फंक्शन्स रिटर्न करते हैं जिन्हें कंपोनेंट्स द्वारा उपयोग किया जा सकता है।</div>
+  <div class="faq-q">Q1: Kya useLocalStorage server-side rendering (SSR) ke saath kaam karta hai?</div>
+  <div class="faq-a">SSR me 'window' object nahi hota, isliye aapko check karna padega ki code browser me run ho raha hai ya nahi. Iske liye 'typeof window !== "undefined"' ka use karein.</div>
+  <div class="faq-q">Q2: Kya hum is hook me object store kar sakte hain?</div>
+  <div class="faq-a">Haan, bilkul! Kyunki humne JSON.stringify aur JSON.parse ka use kiya hai, aap objects aur arrays dono store kar sakte hain.</div>
+  <div class="faq-q">Q3: Kya hook baar-baar re-render karta hai?</div>
+  <div class="faq-a">Nahi, 'useEffect' sirf tabhi trigger hota hai jab 'storedValue' change hoti hai, jo ki performance ke liye optimize hai.</div>
+  <div class="faq-q">Q4: Maximum kitna data store kar sakte hain?</div>
+  <div class="faq-a">LocalStorage ki limit browser to browser vary karti hai, but generally yeh 5MB tak hoti hai.</div>
+  <div class="faq-q">Q5: Kya yeh hook secure hai?</div>
+  <div class="faq-a">LocalStorage secure nahi hota, isliye kabhi bhi sensitive information jaise passwords ya tokens yahan save na karein.</div>
 </div>
 
 <script type="application/ld+json">
@@ -348,42 +147,42 @@ export default App;
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या Custom Hooks ग्लोबल स्टेट शेयर करते हैं?",
+      "name": "Kya useLocalStorage server-side rendering (SSR) ke saath kaam karta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, Custom Hooks ग्लोबल स्टेट शेयर नहीं करते हैं। जब भी कोई कंपोनेंट किसी कस्टम हुक को इम्पोर्ट करता है, तो उसे उस हुक के अंदर मौजूद स्टेट की पूरी तरह से नई और स्वतंत्र (independent) कॉपी मिलती है।"
+        "text": "SSR me window object nahi hota, isliye aapko check karna padega ki code browser me run ho raha hai ya nahi. Iske liye typeof window !== 'undefined' ka use karein."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Custom Hook का नाम 'use' से ही शुरू करना अनिवार्य है?",
+      "name": "Kya hum is hook me object store kar sakte hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, यह बेहद ज़रूरी है। React के रूल्स के मुताबिक, हुक का नाम 'use' से शुरू होना चाहिए (जैसे useAuth, useTheme)। इसी कन्वेंशन की मदद से React का लिंटर यह समझ पाता है कि यह एक हुक है और इस पर हुक के नियम लागू करने हैं।"
+        "text": "Haan, bilkul! Kyunki humne JSON.stringify aur JSON.parse ka use kiya hai, aap objects aur arrays dono store kar sakte hain."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या हम एक Custom Hook के अंदर React के Built-in Hooks का उपयोग कर सकते हैं?",
+      "name": "Kya hook baar-baar re-render karta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "बिल्कुल! कस्टम हुक का मुख्य आधार ही यही है। आप इसके अंदर useState, useEffect, useContext, useMemo आदि किसी भी इन-बिल्ट हुक का इस्तेमाल करके अपनी कस्टमाइज्ड फंक्शनलिटी बना सकते हैं।"
+        "text": "Nahi, useEffect sirf tabhi trigger hota hai jab storedValue change hoti hai, jo ki performance ke liye optimize hai."
       }
     },
     {
       "@type": "Question",
-      "name": "Context API और Custom Hooks में क्या अंतर है?",
+      "name": "Maximum kitna data store kar sakte hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Context API का उपयोग ग्लोबल स्टेट (Global State) को कंपोनेंट ट्री में शेयर करने के लिए होता है, जिससे प्रॉप-ड्रिलिंग (Prop Drilling) से बचा जा सके। वहीं Custom Hooks का उपयोग केवल री-यूज़ेबल फंक्शनल लॉजिक (Reusable Logic) को शेयर करने के लिए किया जाता है।"
+        "text": "LocalStorage ki limit browser to browser vary karti hai, but generally yeh 5MB tak hoti hai."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या कस्टम हुक्स बिना JSX के सिर्फ डेटा रिटर्न कर सकते हैं?",
+      "name": "Kya yeh hook secure hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, कस्टम हुक्स आम तौर पर कोई JSX रिटर्न नहीं करते। वे केवल स्टेट वेरिएबल्स, ऑब्जेक्ट्स, एरेज़, या फंक्शन्स रिटर्न करते हैं जिन्हें कंपोनेंट्स द्वारा उपयोग किया जा सकता है।"
+        "text": "LocalStorage secure nahi hota, isliye kabhi bhi sensitive information jaise passwords ya tokens yahan save na karein."
       }
     }
   ]
