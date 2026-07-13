@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React me useLocalStorage Custom Hook Kaise Banayein (Hindi)</title>
+    <title>Preview: React me useDebounce Custom Hook Complete Guide (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,128 +16,292 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React me useLocalStorage custom hook kaise banayein? Is step-by-step Hindi guide se local storage data ko easily manage karna seekhein.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में useDebounce Custom Hook बनाना सीखें। इस complete Hindi guide से अपनी web app की performance और search को supercharge करें।</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React me useLocalStorage Custom Hook Kaise Banayein (Hindi)</h1>
+    <h1>React me useDebounce Custom Hook Complete Guide (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/Q72mb0W9/e2705309b305.png" alt="React me useLocalStorage Custom Hook Kaise Banayein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<p>React me useLocalStorage custom hook kaise banayein? Is comprehensive guide me hum custom hooks ka power use karke browser storage ko asani se manage karna seekhenge.</p>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/hx3TG6d3/526e7becd18f.png" alt="React me useDebounce Custom Hook Complete Guide (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React me useDebounce custom hook kaise banayein? Seekhein debouncing ka logic, search optimization, API calls reduce karna aur performance boost karna.
 
-<p>Dosto, kya aap kabhi aise situation me phase hain jahan page refresh hote hi aapka pura state gayab ho jata hai? Yeh problem aksar developers face karte hain jab woh <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> applications banate hain. Aaj hum seekhenge ki kaise hum browser ke localStorage ke saath state ko sync kar sakte hain ek clean aur reusable <strong>useLocalStorage</strong> hook banakar.</p>
+<p>मान लीजिए आप अपनी <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> एप्लीकेशन में एक शानदार Dynamic Search Bar बना रहे हैं। जैसे ही यूजर इनपुट बॉक्स में एक-एक अक्षर (character) टाइप करता है, आप बैकएंड को API Request भेजते हैं। अब जरा सोचिए, अगर यूजर ने "JavaScript Hooks" टाइप किया, तो आपके React Components कुल 16 बार री-रेंडर होंगे और बैकएंड पर 16 अलग-अलग API Requests चली जाएंगी! क्या यह एक सही आर्किटेक्चर है? बिल्कुल नहीं। इससे न केवल सर्वर पर फालतू का लोड बढ़ेगा बल्कि यूजर को भी लैग (lag) महसूस होगा।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> useLocalStorage ek custom hook hai jo React state aur browser localStorage ko automatically sync karta hai. Iska use karke aap data ko page reload ke baad bhi preserve kar sakte hain. Yeh `useState` ki tarah hi kaam karta hai lekin data ko JSON format me serialise karke localStorage me store kar deta hai.</div>
+<p>इसी गंभीर परफॉर्मेंस प्रॉब्लम को हल करने के लिए हम <strong>Debouncing</strong> तकनीक का इस्तेमाल करते हैं। आज के इस डीप-डाइव गाइड में, हम और आप मिलकर एक बिल्कुल स्क्रैच से <strong>useDebounce Custom Hook</strong> बनाएंगे। हम इसके पीछे की पूरी इंजीनियरिंग, इसके वर्किंग मैकेनिज्म, कोड इम्प्लीमेंटेशन और रियल-वर्ल्ड प्रोडक्शन यूज़-केसेस को बारीकी से समझेंगे। तो अपनी चाय या कॉफी पास रख लीजिए, और चलिए इस कमाल के सफर को शुरू करते हैं!</p>
 
-<h2>useLocalStorage Hook kya hai aur iski zaroorat kyun padti hai?</h2>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React me useDebounce Custom Hook ek aisi performance optimization technique hai jo continuous state updates ya API calls ko delay karti hai jab tak user typing ya continuous action rok nahi deta. Isse server load bachta hai aur application lag-free chalti hai.</div>
 
-<p>Jab hum React me `useState` use karte hain, toh woh sirf memory me rehta hai. Browser refresh hote hi memory reset ho jati hai. Agar aapko user ki preferences (jaise Theme: Dark/Light) ya shopping cart ka data save rakhna hai, toh aapko baar-baar <code>localStorage.setItem</code> aur <code>getItem</code> likhna padta hai. Yeh code baar-baar repeat karna boring aur error-prone hota hai. Yahan custom hooks ki entry hoti hai!</p>
+<h2>Debouncing क्या है और इसकी जरूरत क्यों पड़ती है?</h2>
 
-<h2>useLocalStorage custom hook kaise banayein? (Step-by-Step)</h2>
+<p>सरल शब्दों में कहें तो, <strong>Debouncing</strong> एक ऐसी प्रोग्रामिंग प्रैक्टिस है जिससे हम किसी भी महंगे या टाइम-कंज्यूमिंग टास्क (जैसे API Calls, DOM Manipulation) के बार-बार ट्रिगर होने की फ्रीक्वेंसी को सीमित करते हैं। यह तब तक इंतजार करता है जब तक यूजर कोई एक्शन करना बंद नहीं कर देता, और उसके एक तय समय (Delay) के बाद ही फाइनल फंक्शन को रन करता है।</p>
 
-<p>Chaliye, ek robust aur production-ready hook banate hain. Hum yahan <code>useState</code> aur <code>useEffect</code> ka sahi istemal karenge.</p>
+<p>इसे एक रियल-वर्ल्ड उदाहरण से समझते हैं। मान लीजिए आप एक मॉल की लिफ्ट (Elevator) में खड़े हैं। लिफ्ट का दरवाजा तब तक बंद नहीं होता जब तक लोग उसमें आ रहे होते हैं। जैसे ही आखिरी व्यक्ति अंदर आता है और अगले 5 सेकंड तक कोई नया व्यक्ति नहीं आता, लिफ्ट का दरवाजा बंद हो जाता है और वह ऊपर जाने लगती है। यहाँ लिफ्ट का दरवाजा "Debounce Timer" की तरह काम कर रहा है और लोगों का आना "User Input Events" है।</p>
 
-<ol>
-  <li><strong>Initial State Setup:</strong> Sabse pehle localStorage se value get karenge.</li>
-  <li><strong>State Initialization:</strong> <code>useState</code> ko function pass karenge taaki lazily initialization ho sake.</li>
-  <li><strong>Sync Mechanism:</strong> <code>useEffect</code> ka use karke jab bhi state change ho, localStorage update kar denge.</li>
-</ol>
+<p>यदि हम Debouncing का इस्तेमाल न करें, तो निम्नलिखित समस्याएं आ सकती हैं:</p>
 
-<pre><code>import { useState, useEffect } from "react";
-
-function useLocalStorage(key, initialValue) {
-  // State ko initialize karo localStorage ki value ya default value se
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error("Error reading localStorage", error);
-      return initialValue;
-    }
-  });
-
-  // State update hone par localStorage update karo
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(storedValue));
-    } catch (error) {
-      console.error("Error setting localStorage", error);
-    }
-  }, [key, storedValue]);
-
-  return [storedValue, setStoredValue];
-}
-
-export default useLocalStorage;</code></pre>
+<ul>
+  <li><strong>Server Overhead:</strong> हर की-स्ट्रोक पर API Call होने से आपका डेटाबेस और सर्वर बिना वजह ओवरलोड हो जाएगा।</li>
+  <li><strong>UI Lagging:</strong> बार-बार स्टेट अपडेट होने से कंपोनेंट री-रेंडर होगा, जिससे लो-एंड डिवाइसेस पर ब्राउज़र क्रैश या लैग हो सकता है।</li>
+  <li><strong>Cost Incurred:</strong> अगर आप थर्ड-पार्टी पेड APIs (जैसे Google Places API) का इस्तेमाल कर रहे हैं, तो आपका बिल आसमान छू सकता है।</li>
+</ul>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Architecture Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Debouncing Lifecycle Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">React Component</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">↔</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">useLocalStorage Hook</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">↔</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">localStorage</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">User Types "R"</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Reset Old Timer & Start New 500ms Timer</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Wait Completed? Trigger API Call</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Hook React state aur Browser Storage ke beech bridge ban kar kaam karta hai.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: dynamic visualization of how search input waits for a delay before requesting server.</div>
 </div>
 
-<h2>useLocalStorage ka use kaise karein?</h2>
+<h2>Debouncing vs Throttling में क्या अंतर है?</h2>
 
-<p>Ab is hook ko apne components me use karna bahut aasaan hai. Dekhiye niche diya gaya example:</p>
+<p>इंटरव्यू में अक्सर यह सवाल पूछा जाता है कि Debouncing और Throttling में क्या अंतर है। डेवलपर्स अक्सर इन दोनों के बीच कंफ्यूज हो जाते हैं। चलिए इस कंफ्यूजन को हमेशा के लिए दूर कर लेते हैं।</p>
 
-<pre><code>function App() {
-  const [name, setName] = useLocalStorage("username", "Guest");
-
-  return (
-    &lt;div&gt;
-      &lt;h1&gt;Welcome, {name}!&lt;/h1&gt;
-      &lt;input 
-        type="text" 
-        value={name} 
-        onChange={(e) =&gt; setName(e.target.value)} 
-      /&gt;
-    &lt;/div&gt;
-  );
-}</code></pre>
-
-<h2>Edge Cases aur Best Practices</h2>
-
-<p>Dosto, hamesha dhyan rakhein ki <code>localStorage</code> sirf strings store karta hai. Isliye <code>JSON.stringify</code> aur <code>JSON.parse</code> ka use karna mandatory hai. Ek aur important baat: agar user ka browser private mode me hai ya cookies disable hain, toh <code>localStorage.setItem</code> throw kar sakta hai ek <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a>. Isliye hamesha try-catch block ka use karein, jaisa humne upar wale code me kiya hai.</p>
-
-<table border="1" style="width:100%; border-collapse: collapse; margin: 20px 0;">
-  <tr>
-    <th style="padding:10px; background:#f1f5f9;">Feature</th>
-    <th style="padding:10px; background:#f1f5f9;">useState</th>
-    <th style="padding:10px; background:#f1f5f9;">useLocalStorage</th>
-  </tr>
-  <tr>
-    <td style="padding:10px;">Persistence</td>
-    <td style="padding:10px;">No (Refresh on load)</td>
-    <td style="padding:10px;">Yes (Across sessions)</td>
-  </tr>
-  <tr>
-    <td style="padding:10px;">Complexity</td>
-    <td style="padding:10px;">Basic</td>
-    <td style="padding:10px;">Advanced</td>
-  </tr>
+<table>
+  <thead>
+    <tr>
+      <th>Feature / Parameter</th>
+      <th>Debouncing</th>
+      <th>Throttling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>मूल कार्य (Core Working)</strong></td>
+      <td>यह तब तक इंतजार करता है जब तक यूजर टाइप करना या ट्रिगर करना बंद न कर दे।</td>
+      <td>यह एक निश्चित समय अंतराल (time interval) में केवल एक ही बार फंक्शन रन होने देता है।</td>
+    </tr>
+    <tr>
+      <td><strong>बेस्ट यूज़-केस (Best Use Case)</strong></td>
+      <td>Search Box Auto-complete, Form Validation, Window Resize.</td>
+      <td>Infinite Scroll, Scroll-to-top tracking, Game loop, Mouse movement tracking.</td>
+    </tr>
+    <tr>
+      <td><strong>ट्रिगर पॉइंट (Trigger Point)</strong></td>
+      <td>यूजर के रुकने के ठीक X milliseconds के बाद।</td>
+      <td>यूजर एक्शन के दौरान हर X milliseconds के गैप पर लगातार।</td>
+    </tr>
+  </tbody>
 </table>
 
-<p>Toh dosto, aaj humne seekha ki kaise custom hooks humare code ko dry (Don't Repeat Yourself) rakhte hain. <a href="https://react.dev/" rel="noopener" target="_blank">Official React documentation</a> ko bhi zaroor padhein depth me samajhne ke liye.</p>
+<h2>React useDebounce Custom Hook का आर्किटेक्चर और लॉजिक</h2>
+
+<p>जब हम React में एक Custom Hook बनाते हैं, तो हम मूल रूप से React के इन-बिल्ट Hooks जैसे <code>useState</code> और <code>useEffect</code> का उपयोग करके अपनी कस्टम फंक्शनलिटी को रीयूजेबल (reusable) यूनिट में रैप करते हैं। </p>
+
+<p>हमारे <code>useDebounce</code> हुक का आर्किटेक्चर कुछ इस तरह काम करेगा:</p>
+<ol>
+  <li>यह इनपुट के रूप में दो आर्गुमेंट्स लेगा: <code>value</code> (जो स्टेट चेंज हो रही है) और <code>delay</code> (इंतजार करने का समय, डिफ़ॉल्ट रूप से 500ms)।</li>
+  <li>यह अपने अंदर एक इंटरनल स्टेट <code>debouncedValue</code> मेंटेन रखेगा।</li>
+  <li>हम एक <code>useEffect</code> का उपयोग करेंगे जो तब चलेगा जब भी <code>value</code> या <code>delay</code> बदलेगी।</li>
+  <li>इसके अंदर हम एक <code>setTimeout</code> चलाएंगे जो दी गई देरी के बाद हमारी इंटरनल स्टेट को अपडेट करेगा।</li>
+  <li><strong>सबसे महत्वपूर्ण बात:</strong> हम एक <code>cleanup function</code> लिखेंगे जो पुराने टाइमर को रिसेट (clearTimeout) कर देगा ताकि हर की-स्ट्रोक पर पुराना टाइमर डिलीट हो जाए और नया टाइमर शुरू हो सके।</li>
+</ol>
+
+<p>अधिक जानकारी के लिए और React के कोर लाइफसाइकिल को गहराई से समझने के लिए आप <a href="https://react.dev/" target="_blank" rel="noopener">React official documentation</a> को रेफर कर सकते हैं।</p>
+
+<h2>Step-by-Step Guide: useDebounce Custom Hook बनाना</h2>
+
+<p>चलिए, अब हम कोडिंग शुरू करते हैं। हम एक नया कस्टम हुक बनाएंगे। ध्यान रहे कि हम हर एक लाइन का कोड लिखेंगे ताकि आपको समझने में कोई परेशानी न हो।</p>
+
+<h3>Step 1: Custom Hook फ़ाइल बनाना (useDebounce.js)</h3>
+
+<p>अपने प्रोजेक्ट के <code>src/hooks</code> डायरेक्टरी में <code>useDebounce.js</code> (या <code>useDebounce.ts</code> यदि आप TypeScript का उपयोग कर रहे हैं) नाम से एक फ़ाइल बनाएं और निम्नलिखित कोड लिखें:</p>
+
+<pre><code>import { useState, useEffect } from 'react';
+
+/**
+ * useDebounce Custom Hook
+ * @param {any} value - The input value that needs to be debounced.
+ * @param {number} delay - The delay in milliseconds (default 500ms).
+ * @returns {any} - The debounced value.
+ */
+export function useDebounce(value, delay = 500) {
+  // 1. Internal state set karein debounced value ko hold karne ke liye
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    // 2. Timeout setup karein jo delay ke baad state update karega
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    // 3. Cleanup function: Agar dependency badalti hai (user types again),
+    // to purana timer clear ho jayega aur naya timer start hoga.
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]); // Yeh effect tabhi chalega jab value ya delay badlega
+
+  // 4. Debounced value ko return karein
+  return debouncedValue;
+}
+</code></pre>
+
+<p>ध्यान देने वाली बात ये है कि यहाँ <code>useEffect</code> का क्लीन-अप (cleanup) फंक्शन ही सारा जादू करता है। जब भी यूजर नया अक्षर टाइप करता है, पिछला इफेक्ट अनमाउंट होता है और क्लीन-अप फंक्शन रन होता है, जिससे पुराना <code>setTimeout</code> डिलीट हो जाता है। इससे मेमोरी लीक भी नहीं होती है और सर्वर पर एक्स्ट्रा लोड भी नहीं पड़ता।</p>
+
+<h2>Real-world Implementation: Search Component बनाना</h2>
+
+<p>अब जबकि हमारा <code>useDebounce</code> हुक तैयार है, चलिए इसे एक लाइव प्रोजेक्ट में टेस्ट करते हैं। हम एक ऐसी सर्च बार कॉम्पोनेंट बनाएंगे जो एक पब्लिक API (जैसे JSONPlaceholder) से पोस्ट सर्च करेगी।</p>
+
+<p>अपने कंपोनेंट फ़ोल्डर में <code>SearchBox.js</code> बनाएं और इस कोड को पेस्ट करें:</p>
+
+<pre><code>import React, { useState, useEffect } from 'react';
+import { useDebounce } from './hooks/useDebounce';
+
+function SearchBox() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [results, setResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // useDebounce Custom Hook ka upayog karein (500ms delay ke sath)
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  // API calls handle karne ke liye useEffect
+  useEffect(() => {
+    // Agar debounced value khali hai, to direct results clear karein aur call na karein
+    if (!debouncedSearchTerm) {
+      setResults([]);
+      return;
+    }
+
+    const fetchPosts = async () => {
+      setIsSearching(true);
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/posts?q=${encodeURIComponent(debouncedSearchTerm)}`
+        );
+        const data = await response.json();
+        setResults(data);
+      } catch (error) {
+        console.error("API Call fetching me error aayi hai:", error);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    fetchPosts();
+  }, [debouncedSearchTerm]); // Yeh effect tabhi chalega jab debounced value badlegi!
+
+  return (
+    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
+      <h2>🔍 Live Search with useDebounce</h2>
+      <p style={{ color: '#555' }}>
+        Type matching words (e.g. "qui", "dolor", "est") to fetch posts from API.
+      </p>
+
+      <input
+        type="text"
+        placeholder="Search posts..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{
+          width: '100%',
+          padding: '12px',
+          fontSize: '16px',
+          borderRadius: '8px',
+          border: '1px solid #ccc',
+          boxSizing: 'border-box',
+          marginBottom: '20px'
+        }}
+      />
+
+      {isSearching && <p style={{ fontWeight: 'bold', color: '#0070f3' }}>Searching the database...</p>}
+
+      <div>
+        <h3>Results ({results.length}):</h3>
+        {results.length === 0 && !isSearching && (
+          <p style={{ color: '#888' }}>No results found or input is empty.</p>
+        )}
+        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+          {results.map((post) => (
+            <li
+              key={post.id}
+              style={{
+                background: '#f9f9f9',
+                border: '1px solid #eee',
+                borderRadius: '6px',
+                padding: '12px',
+                marginBottom: '10px'
+              }}
+            >
+              <h4 style={{ margin: '0 0 8px 0', textTransform: 'capitalize' }}>{post.title}</h4>
+              <p style={{ margin: 0, fontSize: '14px', color: '#666' }}>{post.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default SearchBox;
+</code></pre>
+
+<h2>TypeScript के साथ useDebounce कैसे लिखें? (For Enterprise Apps)</h2>
+
+<p>आजकल अधिकतर आधुनिक और स्केलेबल वेब ऐप्स में <a href="https://itinfohubs.blogspot.com/search/label/NextJS">Next.js</a> और TypeScript का उपयोग हो रहा है। ऐसे में हमें टाइप सेफ्टी का ध्यान रखना बेहद जरूरी है। आइए हमारे <code>useDebounce</code> को जेनेरिक्स (Generics) की मदद से टाइप-सेफ बनाते हैं:</p>
+
+<pre><code>import { useState, useEffect } from 'react';
+
+export function useDebounce&lt;T&gt;(value: T, delay: number = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState&lt;T&gt;(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+</code></pre>
+
+<p>इस टाइप-सेफ इम्प्लीमेंटेशन में, जेनेरिक टाइप <code>&lt;T&gt;</code> यह सुनिश्चित करता है कि जो भी डेटा टाइप (string, number, array, or object) इनपुट में जाएगा, आउटपुट में भी कंपाइलर को वही सटीक टाइप रिटर्न मिले।</p>
+
+<h2>Common Errors और Debugging Tips</h2>
+
+<p>कस्टम हुक का उपयोग करते समय डेवलपर्स को अक्सर कुछ मुश्किल परिस्थितियों का सामना करना पड़ता है। आइए बात करते हैं कि कैसे किसी संभावित <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> को रोका जाए और उन्हें कैसे हल किया जाए।</p>
+
+<h3>1. Stale Closures की समस्या</h3>
+<p>यदि आप <code>useEffect</code> में डिपेंडेंसी ऐरे को खाली छोड़ देते हैं, तो हुक हमेशा इनपुट की पुरानी या प्रारंभिक वैल्यू ही याद रखेगा। हमेशा सुनिश्चित करें कि <code>[value, delay]</code> डिपेंडेंसी ऐरे में मौजूद हों।</p>
+
+<h3>2. Memory Leak Warning</h3>
+<p>यदि कंपोनेंट अनमाउंट हो जाता है लेकिन <code>setTimeout</code> अभी भी बैकग्राउंड में पेंडिंग है, तो React कभी-कभी स्टेट अपडेट करने पर एरर दिखाता है। हमारे हुक में <code>clearTimeout(handler)</code> का उपयोग क्लीन-अप फंक्शन में होना इसी वजह से अनिवार्य है ताकि अनमाउंट होने पर पुराना थ्रेड सुरक्षित रूप से किल हो सके।</p>
+
+<h3>3. SSR (Server-Side Rendering) Compatibility</h3>
+<p>अगर आप <a href="https://itinfohubs.blogspot.com/search/label/NextJS">Next.js</a> जैसी SSR फ्रेमवर्क का इस्तेमाल कर रहे हैं, तो ध्यान रखें कि सर्वर पर <code>window</code> या <code>setTimeout</code> जैसी चीजें क्लाइंट-साइड की तरह डायरेक्ट उपलब्ध नहीं होतीं (हालांकि <code>setTimeout</code> नोड रनटाइम पर भी काम करता है)। हमारे हुक में <code>useEffect</code> का इस्तेमाल होता है, जो पूरी तरह से क्लाइंट-साइड पर ही एग्जीक्यूट होता है, इसलिए यह सर्वर-साइड रेंडरिंग एनवायरनमेंट में भी पूरी तरह से सेफ है।</p>
+
+<h2>Toh dosto, humne aaj seekha...</h2>
+
+<p>दोस्तों, आज हमने React में <strong>useDebounce Custom Hook</strong> बनाने की पूरी प्रक्रिया को बहुत ही आसान और सीधे शब्दों में समझा। हमने देखा कि कैसे केवल कुछ लाइनों का एक रीयूजेबल हुक हमारे ऐप की परफॉर्मेंस को 10 गुना तक बढ़ा सकता है। यह तकनीक न केवल आपके बैकएंड सर्वर को क्रैश होने से बचाती है, बल्कि डेटाबेस कॉल्स की कॉस्ट को भी काफी हद तक कम करती है।</p>
+
+<p>इस हुक को आप अपने आने वाले प्रोजेक्ट्स में जरूर शामिल करें, चाहे वो एक साधारण ई-कॉमर्स फ़िल्टर बार हो या कोई एडवांस रीयल-टाइम डैशबोर्ड। प्रैक्टिस करते रहिए, और खुश रहिए!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: Kya useLocalStorage server-side rendering (SSR) ke saath kaam karta hai?</div>
-  <div class="faq-a">SSR me 'window' object nahi hota, isliye aapko check karna padega ki code browser me run ho raha hai ya nahi. Iske liye 'typeof window !== "undefined"' ka use karein.</div>
-  <div class="faq-q">Q2: Kya hum is hook me object store kar sakte hain?</div>
-  <div class="faq-a">Haan, bilkul! Kyunki humne JSON.stringify aur JSON.parse ka use kiya hai, aap objects aur arrays dono store kar sakte hain.</div>
-  <div class="faq-q">Q3: Kya hook baar-baar re-render karta hai?</div>
-  <div class="faq-a">Nahi, 'useEffect' sirf tabhi trigger hota hai jab 'storedValue' change hoti hai, jo ki performance ke liye optimize hai.</div>
-  <div class="faq-q">Q4: Maximum kitna data store kar sakte hain?</div>
-  <div class="faq-a">LocalStorage ki limit browser to browser vary karti hai, but generally yeh 5MB tak hoti hai.</div>
-  <div class="faq-q">Q5: Kya yeh hook secure hai?</div>
-  <div class="faq-a">LocalStorage secure nahi hota, isliye kabhi bhi sensitive information jaise passwords ya tokens yahan save na karein.</div>
+  
+  <div class="faq-q">Q1: React me Debouncing aur Throttling me se kab kaun sa use karein?</div>
+  <div class="faq-a">Agar aapko user ke typing input khatam karne ka wait karna hai (jaise Search Bar me), to Debouncing sabse best option hai. Wahi agar aapko user ke scrolling coordinate track karne hain ya window resize monitor karni hai bina UI freeze kiye, to Throttling ka use karein.</div>
+  
+  <div class="faq-q">Q2: Kya hum external library jaise Lodash ka debounce direct use nahi kar sakte?</div>
+  <div class="faq-a">Beshak aap Lodash library ke _.debounce() function ka use kar sakte hain. Lekin normal React application me extra bundle size badhane se accha hai ki hum 15-20 line ka ek clean, custom useDebounce hook khud hi likh lein jise debug karna aasan hota hai.</div>
+  
+  <div class="faq-q">Q3: useDebounce custom hook me cleanup function kyu jaruri hota hai?</div>
+  <div class="faq-a">Cleanup function (clearTimeout) isliye jaruri hai taaki jab bhi user naya character type kare, purana chal raha timer cancel ho jaye aur naya fresh timer shuru ho sake. Agar aisa nahi karenge, to har ek key-stroke par pichla timer bhi trigger ho jayega, jisse debouncing ka fayda khatam ho jayega.</div>
+  
+  <div class="faq-q">Q4: useDebounce hook use karne se search input update hone me lag kyu lagta hai?</div>
+  <div class="faq-a">Kayi baar developers input value ko direct debounced value se control karte hain jisse local UI laggy ho jata hai. Iska sahi tarika ye hai ki input box ke value prop me hamesha real-time state rakhein, aur sirf API Call fetch karne ke liye debounced value dependency ka use karein.</div>
+  
+  <div class="faq-q">Q5: Kya useDebounce hook Next.js (SSR) ke sath perfectly sync hota hai?</div>
+  <div class="faq-a">Haan, useDebounce hook useEffect lifecycle hook ke andar chalta hai jo ki sirf Web Browser (Client-side) par execute hota hai. Is wajah se, Next.js Server-Side Components ya SSR hydration process me bina kisi crash ke smooth tarike se kaam karta hai.</div>
 </div>
 
 <script type="application/ld+json">
@@ -147,42 +311,42 @@ export default useLocalStorage;</code></pre>
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Kya useLocalStorage server-side rendering (SSR) ke saath kaam karta hai?",
+      "name": "React me Debouncing aur Throttling me se kab kaun sa use karein?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "SSR me window object nahi hota, isliye aapko check karna padega ki code browser me run ho raha hai ya nahi. Iske liye typeof window !== 'undefined' ka use karein."
+        "text": "Agar aapko user ke typing input khatam karne ka wait karna hai (jaise Search Bar me), to Debouncing sabse best option hai. Wahi agar aapko user ke scrolling coordinate track karne hain ya window resize monitor karni hai bina UI freeze kiye, to Throttling ka use karein."
       }
     },
     {
       "@type": "Question",
-      "name": "Kya hum is hook me object store kar sakte hain?",
+      "name": "Kya hum external library jaise Lodash ka debounce direct use nahi kar sakte?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Haan, bilkul! Kyunki humne JSON.stringify aur JSON.parse ka use kiya hai, aap objects aur arrays dono store kar sakte hain."
+        "text": "Beshak aap Lodash library ke _.debounce() function ka use kar sakte hain. Lekin normal React application me extra bundle size badhane se accha hai ki hum 15-20 line ka ek clean, custom useDebounce hook khud hi likh lein jise debug karna aasan hota hai."
       }
     },
     {
       "@type": "Question",
-      "name": "Kya hook baar-baar re-render karta hai?",
+      "name": "useDebounce custom hook me cleanup function kyu jaruri hota hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nahi, useEffect sirf tabhi trigger hota hai jab storedValue change hoti hai, jo ki performance ke liye optimize hai."
+        "text": "Cleanup function (clearTimeout) isliye jaruri hai taaki jab bhi user naya character type kare, purana chal raha timer cancel ho jaye aur naya fresh timer shuru ho sake. Agar aisa nahi karenge, to har ek key-stroke par pichla timer bhi trigger ho jayega, jisse debouncing ka fayda khatam ho jayega."
       }
     },
     {
       "@type": "Question",
-      "name": "Maximum kitna data store kar sakte hain?",
+      "name": "useDebounce hook use karne se search input update hone me lag kyu lagta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "LocalStorage ki limit browser to browser vary karti hai, but generally yeh 5MB tak hoti hai."
+        "text": "Kayi baar developers input value ko direct debounced value se control karte hain jisse local UI laggy ho jata hai. Iska sahi tarika ye hai ki input box ke value prop me hamesha real-time state rakhein, aur sirf API Call fetch karne ke liye debounced value dependency ka use karein."
       }
     },
     {
       "@type": "Question",
-      "name": "Kya yeh hook secure hai?",
+      "name": "Kya useDebounce hook Next.js (SSR) ke sath perfectly sync hota hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "LocalStorage secure nahi hota, isliye kabhi bhi sensitive information jaise passwords ya tokens yahan save na karein."
+        "text": "Haan, useDebounce hook useEffect lifecycle hook ke andar chalta hai jo ki sirf Web Browser (Client-side) par execute hota hai. Is wajah se, Next.js Server-Side Components ya SSR hydration process me bina kisi crash ke smooth tarike se kaam karta hai."
       }
     }
   ]
