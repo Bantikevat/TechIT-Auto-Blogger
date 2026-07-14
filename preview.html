@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React Component Lifecycle Kya Hai (Complete Guide (Hindi)</title>
+    <title>Preview: React me Higher Order Components HOC Kya Hain (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,230 +16,131 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Component Lifecycle kya hai? Is complete Hindi guide mein components ke Mounting, Updating aur Unmounting phases ko easy examples se samjhein.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React में Higher Order Components (HOC) क्या हैं? कोड रियूज़ेबिलिटी और परफॉर्मेंस बढ़ाने के लिए HOC का सही इस्तेमाल आसान हिंदी में सीखें।</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React Component Lifecycle Kya Hai (Complete Guide (Hindi)</h1>
+    <h1>React me Higher Order Components HOC Kya Hain (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/Cp8YSP7r/827be9232229.png" alt="React Component Lifecycle Kya Hai (Complete Guide in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<p>React Component Lifecycle kya hai? Is complete Hindi guide me components ke birth, update, aur death phases ko hooks aur lifecycle methods ke sath sikhein.</p>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/93vZfXvD/5e79870de1e9.png" alt="React me Higher Order Components HOC Kya Hain (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React me Higher Order Components (HOC) kya hain aur ye kaise kaam karte hain? Is guide me HOC pattern, use-cases aur implementation step-by-step seekhein.
 
-<p>मेरे प्यारे दोस्तों, अगर आप ReactJS की दुनिया में कदम रख चुके हैं, तो आपने एक बात जरूर नोटिस की होगी — यहाँ सब कुछ components के इर्द-गिर्द घूमता है। लेकिन क्या आपने कभी सोचा है कि एक React Component स्क्रीन पर आने से लेकर गायब होने तक किस सफर से गुजरता है? जब हम कोई एप्लीकेशन बनाते हैं, तो बैकग्राउंड में डेटा लोड करना, इवेंट्स को संभालना, और मेमोरी को मैनेज करना बेहद जरूरी हो जाता है। अगर हम इस साइकिल को नहीं समझेंगे, तो हमारी ऐप में मेमोरी लीक्स और परफॉरमेंस की समस्याएँ आने लगेंगी। चलिए, आज अपने 50 सालों के प्रोग्रामिंग अनुभव का निचोड़ लेकर मैं आपके साथ बैठ रहा हूँ ताकि हम मिलकर इस "React Component Lifecycle" के पूरे रहस्य को बहुत ही आसान और मजेदार भाषा में डिकोड कर सकें!</p>
+<p>Dosto, jab hum bade <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> applications par kaam karte hain, toh aksar humein ek hi logic baar-baar likhna padta hai. Maano ki aapko 10 alag components me authentication check karni hai ya data fetch karna hai. Kya aap har baar same code likhenge? Bilkul nahi! Yahi wo jagah hai jahan <strong>Higher Order Components (HOC)</strong> humari madad karte hain.</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> <strong>React Component Lifecycle</strong> वह सीरीज है जिसके तहत एक component बनता है (Mounting), अपडेट होता है (Updating), और स्क्रीन से हटता है (Unmounting)। Functional components में इस पूरी साइकिल को मैनेज करने के लिए <strong>useEffect Hook</strong> का इस्तेमाल किया जाता है, जो class components के पुराने lifecycle methods का एक आधुनिक विकल्प है।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> Higher Order Component (HOC) ek advanced pattern hai jisme hum ek function banate hain jo dusre component ko argument ki tarah leta hai aur ek naya, enhanced component return karta hai. Ye <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> me code reuse aur cross-cutting concerns (jaise logging, authentication) ko handle karne ka behtareen tarika hai.</div>
 
-<h2>React Component Lifecycle क्या है और इसकी आवश्यकता क्यों है?</h2>
+<h2>Higher Order Components (HOC) क्या है?</h2>
 
-<p>सरल शब्दों में कहें तो, जैसे एक इंसान का जीवन चक्र होता है — जन्म (Birth), विकास (Growth), और मृत्यु (Death) — ठीक उसी तरह एक <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">React components</a> का भी अपना एक जीवन चक्र (Lifecycle) होता है। जब कोई component स्क्रीन पर पहली बार दिखाई देता है, जब उसका डेटा बदलता है, या जब वह स्क्रीन से हट जाता है, तो React कई तरह के फंक्शन्स को ट्रिगर करता है।</p>
+<p>Seedhe shabdo me kahein toh HOC ek <strong>"Function"</strong> hai, component nahi. Programming ki duniya me ise <em>Higher Order Function</em> ka concept kehte hain. Agar aap ek aisa function likhte hain jo ek component leta hai aur usse extra "powers" (jaise props ya state) add karke naya component deta hai, toh wahi HOC hai.</p>
 
-<p>अब सवाल उठता है कि हमें इसकी जरूरत क्यों है? मान लीजिए आप एक रियल-टाइम स्टॉक मार्केट ट्रैकर या मौसम बताने वाली एप्लीकेशन बना रहे हैं। जैसे ही आपका component स्क्रीन पर लोड हो, आपको तुरंत API से लेटेस्ट डेटा मंगाना होगा। जब यूजर किसी दूसरे पेज पर जाए, तो आपको बैकग्राउंड में चल रहे इंटरनेट कनेक्शंस को बंद करना होगा ताकि यूजर का इंटरनेट और डिवाइस की मेमोरी फालतू में खर्च न हो। इन सभी कामों को सही समय पर करने के लिए हमें component के लाइफसाइकल को समझना और संभालना पड़ता है।</p>
+<p>Iska main maqsad <strong>Code Reusability</strong> badhana hai. Agar aapke paas 5 alag components hain jinhe ek hi tarah ki styling ya data processing ki zaroorat hai, toh aap unhe wrap karne ke liye ek HOC bana sakte hain.</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Component Lifecycle Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Architecture Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Mounting (Birth in DOM)</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Original Component</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Updating (State/Props Change)</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">HOC Wrapper</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Unmounting (Removal from DOM)</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Enhanced Component</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React Component Lifecycle के तीन मुख्य चरण।</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: HOC ek simple component ko input lekar use transform karke power-up kar deta hai.</div>
 </div>
 
-<h2>Component Lifecycle के तीन मुख्य Phases (चरण)</h2>
+<h2>HOC कैसे काम करता है? (Step-by-Step)</h2>
 
-<p>React में एक component का पूरा सफर तीन मुख्य चरणों में बंटा हुआ है। आइए इन तीनों को बहुत करीब से और आसान उदाहरणों के साथ समझते हैं:</p>
+<p>Chaliye ek real-world example dekhte hain. Maan lijiye humein ek <strong>withAuth</strong> HOC banana hai jo check karega ki user logged-in hai ya nahi. Agar hai, toh component dikhao, warna "Please Login" message dikhao.</p>
 
-<h3>1. Mounting Phase (जन्म)</h3>
-<p>यह वह पहला चरण है जब component का नया बच्चा पैदा होता है और पहली बार ब्राउज़र के DOM में अपनी जगह बनाता है। इस फेज में component का इनिशियलाइजेशन होता है, डिफ़ॉल्ट props सेट किए जाते हैं, और शुरुआती state डिक्लेयर की जाती है। इस समय पर हम API से डेटा फैच करने जैसे महत्वपूर्ण काम करते हैं ताकि यूजर को तुरंत स्क्रीन पर डेटा दिखाई दे।</p>
+<pre><code>
+import React from 'react';
 
-<h3>2. Updating Phase (विकास/बदलाव)</h3>
-<p>जब component स्क्रीन पर आ जाता है, तो यूजर उसके साथ इंटरैक्ट करता है। जैसे ही component की <code>state</code> या उसे मिलने वाले <code>props</code> बदलते हैं, React को पता चल जाता है कि स्क्रीन पर कुछ नया दिखाना है। इस बदलाव की वजह से component दोबारा रेंडर (Re-render) होता है। इसे हम Updating Phase कहते हैं।</p>
+// Ye hamara HOC function hai
+const withAuth = (WrappedComponent) => {
+  return (props) => {
+    const isLoggedIn = true; // Ye logic actual app me auth context se aayega
 
-<h3>3. Unmounting Phase (मृत्यु/विदाई)</h3>
-<p>यह component के जीवन का आखिरी पड़ाव है। जब यूजर किसी दूसरे पेज पर जाता है या किसी बटन को दबाकर उस component को छुपा देता है, तब वह component DOM से पूरी तरह हटा दिया जाता है। इस फेज में हमें सफ़ाई (Cleanup) का काम करना होता है, जैसे कि चल रहे टाइमर्स (setInterval) को रोकना या एक्टिव इवेंट लिसनर्स को हटाना।</p>
+    if (!isLoggedIn) {
+      return &lt;div&gt;Please Login to view this page.&lt;/div&gt;;
+    }
 
-<h2>Class Components vs Functional Components: बदलाव का सफर</h2>
+    // Agar user logged-in hai, original component return karo
+    return &lt;WrappedComponent {...props} /&gt;;
+  };
+};
 
-<p>पुराने समय में, जब React में Class Components का बोलबाला था, तब हम हर फेज के लिए अलग-अलग इन-बिल्ट मेथड्स का इस्तेमाल करते थे। लेकिन आधुनिक React (React 16.8 के बाद) में Hooks के आने से, Functional Components ही राज कर रहे हैं। अब हमें अलग-अलग मेथड्स याद रखने की जरूरत नहीं पड़ती; केवल एक अकेला <strong>useEffect Hook</strong> इन सभी कामों को बखूबी संभाल लेता है।</p>
+export default withAuth;
+</code></pre>
 
-<p>आइए एक टेबल के जरिए देखते हैं कि पुराने क्लास मेथड्स और नए फंक्शनल हुक्स में क्या संबंध है, जिससे आपको समझने में आसानी होगी:</p>
+<p>Ab iska use kaise karenge? Bahut simple hai!</p>
 
-<table style="width:100%; border-collapse:collapse; margin:20px 0; text-align:left; font-size:15px;">
+<pre><code>
+const Dashboard = (props) => {
+  return &lt;h1&gt;Welcome to your Dashboard, {props.username}!&lt;/h1&gt;;
+};
+
+// HOC ke saath wrap karna
+const EnhancedDashboard = withAuth(Dashboard);
+
+// Export karte waqt enhanced component use karein
+export default EnhancedDashboard;
+</code></pre>
+
+<h2>HOC का use कब करें और कब नहीं?</h2>
+
+<p>Dosto, har cheez ke liye HOC ka use karna zaruri nahi hai. Aaiye ek table se samjhte hain:</p>
+
+<table>
   <thead>
-    <tr style="background-color:#1e293b; color:#ffffff;">
-      <th style="padding:12px; border:1px solid #cbd5e1;">Lifecycle Phase</th>
-      <th style="padding:12px; border:1px solid #cbd5e1;">Class Component Method</th>
-      <th style="padding:12px; border:1px solid #cbd5e1;">Functional Hook Equivalent</th>
+    <tr>
+      <th>Feature</th>
+      <th>Higher Order Component (HOC)</th>
+      <th>Hooks (Alternative)</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="background-color:#f8fafc;">
-      <td style="padding:12px; border:1px solid #cbd5e1; font-weight:600;">Mounting (Birth)</td>
-      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace;">componentDidMount()</td>
-      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">useEffect(() => {}, [])</td>
+    <tr>
+      <td>Complexity</td>
+      <td>Thoda complex structure</td>
+      <td>Kaafi simple aur readable</td>
     </tr>
-    <tr style="background-color:#ffffff;">
-      <td style="padding:12px; border:1px solid #cbd5e1; font-weight:600;">Updating (Change)</td>
-      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace;">componentDidUpdate()</td>
-      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">useEffect(() => {}, [dependency])</td>
+    <tr>
+      <td>Main Use</td>
+      <td>Component wrapping & logic sharing</td>
+      <td>State logic & Side effects</td>
     </tr>
-    <tr style="background-color:#f8fafc;">
-      <td style="padding:12px; border:1px solid #cbd5e1; font-weight:600;">Unmounting (Death)</td>
-      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace;">componentWillUnmount()</td>
-      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">useEffect(() => { return () => {} }, [])</td>
+    <tr>
+      <td>Readability</td>
+      <td>Wrapper hell ho sakta hai</td>
+      <td>Bahut clean code rehta hai</td>
     </tr>
   </tbody>
 </table>
 
-<p>ध्यान देने वाली बात ये है कि अगर आप React के बेहतरीन डेवलपर बनना चाहते हैं, तो आपको हुक्स का सही इस्तेमाल करना ही होगा। विस्तृत जानकारी के लिए आप <a href="https://react.dev" target="_blank" rel="noopener">React Official Documentation</a> भी पढ़ सकते हैं, जो कि सबसे सटीक और विश्वसनीय सोर्स है।</p>
+<p><strong>Dhyan dene wali baat ye hai ki:</strong> Jab se React Hooks aaye hain, HOC ka use thoda kam ho gaya hai. Lekin kuch specific cases jaise "Layout wrappers" ya "Third-party libraries" (jaise React Router ka <code>withRouter</code> purane versions me) ke liye HOC aaj bhi king hai.</p>
 
-<h2>Step-by-Step Production-Ready Code Implementation</h2>
+<h2>Common Errors और Debugging Tips</h2>
 
-<p>चलिए, अब सीधे काम की बात पर आते हैं। कोडिंग को सिर्फ थ्योरी से नहीं समझा जा सकता। हम एक कंप्लीट, प्रोडक्शन-रेडी और फुली-फंक्शनल React Component लिखेंगे। इस उदाहरण में हम एक "User Profile Card" बनाएंगे जो इंटरनेट से डेटा मंगाएगा (Mounting), यूजर के स्टेटस को अपडेट करेगा (Updating), और स्क्रीन से हटते ही एक एक्टिव टाइमर को क्लीनअप करेगा (Unmounting)।</p>
-
-<p>इस कोड को बहुत ध्यान से देखें और समझने की कोशिश करें कि हर लाइन क्या काम कर रही है:</p>
-
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function UserDashboard({ userId }) {
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [secondsActive, setSecondsActive] = useState(0);
-
-  // 1. MOUNTING PHASE: Component के लोड होते ही डेटा फैच करना
-  useEffect(() => {
-    console.log("Component DOM में माउंट हो गया है! API कॉल शुरू हो रही है...");
-    
-    // API से डमी डेटा लाने का मॉक फंक्शन
-    const fetchUserData = async () => {
-      try {
-        setLoading(true);
-        // डमी API रिस्पॉन्स का टाइमआउट सेट कर रहे हैं
-        setTimeout(() => {
-          setUserData({
-            name: "अमित शर्मा",
-            role: "सीनियर सॉफ्टवेयर इंजीनियर",
-            company: "Tech Solutions Inc."
-          });
-          setLoading(false);
-          console.log("डेटा सफलतापूर्वक लोड हो गया है!");
-        }, 1500);
-      } catch (error) {
-        console.error("डेटा फैच करने में एरर आया:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, []); // खाली dependency array ([]) का मतलब है कि यह सिर्फ माउंटिंग पर एक बार चलेगा
-
-  // 2. UPDATING PHASE: जब userId या userData बदलेगा तो यह इफेक्ट चलेगा
-  useEffect(() => {
-    if (userData) {
-      console.log(`यूजर प्रोफाइल अपडेट हो गई है! नया नाम: ${userData.name}`);
-      document.title = `${userData.name} - Dashboard`;
-    }
-  }, [userData]); // यह केवल तब रन होगा जब userData स्टेट बदलेगी
-
-  // 3. UNMOUNTING PHASE: टाइमर सेट करना और कंपोनेंट अनमाउंट होने पर क्लीनअप करना
-  useEffect(() => {
-    console.log("एक एक्टिविटी टाइमर शुरू किया जा रहा है...");
-    const timerInterval = setInterval(() => {
-      setSecondsActive((prevSeconds) => prevSeconds + 1);
-    }, 1000);
-
-    // क्लीनअप फंक्शन (यह componentWillUnmount की तरह काम करता है)
-    return () => {
-      console.log("कंपोनेंट अनमाउंट हो रहा है! टाइमर इंटरवल को क्लियर किया जा रहा है...");
-      clearInterval(timerInterval);
-    };
-  }, []); // खाली एरे के साथ रिटर्न फंक्शन अनमाउंट होने पर ही चलता है
-
-  if (loading) {
-    return (
-      <div style={{ padding: '20px', fontFamily: 'sans-serif', textAlign: 'center' }}>
-        <h3>डेटा लोड हो रहा है, कृपया प्रतीक्षा करें...</h3>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{
-      border: '1px solid #e2e8f0',
-      borderRadius: '12px',
-      padding: '24px',
-      maxWidth: '400px',
-      margin: '20px auto',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-      fontFamily: 'sans-serif',
-      backgroundColor: '#ffffff'
-    }}>
-      <h2 style={{ color: '#1e293b', marginTop: '0' }}>यूजर डैशबोर्ड</h2>
-      <hr style={{ borderColor: '#f1f5f9' }} />
-      <p><strong>नाम:</strong> {userData.name}</p>
-      <p><strong>पद:</strong> {userData.role}</p>
-      <p><strong>कंपनी:</strong> {userData.company}</p>
-      <hr style={{ borderColor: '#f1f5f9' }} />
-      <div style={{ marginTop: '15px', fontSize: '14px', color: '#64748b' }}>
-        ⏱️ आप इस पेज पर <strong>{secondsActive}</strong> सेकंड से सक्रिय हैं।
-      </div>
-    </div>
-  );
-}
-
-export default UserDashboard;
-</code></pre>
-
-<p>इस कोड को जब आप अपने प्रोजेक्ट में चलाएंगे, तो ब्राउज़र के कंसोल (Console) को जरूर खोलकर देखिएगा। आपको साफ दिखाई देगा कि कब कौन सा मैसेज प्रिंट हो रहा है। यही सबसे बढ़िया तरीका है किसी भी कॉन्सेप्ट को प्रैक्टिकली सीखने का!</p>
-
-<h2>Edge Cases और सामान्य गलतियाँ (Common Errors & Debugging)</h2>
-
-<p>दोस्तों, जब हम कंपोनेंट्स की लाइफसाइकल के साथ काम करते हैं, तो अक्सर कुछ ऐसी गलतियाँ हो जाती हैं जो बड़े-बड़े धुरंधर डेवलपर्स को भी परेशान कर देती हैं। आइए इनके बारे में बात करते हैं ताकि आप इन मुश्किलों से बच सकें:</p>
-
-<ol>
-  <li>
-    <strong>useEffect में Infinite Loop बन जाना:</strong>
-    <p>यह सबसे आम गलती है। मान लीजिए आपने <code>useEffect</code> के अंदर कोई स्टेट अपडेट की (जैसे <code>setUserData</code>) और उस स्टेट को ही dependency array में डाल दिया। इससे क्या होगा? स्टेट बदलेगी -> इफेक्ट चलेगा -> स्टेट फिर बदलेगी -> इफेक्ट फिर चलेगा... और यह सिलसिला कभी खत्म नहीं होगा।</p>
-    <p><strong>समाधान:</strong> हमेशा अपने dependency array को बहुत ध्यान से डिजाइन करें। केवल उन्हीं वेरिएबल्स को डालें जिन पर आपका इफेक्ट सचमुच निर्भर करता है।</p>
-  </li>
-  <li>
-    <strong>Memory Leaks होना (क्लीनअप न करना):</strong>
-    <p>यदि आप अपने कंपोनेंट में कोई <code>setInterval</code>, <code>addEventListener</code> या WebSocket कनेक्शन चालू करते हैं और उसे अनमाउंट होने पर बंद नहीं करते, तो वह बैकग्राउंड में चलता ही रहेगा। इससे आपकी ऐप स्लो हो जाएगी।</p>
-    <p><strong>समाधान:</strong> अपने <code>useEffect</code> से हमेशा एक क्लीनअप फंक्शन रिटर्न करें जो इन बाहरी सोर्सेज को हटा या बंद कर दे। अगर कभी आपको कंपोनेंट की एरर्स को समझने और उन्हें ठीक करने में परेशानी हो, तो आप हमारे <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">Error Solving</a> सेक्शन को देख सकते हैं, जहाँ हमने कई रियल-वर्ल्ड प्रॉब्लम्स के आसान सॉल्यूशंस शेयर किए हैं।</p>
-  </li>
-  <li>
-    <strong>Stale Closures (पुरानी स्टेट वैल्यू मिलना):</strong>
-    <p>कभी-कभी <code>useEffect</code> के अंदर आपको स्टेट की पुरानी वैल्यू मिलती है क्योंकि वह वैल्यू उस समय के "क्लोजर" में कैप्चर हो चुकी होती है जब इफेक्ट पहली बार चला था।</p>
-    <p><strong>समाधान:</strong> स्टेट को सीधे अपडेट करने के बजाय फंक्शनल अपडेट्स का इस्तेमाल करें, जैसे: <code>setCount(prev => prev + 1)</code>।</p>
-  </li>
-</ol>
-
-<h2>बेहतर परफॉरमेंस के लिए Best Practices</h2>
-
-<p>अपने एप्लीकेशन की स्केलेबिलिटी और स्पीड बनाए रखने के लिए इन जरूरी बातों का विशेष ध्यान रखें:</p>
-
+<p>Jab aap HOC likhte hain, toh kuch common <code>error</code> face kar sakte hain:</p>
 <ul>
-  <li><strong>सिंगल-परपज इफेक्ट्स (Single-purpose Effects):</strong> एक ही <code>useEffect</code> में सारी दुनिया का काम करने की कोशिश न करें। डेटा फैचिंग के लिए अलग, और टाइमर के लिए अलग <code>useEffect</code> लिखें। इससे आपका कोड साफ और मेंटेन करने योग्य रहता है।</li>
-  <li><strong>Dependency Array को खाली न छोड़ें जब जरूरत हो:</strong> यदि आपका इफेक्ट किसी बाहरी वैरिएबल का इस्तेमाल कर रहा है, तो उसे डिपेंडेंसी एरे में जरूर डालें, अन्यथा आपका कोड पुराना डेटा दिखाता रहेगा।</li>
-  <li><strong>Cleanup को कभी न भूलें:</strong> हर वो इवेंट जो ब्राउज़र या विंडो लेवल पर रजिस्टर हो रहा है, उसे क्लीनअप करना आपकी पहली प्राथमिकता होनी चाहिए।</li>
+  <li><strong>Prop Drilling/Loss:</strong> Agar aap <code>{...props}</code> pass karna bhool gaye, toh aapke original component tak props nahi pahunchenge. Isse components blank dikh sakte hain.</li>
+  <li><strong>Display Name:</strong> React DevTools me HOC components ko debug karna mushkil hota hai kyunki wo sab "Anonymous" dikhte hain. Isse fix karne ke liye <code>WrappedComponent.displayName</code> set karein.</li>
+  <li><strong>Hooks in HOC:</strong> Yaad rakhein, HOC ke andar aap hooks use kar sakte hain, lekin HOC khud ek component nahi, ek function hai.</li>
 </ul>
 
-<p>तो दोस्तों, आज हमने रिएक्ट कंपोनेंट लाइफसाइकल की गहराई को छुआ और समझा कि कैसे क्लास कंपोनेंट्स के पुराने तरीके नए फंक्शनल हुक्स में बदल गए हैं। लाइफसाइकल को अच्छी तरह समझना आपको एक साधारण डेवलपर से एक बेहतरीन सॉफ्टवेयर आर्किटेक्ट बनाता है। अब आपकी बारी है! इस कोड को अपने लोकल सिस्टम पर चलाकर देखें, उसमें थोड़े बदलाव करें और एक्सपेरिमेंट करें। कोडिंग करने से ही कोडिंग आती है। खुश रहिए, कोड करते रहिए!</p>
+<p>Official documentation ke liye <a href="https://react.dev/reference/react" target="_blank" rel="noopener">React official docs</a> check karte rahein.</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: React Component Lifecycle में 'Mounting' का क्या मतलब है?</div>
-  <div class="faq-a">Mounting वह फेज है जब एक React component पहली बार तैयार होकर ब्राउज़र के असली DOM (Document Object Model) में डाला जाता है और स्क्रीन पर दिखाई देता है।</div>
-  <div class="faq-q">Q2: Class Components के lifecycle methods का विकल्प functional components में क्या है?</div>
-  <div class="faq-a">Functional components में Class components के सभी लाइफसाइकल मेथड्स (जैसे componentDidMount, componentDidUpdate, componentWillUnmount) का काम अकेले 'useEffect' Hook द्वारा मैनेज किया जाता है।</div>
-  <div class="faq-q">Q3: Unmounting फेज में Cleanup फंक्शन का इस्तेमाल क्यों किया जाता है?</div>
-  <div class="faq-a">Cleanup फंक्शन का इस्तेमाल मेमोरी लीक से बचने के लिए किया जाता है। इसकी मदद से हम एक्टिव टाइमर्स (setInterval), इवेंट लिसनर्स, या ओपन नेटवर्क कनेक्शंस को component के नष्ट होने पर बंद करते हैं।</div>
-  <div class="faq-q">Q4: useEffect Hook में खाली dependency array ([]) का क्या काम है?</div>
-  <div class="faq-a">जब हम dependency array को खाली ([]) छोड़ते हैं, तो उसके अंदर का कोड सिर्फ कंपोनेंट के माउंट होने पर एक बार चलता है, और दोबारा किसी भी स्टेट बदलाव पर ट्रिगर नहीं होता।</div>
-  <div class="faq-q">Q5: क्या हम एक कंपोनेंट में एक से अधिक useEffect का इस्तेमाल कर सकते हैं?</div>
-  <div class="faq-a">हाँ, बिल्कुल! बेहतर कोडिंग प्रैक्टिस यही है कि आप अलग-अलग लॉजिक (जैसे डेटा फेचिंग और विंडो इवेंट लिसनर्स) के लिए अलग-अलग 'useEffect' Hooks का उपयोग करें ताकि कोड को समझना आसान रहे।</div>
+  <div class="faq-q">Q1: Kya HOC aur Custom Hooks ek hi hain?</div>
+  <div class="faq-a">Nahi, ye alag hain. HOC ek pure component ko wrap karta hai (UI centric), jabki Custom Hooks sirf logic (state/side effects) ko reuse karte hain.</div>
+  <div class="faq-q">Q2: Kya hum multiple HOCs ek saath use kar sakte hain?</div>
+  <div class="faq-a">Haan, aap components ko multiple wrappers me wrap kar sakte hain, jaise: <code>withAuth(withLogger(Dashboard))</code>. Isse "Wrapper Hell" kehte hain, isliye ise limit me rakhein.</div>
+  <div class="faq-q">Q3: HOC me "Props" pass karna kyun zaruri hai?</div>
+  <div class="faq-a">Kyuki wrapper component original component ko render karta hai. Agar aap props pass nahi karenge, toh child component ko kabhi data nahi milega.</div>
+  <div class="faq-q">Q4: Kya HOC performance ko slow karta hai?</div>
+  <div class="faq-a">HOC ek extra layer add karta hai, lekin agar sahi tareeke se use ho, toh ye negligible hai. Avoid nesting too many HOCs.</div>
+  <div class="faq-q">Q5: Kya main class component me HOC use kar sakta hoon?</div>
+  <div class="faq-a">Haan, HOC class aur functional components dono ke saath kaam karta hai. Ye React ke pattern ka feature hai, components ka nahi.</div>
 </div>
 
 <script type="application/ld+json">
@@ -249,46 +150,48 @@ export default UserDashboard;
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React Component Lifecycle में 'Mounting' का क्या मतलब है?",
+      "name": "Kya HOC aur Custom Hooks ek hi hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Mounting वह फेज है जब एक React component पहली बार तैयार होकर ब्राउज़र के असली DOM (Document Object Model) में डाला जाता है और स्क्रीन पर दिखाई देता है।"
+        "text": "Nahi, ye alag hain. HOC ek pure component ko wrap karta hai, jabki Custom Hooks sirf logic ko reuse karte hain."
       }
     },
     {
       "@type": "Question",
-      "name": "Class Components के lifecycle methods का विकल्प functional components में क्या है?",
+      "name": "Kya hum multiple HOCs ek saath use kar sakte hain?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Functional components में Class components के सभी लाइफसाइकल मेथड्स (जैसे componentDidMount, componentDidUpdate, componentWillUnmount) का काम अकेले 'useEffect' Hook द्वारा मैनेज किया जाता है।"
+        "text": "Haan, aap components ko multiple wrappers me wrap kar sakte hain, lekin ise zyada karne se bachna chahiye."
       }
     },
     {
       "@type": "Question",
-      "name": "Unmounting फेज में Cleanup फंक्शन का इस्तेमाल क्यों किया जाता है?",
+      "name": "Kya HOC me Props pass karna kyun zaruri hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cleanup फंक्शन का इस्तेमाल मेमोरी लीक से बचने के लिए किया जाता है। इसकी मदद से हम एक्टिव टाइमर्स (setInterval), इवेंट लिसनर्स, या ओपन नेटवर्क कनेक्शंस को component के नष्ट होने पर बंद करते हैं।"
+        "text": "Kyuki wrapper component original component ko render karta hai. Props ke bina child ko data nahi milega."
       }
     },
     {
       "@type": "Question",
-      "name": "useEffect Hook में खाली dependency array ([]) का क्या काम है?",
+      "name": "Kya HOC performance ko slow karta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "जब हम dependency array को खाली ([]) छोड़ते हैं, तो उसके अंदर का कोड सिर्फ कंपोनेंट के माउंट होने पर एक बार चलता है, और दोबारा किसी भी स्टेट बदलाव पर ट्रिगर नहीं होता।"
+        "text": "HOC ek extra layer add karta hai, lekin sahi tareeke se use hone par performance par koi bura asar nahi padta."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या हम एक कंपोनेंट में एक से अधिक useEffect का इस्तेमाल कर सकते हैं?",
+      "name": "Kya main class component me HOC use kar sakta hoon?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! बेहतर कोडिंग प्रैक्टिस यही है कि आप अलग-अलग लॉजिक (जैसे डेटा फेचिंग और विंडो इवेंट लिसनर्स) के लिए अलग-अलग 'useEffect' Hooks का उपयोग करें ताकि कोड को समझना आसान रहे।"
+        "text": "Haan, HOC class aur functional components dono ke saath perfect kaam karta hai."
       }
     }
   ]
 }
 </script>
+
+<p>Toh dosto, humne aaj seekha ki HOC kya hai aur ise project me kaise implement karte hain. Yaad rakhein, modern React me Hooks ka pehle try karein, agar logic shared component structure me chahiye tabhi HOC use karein. Happy coding!</p>
 </body>
 </html>
