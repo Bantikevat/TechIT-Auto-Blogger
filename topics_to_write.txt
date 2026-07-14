@@ -1,4 +1,3 @@
-React Component Lifecycle Kya Hai (Complete Guide in Hindi)
 React me Higher Order Components HOC Kya Hain (in Hindi)
 React Render Props Pattern Kya Hai (in Hindi)
 React Error Boundaries Kaise Banayein (in Hindi)

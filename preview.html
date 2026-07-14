@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React Hooks Best Practices Aur Common Mistakes (in Hindi)</title>
+    <title>Preview: React Component Lifecycle Kya Hai (Complete Guide (Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,362 +16,230 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Hooks use karte waqt ye mistakes na karein! Jaaniye clean aur bug-free code likhne ke liye best practices aur common mistakes Hindi mein.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Component Lifecycle kya hai? Is complete Hindi guide mein components ke Mounting, Updating aur Unmounting phases ko easy examples se samjhein.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React Hooks Best Practices Aur Common Mistakes (in Hindi)</h1>
+    <h1>React Component Lifecycle Kya Hai (Complete Guide (Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/cXx0VkVY/17338d02e624.png" alt="React Hooks Best Practices Aur Common Mistakes (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<p>React Hooks Best Practices Aur Common Mistakes seekhein is Hindi guide me aur design karein clean, optimized aur bug-free React components aasan tarike se.</p>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/Cp8YSP7r/827be9232229.png" alt="React Component Lifecycle Kya Hai (Complete Guide in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+<p>React Component Lifecycle kya hai? Is complete Hindi guide me components ke birth, update, aur death phases ko hooks aur lifecycle methods ke sath sikhein.</p>
 
-<p>क्या आपके साथ कभी ऐसा हुआ है कि आपने एक छोटा सा <code>useEffect</code> हुक लिखा, और अचानक आपका पूरा ब्राउज़र हैंग हो गया? या फिर आपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> में स्टेट अपडेट की, लेकिन कंसोल में अभी भी पुरानी वैल्यू ही दिखाई दे रही है? दोस्तों, React Hooks जितने जादुई और आसान दिखते हैं, उतने ही वे नए डेवलपर्स (और कभी-कभी अनुभवी डेवलपर्स) के लिए एक भूलभुलैया बन जाते हैं।</p>
+<p>मेरे प्यारे दोस्तों, अगर आप ReactJS की दुनिया में कदम रख चुके हैं, तो आपने एक बात जरूर नोटिस की होगी — यहाँ सब कुछ components के इर्द-गिर्द घूमता है। लेकिन क्या आपने कभी सोचा है कि एक React Component स्क्रीन पर आने से लेकर गायब होने तक किस सफर से गुजरता है? जब हम कोई एप्लीकेशन बनाते हैं, तो बैकग्राउंड में डेटा लोड करना, इवेंट्स को संभालना, और मेमोरी को मैनेज करना बेहद जरूरी हो जाता है। अगर हम इस साइकिल को नहीं समझेंगे, तो हमारी ऐप में मेमोरी लीक्स और परफॉरमेंस की समस्याएँ आने लगेंगी। चलिए, आज अपने 50 सालों के प्रोग्रामिंग अनुभव का निचोड़ लेकर मैं आपके साथ बैठ रहा हूँ ताकि हम मिलकर इस "React Component Lifecycle" के पूरे रहस्य को बहुत ही आसान और मजेदार भाषा में डिकोड कर सकें!</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Hooks Best Practices का पालन करने के लिए हमेशा Hooks को Component के टॉप-लेवल पर कॉल करें, conditional statements में नहीं। <code>useEffect</code> की dependency array को खाली न छोड़ें और stale state से बचने के लिए functional updates का उपयोग करें।</div>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> <strong>React Component Lifecycle</strong> वह सीरीज है जिसके तहत एक component बनता है (Mounting), अपडेट होता है (Updating), और स्क्रीन से हटता है (Unmounting)। Functional components में इस पूरी साइकिल को मैनेज करने के लिए <strong>useEffect Hook</strong> का इस्तेमाल किया जाता है, जो class components के पुराने lifecycle methods का एक आधुनिक विकल्प है।</div>
 
-<p>इस कंपलीट मास्टरक्लास ट्यूटोरियल में, हम गहराई से समझेंगे कि <strong>React Hooks Best Practices Aur Common Mistakes</strong> क्या हैं, वे पर्दे के पीछे कैसे काम करते हैं, और हम उनसे जुड़े बड़े-बड़े बग्स को कैसे चुटकियों में हल कर सकते हैं। चलिए, चाय का कप उठाइए और शुरू करते हैं!</p>
+<h2>React Component Lifecycle क्या है और इसकी आवश्यकता क्यों है?</h2>
 
----
+<p>सरल शब्दों में कहें तो, जैसे एक इंसान का जीवन चक्र होता है — जन्म (Birth), विकास (Growth), और मृत्यु (Death) — ठीक उसी तरह एक <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">React components</a> का भी अपना एक जीवन चक्र (Lifecycle) होता है। जब कोई component स्क्रीन पर पहली बार दिखाई देता है, जब उसका डेटा बदलता है, या जब वह स्क्रीन से हट जाता है, तो React कई तरह के फंक्शन्स को ट्रिगर करता है।</p>
 
-<h2>React Hooks क्या हैं और ये हमारे लिए क्यों ज़रूरी हैं?</h2>
-
-<p>पहले के दिनों में, जब हमें React में State या Lifecycle methods का इस्तेमाल करना होता था, तो हमें Class Components का इस्तेमाल करना पड़ता था। लेकिन Class Components में कोड को रीयूज़ करना और समझना बहुत मुश्किल हो जाता था। <code>this</code> कीवर्ड का कन्फ्यूजन और "Prop Drilling" जैसी समस्याओं ने कोड को मटमैला (messy) बना दिया था।</p>
-
-<p>React 16.8 में Hooks को पेश किया गया था। Hooks हमें बिना Class लिखे State और अन्य React फ़ीचर्स का उपयोग करने की अनुमति देते हैं। लेकिन याद रखिए, ग्रेट पावर के साथ ग्रेट रिस्पॉन्सिबिलिटी भी आती है। अगर हम Hooks के मूल सिद्धांतों को नहीं समझेंगे, तो हमारा एप्लीकेशन परफॉर्मेंस के मामले में पिछड़ जाएगा। आप React की ऑफिशियल गाइडलाइन्स के लिए <a href="https://react.dev" rel="noopener" target="_blank">React Official Documentation</a> भी देख सकते हैं।</p>
-
----
-
-<h2>React Hooks के दो सबसे महत्वपूर्ण नियम (Rules of Hooks)</h2>
-
-<p>दोस्तों, Hooks का उपयोग करने के दो सुनहरे नियम हैं, जिन्हें आपको कभी नहीं तोड़ना चाहिए। अगर आप इन नियमों को तोड़ते हैं, तो आपको अजीबोगरीब <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> का सामना करना पड़ेगा।</p>
-
-<ol>
-  <li><strong>Only Call Hooks at the Top Level:</strong> कभी भी Hooks को Loops, Conditions, या Nested Functions के अंदर कॉल न करें। Hooks को हमेशा अपने React Function के सबसे ऊपर (Top-Level) ही रखें।</li>
-  <li><strong>Only Call Hooks from React Functions:</strong> Hooks को सिर्फ React Function Components या Custom Hooks के अंदर से ही कॉल करें। सामान्य JavaScript Functions में इन्हें कॉल न करें।</li>
-</ol>
-
-<p>ध्यान देने वाली बात ये है कि React इन नियमों पर इतना सख्त क्यों है? क्योंकि React हुक्स के कॉल होने के आर्डर (Order of Calls) पर निर्भर करता है। अगर कोई हुक कंडीशन के कारण स्किप हो जाता है, तो React का स्टेट ट्रैकिंग सिस्टम पूरी तरह से गड़बड़ा जाता है।</p>
-
----
-
-<h2>Common Mistakes 1: useEffect में Infinite Loop का बन जाना</h2>
-
-<p>यह शायद दुनिया के हर React डेवलपर द्वारा की जाने वाली सबसे आम गलती है। चलिए इस कोडिंग उदाहरण को देखते हैं जहां अनजाने में एक इनफिनिट लूप बन जाता है।</p>
-
-<h3>गलत तरीका (The Broken Code):</h3>
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function BadCounter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    // बिना dependency array के, यह हर render पर चलेगा
-    // और setCount फिर से render ट्रिगर करेगा, जिससे infinite loop बनेगा
-    setCount(count + 1);
-  });
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default BadCounter;</code></pre>
-
-<h3>सही तरीका (The Fixed Code):</h3>
-<p>इस <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> को ठीक करने के लिए, हमें Dependency Array का सही ढंग से उपयोग करना होगा, या फिर Functional Update का सहारा लेना होगा।</p>
-
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function GoodCounter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    // dependency array में खाली array [] देने से यह सिर्फ mount पर चलेगा
-    setCount(prevCount =&gt; prevCount + 1);
-  }, []); 
-
-  return (
-    &lt;div&gt;
-      &lt;p&gt;Count: {count}&lt;/p&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default GoodCounter;</code></pre>
-
----
-
-<h2>Common Mistakes 2: Stale Closures (पुरानी स्टेट वैल्यू मिलना)</h2>
-
-<p>जब आप asynchronous ऑपरेशन्स जैसे कि <code>setTimeout</code>, <code>setInterval</code>, या event listeners का इस्तेमाल करते हैं, तो अक्सर आपको स्टेट की वैल्यू पुरानी (stale) मिलती है। ऐसा JavaScript के "Closures" के कारण होता है।</p>
-
-<h3>गलत तरीका (The Broken Code):</h3>
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function StaleCounter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // यहाँ count की वैल्यू हमेशा 0 रहेगी क्योंकि closure ने पहले render की वैल्यू कैप्चर कर ली है
-      console.log("Current Count inside interval:", count);
-      setCount(count + 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []); // खाली array होने के कारण यह सिर्फ एक बार चलता है
-
-  return (
-    &lt;div&gt;
-      &lt;h1&gt;Count: {count}&lt;/h1&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default StaleCounter;</code></pre>
-
-<h3>सही तरीका (The Fixed Code):</h3>
-<p>इस समस्या को हल करने के लिए, हमेशा functional state updates का उपयोग करें। यह सुनिश्चित करता है कि आपको हमेशा सबसे ताज़ा (latest) स्टेट प्राप्त हो रही है।</p>
-
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function FreshCounter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // functional update का इस्तेमाल करके stale closure की समस्या दूर की गई
-      setCount((prevCount) => {
-        console.log("Fresh Count inside interval:", prevCount + 1);
-        return prevCount + 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    &lt;div&gt;
-      &lt;h1&gt;Count: {count}&lt;/h1&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default FreshCounter;</code></pre>
-
----
-
-<h2>useEffect का लाइफसाइकल फ्लो (Execution Flow Diagram)</h2>
-
-<p>यह समझना बहुत महत्वपूर्ण है कि React का रेंडरिंग और इफेक्ट्स का चक्र कैसे काम करता है। नीचे दिए गए फ्लो डायग्राम को देखें:</p>
+<p>अब सवाल उठता है कि हमें इसकी जरूरत क्यों है? मान लीजिए आप एक रियल-टाइम स्टॉक मार्केट ट्रैकर या मौसम बताने वाली एप्लीकेशन बना रहे हैं। जैसे ही आपका component स्क्रीन पर लोड हो, आपको तुरंत API से लेटेस्ट डेटा मंगाना होगा। जब यूजर किसी दूसरे पेज पर जाए, तो आपको बैकग्राउंड में चल रहे इंटरनेट कनेक्शंस को बंद करना होगा ताकि यूजर का इंटरनेट और डिवाइस की मेमोरी फालतू में खर्च न हो। इन सभी कामों को सही समय पर करने के लिए हमें component के लाइफसाइकल को समझना और संभालना पड़ता है।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ useEffect Lifecycle Flow</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Component Lifecycle Flow Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Component Rendered</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Mounting (Birth in DOM)</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Run Cleanup (if exists)</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Updating (State/Props Change)</div>
     <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Run New Effect Logic</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Wait for State Change</div>
+    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Unmounting (Removal from DOM)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React render execution flow with dependency updates in functional components.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React Component Lifecycle के तीन मुख्य चरण।</div>
 </div>
 
----
+<h2>Component Lifecycle के तीन मुख्य Phases (चरण)</h2>
 
-<h2>Common Mistakes 3: Cleanups को भूल जाना (Memory Leaks)</h2>
+<p>React में एक component का पूरा सफर तीन मुख्य चरणों में बंटा हुआ है। आइए इन तीनों को बहुत करीब से और आसान उदाहरणों के साथ समझते हैं:</p>
 
-<p>जब भी आप किसी बाह्य API, सॉकेट (WebSockets), या इवेंट लिसनर्स को `useEffect` में जोड़ते हैं, तो घटक के नष्ट (unmount) होने पर उन्हें हटाना बहुत आवश्यक है। अन्यथा, बैकग्राउंड में कोड चलता रहेगा और यह आपकी एप्लीकेशन को धीमा कर देगा।</p>
+<h3>1. Mounting Phase (जन्म)</h3>
+<p>यह वह पहला चरण है जब component का नया बच्चा पैदा होता है और पहली बार ब्राउज़र के DOM में अपनी जगह बनाता है। इस फेज में component का इनिशियलाइजेशन होता है, डिफ़ॉल्ट props सेट किए जाते हैं, और शुरुआती state डिक्लेयर की जाती है। इस समय पर हम API से डेटा फैच करने जैसे महत्वपूर्ण काम करते हैं ताकि यूजर को तुरंत स्क्रीन पर डेटा दिखाई दे।</p>
 
-<h3>गलत तरीका (The Broken Code):</h3>
-<pre><code>import React, { useState, useEffect } from 'react';
+<h3>2. Updating Phase (विकास/बदलाव)</h3>
+<p>जब component स्क्रीन पर आ जाता है, तो यूजर उसके साथ इंटरैक्ट करता है। जैसे ही component की <code>state</code> या उसे मिलने वाले <code>props</code> बदलते हैं, React को पता चल जाता है कि स्क्रीन पर कुछ नया दिखाना है। इस बदलाव की वजह से component दोबारा रेंडर (Re-render) होता है। इसे हम Updating Phase कहते हैं।</p>
 
-function BadEventListener() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+<h3>3. Unmounting Phase (मृत्यु/विदाई)</h3>
+<p>यह component के जीवन का आखिरी पड़ाव है। जब यूजर किसी दूसरे पेज पर जाता है या किसी बटन को दबाकर उस component को छुपा देता है, तब वह component DOM से पूरी तरह हटा दिया जाता है। इस फेज में हमें सफ़ाई (Cleanup) का काम करना होता है, जैसे कि चल रहे टाइमर्स (setInterval) को रोकना या एक्टिव इवेंट लिसनर्स को हटाना।</p>
 
-  useEffect(() => {
-    // यहाँ इवेंट लिसनर तो जोड़ दिया गया, लेकिन अनमाउंट होने पर हटाया नहीं गया
-    window.addEventListener('resize', () => {
-      setWindowWidth(window.innerWidth);
-    });
-  }, []);
+<h2>Class Components vs Functional Components: बदलाव का सफर</h2>
 
-  return &lt;p&gt;Window Width: {windowWidth}px&lt;/p&gt;;
-}
+<p>पुराने समय में, जब React में Class Components का बोलबाला था, तब हम हर फेज के लिए अलग-अलग इन-बिल्ट मेथड्स का इस्तेमाल करते थे। लेकिन आधुनिक React (React 16.8 के बाद) में Hooks के आने से, Functional Components ही राज कर रहे हैं। अब हमें अलग-अलग मेथड्स याद रखने की जरूरत नहीं पड़ती; केवल एक अकेला <strong>useEffect Hook</strong> इन सभी कामों को बखूबी संभाल लेता है।</p>
 
-export default BadEventListener;</code></pre>
+<p>आइए एक टेबल के जरिए देखते हैं कि पुराने क्लास मेथड्स और नए फंक्शनल हुक्स में क्या संबंध है, जिससे आपको समझने में आसानी होगी:</p>
 
-<h3>सही तरीका (The Fixed Code):</h3>
-<pre><code>import React, { useState, useEffect } from 'react';
-
-function GoodEventListener() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // क्लीनअप फ़ंक्शन का उपयोग करके इवेंट लिसनर को हटाया गया
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  return &lt;p&gt;Window Width: {windowWidth}px&lt;/p&gt;;
-}
-
-export default GoodEventListener;</code></pre>
-
----
-
-<h2>Performance Optimization: useMemo vs useCallback का सही चुनाव</h2>
-
-<p>अक्सर डेवलपर्स हर जगह बिना सोचे-समझे <code>useMemo</code> और <code>useCallback</code> का उपयोग करने लगते हैं। याद रखें, इन दोनों हुक्स की अपनी ओवरहेड कॉस्ट (computational cost) होती है। इसलिए इनका उपयोग केवल तभी करें जब वास्तव में आवश्यकता हो।</p>
-
-<ul>
-  <li><strong>useMemo:</strong> यह किसी भारी कैलकुलेशन (expensive computation) के परिणाम को कैश (memoize) करने के लिए होता है।</li>
-  <li><strong>useCallback:</strong> यह किसी फ़ंक्शन की परिभाषा (function definition) को री-रेंडर के दौरान कैश करने के लिए उपयोग किया जाता है।</li>
-</ul>
-
-<h3>Comparison Table: useMemo vs useCallback</h3>
-
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; text-align: left;">
+<table style="width:100%; border-collapse:collapse; margin:20px 0; text-align:left; font-size:15px;">
   <thead>
-    <tr style="background-color: #06b6d4; color: white;">
-      <th style="padding: 12px; border: 1px solid #ddd;">Feature</th>
-      <th style="padding: 12px; border: 1px solid #ddd;">useMemo</th>
-      <th style="padding: 12px; border: 1px solid #ddd;">useCallback</th>
+    <tr style="background-color:#1e293b; color:#ffffff;">
+      <th style="padding:12px; border:1px solid #cbd5e1;">Lifecycle Phase</th>
+      <th style="padding:12px; border:1px solid #cbd5e1;">Class Component Method</th>
+      <th style="padding:12px; border:1px solid #cbd5e1;">Functional Hook Equivalent</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">क्या रिटर्न करता है?</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">फ़ंक्शन द्वारा रिटर्न किया गया Value.</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">पूरा का पूरा Function ही रिटर्न करता है।</td>
+    <tr style="background-color:#f8fafc;">
+      <td style="padding:12px; border:1px solid #cbd5e1; font-weight:600;">Mounting (Birth)</td>
+      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace;">componentDidMount()</td>
+      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">useEffect(() => {}, [])</td>
     </tr>
-    <tr style="background-color: #f9f9f9;">
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">मुख्य उद्देश्य (Purpose)</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">Heavy Calculations को बार-बार चलने से रोकना।</td>
-      <td style="padding: 12px; border: 1px solid #ddd;">Child components में बेवजह री-रेंडरिंग रोकना।</td>
+    <tr style="background-color:#ffffff;">
+      <td style="padding:12px; border:1px solid #cbd5e1; font-weight:600;">Updating (Change)</td>
+      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace;">componentDidUpdate()</td>
+      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">useEffect(() => {}, [dependency])</td>
     </tr>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">syntax</td>
-      <td style="padding: 12px; border: 1px solid #ddd;"><code>useMemo(() =&gt; computeValue(a, b), [a, b])</code></td>
-      <td style="padding: 12px; border: 1px solid #ddd;"><code>useCallback(() =&gt; doSomething(a), [a])</code></td>
+    <tr style="background-color:#f8fafc;">
+      <td style="padding:12px; border:1px solid #cbd5e1; font-weight:600;">Unmounting (Death)</td>
+      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace;">componentWillUnmount()</td>
+      <td style="padding:12px; border:1px solid #cbd5e1; font-family:monospace; color:#2563eb;">useEffect(() => { return () => {} }, [])</td>
     </tr>
   </tbody>
 </table>
 
----
+<p>ध्यान देने वाली बात ये है कि अगर आप React के बेहतरीन डेवलपर बनना चाहते हैं, तो आपको हुक्स का सही इस्तेमाल करना ही होगा। विस्तृत जानकारी के लिए आप <a href="https://react.dev" target="_blank" rel="noopener">React Official Documentation</a> भी पढ़ सकते हैं, जो कि सबसे सटीक और विश्वसनीय सोर्स है।</p>
 
-<h2>Step-by-Step Guide: Custom Hook कैसे बनाएं?</h2>
+<h2>Step-by-Step Production-Ready Code Implementation</h2>
 
-<p>यदि आप अपने कोड को साफ और रियूजेबल बनाना चाहते हैं, तो Custom Hooks आपके सबसे अच्छे दोस्त हैं। चलिए, एक कस्टम हुक <code>useFetch</code> बनाते हैं जो किसी भी API से डेटा सुरक्षित रूप से लाने का काम करेगा और लोडिंग एवं एरर स्टेट्स को भी संभालेगा।</p>
+<p>चलिए, अब सीधे काम की बात पर आते हैं। कोडिंग को सिर्फ थ्योरी से नहीं समझा जा सकता। हम एक कंप्लीट, प्रोडक्शन-रेडी और फुली-फंक्शनल React Component लिखेंगे। इस उदाहरण में हम एक "User Profile Card" बनाएंगे जो इंटरनेट से डेटा मंगाएगा (Mounting), यूजर के स्टेटस को अपडेट करेगा (Updating), और स्क्रीन से हटते ही एक एक्टिव टाइमर को क्लीनअप करेगा (Unmounting)।</p>
 
-<h3>स्टेप 1: फ़ाइल बनाएँ</h3>
-<p>सबसे पहले अपने प्रोजेक्ट में <code>useFetch.js</code> नाम की एक नई फ़ाइल बनाएँ।</p>
+<p>इस कोड को बहुत ध्यान से देखें और समझने की कोशिश करें कि हर लाइन क्या काम कर रही है:</p>
 
-<h3>स्टेप 2: कस्टम हुक का लॉजिक लिखें</h3>
-<p>हम यहाँ Fetch API के साथ AbortController का इस्तेमाल करेंगे ताकि कंपोनेंट अनमाउंट होने पर नेटवर्क रिक्वेस्ट कैंसिल हो सके।</p>
+<pre><code>import React, { useState, useEffect } from 'react';
 
-<pre><code>import { useState, useEffect } from 'react';
-
-function useFetch(url) {
-  const [data, setData] = useState(null);
+function UserDashboard({ userId }) {
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [secondsActive, setSecondsActive] = useState(0);
 
+  // 1. MOUNTING PHASE: Component के लोड होते ही डेटा फैच करना
   useEffect(() => {
-    const abortController = new AbortController();
-
-    const fetchData = async () => {
+    console.log("Component DOM में माउंट हो गया है! API कॉल शुरू हो रही है...");
+    
+    // API से डमी डेटा लाने का मॉक फंक्शन
+    const fetchUserData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(url, { signal: abortController.signal });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const result = await response.json();
-        setData(result);
-        setError(null);
-      } catch (err) {
-        if (err.name !== 'AbortError') {
-          setError(err.message);
-        }
-      } finally {
+        // डमी API रिस्पॉन्स का टाइमआउट सेट कर रहे हैं
+        setTimeout(() => {
+          setUserData({
+            name: "अमित शर्मा",
+            role: "सीनियर सॉफ्टवेयर इंजीनियर",
+            company: "Tech Solutions Inc."
+          });
+          setLoading(false);
+          console.log("डेटा सफलतापूर्वक लोड हो गया है!");
+        }, 1500);
+      } catch (error) {
+        console.error("डेटा फैच करने में एरर आया:", error);
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchUserData();
+  }, []); // खाली dependency array ([]) का मतलब है कि यह सिर्फ माउंटिंग पर एक बार चलेगा
 
-    // cleanup function to abort fetch request
+  // 2. UPDATING PHASE: जब userId या userData बदलेगा तो यह इफेक्ट चलेगा
+  useEffect(() => {
+    if (userData) {
+      console.log(`यूजर प्रोफाइल अपडेट हो गई है! नया नाम: ${userData.name}`);
+      document.title = `${userData.name} - Dashboard`;
+    }
+  }, [userData]); // यह केवल तब रन होगा जब userData स्टेट बदलेगी
+
+  // 3. UNMOUNTING PHASE: टाइमर सेट करना और कंपोनेंट अनमाउंट होने पर क्लीनअप करना
+  useEffect(() => {
+    console.log("एक एक्टिविटी टाइमर शुरू किया जा रहा है...");
+    const timerInterval = setInterval(() => {
+      setSecondsActive((prevSeconds) => prevSeconds + 1);
+    }, 1000);
+
+    // क्लीनअप फंक्शन (यह componentWillUnmount की तरह काम करता है)
     return () => {
-      abortController.abort();
+      console.log("कंपोनेंट अनमाउंट हो रहा है! टाइमर इंटरवल को क्लियर किया जा रहा है...");
+      clearInterval(timerInterval);
     };
-  }, [url]);
+  }, []); // खाली एरे के साथ रिटर्न फंक्शन अनमाउंट होने पर ही चलता है
 
-  return { data, loading, error };
-}
-
-export default useFetch;</code></pre>
-
-<h3>स्टेप 3: मुख्य component में इस्तेमाल करें</h3>
-<p>अब इस हुक को अपने मुख्य <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> में कुछ इस तरह इस्तेमाल करें:</p>
-
-<pre><code>import React from 'react';
-import useFetch from './useFetch';
-
-function UserList() {
-  const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
-
-  if (loading) return &lt;p&gt;Loading users data... Please wait.&lt;/p&gt;;
-  if (error) return &lt;p&gt;Something went wrong: {error}&lt;/p&gt;;
+  if (loading) {
+    return (
+      <div style={{ padding: '20px', fontFamily: 'sans-serif', textAlign: 'center' }}>
+        <h3>डेटा लोड हो रहा है, कृपया प्रतीक्षा करें...</h3>
+      </div>
+    );
+  }
 
   return (
-    &lt;div&gt;
-      &lt;h2&gt;Active Users List&lt;/h2&gt;
-      &lt;ul&gt;
-        {users &amp;&amp; users.map((user) => (
-          &lt;li key={user.id}&gt;{user.name} - {user.email}&lt;/li&gt;
-        ))}
-      &lt;/ul&gt;
-    &lt;/div&gt;
+    <div style={{
+      border: '1px solid #e2e8f0',
+      borderRadius: '12px',
+      padding: '24px',
+      maxWidth: '400px',
+      margin: '20px auto',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+      fontFamily: 'sans-serif',
+      backgroundColor: '#ffffff'
+    }}>
+      <h2 style={{ color: '#1e293b', marginTop: '0' }}>यूजर डैशबोर्ड</h2>
+      <hr style={{ borderColor: '#f1f5f9' }} />
+      <p><strong>नाम:</strong> {userData.name}</p>
+      <p><strong>पद:</strong> {userData.role}</p>
+      <p><strong>कंपनी:</strong> {userData.company}</p>
+      <hr style={{ borderColor: '#f1f5f9' }} />
+      <div style={{ marginTop: '15px', fontSize: '14px', color: '#64748b' }}>
+        ⏱️ आप इस पेज पर <strong>{secondsActive}</strong> सेकंड से सक्रिय हैं।
+      </div>
+    </div>
   );
 }
 
-export default UserList;</code></pre>
+export default UserDashboard;
+</code></pre>
 
----
+<p>इस कोड को जब आप अपने प्रोजेक्ट में चलाएंगे, तो ब्राउज़र के कंसोल (Console) को जरूर खोलकर देखिएगा। आपको साफ दिखाई देगा कि कब कौन सा मैसेज प्रिंट हो रहा है। यही सबसे बढ़िया तरीका है किसी भी कॉन्सेप्ट को प्रैक्टिकली सीखने का!</p>
 
-<p>तो दोस्तों, हमने आज विस्तार से सीखा कि <strong>React Hooks Best Practices Aur Common Mistakes</strong> क्या हैं और हम कैसे अपने कंपोनेंट्स को बेहतरीन तरीके से डिज़ाइन कर सकते हैं। सही dependency arrays का चयन करना, stale closures को समझना, और cleanup functions का उपयोग करना, यही वे तरीके हैं जो एक सामान्य कोडर को एक प्रो-डेवलपर से अलग करते हैं। उम्मीद है, आप अपने अगले React प्रोजेक्ट में इन सभी बेस्ट प्रैक्टिसेज का ध्यान रखेंगे और परफॉर्मेंस को नेक्स्ट लेवल पर ले जाएंगे!</p>
+<h2>Edge Cases और सामान्य गलतियाँ (Common Errors & Debugging)</h2>
 
----
+<p>दोस्तों, जब हम कंपोनेंट्स की लाइफसाइकल के साथ काम करते हैं, तो अक्सर कुछ ऐसी गलतियाँ हो जाती हैं जो बड़े-बड़े धुरंधर डेवलपर्स को भी परेशान कर देती हैं। आइए इनके बारे में बात करते हैं ताकि आप इन मुश्किलों से बच सकें:</p>
+
+<ol>
+  <li>
+    <strong>useEffect में Infinite Loop बन जाना:</strong>
+    <p>यह सबसे आम गलती है। मान लीजिए आपने <code>useEffect</code> के अंदर कोई स्टेट अपडेट की (जैसे <code>setUserData</code>) और उस स्टेट को ही dependency array में डाल दिया। इससे क्या होगा? स्टेट बदलेगी -> इफेक्ट चलेगा -> स्टेट फिर बदलेगी -> इफेक्ट फिर चलेगा... और यह सिलसिला कभी खत्म नहीं होगा।</p>
+    <p><strong>समाधान:</strong> हमेशा अपने dependency array को बहुत ध्यान से डिजाइन करें। केवल उन्हीं वेरिएबल्स को डालें जिन पर आपका इफेक्ट सचमुच निर्भर करता है।</p>
+  </li>
+  <li>
+    <strong>Memory Leaks होना (क्लीनअप न करना):</strong>
+    <p>यदि आप अपने कंपोनेंट में कोई <code>setInterval</code>, <code>addEventListener</code> या WebSocket कनेक्शन चालू करते हैं और उसे अनमाउंट होने पर बंद नहीं करते, तो वह बैकग्राउंड में चलता ही रहेगा। इससे आपकी ऐप स्लो हो जाएगी।</p>
+    <p><strong>समाधान:</strong> अपने <code>useEffect</code> से हमेशा एक क्लीनअप फंक्शन रिटर्न करें जो इन बाहरी सोर्सेज को हटा या बंद कर दे। अगर कभी आपको कंपोनेंट की एरर्स को समझने और उन्हें ठीक करने में परेशानी हो, तो आप हमारे <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">Error Solving</a> सेक्शन को देख सकते हैं, जहाँ हमने कई रियल-वर्ल्ड प्रॉब्लम्स के आसान सॉल्यूशंस शेयर किए हैं।</p>
+  </li>
+  <li>
+    <strong>Stale Closures (पुरानी स्टेट वैल्यू मिलना):</strong>
+    <p>कभी-कभी <code>useEffect</code> के अंदर आपको स्टेट की पुरानी वैल्यू मिलती है क्योंकि वह वैल्यू उस समय के "क्लोजर" में कैप्चर हो चुकी होती है जब इफेक्ट पहली बार चला था।</p>
+    <p><strong>समाधान:</strong> स्टेट को सीधे अपडेट करने के बजाय फंक्शनल अपडेट्स का इस्तेमाल करें, जैसे: <code>setCount(prev => prev + 1)</code>।</p>
+  </li>
+</ol>
+
+<h2>बेहतर परफॉरमेंस के लिए Best Practices</h2>
+
+<p>अपने एप्लीकेशन की स्केलेबिलिटी और स्पीड बनाए रखने के लिए इन जरूरी बातों का विशेष ध्यान रखें:</p>
+
+<ul>
+  <li><strong>सिंगल-परपज इफेक्ट्स (Single-purpose Effects):</strong> एक ही <code>useEffect</code> में सारी दुनिया का काम करने की कोशिश न करें। डेटा फैचिंग के लिए अलग, और टाइमर के लिए अलग <code>useEffect</code> लिखें। इससे आपका कोड साफ और मेंटेन करने योग्य रहता है।</li>
+  <li><strong>Dependency Array को खाली न छोड़ें जब जरूरत हो:</strong> यदि आपका इफेक्ट किसी बाहरी वैरिएबल का इस्तेमाल कर रहा है, तो उसे डिपेंडेंसी एरे में जरूर डालें, अन्यथा आपका कोड पुराना डेटा दिखाता रहेगा।</li>
+  <li><strong>Cleanup को कभी न भूलें:</strong> हर वो इवेंट जो ब्राउज़र या विंडो लेवल पर रजिस्टर हो रहा है, उसे क्लीनअप करना आपकी पहली प्राथमिकता होनी चाहिए।</li>
+</ul>
+
+<p>तो दोस्तों, आज हमने रिएक्ट कंपोनेंट लाइफसाइकल की गहराई को छुआ और समझा कि कैसे क्लास कंपोनेंट्स के पुराने तरीके नए फंक्शनल हुक्स में बदल गए हैं। लाइफसाइकल को अच्छी तरह समझना आपको एक साधारण डेवलपर से एक बेहतरीन सॉफ्टवेयर आर्किटेक्ट बनाता है। अब आपकी बारी है! इस कोड को अपने लोकल सिस्टम पर चलाकर देखें, उसमें थोड़े बदलाव करें और एक्सपेरिमेंट करें। कोडिंग करने से ही कोडिंग आती है। खुश रहिए, कोड करते रहिए!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  
-  <div class="faq-q">Q1: React Hooks को conditionals (if-else) के अंदर कॉल क्यों नहीं किया जा सकता?</div>
-  <div class="faq-a">React हुक्स के कॉल होने के क्रम (Order of hook calls) पर निर्भर करता है। यदि हम किसी हुक को conditional statement के अंदर डालते हैं, तो कंपोनेंट के री-रेंडर होने पर हुक्स का क्रम बदल सकता है, जिससे React इंटरनल स्टेट्स को गलत कंपोनेंट में मैप कर देता है।</div>
-  
-  <div class="faq-q">Q2: Dependency Array में [] का क्या अर्थ है?</div>
-  <div class="faq-a">यदि आप dependency array को खाली ([]) छोड़ देते हैं, तो इसका मतलब है कि useEffect हुक केवल कंपोनेंट के 'Mount' होने (यानी स्क्रीन पर पहली बार दिखाई देने) पर ही चलेगा। यह पुराने componentDidMount की तरह व्यवहार करता है।</div>
-  
-  <div class="faq-q">Q3: Stale Closures की समस्या को कैसे हल करें?</div>
-  <div class="faq-a">Stale closures से बचने के लिए, हमेशा useState के functional update रूप का उपयोग करें (जैसे: setCount(prev => prev + 1)) या फिर सुनिश्चित करें कि useCallbacks और useEffects की dependency array में सभी आवश्यक वेरिएबल्स शामिल हैं।</div>
-  
-  <div class="faq-q">Q4: क्या हर फ़ंक्शन पर useCallback का उपयोग करना चाहिए?</div>
-  <div class="faq-a">बिल्कुल नहीं! useCallback का उपयोग करने की भी अपनी एक लागत होती है। इसे केवल तभी उपयोग करें जब आप उस फ़ंक्शन को किसी ऐसे चाइल्ड कंपोनेंट में प्रोप के रूप में भेज रहे हों जो React.memo का उपयोग करके ऑप्टिमाइज़ किया गया है।</div>
-  
-  <div class="faq-q">Q5: custom hook बनाने का मुख्य फ़ायदा क्या है?</div>
-  <div class="faq-a">कस्टम हुक का सबसे बड़ा फ़ायदा यह है कि यह 'Separation of Concerns' और 'Dry Principle' (Don't Repeat Yourself) को बढ़ावा देता है। आप अपने स्टेटफुल और बिज़नेस लॉजिक को यूआई से अलग करके कई कंपोनेंट्स में आसानी से रियूज़ कर सकते हैं।</div>
+  <div class="faq-q">Q1: React Component Lifecycle में 'Mounting' का क्या मतलब है?</div>
+  <div class="faq-a">Mounting वह फेज है जब एक React component पहली बार तैयार होकर ब्राउज़र के असली DOM (Document Object Model) में डाला जाता है और स्क्रीन पर दिखाई देता है।</div>
+  <div class="faq-q">Q2: Class Components के lifecycle methods का विकल्प functional components में क्या है?</div>
+  <div class="faq-a">Functional components में Class components के सभी लाइफसाइकल मेथड्स (जैसे componentDidMount, componentDidUpdate, componentWillUnmount) का काम अकेले 'useEffect' Hook द्वारा मैनेज किया जाता है।</div>
+  <div class="faq-q">Q3: Unmounting फेज में Cleanup फंक्शन का इस्तेमाल क्यों किया जाता है?</div>
+  <div class="faq-a">Cleanup फंक्शन का इस्तेमाल मेमोरी लीक से बचने के लिए किया जाता है। इसकी मदद से हम एक्टिव टाइमर्स (setInterval), इवेंट लिसनर्स, या ओपन नेटवर्क कनेक्शंस को component के नष्ट होने पर बंद करते हैं।</div>
+  <div class="faq-q">Q4: useEffect Hook में खाली dependency array ([]) का क्या काम है?</div>
+  <div class="faq-a">जब हम dependency array को खाली ([]) छोड़ते हैं, तो उसके अंदर का कोड सिर्फ कंपोनेंट के माउंट होने पर एक बार चलता है, और दोबारा किसी भी स्टेट बदलाव पर ट्रिगर नहीं होता।</div>
+  <div class="faq-q">Q5: क्या हम एक कंपोनेंट में एक से अधिक useEffect का इस्तेमाल कर सकते हैं?</div>
+  <div class="faq-a">हाँ, बिल्कुल! बेहतर कोडिंग प्रैक्टिस यही है कि आप अलग-अलग लॉजिक (जैसे डेटा फेचिंग और विंडो इवेंट लिसनर्स) के लिए अलग-अलग 'useEffect' Hooks का उपयोग करें ताकि कोड को समझना आसान रहे।</div>
 </div>
 
 <script type="application/ld+json">
@@ -381,42 +249,42 @@ export default UserList;</code></pre>
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React Hooks को conditionals (if-else) के अंदर कॉल क्यों नहीं किया जा सकता?",
+      "name": "React Component Lifecycle में 'Mounting' का क्या मतलब है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "React हुक्स के कॉल होने के क्रम (Order of hook calls) पर निर्भर करता है। यदि हम किसी हुक को conditional statement के अंदर डालते हैं, तो कंपोनेंट के री-रेंडर होने पर हुक्स का क्रम बदल सकता है, जिससे React इंटरनल स्टेट्स को गलत कंपोनेंट में मैप कर देता है।"
+        "text": "Mounting वह फेज है जब एक React component पहली बार तैयार होकर ब्राउज़र के असली DOM (Document Object Model) में डाला जाता है और स्क्रीन पर दिखाई देता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Dependency Array में [] का क्या अर्थ है?",
+      "name": "Class Components के lifecycle methods का विकल्प functional components में क्या है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यदि आप dependency array को खाली ([]) छोड़ देते हैं, तो इसका मतलब है कि useEffect हुक केवल कंपोनेंट के 'Mount' होने पर ही चलेगा। यह पुराने componentDidMount की तरह व्यवहार करता है।"
+        "text": "Functional components में Class components के सभी लाइफसाइकल मेथड्स (जैसे componentDidMount, componentDidUpdate, componentWillUnmount) का काम अकेले 'useEffect' Hook द्वारा मैनेज किया जाता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Stale Closures की समस्या को कैसे हल करें?",
+      "name": "Unmounting फेज में Cleanup फंक्शन का इस्तेमाल क्यों किया जाता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Stale closures से बचने के लिए, हमेशा useState के functional update रूप का उपयोग करें (जैसे: setCount(prev => prev + 1)) या फिर सुनिश्चित करें कि useCallbacks और useEffects की dependency array में सभी आवश्यक वेरिएबल्स शामिल हैं।"
+        "text": "Cleanup फंक्शन का इस्तेमाल मेमोरी लीक से बचने के लिए किया जाता है। इसकी मदद से हम एक्टिव टाइमर्स (setInterval), इवेंट लिसनर्स, या ओपन नेटवर्क कनेक्शंस को component के नष्ट होने पर बंद करते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या हर फ़ंक्शन पर useCallback का उपयोग करना चाहिए?",
+      "name": "useEffect Hook में खाली dependency array ([]) का क्या काम है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "बिल्कुल नहीं! useCallback का उपयोग करने की भी अपनी एक लागत होती है। इसे केवल तभी उपयोग करें जब आप उस फ़ंक्शन को किसी ऐसे चाइल्ड कंपोनेंट में प्रोप के रूप में भेज रहे हों जो React.memo का उपयोग करके ऑप्टिमाइज़ किया गया है।"
+        "text": "जब हम dependency array को खाली ([]) छोड़ते हैं, तो उसके अंदर का कोड सिर्फ कंपोनेंट के माउंट होने पर एक बार चलता है, और दोबारा किसी भी स्टेट बदलाव पर ट्रिगर नहीं होता।"
       }
     },
     {
       "@type": "Question",
-      "name": "custom hook बनाने का मुख्य फ़ायदा क्या है?",
+      "name": "क्या हम एक कंपोनेंट में एक से अधिक useEffect का इस्तेमाल कर सकते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "कस्टम हुक का सबसे बड़ा फ़ायदा यह है कि यह 'Separation of Concerns' और 'Dry Principle' को बढ़ावा देता है। आप अपने स्टेटफुल और बिज़नेस लॉजिक को यूआई से अलग करके कई कंपोनेंट्स में आसानी से रियूज़ कर सकते हैं।"
+        "text": "हाँ, बिल्कुल! बेहतर कोडिंग प्रैक्टिस यही है कि आप अलग-अलग लॉजिक (जैसे डेटा फेचिंग और विंडो इवेंट लिसनर्स) के लिए अलग-अलग 'useEffect' Hooks का उपयोग करें ताकि कोड को समझना आसान रहे।"
       }
     }
   ]
