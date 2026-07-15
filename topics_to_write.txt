@@ -1,4 +1,3 @@
-React Error Boundaries Kaise Banayein (in Hindi)
 React Portals Kya Hain aur Kaise Use Karein (in Hindi)
 React Portals Use Cases Modals aur Tooltips (in Hindi)
 React Suspense aur Lazy Loading Complete Guide (in Hindi)
