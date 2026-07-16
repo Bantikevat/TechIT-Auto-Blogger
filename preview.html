@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React Portals Use Cases Modals aur Tooltips (in Hindi)</title>
+    <title>Preview: React Suspense aur Lazy Loading Complete Guide (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,414 +16,343 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Portals kya hai? Modals aur Tooltips ke real-world use cases Hindi me samjhein aur DOM hierarchy se bahar components render karna sikhein!</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Suspense aur Lazy Loading seekhein Hindi me! Apni React app ki loading speed aur performance ko behtar banane ki step-by-step complete guide.</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React Portals Use Cases Modals aur Tooltips (in Hindi)</h1>
+    <h1>React Suspense aur Lazy Loading Complete Guide (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/1HZVCv6/caac08f95e52.png" alt="React Portals Use Cases Modals aur Tooltips (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-React Portals in Hindi: Modals aur Tooltips banane ke liye DOM hierarchy ko bypass karne ka sahi tarika aur complete code examples ke saath samjhein.
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/cK83YPRK/56214a883b4a.png" alt="React Suspense aur Lazy Loading Complete Guide (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React Suspense aur Lazy Loading complete guide: Apni web app ki performance badhayein, bundle size kam karein aur users ko lightning-fast experience dein.
 
-<p>तो दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने बहुत मेहनत से एक सुंदर सा Modal या Tooltip बनाया, लेकिन जैसे ही उसे open किया, वो CSS के <code>overflow: hidden</code> या <code>z-index</code> के मकड़जाल में फंसकर आधा कट गया? या फिर पैरेंट डिब (Parent Div) की styling की वजह से उसकी position ही बिगड़ गई? यह एक ऐसा सिरदर्द है जिससे हर <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> डेवलपर कभी न कभी जरूर परेशान होता है।</p>
+<p>दोस्तों, सोचिए कि आपने बहुत मेहनत करके एक बेहतरीन, फीचर-रिच वेब एप्लीकेशन बनाई है। आपने उसमें ढेरों खूबसूरत <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">React components</a>, भारी-भरकम चार्ट्स, डैशबोर्ड्स और सेटिंग्स पेज जोड़ दिए हैं। लेकिन जैसे ही आप उसे प्रोडक्शन सर्वर पर डिप्लॉय करते हैं, तो क्या होता है? पहली बार वेबसाइट लोड होने में 5 से 10 सेकंड का समय लग जाता है! यूजर चिढ़कर आपकी साइट बंद कर देता है।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Portals एक ऐसी feature है जो हमें किसी भी React component को उसके normal parent DOM hierarchy से बाहर, DOM में किसी भी अन्य जगह (जैसे <code>document.body</code> या किसी custom div) पर render करने की आजादी देती है, बिना React component tree के logical state और event system को प्रभावित किए।</div>
+<p>आखिर ऐसा क्यों हुआ? क्योंकि आपकी पूरी एप्लीकेशन का कोड कंपाइल होकर एक ही भारी-भरकम JavaScript Bundle में सिमट गया था, जिसे यूजर के ब्राउज़र को पूरा डाउनलोड करना पड़ा। इसी बड़ी समस्या का सबसे बेहतरीन और आसान समाधान है <strong>React Suspense और Lazy Loading</strong>। चलिए, आज एक सीनियर डेवलपर की तरह बैठकर इस कॉन्सेप्ट को गहराई से समझते हैं और अपनी ऐप को सुपर-फास्ट बनाते हैं।</p>
 
-<h2>React Portals क्या है और इसकी जरूरत क्यों पड़ती है?</h2>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Suspense aur Lazy Loading एक ऐसी पॉवरफुल तकनीक है जिससे हम अपनी React App के मुख्य JavaScript bundle को छोटे-छोटे टुकड़ों (chunks) में तोड़ देते हैं। React.lazy() की मदद से components को तभी लोड किया जाता है जब उनकी जरूरत होती है, और React Suspense लोडिंग के दौरान एक सुंदर Fallback UI दिखाता है।</div>
 
-<p>आमतौर पर जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> बनाते हैं, तो वे एक nested tree structure का पालन करते हैं। इसका मतलब है कि अगर Component B, Component A के अंदर है, तो HTML DOM में भी Component B का Element, Component A के DOM Node के अंदर ही render होगा।</p>
+<h2>React Application में Bundle Size और Slow Loading की समस्या क्या है?</h2>
 
-<p>लेकिन ज़रा सोचिए, Modals, Tooltips, Custom Dropdowns, और Loaders जैसी UI elements के मामले में यह behavior मुसीबत बन जाता है। मान लीजिए आपके पास एक Sidebar component है जिसमें <code>overflow: hidden</code> लगा हुआ है। अब अगर आप इस Sidebar के अंदर एक Tooltip render करेंगे, तो वो Tooltip Sidebar की boundary के बाहर निकलते ही छिप (hide) जाएगा।</p>
+<p>जब हम एक ट्रेडिशनल <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank" rel="noopener">ReactJS</a> एप्लीकेशन बनाते हैं, तो बिल्ड प्रोसेस (जैसे Vite या Webpack) हमारे सारे कोड, फाइल्स और थर्ड-पार्टी पैकेज को मिलाकर एक ही सिंगल JavaScript File बना देती है। इसे हम "Monolithic Bundle" कहते हैं।</p>
 
-<p>यहीं पर काम आता है <strong>React Portals</strong>। यह हमें एक "पोर्टल" या जादुई रास्ता देता है जिसके जरिए हम component को लिखते तो उसी nested structure के अंदर हैं (ताकि React state और props आसानी से pass हो सकें), लेकिन असल में HTML DOM में वह component उड़कर किसी दूसरी जगह (जैसे <code>&lt;body&gt;</code> के direct child के रूप में) जाकर render हो जाता है।</p>
+<p>अब मान लीजिए, एक नया यूजर आपकी वेबसाइट के सिर्फ "Landing Page" या "Home Page" पर आता है। लेकिन क्योंकि आपका बंडल सिंगल फाइल है, इसलिए यूजर का ब्राउज़र बैकग्राउंड में "Admin Dashboard", "Payment Gateway", "Analytics Graphs" और "Settings" का कोड भी डाउनलोड करने लगता है, जिसकी उसे उस समय कोई जरूरत ही नहीं थी! इससे आपका Initial Page Load Time बहुत बढ़ जाता है, खासकर कमजोर मोबाइल नेटवर्क्स पर।</p>
+
+<p>इसी समस्या को हल करने के लिए हम "Code Splitting" का इस्तेमाल करते हैं। कोड स्प्लिटिंग का मतलब है अपने बड़े बंडल को छोटे-छोटे हिस्सों (Chunks) में बांटना, ताकि ब्राउज़र सिर्फ उसी कोड को डाउनलोड करे जो स्क्रीन पर दिखाना जरूरी है।</p>
+
+<h2>Code Splitting कैसे काम करती है?</h2>
+
+<p>नीचे दिए गए आर्किटेक्चर डायग्राम से समझिए कि नॉर्मल बंडलिंग और लेजी लोडिंग के साथ कोड स्प्लिटिंग में क्या अंतर होता है:</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Portal DOM Flow Diagram</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Code Splitting & Lazy Loading Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#1e293b;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;border:1px solid #334155;">#root (Main App)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
-    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Nested Sidebar (Overflow Hidden)</div>
-    <div style="color:#a855f7;font-size:24px;font-weight:700">⚡ Portal</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">#portal-root (Modal/Tooltip)</div>
+    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Main App Bundle (1.5 MB)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔ Splits into ➔</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Home Chunk (100 KB)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">+</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Dashboard Chunk (400 KB)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">+</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Settings Chunk (200 KB)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React Portal components render outside the parent root div directly into a dedicated DOM node.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: dynamic import का उपयोग करके भारी बंडल को ऑन-डिमांड चंक्स में विभाजित करना।</div>
 </div>
 
-<h2>createPortal API का Syntax क्या है?</h2>
+<p>जब यूजर पहली बार वेबसाइट पर आएगा, तो ब्राउज़र सिर्फ <code>Home Chunk (100 KB)</code> डाउनलोड करेगा, जिससे पेज पलक झपकते ही लोड हो जाएगा। जब यूजर 'Dashboard' बटन पर क्लिक करेगा, केवल तभी <code>Dashboard Chunk</code> लोड होगा।</p>
 
-<p>React Portals का इस्तेमाल करने के लिए हमें <code>react-dom</code> package से <code>createPortal</code> function को import करना होता है। इसका syntax बहुत ही सरल और सीधा है:</p>
+<h2>React.lazy और React Suspense क्या हैं?</h2>
 
-<pre><code>import ReactDOM from 'react-dom';
+<p>कोड स्प्लिटिंग को आसानी से लागू करने के लिए React हमें दो बेहतरीन टूल्स देता है: <strong>React.lazy</strong> और <strong>React Suspense</strong>।</p>
 
-ReactDOM.createPortal(child, container);
-</code></pre>
+<h3>1. React.lazy क्या है?</h3>
 
-<p>चैंपियन, यहाँ इन दो parameters का मतलब समझो:</p>
-<ul>
-  <li><strong>child:</strong> यह कोई भी renderable React component, element, string, या fragment हो सकता है जिसे आप render करना चाहते हैं।</li>
-  <li><strong>container:</strong> यह वह HTML DOM element है जहाँ आप उस child को भेजना चाहते हैं (जैसे: <code>document.getElementById('portal-root')</code>)।</li>
-</ul>
+<p><code>React.lazy()</code> एक इन-बिल्ट फंक्शन है जो हमें Dynamic Import का इस्तेमाल करके कंपोनेंट्स को आलसी (Lazy) तरीके से रेंडर करने की अनुमति देता है। यह कंपोनेंट को तभी रेंडर करता है जब उसकी सच में जरूरत होती है।</p>
 
-<h2>React Portals vs Normal Components में क्या अंतर है?</h2>
+<p><strong>नॉर्मल स्टेटिक इम्पोर्ट (Static Import):</strong></p>
+<pre><code>import PremiumDashboard from './components/PremiumDashboard';</code></pre>
 
-<p>कई बार लोग सोचते हैं कि हम normal rendering से भी तो काम चला सकते हैं, फिर इसकी क्या जरूरत? चलिए इस comparison table से असली फर्क को समझते हैं:</p>
+<p><strong>लेजी डायनेमिक इम्पोर्ट (Lazy Dynamic Import):</strong></p>
+<pre><code>import React, { lazy } from 'react';
+const PremiumDashboard = lazy(() => import('./components/PremiumDashboard'));</code></pre>
 
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; text-align: left;">
+<h3>2. React Suspense क्या है?</h3>
+
+<p>जब ब्राउज़र इंटरनेट से <code>PremiumDashboard</code> कंपोनेंट के कोड को डाउनलोड कर रहा होगा, उस छोटे से टाइम गैप (Delay) के दौरान स्क्रीन पर क्या दिखेगा? अगर हम कुछ नहीं दिखाएंगे, तो यूजर को लगेगा कि हमारी ऐप हैंग हो गई है।</p>
+
+<p>यहीं पर काम आता है <code>Suspense</code> कंपोनेंट! <code>Suspense</code> एक ऐसा रैपर (Wrapper) है जो लेजी लोड होने वाले कंपोनेंट को घेरता है। जब तक वह कंपोनेंट बैकग्राउंड में डाउनलोड हो रहा होता है, तब तक <code>Suspense</code> अपने <code>fallback</code> प्रॉप में दिए गए UI (जैसे कि Loading Spinner या Skeleton Screen) को दिखाता है।</p>
+
+<h2>Static Import बनाम Lazy Import: मुख्य अंतर</h2>
+
+<p>आइए इन दोनों के बीच के बड़े अंतर को एक आसान टेबल के जरिए समझते हैं:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; min-width: 400px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
   <thead>
-    <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
-      <th style="padding: 12px; font-weight: bold;">Feature / Property</th>
-      <th style="padding: 12px; font-weight: bold;">Normal Components Rendering</th>
-      <th style="padding: 12px; font-weight: bold;">React Portals Rendering</th>
+    <tr style="background-color: #06b6d4; color: #ffffff; text-align: left; font-weight: bold;">
+      <th style="padding: 12px 15px;">विशेषता (Features)</th>
+      <th style="padding: 12px 15px;">Static Import (नॉर्मल)</th>
+      <th style="padding: 12px 15px;">Lazy Import (Dynamic)</th>
     </tr>
   </thead>
   <tbody>
-    <tr style="border-bottom: 1px solid #e2e8f0;">
-      <td style="padding: 12px; font-weight: bold;">DOM Positioning</td>
-      <td style="padding: 12px;">Parent element के अंदर ही nested render होता है।</td>
-      <td style="padding: 12px;">Parent tree से बाहर किसी भी DOM node में render हो सकता है।</td>
+    <tr style="border-bottom: 1px solid #dddddd;">
+      <td style="padding: 12px 15px; font-weight: bold;">Loading Time</td>
+      <td style="padding: 12px 15px;">शुरुआत में धीमा (Slow Initial Load)</td>
+      <td style="padding: 12px 15px;">बेहद तेज (Lightning-fast Initial Load)</td>
     </tr>
-    <tr style="border-bottom: 1px solid #e2e8f0;">
-      <td style="padding: 12px; font-weight: bold;">CSS Styling Constraints</td>
-      <td style="padding: 12px;">Parent के <code>overflow</code>, <code>z-index</code>, और <code>position</code> से प्रभावित होता है।</td>
-      <td style="padding: 12px;">Parent CSS rules से बिल्कुल आजाद होता है।</td>
+    <tr style="border-bottom: 1px solid #dddddd; background-color: #f3f4f6;">
+      <td style="padding: 12px 15px; font-weight: bold;">Bundle Size</td>
+      <td style="padding: 12px 15px;">एक बड़ा सिंगल बंडल (Monolithic)</td>
+      <td style="padding: 12px 15px;">छोटे-छोटे कई चंक्स (Chunks)</td>
     </tr>
-    <tr style="border-bottom: 1px solid #e2e8f0;">
-      <td style="padding: 12px; font-weight: bold;">Event Bubbling</td>
-      <td style="padding: 12px;">Normal React event hierarchy के अनुसार bubble करता है।</td>
-      <td style="padding: 12px;">DOM में बाहर होने के बावजूद, React Virtual DOM tree के अनुसार bubble करता है।</td>
+    <tr style="border-bottom: 1px solid #dddddd;">
+      <td style="padding: 12px 15px; font-weight: bold;">Network Requests</td>
+      <td style="padding: 12px 15px;">सिर्फ एक मुख्य रिक्वेस्ट</td>
+      <td style="padding: 12px 15px;">जरूरत पड़ने पर ऑन-डिमांड रिक्वेस्ट्स</td>
     </tr>
-    <tr style="border-bottom: 1px solid #e2e8f0;">
-      <td style="padding: 12px; font-weight: bold;">Best Use Case</td>
-      <td style="padding: 12px;">Standard layout components (Headers, Cards, Buttons).</td>
-      <td style="padding: 12px;">Global overlay components (Modals, Tooltips, Popovers).</td>
+    <tr style="border-bottom: 2px solid #06b6d4; background-color: #f3f4f6;">
+      <td style="padding: 12px 15px; font-weight: bold;">User Experience</td>
+      <td style="padding: 12px 15px;">कमजोर कनेक्शन पर बुरा प्रभाव</td>
+      <td style="padding: 12px 15px;">एकदम स्मूथ, बिना लैग के</td>
     </tr>
   </tbody>
 </table>
 
-<h2>React Portals की मदद से Modal Component कैसे बनाएं?</h2>
+<h2>React.lazy और Suspense का Step-by-Step Implementation</h2>
 
-<p>चलिए, अब सीधे काम की बात पर आते हैं और एक real-world, production-ready Modal component बनाते हैं। हम इसे step-by-step समझेंगे ताकि कोई भी कन्फ्यूजन न रहे।</p>
+<p>अब थ्योरी बहुत हो गई, चलिए सीधे कोड एडिटर खोलते हैं और इसे प्रैक्टिकली करके देखते हैं। हम एक ऐसी एप्लीकेशन बनाएंगे जिसमें रूट-बेस्ड कोड स्प्लिटिंग (Route-based Code Splitting) होगी।</p>
 
-<h3>Step 1: HTML File में Portal Target Element जोड़ें</h3>
-<p>सबसे पहले हमें अपने React project की main HTML file (आमतौर पर Vite प्रोजेक्ट्स में <code>index.html</code> या Public folder में) में जाना होगा और <code>&lt;div id="root"&gt;&lt;/div&gt;</code> के ठीक नीचे एक नया div element जोड़ना होगा:</p>
+<h3>स्टेप 1: भारी-भरकम कंपोनेंट्स बनाना</h3>
 
-<pre><code>&lt;!-- index.html --&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8" /&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
-    &lt;title&gt;React Portals Demo&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="root"&gt;&lt;/div&gt;
-    &lt;!-- Portal Target Node --&gt;
-    &lt;div id="portal-root"&gt;&lt;/div&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<p>सबसे पहले हम दो कंपोनेंट्स बनाएंगे। पहला <code>Home.jsx</code> जो तुरंत लोड होना चाहिए, और दूसरा <code>AnalyticsDashboard.jsx</code> जो एक बड़ा कंपोनेंट है और इसे हम आलसी तरीके से लोड करेंगे।</p>
 
-<h3>Step 2: Modal Component का Code लिखें</h3>
-<p>अब हम एक <code>Modal.jsx</code> फ़ाइल बनाएंगे। ध्यान देने वाली बात ये है कि हम यहाँ clean CSS styles भी inline या stylesheet के रूप में handle करेंगे ताकि यह बाहर क्लिक होने पर बंद हो सके, और escape key दबाने पर भी close हो सके (जो कि accessibility के लिए बहुत जरूरी है)।</p>
+<p><strong>फाइल: <code>src/components/Home.jsx</code></strong></p>
+<pre><code>import React from 'react';
 
-<pre><code>import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-
-const Modal = ({ isOpen, onClose, title, children }) => {
-  // Escape key दबाने पर modal बंद करने के लिए useEffect hook
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'; // Screen scroll block handle karein
-      window.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, onClose]);
-
-  // Agar modal open nahi hai to kuch render na karein
-  if (!isOpen) return null;
-
-  // Modal target node ko select karein
-  const portalNode = document.getElementById('portal-root');
-  if (!portalNode) return null;
-
-  // CSS Styles in Object
-  const backdropStyle = {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1000,
-  };
-
-  const modalStyle = {
-    background: '#ffffff',
-    padding: '24px',
-    borderRadius: '12px',
-    maxWidth: '500px',
-    width: '90%',
-    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-    position: 'relative',
-  };
-
-  const closeBtnStyle = {
-    position: 'absolute',
-    top: '15px',
-    right: '15px',
-    background: 'none',
-    border: 'none',
-    fontSize: '20px',
-    cursor: 'pointer',
-    color: '#64748b',
-  };
-
-  return ReactDOM.createPortal(
-    &lt;div style={backdropStyle} onClick={onClose}&gt;
-      &lt;div style={modalStyle} onClick={(e) =&gt; e.stopPropagation()}&gt;
-        &lt;button style={closeBtnStyle} onClick={onClose}&gt;&amp;times;&lt;/button&gt;
-        &lt;h3 style={{ marginTop: 0, color: '#1e293b' }}&gt;{title}&lt;/h3&gt;
-        &lt;div style={{ color: '#475569', lineHeight: '1.6' }}&gt;
-          {children}
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;,
-    portalNode
+const Home = () => {
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>स्वागत है हमारी सुपर-फास्ट वेबसाइट पर! 🚀</h1>
+      <p>यह हमारा लैंडिंग पेज है जो तुरंत बिना किसी देरी के लोड हो जाता है।</p>
+    </div>
   );
 };
 
-export default Modal;
-</code></pre>
+export default Home;</code></pre>
 
-<h3>Step 3: App.jsx में Modal को Use करना</h3>
-<p>अब अपने main container component में इस Modal को import करते हैं और state के जरिए control करते हैं:</p>
+<p><strong>फाइल: <code>src/components/AnalyticsDashboard.jsx</code></strong></p>
+<pre><code>import React from 'react';
 
-<pre><code>import React, { useState } from 'react';
-import Modal from './Modal';
+const AnalyticsDashboard = () => {
+  // हम मान लेते हैं कि यह कंपोनेंट बहुत भारी लाइब्रेरीज़ का इस्तेमाल करता है
+  return (
+    <div style={{ padding: '20px', background: '#f0fdf4', borderRadius: '10px', marginTop: '20px' }}>
+      <h2>📊 Analytics & Premium Dashboard</h2>
+      <p>यह बहुत भारी कंपोनेंट है जो बैकग्राउंड में लोड हुआ है! इसमें कई जटिल ग्राफ और चार्ट्स शामिल हैं।</p>
+      <ul>
+        <li>Active Users: 14,234</li>
+        <li>Conversion Rate: 4.8%</li>
+        <li>Monthly Revenue: $48,900</li>
+      </ul>
+    </div>
+  );
+};
+
+export default AnalyticsDashboard;</code></pre>
+
+<h3>स्टेप 2: App.jsx में Lazy Loading और Suspense सेटअप करना</h3>
+
+<p>अब हम अपने मेन <code>App.jsx</code> कंपोनेंट में इन दोनों फाइलों को डायनेमिकली इम्पोर्ट करेंगे और <code>Suspense</code> के साथ लोड करेंगे। लोडिंग के वक्त यूजर को एक अच्छा लोडिंग एनीमेशन दिखाने के लिए हम एक साधारण Spinner कंपोनेंट भी बनाएंगे।</p>
+
+<p><strong>फाइल: <code>src/App.jsx</code></strong></p>
+<pre><code>import React, { useState, lazy, Suspense } from 'react';
+import Home from './components/Home';
+
+// AnalyticsDashboard को आलसी (Lazy) तरीके से इम्पोर्ट किया गया है
+const AnalyticsDashboard = lazy(() => import('./components/AnalyticsDashboard'));
+
+// एक सुंदर लोडिंग स्पिनर कंपोनेंट
+const LoadingSpinner = () => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#06b6d4', padding: '20px' }}>
+    <div style={{
+      width: '24px',
+      height: '24px',
+      border: '3px solid #f3f3f3',
+      borderTop: '3px solid #06b6d4',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }} />
+    <span>कृपया प्रतीक्षा करें, भारी डेटा लोड हो रहा है...</span>
+    <style>{`
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}</style>
+  </div>
+);
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
 
   return (
-    &lt;div style={{ padding: '40px', fontFamily: 'sans-serif', textAlign: 'center' }}&gt;
-      &lt;h1&gt;React Portals Modal Tutorial&lt;/h1&gt;
-      &lt;p&gt;यह बटन दबाकर देखें कि कैसे modal direct body tag ke niche render hota hai.&lt;/p&gt;
+    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+      <Home />
       
-      &lt;button 
-        onClick={() =&gt; setIsModalOpen(true)}
+      <button 
+        onClick={() => setShowDashboard(prev => !prev)}
         style={{
+          background: '#06b6d4',
+          color: '#ffffff',
+          border: 'none',
           padding: '12px 24px',
           fontSize: '16px',
-          backgroundColor: '#2563eb',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '8px',
+          borderRadius: '6px',
           cursor: 'pointer',
-          fontWeight: '600'
+          marginTop: '10px',
+          fontWeight: 'bold',
+          transition: 'background 0.3s'
         }}
-      &gt;
-        Open Magic Modal
-      &lt;/button&gt;
+      >
+        {showDashboard ? 'Dashboard छुपाएं' : 'Premium Analytics Dashboard लोड करें'}
+      </button>
 
-      &lt;Modal 
-        isOpen={isModalOpen} 
-        onClose={() =&gt; setIsModalOpen(false)} 
-        title="बधाई हो, पोर्टल काम कर रहा है!"
-      &gt;
-        &lt;p&gt;दोस्तों, यह modal HTML DOM में "#root" div के बाहर "portal-root" में render हो रहा है, लेकिन React Component Tree में यह अभी भी App component का ही हिस्सा है।&lt;/p&gt;
-      &lt;/Modal&gt;
-    &lt;/div&gt;
-  );
-}
-
-export default App;
-</code></pre>
-
-<h2>React Portals का use करके Tooltip कैसे बनाएं?</h2>
-
-<p>Modals के बाद, Tooltips दूसरी सबसे बड़ी चुनौती होती हैं। मान लीजिए आपके पास एक card layout है जिसका overflow dynamic है। वहाँ standard tooltips कट जाते हैं। चलिए, React Portal का use करके एक positioning-aware Tooltip बनाते हैं।</p>
-
-<pre><code>import React, { useState, useRef } from 'react';
-import ReactDOM from 'react-dom';
-
-const Tooltip = ({ text, children }) => {
-  const [show, setShow] = useState(false);
-  const [coords, setCoords] = useState({ top: 0, left: 0 });
-  const triggerRef = useRef(null);
-
-  const handleMouseEnter = () => {
-    if (triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      // Tooltip position setup (Element ke thik upar center me)
-      setCoords({
-        top: rect.top + window.scrollY - 40,
-        left: rect.left + window.scrollX + rect.width / 2,
-      });
-      setShow(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setShow(false);
-  };
-
-  const tooltipStyle = {
-    position: 'absolute',
-    top: `${coords.top}px`,
-    left: `${coords.left}px`,
-    transform: 'translateX(-50%)',
-    backgroundColor: '#1e293b',
-    color: '#ffffff',
-    padding: '6px 12px',
-    borderRadius: '6px',
-    fontSize: '12px',
-    whiteSpace: 'nowrap',
-    pointerEvents: 'none',
-    zIndex: 9999,
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-  };
-
-  return (
-    &lt;span 
-      ref={triggerRef} 
-      onMouseEnter={handleMouseEnter} 
-      onMouseLeave={handleMouseLeave}
-      style={{ display: 'inline-block', cursor: 'pointer', textDecoration: 'underline' }}
-    &gt;
-      {children}
-      {show &amp;&amp; ReactDOM.createPortal(
-        &lt;div style={tooltipStyle}&gt;
-          {text}
-        &lt;/div&gt;,
-        document.body
+      {showDashboard && (
+        // Suspense की मदद से हम लोडिंग स्टेट को आसानी से संभालते हैं
+        <Suspense fallback={&lt;LoadingSpinner /&gt;}>
+          <AnalyticsDashboard />
+        </Suspense>
       )}
-    &lt;/span&gt;
-  );
-};
-
-export default Tooltip;
-</code></pre>
-
-<p>देखा आपने? हमने Tooltip को <code>document.body</code> में सीधे render किया है ताकि CSS layout rules उस पर हावी न हो सकें।</p>
-
-<h2>React Portals का use करते समय Event Bubbling कैसे काम करती है?</h2>
-
-<p>अब आप सोच रहे होंगे, "भाई, अगर DOM node बिल्कुल अलग जगह पर है, तो Event Bubbling कैसे काम करेगी? क्या child button पर click करने से parent element का click handler trigger होगा?"</p>
-
-<p><strong>हाँ, बिल्कुल होगा!</strong> और यही React की सबसे बड़ी खूबसूरती है।</p>
-
-<p>भले ही Portal का DOM Node आपके main root tree से बाहर कहीं भी हो, React के perspective से यह अभी भी उसी React Component Tree का हिस्सा है। इसलिए React Event System (SyntheticEvents) वैसे ही काम करता है जैसे वो normal nested layout में करता।</p>
-
-<p>इसे समझने के लिए इस मजेदार उदाहरण को देखें:</p>
-
-<pre><code>import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-
-function ParentComponent() {
-  const [clickCount, setClickCount] = useState(0);
-
-  // Yeh click handler Portal child par click hone par bhi trigger hoga!
-  const handleParentClick = () =&gt; {
-    setClickCount((prev) =&gt; prev + 1);
-  };
-
-  return (
-    &lt;div 
-      onClick={handleParentClick} 
-      style={{ padding: '20px', border: '2px dashed #a855f7', background: '#faf5ff' }}
-    &gt;
-      &lt;h3&gt;Parent Component (Clicks: {clickCount})&lt;/h3&gt;
-      &lt;p&gt;Portal child par click karne se bhi yeh count badhega, kyunki React Event Bubbling normal rehti hai!&lt;/p&gt;
-      
-      &lt;PortalChild /&gt;
-    &lt;/div&gt;
+    </div>
   );
 }
 
-function PortalChild() {
-  const portalTarget = document.getElementById('portal-root') || document.body;
-  
-  return ReactDOM.createPortal(
-    &lt;div style={{ 
-      background: '#10b981', 
-      color: 'white', 
-      padding: '12px', 
-      marginTop: '20px',
-      borderRadius: '6px' 
-    }}&gt;
-      &lt;p&gt;Main Portal Node ke andar hoon, par Parent standard element me bubble up karega.&lt;/p&gt;
-      &lt;button style={{ padding: '6px 12px', cursor: 'pointer' }}&gt;Click Me&lt;/button&gt;
-    &lt;/div&gt;,
-    portalTarget
-  );
+export default App;</code></pre>
+
+<p>ध्यान देने वाली बात ये है कि जब आप पहली बार "Premium Analytics Dashboard लोड करें" बटन पर क्लिक करेंगे, तब ब्राउज़र के Network Tab में आपको एक नया <code>.js</code> चंक फाइल लोड होता हुआ दिखाई देगा। इसके बाद अगली बार क्लिक करने पर यह तुरंत दिखेगा क्योंकि ब्राउज़र इसे पहले ही कैशे (Cache) कर चुका होगा!</p>
+
+<h2>Edge Cases और Common Errors: इनसे कैसे बचें?</h2>
+
+<p>दोस्तों, प्रोडक्शन एनवायरनमेंट में जब आप Lazy Loading का इस्तेमाल करते हैं, तो कुछ ऐसी समस्याएं आती हैं जो आपकी पूरी ऐप को क्रैश कर सकती हैं। आइए उन समस्याओं को पहचानें और उनका पक्का इलाज ढूंढें।</p>
+
+<h3>1. Network Failure और ChunkLoadError</h3>
+
+<p>मान लीजिए आपके यूजर का इंटरनेट कनेक्शन अचानक कमजोर हो गया या टूट गया जब वह किसी नए पेज या टैब पर क्लिक करता है। ऐसे में ब्राउज़र सर्वर से वह नया JavaScript चंक डाउनलोड नहीं कर पाता और रिएक्ट एक भयानक <code>ChunkLoadError</code> फेंक देता है।</p>
+
+<p><strong>समाधान: Error Boundary का इस्तेमाल करें!</strong><br>
+हमें हमेशा अपने <code>Suspense</code> कंपोनेंट को एक सुरक्षित घेरे में रखना चाहिए जिसे हम Error Boundary कहते हैं। अगर चंक लोड होने में कोई भी <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank" rel="noopener">error</a> आती है, तो यह यूजर को क्रैश स्क्रीन दिखाने के बजाय एक साफ-सुथरा एरर मैसेज या रीलोड बटन दिखाता है।</p>
+
+<p>आइए एक रियलिस्टिक <code>ErrorBoundary.jsx</code> कंपोनेंट बनाते हैं:</p>
+
+<p><strong>फाइल: <code>src/components/ErrorBoundary.jsx</code></strong></p>
+<pre><code>import React from 'react';
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // अगले रेंडर पर फॉलबैक यूआई दिखाने के लिए स्टेट अपडेट करें
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // आप यहाँ अपने एनालिटिक्स सर्विस (जैसे Sentry) पर एरर लॉग कर सकते हैं
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          padding: '20px',
+          border: '1px solid #fecaca',
+          background: '#fef2f2',
+          borderRadius: '8px',
+          color: '#991b1b',
+          marginTop: '20px'
+        }}>
+          <h3>⚠️ नेटवर्क कनेक्शन में समस्या आ रही है!</h3>
+          <p>शायद आपका इंटरनेट धीमा है या सर्वर अपडेट हुआ है। कृपया पेज को रीफ्रेश करने का प्रयास करें।</p>
+          <button 
+            onClick={() => window.location.reload()}
+            style={{
+              background: '#991b1b',
+              color: '#fff',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontWeight: 'bold'
+            }}
+          >
+            पेज दोबारा लोड करें
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
 }
 
-export default ParentComponent;
-</code></pre>
+export default ErrorBoundary;</code></pre>
 
-<p>अगर आप चाहते हैं कि Portal element का click event parent तक न पहुँचे, तो आपको child layout के handler में <code>e.stopPropagation()</code> का use करना होगा, जैसा हमने ऊपर Modal Component वाले code में किया है।</p>
+<p>अब अपनी ऐप में इसका इस्तेमाल इस तरह करें:</p>
+<pre><code>&lt;ErrorBoundary&gt;
+  &lt;Suspense fallback={&lt;LoadingSpinner /&gt;}&gt;
+    &lt;AnalyticsDashboard /&gt;
+  &lt;/Suspense&gt;
+&lt;/ErrorBoundary&gt;</code></pre>
 
-<h2>React Portals use करते समय Common Errors और उन्हें कैसे Solve करें?</h2>
+<h3>2. Named Exports के साथ React.lazy का काम न करना</h3>
 
-<p>काम करते वक्त <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> आना तो तय है, लेकिन घबराइए मत! यहाँ कुछ आम गलतियाँ और उनके solutions दिए गए हैं:</p>
+<p>एक बहुत ही कॉमन गलती जो नए डेवलपर्स करते हैं, वह यह है कि वे Named Exports को <code>React.lazy</code> के साथ लोड करने की कोशिश करते हैं।</p>
 
-<h3>1. "Target container is not a DOM element" Error</h3>
-<p><strong>वजह:</strong> यह <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">exception</a> तब आता है जब React, DOM render करने की कोशिश करता है लेकिन उसे <code>document.getElementById('portal-root')</code> जैसी specific node मिलती ही नहीं (शायद spelling mistake हो या element load न हुआ हो)।</p>
-<p><strong>Solution:</strong> हमेशा double check करें कि आपकी <code>index.html</code> फ़ाइल में वह element exist करता हो। इसके अलावा, SSR frameworks (जैसे <a href="https://itinfohubs.blogspot.com/search/label/NextJS" target="_blank">Next.js</a>) में rendering से पहले client-side check जरूर लगाएं:</p>
-<pre><code>const [mounted, setMounted] = useState(false);
-useEffect(() =&gt; {
-  setMounted(true);
-  return () =&gt; setMounted(false);
-}, []);
+<p><strong>गलत तरीका ❌:</strong></p>
+<pre><code>// यह काम नहीं करेगा अगर Dashboard.jsx में Default Export नहीं है!
+const Dashboard = lazy(() => import('./Dashboard'));</code></pre>
 
-if (!mounted) return null;
-return ReactDOM.createPortal(&lt;Child /&gt;, document.getElementById('portal-root'));
-</code></pre>
+<p><strong>सही तरीका (The Default Export Rule)  :</strong><br>
+<code>React.lazy</code> केवल उन्हीं कंपोनेंट्स का समर्थन करता है जो <code>default export</code> होते हैं। अगर आपका कंपोनेंट Named Export (जैसे <code>export const Dashboard = ...</code>) है, तो आपको प्रॉमिस चेन में उसे डिफॉल्ट के रूप में रीजॉल्व करना होगा:</p>
+<pre><code>// Named Export को लेजी लोड करने का नायाब नुस्खा
+const Dashboard = lazy(() => 
+  import('./Dashboard').then(module => ({ default: module.Dashboard }))
+);</code></pre>
 
-<h3>2. Dynamic Mount / Cleanup issue</h3>
-<p><strong>वजह:</strong> अगर आप dynamically element create करके portal attach कर रहे हैं और component unmount होने पर उसे clean नहीं कर रहे हैं, तो memory leak हो सकता है।</p>
-<p><strong>Solution:</strong> <code>useEffect</code> में dynamic divs को clean करना सीखें। clean-up function में container को <code>document.body.removeChild(el)</code> के जरिए clear करें।</p>
+<h2>React Application Optimization के लिए Best Practices</h2>
 
-<h2>Best Practices और Performance Tips क्या हैं?</h2>
+<p>अगर आप अपनी स्केलेबल <a href="https://itinfohubs.blogspot.com/search/label/MERN%20Stack" target="_blank" rel="noopener">MERN Stack</a> एप्लीकेशन को वर्ल्ड-क्लास परफॉरमेंस देना चाहते हैं, तो इन रणनीतियों को याद रखें:</p>
 
 <ul>
-  <li><strong>Accessibility (A11y) का ध्यान रखें:</strong> जब भी Modal open हो, screen readers के लिए parent element को hide (<code>aria-hidden="true"</code>) करें और keyboard focus को Modal के अंदर ही lock (Focus Trap) करें। इसके लिए आप <a href="https://react.dev/" rel="noopener" target="_blank">React Official Docs</a> के guidelines का पालन कर सकते हैं।</li>
-  <li><strong>SSR compatibility:</strong> Server-side rendering में document element server पर available नहीं होता। इसलिए ऊपर बताए गए <code>mounted</code> state approach का इस्तेमाल करें ताकि build fail न हो।</li>
-  <li><strong>Z-Index Management:</strong> Portal nodes के लिए CSS में एक standard stack बनाएं (जैसे Modals के लिए <code>z-index: 1000</code>, tooltips के लिए <code>1100</code>) ताकि UI overlap control में रहे।</li>
+  <li><strong>रूट-बेस्ड स्प्लिटिंग सबसे पहले (Route-based Splitting First):</strong> अपनी पूरी एप्लीकेशन में हर कंपोनेंट को लेजी लोड करने की जरूरत नहीं है। सबसे सही तरीका यह है कि आप अपने मेन रूट्स (Pages) जैसे- Home, Dashboard, Profile, Settings को ही आलसी तरीके से इम्पोर्ट करें।</li>
+  <li><strong>होवर पर प्री-लोडिंग (Preloading on Hover):</strong> जब यूजर किसी लिंक या बटन पर माउस होवर (Hover) करे, तो आप बैकग्राउंड में ही उस चंक को डाउनलोड करना शुरू कर सकते हैं। इससे जब यूजर क्लिक करेगा, तो उसे कोई लोडिंग स्पिनर तक नहीं देखना पड़ेगा!</li>
+  <li><strong>Server-Side Rendering (SSR) का ध्यान रखें:</strong> अगर आप NextJS या किसी अन्य SSR फ्रेमवर्क का इस्तेमाल कर रहे हैं, तो ध्यान दें कि पारंपरिक <code>React.lazy</code> और <code>Suspense</code> को सर्वर-साइड रेंडरिंग के दौरान विशेष ध्यान की आवश्यकता होती है। <a href="https://itinfohubs.blogspot.com/search/label/NextJS" target="_blank" rel="noopener">NextJS</a> में इसके लिए <code>next/dynamic</code> का उपयोग किया जाता है जो कि रिएक्ट लेजी का ही एक एडवांस्ड रैपर है।</li>
 </ul>
 
-<p>तो दोस्तों, हमने आज सीखा कि कैसे React Portals बड़े ही जादुई ढंग से DOM hierarchy को तोड़कर हमारे Modals और Tooltips को position-independent और flexible बनाते हैं। अगली बार जब CSS overflow या z-index आपके design को बिगाड़ने की कोशिश करे, तो बिना झिझक React Portals का इस्तेमाल करें और इस समस्या को जड़ से खत्म करें।</p>
+<h2>निष्कर्ष और महत्वपूर्ण सीख</h2>
+
+<p>तो दोस्तों, आज हमने सीखा कि कैसे React Suspense और Lazy Loading हमारी वेब एप्लीकेशन के बंडल साइज को एकदम छोटा और परफॉरमेंस को सुपरफास्ट बना देते हैं। कोड स्प्लिटिंग न केवल आपके यूजर्स को एक बेहतरीन यूजर एक्सपीरियंस देती है, बल्कि आपके सर्वर के बैंडविड्थ कॉस्ट को भी काफी हद तक बचाती है।</p>
+
+<p>आधिकारिक डॉक्यूमेंटेशन के लिए आप <a href="https://react.dev/reference/react/lazy" target="_blank" rel="noopener">React official docs</a> देख सकते हैं। अपनी ऐप में इसे आज ही ट्राई कीजिए और मुझे बताइए कि आपकी लोडिंग स्पीड में कितना अंतर आया!</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
   
-  <div class="faq-q">Q1: React Portals का use कब करना चाहिए?</div>
-  <div class="faq-a">जब भी आपको ऐसा UI element बनाना हो जो parent CSS wrapper styles (जैसे overflow: hidden, relative width, ya z-index limits) से बाहर निकलकर स्क्रीन पर दिखे, जैसे Modals, Popovers, Tooltips, Global Loaders, और Side-drawers.</div>
+  <div class="faq-q">Q1: React.lazy और React Suspense में क्या अंतर है?</div>
+  <div class="faq-a">React.lazy का काम कोड को डायनेमिक रूप से विभाजित (Code Splitting) करना और ऑन-डिमांड कंपोनेंट इम्पोर्ट करना है। वहीं, React Suspense एक रैपर है जो लोडिंग की अवधि के दौरान एक वैकल्पिक फॉलबैक यूआई (जैसे प्रोग्रेस बार या स्पिनर) दिखाता है।</div>
   
-  <div class="faq-q">Q2: क्या React Portal use करने से event listeners काम करना बंद कर देते हैं?</div>
-  <div class="faq-a">बिल्कुल नहीं! React Synthetic Event system, React virtual component tree के design पर काम करता है, न कि real DOM architecture पर। इसलिए Portal node पर होने वाले events भी parent level पर bubble up होते हैं।</div>
+  <div class="faq-q">Q2: क्या हमें हर एक छोटे कंपोनेंट को Lazy Load करना चाहिए?</div>
+  <div class="faq-a">बिलकुल नहीं! छोटे कंपोनेंट्स को लेजी लोड करने से बहुत सारे छोटे-छोटे नेटवर्क रिक्वेस्ट्स जेनरेट होंगे, जिससे परफॉरमेंस सुधरने की बजाय बिगड़ जाएगी। हमेशा केवल बड़े रूट्स (Pages) और भारी लाइब्रेरीज वाले कंपोनेंट्स को ही लेजी लोड करें।</div>
   
-  <div class="faq-q">Q3: React Portals और standard components में से performance के लिहाज से कौन सा बेहतर है?</div>
-  <div class="faq-a">दोनों की performance में कोई खास अंतर नहीं होता है। React Portals सिर्फ insertion target बदलते हैं, rendering cycle और updates सामान्य components की तरह ही fast और optimized रहते हैं।</div>
+  <div class="faq-q">Q3: React.lazy के इस्तेमाल पर एरर क्यों आता है और इसे कैसे ठीक करें?</div>
+  <div class="faq-a">यह एरर आमतौर पर दो वजहों से आता है: पहला, आपका कंपोनेंट 'Default Export' नहीं है, या दूसरा, नेटवर्क कनेक्शन फेल हो जाने के कारण ब्राउज़र चंक लोड नहीं कर पाया। इसे ठीक करने के लिए एरर बाउंड्री (Error Boundary) और डिफ़ॉल्ट एक्सपोर्ट का उपयोग करें।</div>
   
-  <div class="faq-q">Q4: क्या Next.js या Server-Side Rendering (SSR) में React Portals काम करते हैं?</div>
-  <div class="faq-a">हाँ, वे काम करते हैं। लेकिन क्योंकि server पर 'window' या 'document' object accessible नहीं होता, आपको Client Side mount check (useEffect) का इस्तेमाल करके ensure करना होगा कि Portal सिर्फ client browser पर ही execute हो।</div>
+  <div class="faq-q">Q4: क्या React Suspense सर्वर साइड रेंडरिंग (SSR) के साथ काम करता है?</div>
+  <div class="faq-a">React 18 से Suspense सर्वर पर आंशिक रूप से स्ट्रीमिंग और सिलेक्टिव हाइड्रेशन का समर्थन करता है। हालांकि, अगर आप Next.js का उपयोग कर रहे हैं, तो अधिक अनुकूलित और सुरक्षित लोडिंग के लिए 'next/dynamic' का उपयोग करने की सलाह दी जाती है।</div>
   
-  <div class="faq-q">Q5: क्या हम एक React Component में multiple portals का इस्तेमाल कर सकते हैं?</div>
-  <div class="faq-a">हाँ, आप एक ही component में या पूरी application में जितने चाहें उतने Portals का use कर सकते हैं। ये सभी अलग-अलग target containers में render किए जा सकते हैं।</div>
+  <div class="faq-q">Q5: Dynamic Imports से हमारी एप्लीकेशन की SEO रैंकिंग पर क्या असर पड़ता है?</div>
+  <div class="faq-a">डायनेमिक इम्पोर्ट्स से पेज लोडिंग स्पीड बहुत बढ़ जाती है। क्योंकि Google Core Web Vitals (विशेषकर LCP - Largest Contentful Paint) को रैंकिंग फैक्टर मानता है, इसलिए लेजी लोडिंग अप्रत्यक्ष रूप से आपके SEO को काफी हद तक सुधारती है।</div>
 </div>
 
 <script type="application/ld+json">
@@ -433,46 +362,46 @@ return ReactDOM.createPortal(&lt;Child /&gt;, document.getElementById('portal-ro
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React Portals का use कब करना चाहिए?",
+      "name": "React.lazy और React Suspense में क्या अंतर है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "जब भी आपको ऐसा UI element बनाना हो जो parent CSS wrapper styles (जैसे overflow: hidden, relative width, ya z-index limits) से बाहर निकलकर स्क्रीन पर दिखे, जैसे Modals, Popovers, Tooltips, Global Loaders, और Side-drawers."
+        "text": "React.lazy का काम कोड को डायनेमिक रूप से विभाजित (Code Splitting) करना और ऑन-डिमांड कंपोनेंट इम्पोर्ट करना है। वहीं, React Suspense एक रैपर है जो लोडिंग की अवधि के दौरान एक वैकल्पिक फॉलबैक यूआई (जैसे प्रोग्रेस बार या स्पिनर) दिखाता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या React Portal use करने से event listeners काम करना बंद कर देते हैं?",
+      "name": "क्या हमें हर एक छोटे कंपोनेंट को Lazy Load करना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "बिल्कुल नहीं! React Synthetic Event system, React virtual component tree के design पर काम करता है, न कि real DOM architecture पर। इसलिए Portal node पर होने वाले events भी parent level पर bubble up होते हैं।"
+        "text": "बिलकुल नहीं! छोटे कंपोनेंट्स को लेजी लोड करने से बहुत सारे छोटे-छोटे नेटवर्क रिक्वेस्ट्स जेनरेट होंगे, जिससे परफॉरमेंस सुधरने की बजाय बिगड़ जाएगी। हमेशा केवल बड़े रूट्स (Pages) और भारी लाइब्रेरीज वाले कंपोनेंट्स को ही लेजी लोड करें।"
       }
     },
     {
       "@type": "Question",
-      "name": "React Portals और standard components में से performance के लिहाज से कौन सा बेहतर है?",
+      "name": "React.lazy के इस्तेमाल पर एरर क्यों आता है और इसे कैसे ठीक करें?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "दोनों की performance में कोई खास अंतर नहीं होता है। React Portals सिर्फ insertion target बदलते हैं, rendering cycle और updates सामान्य components की तरह ही fast और optimized रहते हैं।"
+        "text": "यह एरर आमतौर पर दो वजहों से आता है: पहला, आपका कंपोनेंट 'Default Export' नहीं है, या दूसरा, नेटवर्क कनेक्शन फेल हो जाने के कारण ब्राउज़र चंक लोड नहीं कर पाया। इसे ठीक करने के लिए एरर बाउंड्री (Error Boundary) और डिफ़ॉल्ट एक्सपोर्ट का उपयोग करें।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Next.js या Server-Side Rendering (SSR) में React Portals काम करते हैं?",
+      "name": "क्या React Suspense सर्वर साइड रेंडरिंग (SSR) के साथ काम करता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, वे काम करते हैं। लेकिन क्योंकि server पर 'window' या 'document' object accessible नहीं होता, आपको Client Side mount check (useEffect) का इस्तेमाल करके ensure करना होगा कि Portal सिर्फ client browser पर ही execute हो।"
+        "text": "React 18 से Suspense सर्वर पर आंशिक रूप से स्ट्रीमिंग और सिलेक्टिव हाइड्रेशन का समर्थन करता है। हालांकि, अगर आप Next.js का उपयोग कर रहे हैं, तो अधिक अनुकूलित और सुरक्षित लोडिंग के लिए 'next/dynamic' का उपयोग करने की सलाह दी जाती है।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या हम एक React Component में multiple portals का इस्तेमाल कर सकते हैं?",
+      "name": "Dynamic Imports से हमारी एप्लीकेशन की SEO रैंकिंग पर क्या असर पड़ता है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, आप एक ही component में या पूरी application में जितने चाहें उतने Portals का use कर सकते हैं। ये सभी अलग-अलग target containers में render किए जा सकते हैं।"
+        "text": "डायनेमिक इम्पोर्ट्स से पेज लोडिंग स्पीड बहुत बढ़ जाती है। क्योंकि Google Core Web Vitals (विशेषकर LCP - Largest Contentful Paint) को रैंकिंग फैक्टर मानता है, इसलिए लेजी लोडिंग अप्रत्यक्ष रूप से आपके SEO को काफी हद तक सुधारती है।"
       }
     }
   ]
 }
-</script>
+</script></div>
 </body>
 </html>
