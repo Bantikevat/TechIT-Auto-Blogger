@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React Portals Kya Hain aur Kaise Use Karein (in Hindi)</title>
+    <title>Preview: React Portals Use Cases Modals aur Tooltips (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,344 +16,415 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Portals kya hai aur inhe DOM tree se bahar Modals ya Popups banane ke liye kaise use karein? Sikhein detail mein pure code examples ke sath.</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Portals kya hai? Modals aur Tooltips ke real-world use cases Hindi me samjhein aur DOM hierarchy se bahar components render karna sikhein!</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React Portals Kya Hain aur Kaise Use Karein (in Hindi)</h1>
+    <h1>React Portals Use Cases Modals aur Tooltips (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/v656zgP9/c48840beb71e.png" alt="React Portals Kya Hain aur Kaise Use Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<p>React Portals kya hain aur inhe modal, tooltip ke liye kaise use karein? Is Hindi guide me code examples ke sath step-by-step seekhein!</p>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/1HZVCv6/caac08f95e52.png" alt="React Portals Use Cases Modals aur Tooltips (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React Portals in Hindi: Modals aur Tooltips banane ke liye DOM hierarchy ko bypass karne ka sahi tarika aur complete code examples ke saath samjhein.
 
-<p>हैलो दोस्तों! जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> में काम करते हैं, तो कभी-न-कभी हमारे सामने एक ऐसी सिचुएशन ज़रूर आती है जहाँ CSS की वजह से हमारी रातों की नींद उड़ जाती है। मान लीजिए आप एक बहुत ही ख़ूबसूरत Modal, Dropdown, या Tooltip बना रहे हैं। सब कुछ बढ़िया चल रहा है, लेकिन अचानक आप देखते हैं कि आपका Modal अपने Parent Component के <code>overflow: hidden</code> या <code>z-index</code> की वजह से आधा कट रहा है या स्क्रीन के पीछे छिप रहा है।</p>
+<p>तो दोस्तों, क्या आपके साथ कभी ऐसा हुआ है कि आपने बहुत मेहनत से एक सुंदर सा Modal या Tooltip बनाया, लेकिन जैसे ही उसे open किया, वो CSS के <code>overflow: hidden</code> या <code>z-index</code> के मकड़जाल में फंसकर आधा कट गया? या फिर पैरेंट डिब (Parent Div) की styling की वजह से उसकी position ही बिगड़ गई? यह एक ऐसा सिरदर्द है जिससे हर <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">ReactJS</a> डेवलपर कभी न कभी जरूर परेशान होता है।</p>
 
-<p>आप CSS की प्रॉपर्टीज़ बदलते हैं, सर खुजलाते हैं, लेकिन बात नहीं बनती। ऐसे ही समय पर React के डेवलपर्स ने हमारे लिए एक जादुई दरवाज़ा खोला था, जिसे हम <strong>React Portals</strong> कहते हैं। चलिए, आज चाय की चुस्की के साथ बिल्कुल आसान भाषा में समझते हैं कि यह React Portals आखिर क्या बला है और इसे प्रोडक्शन-रेडी कोड में कैसे इस्तेमाल किया जाता है।</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Portals एक ऐसी feature है जो हमें किसी भी React component को उसके normal parent DOM hierarchy से बाहर, DOM में किसी भी अन्य जगह (जैसे <code>document.body</code> या किसी custom div) पर render करने की आजादी देती है, बिना React component tree के logical state और event system को प्रभावित किए।</div>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Portals ReactJS ka ek unique feature hain jo components ko HTML DOM hierarchy ke bahar kisi bhi doosre DOM node me render karne ki azadi deta hai. Iska primary use modals, tooltips aur dropdowns banane me hota hai taaki overflow aur z-index stacking issues ko aasani se solve kiya ja sake.</div>
+<h2>React Portals क्या है और इसकी जरूरत क्यों पड़ती है?</h2>
 
----
+<p>आमतौर पर जब हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS" target="_blank">React components</a> बनाते हैं, तो वे एक nested tree structure का पालन करते हैं। इसका मतलब है कि अगर Component B, Component A के अंदर है, तो HTML DOM में भी Component B का Element, Component A के DOM Node के अंदर ही render होगा।</p>
 
-<h2>React Portals क्या हैं (What are React Portals)?</h2>
+<p>लेकिन ज़रा सोचिए, Modals, Tooltips, Custom Dropdowns, और Loaders जैसी UI elements के मामले में यह behavior मुसीबत बन जाता है। मान लीजिए आपके पास एक Sidebar component है जिसमें <code>overflow: hidden</code> लगा हुआ है। अब अगर आप इस Sidebar के अंदर एक Tooltip render करेंगे, तो वो Tooltip Sidebar की boundary के बाहर निकलते ही छिप (hide) जाएगा।</p>
 
-<p>साधारण शब्दों में कहें तो, <strong>React Portals</strong> हमें अपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> को उनके Default Parent DOM Tree से बाहर निकालकर, DOM (Document Object Model) के किसी भी दूसरे हिस्से में Render करने की सुविधा देते हैं।</p>
-
-<p>आमतौर पर, जब आप React में कोई Component रेंडर करते हैं, तो वह अपने Parent Component के अंदर ही एक Nested Child बनकर HTML में दिखाई देता है। लेकिन Portal का इस्तेमाल करके, आप उस Component को React Component Tree में तो उसी जगह रख सकते हैं (जिससे State और Context का एक्सेस बना रहे), लेकिन HTML structure में उसे किसी बिल्कुल अलग जगह पर भेज सकते हैं (जैसे कि सीधे <code>&lt;body&gt;</code> के नीचे)।</p>
-
-<p>इसके बारे में अधिक विस्तार से जानने के लिए आप <a href="https://react.dev/reference/react-dom/createPortal" target="_blank" rel="noopener">React Portal Official Documentation</a> भी पढ़ सकते हैं।</p>
-
----
-
-<h2>React Portals की ज़रूरत क्यों पड़ती है (Why do we need them)?</h2>
-
-<p>दोस्तों, इसे समझने के लिए एक क्लासिक वेब डिज़ाइनिंग की प्रॉब्लम को देखते हैं। मान लीजिए आपके पास एक Sidebar component है जिसकी CSS कुछ इस तरह है:</p>
-
-<pre><code>.sidebar {
-  width: 250px;
-  position: relative;
-  overflow: hidden; /* यहाँ असली विलेन छुपा है! */
-}</code></pre>
-
-<p>अब इस Sidebar के अंदर आपने एक <code>&lt;ProfileTooltip /&gt;</code> component डाला है। जैसे ही यूजर प्रोफाइल पर होवर करता है, आप चाहते हैं कि Tooltip साइडबार से बाहर निकलकर स्क्रीन पर दिखे। लेकिन चूंकि Sidebar पर <code>overflow: hidden</code> लगा हुआ है, आपका Tooltip साइडबार की सीमाओं (borders) के अंदर ही कट जाएगा!</p>
-
-<p>यही नहीं, कई बार <code>z-index</code> का ऐसा झंझट खड़ा होता है कि लाख कोशिशों के बाद भी आपका Modal बैकड्रॉप (overlay) के पीछे ही रह जाता है। इन सभी समस्याओं का एकमात्र और सबसे साफ़-सुथरा समाधान है React Portals। यह आपके Element को उठाकर सीधे Root DOM के समानांतर (parallel) खड़ा कर देता है, जिससे सारे CSS constraints खत्म हो जाते हैं।</p>
-
----
-
-<h2>React Portals कैसे काम करते हैं (How do they work)?</h2>
-
-<p>React Portals के पीछे का आर्किटेक्चर बहुत ही दिलचस्प है। यह React की वर्चुअल ट्री (React Tree) और असली ब्राउज़र ट्री (HTML DOM Tree) के बीच एक ब्रिज की तरह काम करता है। </p>
+<p>यहीं पर काम आता है <strong>React Portals</strong>। यह हमें एक "पोर्टल" या जादुई रास्ता देता है जिसके जरिए हम component को लिखते तो उसी nested structure के अंदर हैं (ताकि React state और props आसानी से pass हो सकें), लेकिन असल में HTML DOM में वह component उड़कर किसी दूसरी जगह (जैसे <code>&lt;body&gt;</code> के direct child के रूप में) जाकर render हो जाता है।</p>
 
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Portals DOM Flow Architecture</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Portal DOM Flow Diagram</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#1e293b;border:2px solid #3b82f6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(59,130,246,0.3)">
-      App Root (#root)
-      <div style="font-size:10px;color:#94a3b8;margin-top:4px">Standard React Tree</div>
-    </div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">⇢ (React Portal)</div>
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">
-      Portal Node (#portal-root)
-      <div style="font-size:10px;color:#e0f2fe;margin-top:4px">Rendered Outside Parent CSS</div>
-    </div>
+    <div style="background:#1e293b;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;border:1px solid #334155;">#root (Main App)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#ef4444;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(239,68,68,0.4)">Nested Sidebar (Overflow Hidden)</div>
+    <div style="color:#a855f7;font-size:24px;font-weight:700">⚡ Portal</div>
+    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">#portal-root (Modal/Tooltip)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: component logic stays in App Tree, but HTML renders in #portal-root node.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React Portal components render outside the parent root div directly into a dedicated DOM node.</div>
 </div>
 
-<p>ध्यान देने वाली बात ये है कि भले ही आपका Component फिजिकल DOM में कहीं भी रेंडर हो रहा हो, वह React Tree के अंदर अपने पेरेंट के साथ ही जुड़ा रहता है। इसका मतलब है कि React Context API, custom hooks, और State Props वैसे ही काम करेंगे जैसे वे नॉर्मल Components के लिए करते हैं।</p>
+<h2>createPortal API का Syntax क्या है?</h2>
 
----
+<p>React Portals का इस्तेमाल करने के लिए हमें <code>react-dom</code> package से <code>createPortal</code> function को import करना होता है। इसका syntax बहुत ही सरल और सीधा है:</p>
 
-<h2>React Portals vs Normal Rendering में क्या अंतर है?</h2>
+<pre><code>import ReactDOM from 'react-dom';
 
-<p>चलिए इन दोनों के अंतर को एक बार साफ़-साफ़ कंपैरिजन टेबल से समझ लेते हैं ताकि कोई कन्फ़्यूजन न रहे:</p>
+ReactDOM.createPortal(child, container);
+</code></pre>
 
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-family: sans-serif; text-align: left;">
+<p>चैंपियन, यहाँ इन दो parameters का मतलब समझो:</p>
+<ul>
+  <li><strong>child:</strong> यह कोई भी renderable React component, element, string, या fragment हो सकता है जिसे आप render करना चाहते हैं।</li>
+  <li><strong>container:</strong> यह वह HTML DOM element है जहाँ आप उस child को भेजना चाहते हैं (जैसे: <code>document.getElementById('portal-root')</code>)।</li>
+</ul>
+
+<h2>React Portals vs Normal Components में क्या अंतर है?</h2>
+
+<p>कई बार लोग सोचते हैं कि हम normal rendering से भी तो काम चला सकते हैं, फिर इसकी क्या जरूरत? चलिए इस comparison table से असली फर्क को समझते हैं:</p>
+
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; text-align: left;">
   <thead>
-    <tr style="background-color: #0f172a; color: #ffffff;">
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">फ़ीचर / अंतर</th>
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">Normal Rendering</th>
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">React Portals</th>
+    <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
+      <th style="padding: 12px; font-weight: bold;">Feature / Property</th>
+      <th style="padding: 12px; font-weight: bold;">Normal Components Rendering</th>
+      <th style="padding: 12px; font-weight: bold;">React Portals Rendering</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">DOM Insertion</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Parent Component के अंदर ही nested होता है।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Target DOM Node (जैसे <code>body</code>) में बाहर रेंडर होता है।</td>
+    <tr style="border-bottom: 1px solid #e2e8f0;">
+      <td style="padding: 12px; font-weight: bold;">DOM Positioning</td>
+      <td style="padding: 12px;">Parent element के अंदर ही nested render होता है।</td>
+      <td style="padding: 12px;">Parent tree से बाहर किसी भी DOM node में render हो सकता है।</td>
     </tr>
-    <tr style="background-color: #f8fafc;">
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">CSS Isolation</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Parent के <code>overflow</code> और <code>z-index</code> से प्रभावित होता है।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Parent के CSS रूल्स से पूरी तरह आज़ाद रहता है।</td>
+    <tr style="border-bottom: 1px solid #e2e8f0;">
+      <td style="padding: 12px; font-weight: bold;">CSS Styling Constraints</td>
+      <td style="padding: 12px;">Parent के <code>overflow</code>, <code>z-index</code>, और <code>position</code> से प्रभावित होता है।</td>
+      <td style="padding: 12px;">Parent CSS rules से बिल्कुल आजाद होता है।</td>
     </tr>
-    <tr>
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">Event Bubbling</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">नॉर्मल DOM के अनुसार ऊपर की तरफ बबल करता है।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">React Tree के अनुसार ही बबल करता है, भले ही DOM स्ट्रक्चर अलग हो।</td>
+    <tr style="border-bottom: 1px solid #e2e8f0;">
+      <td style="padding: 12px; font-weight: bold;">Event Bubbling</td>
+      <td style="padding: 12px;">Normal React event hierarchy के अनुसार bubble करता है।</td>
+      <td style="padding: 12px;">DOM में बाहर होने के बावजूद, React Virtual DOM tree के अनुसार bubble करता है।</td>
     </tr>
-    <tr style="background-color: #f8fafc;">
-      <td style="padding: 12px; border: 1px solid #cbd5e1; font-weight: bold;">Best Used For</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Regular UI Layouts (Buttons, Inputs, Cards).</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Modals, Tooltips, Global Popups, Dropdowns.</td>
+    <tr style="border-bottom: 1px solid #e2e8f0;">
+      <td style="padding: 12px; font-weight: bold;">Best Use Case</td>
+      <td style="padding: 12px;">Standard layout components (Headers, Cards, Buttons).</td>
+      <td style="padding: 12px;">Global overlay components (Modals, Tooltips, Popovers).</td>
     </tr>
   </tbody>
 </table>
 
----
+<h2>React Portals की मदद से Modal Component कैसे बनाएं?</h2>
 
-<h2>React Portals को Step-by-Step कैसे implement करें (With Code)?</h2>
+<p>चलिए, अब सीधे काम की बात पर आते हैं और एक real-world, production-ready Modal component बनाते हैं। हम इसे step-by-step समझेंगे ताकि कोई भी कन्फ्यूजन न रहे।</p>
 
-<p>अब कोडिंग का समय आ गया है! हम एक पूरी तरह से फंक्शनल, रेस्पॉन्सिव और खूबसूरत Modal Component बनाएंगे जो React Portals का इस्तेमाल करेगा। </p>
+<h3>Step 1: HTML File में Portal Target Element जोड़ें</h3>
+<p>सबसे पहले हमें अपने React project की main HTML file (आमतौर पर Vite प्रोजेक्ट्स में <code>index.html</code> या Public folder में) में जाना होगा और <code>&lt;div id="root"&gt;&lt;/div&gt;</code> के ठीक नीचे एक नया div element जोड़ना होगा:</p>
 
-<h3>Step 1: HTML फ़ाइल में Target Node बनाना</h3>
-<p>सबसे पहले, हमें अपने React App की मुख्य HTML फ़ाइल (आमतौर पर <code>public/index.html</code> या Vite प्रोजेक्ट्स में <code>index.html</code>) को खोलना है और वहाँ हमारे React Root Div के बिल्कुल नीचे एक नया Anchor Container बनाना है।</p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
+<pre><code>&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8" /&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
-    &lt;title&gt;React Portal Modal Demo&lt;/title&gt;
+    &lt;title&gt;React Portals Demo&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    <!-- मुख्य रिएक्ट रूट -->
     &lt;div id="root"&gt;&lt;/div&gt;
-    
-    <!-- यहाँ रेंडर होंगे हमारे सारे Portals -->
+    &lt;!-- Portal Target Node --&gt;
     &lt;div id="portal-root"&gt;&lt;/div&gt;
   &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+&lt;/html&gt;
+</code></pre>
 
-<h3>Step 2: ReactDOM createPortal का Syntax समझना</h3>
-<p>React Portals बनाने के लिए हम <code>react-dom</code> पैकेज से <code>createPortal</code> मेथड का उपयोग करते हैं। इसका बेसिक सिंटैक्स कुछ ऐसा होता है:</p>
-
-<pre><code>import ReactDOM from 'react-dom';
-
-ReactDOM.createPortal(child, containerInstance);</code></pre>
-
-<ul>
-  <li><code>child</code>: कोई भी रेंडर करने योग्य React Child (जैसे JSX, Element, Component, String या Array)।</li>
-  <li><code>containerInstance</code>: वह असली DOM एलिमेंट जहाँ आप इस Child को पहुँचाना चाहते हैं (जैसे <code>document.getElementById('portal-root')</code>)।</li>
-</ul>
-
-<h3>Step 3: reusable Modal Component बनाना</h3>
-<p>अब हम अपना <code>Modal.jsx</code> कंपोनेंट तैयार करेंगे। ध्यान दें कि हम इसे पूरी तरह से सेफ बनाने के लिए कुछ चेक भी लगाएंगे ताकि सर्वर-साइड रेंडरिंग (SSR) के समय कोई <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> न आए।</p>
+<h3>Step 2: Modal Component का Code लिखें</h3>
+<p>अब हम एक <code>Modal.jsx</code> फ़ाइल बनाएंगे। ध्यान देने वाली बात ये है कि हम यहाँ clean CSS styles भी inline या stylesheet के रूप में handle करेंगे ताकि यह बाहर क्लिक होने पर बंद हो सके, और escape key दबाने पर भी close हो सके (जो कि accessibility के लिए बहुत जरूरी है)।</p>
 
 <pre><code>import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-// Modal component styles in JS for clean demo
-const BACKDROP_STYLES = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 1000,
-};
+const Modal = ({ isOpen, onClose, title, children }) => {
+  // Escape key दबाने पर modal बंद करने के लिए useEffect hook
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
 
-const MODAL_STYLES = {
-  background: '#ffffff',
-  padding: '30px',
-  borderRadius: '12px',
-  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
-  maxWidth: '500px',
-  width: '90%',
-  zIndex: 1001,
-  fontFamily: 'sans-serif',
-};
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // Screen scroll block handle karein
+      window.addEventListener('keydown', handleKeyDown);
+    }
 
-const CLOSE_BUTTON_STYLES = {
-  marginTop: '20px',
-  padding: '10px 20px',
-  border: 'none',
-  background: '#ef4444',
-  color: 'white',
-  borderRadius: '6px',
-  cursor: 'pointer',
-  fontWeight: 'bold',
-};
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
-export default function Modal({ isOpen, onClose, children }) {
-  // अगर modal ओपन नहीं है, तो कुछ भी रेंडर न करें
+  // Agar modal open nahi hai to kuch render na karein
   if (!isOpen) return null;
 
-  // React Portals को 'portal-root' div में माउंट करें
+  // Modal target node ko select karein
   const portalNode = document.getElementById('portal-root');
-  
-  if (!portalNode) {
-    console.error("The element #portal-root was not found in the DOM.");
-    return null;
-  }
+  if (!portalNode) return null;
+
+  // CSS Styles in Object
+  const backdropStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+  };
+
+  const modalStyle = {
+    background: '#ffffff',
+    padding: '24px',
+    borderRadius: '12px',
+    maxWidth: '500px',
+    width: '90%',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+    position: 'relative',
+  };
+
+  const closeBtnStyle = {
+    position: 'absolute',
+    top: '15px',
+    right: '15px',
+    background: 'none',
+    border: 'none',
+    fontSize: '20px',
+    cursor: 'pointer',
+    color: '#64748b',
+  };
 
   return ReactDOM.createPortal(
-    &lt;div style={BACKDROP_STYLES} onClick={onClose}&gt;
-      &lt;div style={MODAL_STYLES} onClick={(e) =&gt; e.stopPropagation()}&gt;
-        &lt;div&gt;{children}&lt;/div&gt;
-        &lt;button style={CLOSE_BUTTON_STYLES} onClick={onClose}&gt;
-          Close Modal
-        &lt;/button&gt;
+    &lt;div style={backdropStyle} onClick={onClose}&gt;
+      &lt;div style={modalStyle} onClick={(e) =&gt; e.stopPropagation()}&gt;
+        &lt;button style={closeBtnStyle} onClick={onClose}&gt;&amp;times;&lt;/button&gt;
+        &lt;h3 style={{ marginTop: 0, color: '#1e293b' }}&gt;{title}&lt;/h3&gt;
+        &lt;div style={{ color: '#475569', lineHeight: '1.6' }}&gt;
+          {children}
+        &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;,
     portalNode
   );
-}</code></pre>
+};
 
-<h3>Step 4: App Component में Modal का उपयोग करना</h3>
-<p>अब हमारे मुख्य App Component में हम इस Modal को कॉल करेंगे और इसकी Open/Close state को हैंडल करेंगे।</p>
+export default Modal;
+</code></pre>
+
+<h3>Step 3: App.jsx में Modal को Use करना</h3>
+<p>अब अपने main container component में इस Modal को import करते हैं और state के जरिए control करते हैं:</p>
 
 <pre><code>import React, { useState } from 'react';
 import Modal from './Modal';
 
-export default function App() {
+function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const containerStyle = {
-    padding: '40px',
-    textAlign: 'center',
-    fontFamily: 'sans-serif',
-  };
-
-  const buttonStyle = {
-    padding: '12px 24px',
-    fontSize: '16px',
-    backgroundColor: '#3b82f6',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s',
-  };
-
   return (
-    &lt;div style={containerStyle}&gt;
-      &lt;h1&gt;React Portals Live Demo&lt;/h1&gt;
-      &lt;p&gt;यह बटन दबाकर देखें कि कैसे पोर्टल की मदद से मॉडल सीधे बॉडी के नीचे रेंडर होता है!&lt;/p&gt;
+    &lt;div style={{ padding: '40px', fontFamily: 'sans-serif', textAlign: 'center' }}&gt;
+      &lt;h1&gt;React Portals Modal Tutorial&lt;/h1&gt;
+      &lt;p&gt;यह बटन दबाकर देखें कि कैसे modal direct body tag ke niche render hota hai.&lt;/p&gt;
       
       &lt;button 
-        style={buttonStyle} 
         onClick={() =&gt; setIsModalOpen(true)}
+        style={{
+          padding: '12px 24px',
+          fontSize: '16px',
+          backgroundColor: '#2563eb',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          fontWeight: '600'
+        }}
       &gt;
-        Open Beautiful Modal
+        Open Magic Modal
       &lt;/button&gt;
 
-      &lt;Modal isOpen={isModalOpen} onClose={() =&gt; setIsModalOpen(false)}&gt;
-        &lt;h2 style={{ marginTop: 0, color: '#1e293b' }}&gt;बधाई हो! 🎉&lt;/h2&gt;
-        &lt;p style={{ color: '#64748b', lineHeight: '1.6' }}&gt;
-          यह मॉडल DOM ट्री के अंदर &lt;code&gt;#portal-root&lt;/code&gt; में मौजूद है, न कि &lt;code&gt;#root&lt;/code&gt; में! 
-          इस कारण इसपर पेरेंट के CSS रूल्स और लिमिटेशन्स का कोई असर नहीं पड़ेगा।
-        &lt;/p&gt;
+      &lt;Modal 
+        isOpen={isModalOpen} 
+        onClose={() =&gt; setIsModalOpen(false)} 
+        title="बधाई हो, पोर्टल काम कर रहा है!"
+      &gt;
+        &lt;p&gt;दोस्तों, यह modal HTML DOM में "#root" div के बाहर "portal-root" में render हो रहा है, लेकिन React Component Tree में यह अभी भी App component का ही हिस्सा है।&lt;/p&gt;
       &lt;/Modal&gt;
     &lt;/div&gt;
   );
-}</code></pre>
+}
 
----
+export default App;
+</code></pre>
 
-<h2>React Portals Event Bubbling: ध्यान देने योग्य खास बात!</h2>
+<h2>React Portals का use करके Tooltip कैसे बनाएं?</h2>
 
-<p>अब एक बहुत ही महत्वपूर्ण बात जिसे जानना हर सीनियर डेवलपर के लिए आवश्यक है। इंटरव्यू में अक्सर यह सवाल पूछा जाता है: <em>"अगर कोई Component Portal के माध्यम से DOM में कहीं दूर रेंडर हुआ है, तो क्या उसके Events पेरेंट Component तक बबल करेंगे?"</em></p>
+<p>Modals के बाद, Tooltips दूसरी सबसे बड़ी चुनौती होती हैं। मान लीजिए आपके पास एक card layout है जिसका overflow dynamic है। वहाँ standard tooltips कट जाते हैं। चलिए, React Portal का use करके एक positioning-aware Tooltip बनाते हैं।</p>
 
-<p><strong>जवाब है: हाँ, बिल्कुल करेंगे!</strong></p>
+<pre><code>import React, { useState, useRef } from 'react';
+import ReactDOM from 'react-dom';
 
-<p>भले ही पोर्टल द्वारा रेंडर किया गया Element फिजिकल HTML DOM में कहीं भी हो, वह React के Virtual DOM Hierarchy में उसी जगह रहता है जहाँ उसे कोड में लिखा गया है। इसलिए, जब भी कोई Event (जैसे <code>click</code>, <code>keydown</code>) पोर्टल के अंदर ट्रिगर होता है, तो वह React Component Tree के अनुसार ही बबल (Bubble) करके ऊपर जाएगा।</p>
+const Tooltip = ({ text, children }) => {
+  const [show, setShow] = useState(false);
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef(null);
 
-<p>उदाहरण के लिए, ऊपर दिए गए कोड में अगर हमारे <code>&lt;App /&gt;</code> component के ऊपर कोई <code>onClick</code> लिसनर लगा होता, तो जब आप Modal के अंदर किसी चीज़ पर क्लिक करते, तो वह क्लिक इवेंट भी <code>App</code> के लिसनर को ट्रिगर कर देता। यदि आप इसे रोकना चाहते हैं, तो आपको चाइल्ड एलिमेंट पर <code>e.stopPropagation()</code> का इस्तेमाल करना पड़ेगा, जैसा कि हमने ऊपर कोड में किया है।</p>
+  const handleMouseEnter = () => {
+    if (triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      // Tooltip position setup (Element ke thik upar center me)
+      setCoords({
+        top: rect.top + window.scrollY - 40,
+        left: rect.left + window.scrollX + rect.width / 2,
+      });
+      setShow(true);
+    }
+  };
 
----
+  const handleMouseLeave = () => {
+    setShow(false);
+  };
 
-<h2>React Portals का Use करते वक्त कौन-सी Common Errors आती हैं?</h2>
+  const tooltipStyle = {
+    position: 'absolute',
+    top: `${coords.top}px`,
+    left: `${coords.left}px`,
+    transform: 'translateX(-50%)',
+    backgroundColor: '#1e293b',
+    color: '#ffffff',
+    padding: '6px 12px',
+    borderRadius: '6px',
+    fontSize: '12px',
+    whiteSpace: 'nowrap',
+    pointerEvents: 'none',
+    zIndex: 9999,
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+  };
 
-<p>जब भी डेवलपर्स नए-नए Portals का उपयोग करना शुरू करते हैं, तो वे कुछ ऐसी गलतियाँ कर बैठते हैं जिससे एप्लीकेशन क्रैश हो जाती है या अजीब बिहेवियर शो करती है। चलिए उन्हें समझकर <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">fix error</a> करने के तरीके सीख लेते हैं:</p>
+  return (
+    &lt;span 
+      ref={triggerRef} 
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}
+      style={{ display: 'inline-block', cursor: 'pointer', textDecoration: 'underline' }}
+    &gt;
+      {children}
+      {show &amp;&amp; ReactDOM.createPortal(
+        &lt;div style={tooltipStyle}&gt;
+          {text}
+        &lt;/div&gt;,
+        document.body
+      )}
+    &lt;/span&gt;
+  );
+};
+
+export default Tooltip;
+</code></pre>
+
+<p>देखा आपने? हमने Tooltip को <code>document.body</code> में सीधे render किया है ताकि CSS layout rules उस पर हावी न हो सकें।</p>
+
+<h2>React Portals का use करते समय Event Bubbling कैसे काम करती है?</h2>
+
+<p>अब आप सोच रहे होंगे, "भाई, अगर DOM node बिल्कुल अलग जगह पर है, तो Event Bubbling कैसे काम करेगी? क्या child button पर click करने से parent element का click handler trigger होगा?"</p>
+
+<p><strong>हाँ, बिल्कुल होगा!</strong> और यही React की सबसे बड़ी खूबसूरती है।</p>
+
+<p>भले ही Portal का DOM Node आपके main root tree से बाहर कहीं भी हो, React के perspective से यह अभी भी उसी React Component Tree का हिस्सा है। इसलिए React Event System (SyntheticEvents) वैसे ही काम करता है जैसे वो normal nested layout में करता।</p>
+
+<p>इसे समझने के लिए इस मजेदार उदाहरण को देखें:</p>
+
+<pre><code>import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+function ParentComponent() {
+  const [clickCount, setClickCount] = useState(0);
+
+  // Yeh click handler Portal child par click hone par bhi trigger hoga!
+  const handleParentClick = () =&gt; {
+    setClickCount((prev) =&gt; prev + 1);
+  };
+
+  return (
+    &lt;div 
+      onClick={handleParentClick} 
+      style={{ padding: '20px', border: '2px dashed #a855f7', background: '#faf5ff' }}
+    &gt;
+      &lt;h3&gt;Parent Component (Clicks: {clickCount})&lt;/h3&gt;
+      &lt;p&gt;Portal child par click karne se bhi yeh count badhega, kyunki React Event Bubbling normal rehti hai!&lt;/p&gt;
+      
+      &lt;PortalChild /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function PortalChild() {
+  const portalTarget = document.getElementById('portal-root') || document.body;
+  
+  return ReactDOM.createPortal(
+    &lt;div style={{ 
+      background: '#10b981', 
+      color: 'white', 
+      padding: '12px', 
+      marginTop: '20px',
+      borderRadius: '6px' 
+    }}&gt;
+      &lt;p&gt;Main Portal Node ke andar hoon, par Parent standard element me bubble up karega.&lt;/p&gt;
+      &lt;button style={{ padding: '6px 12px', cursor: 'pointer' }}&gt;Click Me&lt;/button&gt;
+    &lt;/div&gt;,
+    portalTarget
+  );
+}
+
+export default ParentComponent;
+</code></pre>
+
+<p>अगर आप चाहते हैं कि Portal element का click event parent तक न पहुँचे, तो आपको child layout के handler में <code>e.stopPropagation()</code> का use करना होगा, जैसा हमने ऊपर Modal Component वाले code में किया है।</p>
+
+<h2>React Portals use करते समय Common Errors और उन्हें कैसे Solve करें?</h2>
+
+<p>काम करते वक्त <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">error</a> आना तो तय है, लेकिन घबराइए मत! यहाँ कुछ आम गलतियाँ और उनके solutions दिए गए हैं:</p>
 
 <h3>1. "Target container is not a DOM element" Error</h3>
-<p>यह एरर तब आती है जब React आपके स्पेसिफाइड DOM node (जैसे <code>#portal-root</code>) को ढूँढ नहीं पाता। ऐसा अक्सर तब होता है जब:</p>
-<ul>
-  <li>आपने <code>index.html</code> में वह div बनाना भूल गए हैं।</li>
-  <li>आपका कोड सर्वर पर रेंडर (Next.js / SSR) हो रहा है जहाँ <code>document</code> ऑब्जेक्ट उपलब्ध नहीं होता।</li>
-</ul>
-
-<p><strong>सोल्यूशन:</strong> सर्वर साइड रेंडरिंग के समय हमेशा चेक करें कि <code>document</code> मौजूद है या नहीं। आप इसके लिए <code>useEffect</code> या <code>useState</code> का इस्तेमाल कर सकते हैं, जिससे पोर्टल सिर्फ क्लाइंट-साइड पर ही रेंडर हो:</p>
-
-<pre><code>import { useEffect, useState } from 'react';
-
-const [mounted, setMounted] = useState(false);
-
-useEffect(() => {
+<p><strong>वजह:</strong> यह <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving" target="_blank">exception</a> तब आता है जब React, DOM render करने की कोशिश करता है लेकिन उसे <code>document.getElementById('portal-root')</code> जैसी specific node मिलती ही नहीं (शायद spelling mistake हो या element load न हुआ हो)।</p>
+<p><strong>Solution:</strong> हमेशा double check करें कि आपकी <code>index.html</code> फ़ाइल में वह element exist करता हो। इसके अलावा, SSR frameworks (जैसे <a href="https://itinfohubs.blogspot.com/search/label/NextJS" target="_blank">Next.js</a>) में rendering से पहले client-side check जरूर लगाएं:</p>
+<pre><code>const [mounted, setMounted] = useState(false);
+useEffect(() =&gt; {
   setMounted(true);
-  return () => setMounted(false);
+  return () =&gt; setMounted(false);
 }, []);
 
-if (!mounted) return null;</code></pre>
+if (!mounted) return null;
+return ReactDOM.createPortal(&lt;Child /&gt;, document.getElementById('portal-root'));
+</code></pre>
 
-<h3>2. Accessibility (a11y) की समस्या</h3>
-<p>चूंकि आप अपने एलिमेंट को फिजिकली स्क्रीन के किसी दूसरे कोने में फेंक रहे हैं, कीबोर्ड से नेविगेट करने वाले यूज़र्स (जैसे Tab की का इस्तेमाल करने वाले) के लिए फ़ोकस मैनेजमेंट बिगड़ सकता है।</p>
-<p><strong>सोल्यूशन:</strong> हमेशा ध्यान रखें कि जब Modal ओपन हो, तो फ़ोकस Modal के पहले एलिमेंट पर चला जाए, और बंद होने पर वापस उसी बटन पर आए जिसने इसे खोला था। आप इसके लिए `focus-trap` लाइब्रेरी का इस्तेमाल भी कर सकते हैं।</p>
+<h3>2. Dynamic Mount / Cleanup issue</h3>
+<p><strong>वजह:</strong> अगर आप dynamically element create करके portal attach कर रहे हैं और component unmount होने पर उसे clean नहीं कर रहे हैं, तो memory leak हो सकता है।</p>
+<p><strong>Solution:</strong> <code>useEffect</code> में dynamic divs को clean करना सीखें। clean-up function में container को <code>document.body.removeChild(el)</code> के जरिए clear करें।</p>
 
----
+<h2>Best Practices और Performance Tips क्या हैं?</h2>
 
-<h2>Best Practices: प्रदर्शन और मापनीयता (Performance & Scalability)</h2>
+<ul>
+  <li><strong>Accessibility (A11y) का ध्यान रखें:</strong> जब भी Modal open हो, screen readers के लिए parent element को hide (<code>aria-hidden="true"</code>) करें और keyboard focus को Modal के अंदर ही lock (Focus Trap) करें। इसके लिए आप <a href="https://react.dev/" rel="noopener" target="_blank">React Official Docs</a> के guidelines का पालन कर सकते हैं।</li>
+  <li><strong>SSR compatibility:</strong> Server-side rendering में document element server पर available नहीं होता। इसलिए ऊपर बताए गए <code>mounted</code> state approach का इस्तेमाल करें ताकि build fail न हो।</li>
+  <li><strong>Z-Index Management:</strong> Portal nodes के लिए CSS में एक standard stack बनाएं (जैसे Modals के लिए <code>z-index: 1000</code>, tooltips के लिए <code>1100</code>) ताकि UI overlap control में रहे।</li>
+</ul>
 
-<ol>
-  <li><strong>Cleanups का हमेशा ध्यान रखें:</strong> अगर आप डायनामिकली कोई नया DOM Node बनाकर पोर्टल अटैच कर रहे हैं, तो Component के Unmount होते समय उस Node को DOM से रिमूव ज़रूर करें ताकि मेमोरी लीक न हो।</li>
-  <li><strong>Semantic HTML का पालन करें:</strong> पोर्टल के अंदर रेंडर होने वाले मॉड्यूल्स को हमेशा सही HTML टैग्स (जैसे <code>&lt;dialog&gt;</code>, <code>&lt;aside&gt;</code>) के साथ रैप करें ताकि स्क्रीन रीडर्स उन्हें आसानी से पहचान सकें।</li>
-  <li><strong>Styling Modular रखें:</strong> चूंकि पोर्टल्स ग्लोबल स्कोप में जाते हैं, उनके क्लास नेम्स बहुत ही स्पेसिफिक रखें ताकि ग्लोबल स्टाइलिंग क्लैश न हो। CSS Modules या Styled Components इसके लिए सबसे बेहतरीन विकल्प हैं।</li>
-</ol>
-
----
-
-<h2>तो दोस्तों, आज हमने क्या सीखा?</h2>
-
-<p>आज की इस डिटेल्ड चर्चा में हमने सीखा कि React Portals किस तरह मुश्किल से मुश्किल CSS ओवरफ़्लो और लेआउट प्रॉब्लम्स को चुटकियों में हल कर देते हैं। हमने देखा कि React Tree के अंदर लॉजिकल पैरेंटिंग बरकरार रखते हुए भी हम HTML DOM स्ट्रक्चर में अपनी मनपसंद जगह पर डेटा कैसे रेंडर कर सकते हैं। यह न सिर्फ आपके कोड को क्लीन और मेंटनेबल बनाता है, बल्कि बड़ी एप्लिकेशन्स को स्केल करने में भी बहुत मदद करता है।</p>
-
-<p>अब समय आ गया है कि आप अपने पुराने प्रोजेक्ट्स को खोलें और जहाँ भी आपने जुगाड़ लगाकर CSS के ज़रिए मोडल्स संभाले थे, उन्हें React Portals के साथ रिप्लेस करें! कोडिंग करते रहिए, सीखते रहिए और कोई भी डाउट हो तो बेझिझक पूछिए!</p>
-
----
+<p>तो दोस्तों, हमने आज सीखा कि कैसे React Portals बड़े ही जादुई ढंग से DOM hierarchy को तोड़कर हमारे Modals और Tooltips को position-independent और flexible बनाते हैं। अगली बार जब CSS overflow या z-index आपके design को बिगाड़ने की कोशिश करे, तो बिना झिझक React Portals का इस्तेमाल करें और इस समस्या को जड़ से खत्म करें।</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
   
-  <div class="faq-q">Q1: React Portals और CSS position absolute/fixed में क्या अंतर है?</div>
-  <div class="faq-a">CSS fixed/absolute पोजीशन सिर्फ विज़ुअल लेआउट बदलती हैं, लेकिन यदि पैरेंट एलिमेंट पर `overflow: hidden` लगा हो, तो वे एलिमेंट अभी भी कट जाते हैं। React Portals एलिमेंट को सीधे फिजिकल DOM के दूसरे नोड में भेज देते हैं जिससे इस तरह की सभी CSS लिमिटेशन्स पूरी तरह खत्म हो जाती हैं।</div>
+  <div class="faq-q">Q1: React Portals का use कब करना चाहिए?</div>
+  <div class="faq-a">जब भी आपको ऐसा UI element बनाना हो जो parent CSS wrapper styles (जैसे overflow: hidden, relative width, ya z-index limits) से बाहर निकलकर स्क्रीन पर दिखे, जैसे Modals, Popovers, Tooltips, Global Loaders, और Side-drawers.</div>
   
-  <div class="faq-q">Q2: क्या React Portals में React Context और Redux Store का एक्सेस मिलता है?</div>
-  <div class="faq-a">हाँ, बिल्कुल मिलता है! भले ही पोर्टल के ज़रिए एलिमेंट DOM में अलग जगह रेंडर होते हैं, लेकिन React Component Tree में वे अपनी मूल जगह पर ही रहते हैं। इसलिए, पेरेंट प्रोवाइडर के Context, State और Props उन्हें नॉर्मल तरीके से मिलते रहते हैं।</div>
+  <div class="faq-q">Q2: क्या React Portal use करने से event listeners काम करना बंद कर देते हैं?</div>
+  <div class="faq-a">बिल्कुल नहीं! React Synthetic Event system, React virtual component tree के design पर काम करता है, न कि real DOM architecture पर। इसलिए Portal node पर होने वाले events भी parent level पर bubble up होते हैं।</div>
   
-  <div class="faq-q">Q3: Next.js (SSR) में React Portals का उपयोग करते समय "document is not defined" एरर क्यों आती है?</div>
-  <div class="faq-a">यह एरर इसलिए आती है क्योंकि Next.js कोड को पहले सर्वर पर रेंडर करता है जहाँ `window` या `document` ऑब्जेक्ट मौजूद नहीं होता। इसे सॉल्व करने के लिए आपको यह सुनिश्चित करना होगा कि पोर्टल केवल तभी रेंडर हो जब कंपोनेंट क्लाइंट-साइड पर माउंट (useEffect के ज़रिए) हो चुका हो।</div>
+  <div class="faq-q">Q3: React Portals और standard components में से performance के लिहाज से कौन सा बेहतर है?</div>
+  <div class="faq-a">दोनों की performance में कोई खास अंतर नहीं होता है। React Portals सिर्फ insertion target बदलते हैं, rendering cycle और updates सामान्य components की तरह ही fast और optimized रहते हैं।</div>
   
-  <div class="faq-q">Q4: क्या एक ही React App में मल्टीपल Portals का यूज़ किया जा सकता है?</div>
-  <div class="faq-a">हाँ, आप एक ही एप्लीकेशन में और यहाँ तक कि एक ही पेज पर जितने चाहें उतने Portals का उपयोग कर सकते हैं। आप उन्हें `document.body` या अलग-अलग custom divs में जहाँ चाहें माउंट करा सकते हैं।</div>
+  <div class="faq-q">Q4: क्या Next.js या Server-Side Rendering (SSR) में React Portals काम करते हैं?</div>
+  <div class="faq-a">हाँ, वे काम करते हैं। लेकिन क्योंकि server पर 'window' या 'document' object accessible नहीं होता, आपको Client Side mount check (useEffect) का इस्तेमाल करके ensure करना होगा कि Portal सिर्फ client browser पर ही execute हो।</div>
   
-  <div class="faq-q">Q5: क्या React Portals का इस्तेमाल परफॉर्मेंस को धीमा करता है?</div>
-  <div class="faq-a">बिल्कुल नहीं! React Portals रिएक्ट के कोर इंजन का ही एक हिस्सा हैं जो अत्यधिक ऑप्टिमाइज़्ड है। इनका इस्तेमाल करने से कोई अतिरिक्त ओवरहेड नहीं होता, बल्कि यह आपके UI रेंडरिंग और CSS पेंटिंग परफॉर्मेंस को बेहतर ही बनाता है।</div>
+  <div class="faq-q">Q5: क्या हम एक React Component में multiple portals का इस्तेमाल कर सकते हैं?</div>
+  <div class="faq-a">हाँ, आप एक ही component में या पूरी application में जितने चाहें उतने Portals का use कर सकते हैं। ये सभी अलग-अलग target containers में render किए जा सकते हैं।</div>
 </div>
-
----
 
 <script type="application/ld+json">
 {
@@ -362,42 +433,42 @@ if (!mounted) return null;</code></pre>
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "React Portals और CSS position absolute/fixed में क्या अंतर है?",
+      "name": "React Portals का use कब करना चाहिए?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CSS fixed/absolute पोजीशन सिर्फ विज़ुअल लेआउट बदलती हैं, लेकिन यदि पैरेंट एलिमेंट पर overflow: hidden लगा हो, तो वे एलिमेंट अभी भी कट जाते हैं। React Portals एलिमेंट को सीधे फिजिकल DOM के दूसरे नोड में भेज देते हैं जिससे इस तरह की सभी CSS लिमिटेशन्स पूरी तरह खत्म हो जाती हैं।"
+        "text": "जब भी आपको ऐसा UI element बनाना हो जो parent CSS wrapper styles (जैसे overflow: hidden, relative width, ya z-index limits) से बाहर निकलकर स्क्रीन पर दिखे, जैसे Modals, Popovers, Tooltips, Global Loaders, और Side-drawers."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या React Portals में React Context और Redux Store का एक्सेस मिलता है?",
+      "name": "क्या React Portal use करने से event listeners काम करना बंद कर देते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल मिलता है! भले ही पोर्टल के ज़रिए एलिमेंट DOM में अलग जगह रेंडर होते हैं, लेकिन React Component Tree में वे अपनी मूल जगह पर ही रहते हैं। इसलिए, पेरेंट प्रोवाइडर के Context, State और Props उन्हें नॉर्मल तरीके से मिलते रहते हैं।"
+        "text": "बिल्कुल नहीं! React Synthetic Event system, React virtual component tree के design पर काम करता है, न कि real DOM architecture पर। इसलिए Portal node पर होने वाले events भी parent level पर bubble up होते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "Next.js (SSR) में React Portals का उपयोग करते समय \"document is not defined\" एरर क्यों आती है?",
+      "name": "React Portals और standard components में से performance के लिहाज से कौन सा बेहतर है?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "यह एरर इसलिए आती है क्योंकि Next.js कोड को पहले सर्वर पर रेंडर करता है जहाँ window या document ऑब्जेक्ट मौजूद नहीं होता। इसे सॉल्व करने के लिए आपको यह सुनिश्चित करना होगा कि पोर्टल केवल तभी रेंडर हो जब कंपोनेंट क्लाइंट-साइड पर माउंट (useEffect के ज़रिए) हो चुका हो।"
+        "text": "दोनों की performance में कोई खास अंतर नहीं होता है। React Portals सिर्फ insertion target बदलते हैं, rendering cycle और updates सामान्य components की तरह ही fast और optimized रहते हैं।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या एक ही React App में मल्टीपल Portals का यूज़ किया जा सकता है?",
+      "name": "क्या Next.js या Server-Side Rendering (SSR) में React Portals काम करते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, आप एक ही एप्लीकेशन में और यहाँ तक कि एक ही पेज पर जितने चाहें उतने Portals का उपयोग कर सकते हैं। आप उन्हें document.body या अलग-अलग custom divs में जहाँ चाहें माउंट करा सकते हैं।"
+        "text": "हाँ, वे काम करते हैं। लेकिन क्योंकि server पर 'window' या 'document' object accessible नहीं होता, आपको Client Side mount check (useEffect) का इस्तेमाल करके ensure करना होगा कि Portal सिर्फ client browser पर ही execute हो।"
       }
     },
     {
       "@type": "Question",
-      "name": "क्या React Portals का इस्तेमाल परफॉर्मेंस को धीमा करता है?",
+      "name": "क्या हम एक React Component में multiple portals का इस्तेमाल कर सकते हैं?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "बिल्कुल नहीं! React Portals रिएक्ट के कोर इंजन का ही एक हिस्सा हैं जो अत्यधिक ऑप्टिमाइज़्ड है। इनका इस्तेमाल करने से कोई अतिरिक्त ओवरहेड नहीं होता, बल्कि यह आपके UI रेंडरिंग और CSS पेंटिंग परफॉर्मेंस को बेहतर ही बनाता है।"
+        "text": "हाँ, आप एक ही component में या पूरी application में जितने चाहें उतने Portals का use कर सकते हैं। ये सभी अलग-अलग target containers में render किए जा सकते हैं।"
       }
     }
   ]
