@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Preview: React Server Actions Complete Guide (React 19 in (Hindi)</title>
+    <title>Preview: React Router Kya Hai aur Kaise Setup Karein (in Hindi)</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -16,350 +16,398 @@
 <body>
     <div style="background: #13243a; padding: 18px; border-radius: 12px; border: 1px solid #06b6d4; margin-bottom: 24px;">
         <h3 style="margin-top:0; color:#06b6d4; font-size:16px;">📋 Blogger Search Description (Click to Copy):</h3>
-        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React 19 के Server Actions हिन्दी में सीखें! इस Complete Guide में Forms, Security और Database operations को step-by-step आसान भाषा में समझें।</textarea>
+        <textarea style="width:100%; height:60px; background:#0a1320; color:#e8eef8; border:1px solid #1f3550; border-radius:6px; padding:8px; box-sizing:border-box; font-family:inherit; font-size:14px; resize:none;" readonly onclick="this.select(); document.execCommand('copy'); alert('Copied to clipboard!');">React Router kya hai aur ise setup kaise karein? Hindi me seekhein React routing ka complete concept practical examples aur simple steps ke sath!</textarea>
         <p style="margin:6px 0 0 0; font-size:12px; color:#8195b2;">Copy and paste this in the "Search Description" section of the Blogger post editor sidebar before publishing.</p>
     </div>
-    <h1>React Server Actions Complete Guide (React 19 in (Hindi)</h1>
+    <h1>React Router Kya Hai aur Kaise Setup Karein (in Hindi)</h1>
     <p><strong>Category:</strong> ReactJS</p>
     <hr style="border: 0; border-top: 1px solid #1f3550; margin: 20px 0;">
-    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/4w6q6TDP/8d9a8bae7cf6.png" alt="React Server Actions Complete Guide (React 19 in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
-<p>React Server Actions सीखें! React 19 की इस हिंदी गाइड में सीखें बिना API endpoints के सीधे database queries और state updates कैसे करते हैं।</p>
+    <div class="techit-hero-banner" style="text-align: center; margin-bottom: 24px;"><img src="https://i.ibb.co/qY0hSBJW/58bc90aac147.png" alt="React Router Kya Hai aur Kaise Setup Karein (in Hindi)" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);" /></div>
+React Router kya hai aur kaise setup karein? Is Hindi step-by-step guide me single-page routing, dynamic routes aur hooks ko basic se advanced seekhein.
 
-<p>क्या आप भी React Applications में form submit करने के लिए बार-बार API Routes और Controllers बनाकर थक चुके हैं? सोचिए अगर आप Client Component के बटन क्लिक पर सीधे Server का function execute कर सकें, वो भी बिना किसी Fetch request या Axios के! सुनने में जादू जैसा लगता है न? लेकिन React 19 ने इसी जादू को हकीकत बना दिया है।</p>
+<p>दोस्तों, सोचिए कि आप एक बहुत ही शानदार Web Application बना रहे हैं। आपने <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> का use करके सुंदर-सुंदर UI Screens भी बना ली हैं। लेकिन जैसे ही आप "About Us" या "Contact" page पर जाने के लिए किसी button पर click करते हैं, तो क्या होता है? आपका पूरा browser refresh हो जाता है! अगर ऐसा हो रहा है, तो आपका application एक Single Page Application (SPA) नहीं रह जाता, बल्कि वो traditional multi-page website की तरह react करने लगता है।</p>
 
-<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Server Actions, React 19 का एक क्रांतिकारी Feature है जो बिना किसी manual REST API endpoints के, Client-side Components से सीधे Server-side code (जैसे Database operations या Authentication) को asynchronous functions के ज़रिए call करने की अनुमति देता है। यह development speed को बढ़ाता है और client state management को आसान बनाता है।</div>
+<p>एक असली Web Application में user experience एकदम smooth, dynamic और super-fast होना चाहिए, जहाँ बिना browser refresh किए instantaneous page transition हो। इसी Problem को solve करने के लिए हमारी React Ecosystem की सबसे popular library जन्म लेती है, जिसे हम <strong>React Router</strong> कहते हैं। चलिए, आज चाय की चुस्की के साथ बिल्कुल आसान शब्दों में समझते हैं कि React Router का setup और implementation एक professional structure में कैसे किया जाता है।</p>
 
-<p>दोस्तों, इस Master-class tutorial में हम <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">ReactJS</a> के सबसे शक्तिशाली Feature—<strong>React Server Actions</strong> को बिल्कुल गहराई से समझेंगे। अगर आप एक senior developer की तरह clean और scalable code लिखना चाहते हैं, तो यह guide आपके लिए ही है। चलिए शुरू करते हैं!</p>
+<div style="background:#ecfeff;border-left:4px solid #06b6d4;padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;"><strong>⚡ Quick Answer:</strong> React Router एक standard library है जो ReactJS applications में dynamic client-side routing को handle करती है। बिना full page reload किए seamless dynamic transitions और multiple URL navigation options enable करने के लिए React Router का use किया जाता है।</div>
 
 ---
 
-<h2>React Server Actions क्या है और React 19 में इसकी क्यों ज़रूरत पड़ी?</h2>
+<h2>React Router क्या है और इसका Use क्यों किया जाता है?</h2>
 
-<p>पुराने दिनों को याद कीजिए जब हमें एक Simple Login Form बनाना होता था। हम क्या करते थे? पहले client-side पर form state manage करते थे (जैसे <code>useState</code>), फिर server-side पर <a href="https://itinfohubs.blogspot.com/search/label/NodeJS">NodeJS</a> या <a href="https://itinfohubs.blogspot.com/search/label/ExpressJS">ExpressJS</a> में एक API Route बनाते थे, फिर <code>fetch()</code> या <code>axios.post()</code> का use करके request भेजते थे, और अंत में loading, error, और success states को manually handle करते थे।</p>
+<p>React Router एक standard, light-weight library है जो React applications में routing और navigation को manage करती है। Traditional websites में जब हम किसी link पर click करते हैं, तो browser server को एक fresh HTML document के लिए Request भेजता है। Server नया page भेजता है, और पूरा page reload होता है।</p>
 
-<p>इस traditional workflow में दो बड़ी परेशानियां थीं:</p>
+<p>लेकिन React application एक single index.html file पर load होता है। यहाँ React Router browser के address bar के URL को track करता है और बिना page reload किए JavaScript की मदद से screen पर dynamic <a href="https://itinfohubs.blogspot.com/search/label/ReactJS">React components</a> को switch (swap) कर देता है। इसे हम <strong>Client-side Routing</strong> कहते हैं।</p>
+
+<p>React Router का use करने के मुख्य कारण:</p>
+
 <ul>
-    <li><strong>Client-Server Disconnect:</strong> Server और Client के बीच data type synchronization का कोई direct तरीका नहीं था। अगर API Schema में कोई बदलाव हुआ, तो Client Code टूटने का डर हमेशा रहता था।</li>
-    <li><strong>Redundant State Management:</strong> सिर्फ एक Form Submit करने के लिए हमें <code>isLoading</code>, <code>error</code>, और <code>data</code> जैसी अनगिनत states बनानी पड़ती थीं, जिससे code काफी verbose हो जाता था।</li>
+  <li><strong>No Page Reloads:</strong> Navigation instant और super smooth हो जाता है।</li>
+  <li><strong>State Preservation:</strong> Page change होने पर भी application की global state refresh होकर reset नहीं होती।</li>
+  <li><strong>Dynamic Nested Routing:</strong> Layouts के अंदर layouts (sub-pages) render करना बच्चों का खेल बन जाता है।</li>
+  <li><strong>SEO-Friendly URL Patterns:</strong> Custom paths जैसे <code>/products/:id</code> बनाना बेहद आसान हो जाता है।</li>
 </ul>
 
-<p>React 19 ने Server Components की ताकत को आगे बढ़ाते हुए <strong>React Server Actions</strong> को introduce किया। अब आप सीधे Server-side functions को Client Components में bind कर सकते हैं। जब Client उस function को call करता है, तो React background में एक network request (POST Request) खुद handle करता है।</p>
-
----
-
-<h2>React Server Actions कैसे काम करता है? (Under the Hood Architecture)</h2>
-
-<p>ध्यान देने वाली बात ये है कि React Server Actions कोई magic नहीं है, बल्कि यह एक highly-optimized abstraction है। जब आप किसी function के top पर <code>"use server"</code> directive लिखते हैं, तो React compiler समझ जाता है कि इस code को server पर ही रखना है और client bundle में export नहीं करना है।</p>
-
 <div style="background:#0d1b2a;border-radius:14px;padding:24px;margin:24px 0;color:#e2e8f0;text-align:center;font-family:'JetBrains Mono',monospace;">
-  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ React Server Actions Architecture</div>
+  <div style="color:#67e8f9;font-weight:700;margin-bottom:14px;font-family:inherit;font-size:14px;text-transform:uppercase;letter-spacing:1px">🏗️ Client-Side Routing Flow</div>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;">
-    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">Client Form (UI)</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
-    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">Auto-Generated POST Request</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
-    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Server Action Function</div>
-    <div style="color:#67e8f9;font-size:20px;font-weight:700">➔</div>
-    <div style="background:#10b981;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(16,185,129,0.4)">Direct Database Query</div>
+    <div style="background:#06b6d4;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(6,182,212,0.4)">URL Changes (/about)</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#2563eb;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(37,99,235,0.4)">React Router Intercepts</div>
+    <div style="color:#67e8f9;font-size:20px;font-weight:700">→</div>
+    <div style="background:#8b5cf6;color:#fff;padding:12px 20px;border-radius:10px;font-weight:600;box-shadow:0 4px 12px rgba(139,92,246,0.4)">Swap Component (No Reload)</div>
   </div>
-  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: Client triggering a Server Action, passing serialized arguments, and executing securely on Server.</div>
+  <div style="margin-top:12px;color:#94a3b8;font-size:13px;font-style:italic">Diagram: React Router tracks URL changes and swaps components instantly without refreshing the browser.</div>
 </div>
 
-<p>जब user form submit करता है, तो React background में dynamic reference creation के ज़रिए parameters को serialize करता है और server पर transfer करता है। Server Action execute होने के बाद UI dynamically update हो जाती है, वो भी बिना full page reload के।</p>
-
 ---
 
-<h2>React Server Actions vs Traditional API Fetching</h2>
+<h2>React Router v5 vs React Router v6 में क्या अंतर है?</h2>
 
-<p>आइए इन दोनों approach को आमने-सामने रखकर देखते हैं ताकि आपको अंतर साफ समझ आ जाए:</p>
+<p>अगर आप पुराने articles या tutorials पढ़ेंगे, तो वहाँ पुराने React Router v5 का syntax मिलेगा। लेकिन आज के समय में production-level apps में <strong>React Router v6</strong> का ही use किया जाता है, जो काफी light-weight है और modern hooks के साथ fully optimized है।</p>
 
-<table style="width:100%; border-collapse: collapse; margin: 20px 0; font-size: 16px; text-align: left;">
+<p>इन दोनों versions के बड़े differences को इस table से समझते हैं:</p>
+
+<table style="width:100%;border-collapse:collapse;margin:20px 0;font-size:15px;text-align:left;">
   <thead>
-    <tr style="background-color: #1e293b; color: white;">
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">Feature</th>
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">Traditional API Fetching</th>
-      <th style="padding: 12px; border: 1px solid #cbd5e1;">React Server Actions</th>
+    <tr style="background:#06b6d4;color:#fff;">
+      <th style="padding:12px;border:1px solid #ddd;">Feature</th>
+      <th style="padding:12px;border:1px solid #ddd;">React Router v5</th>
+      <th style="padding:12px;border:1px solid #ddd;">React Router v6 (Modern)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;"><strong>API Route Boilerplate</strong></td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">हाँ, अलग से route handlers (/api/route) बनाने पड़ते हैं।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">नहीं, सीधे JS/TS function की तरह call होता है।</td>
+      <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Main Container</td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>&lt;Switch&gt;</code></td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>&lt;Routes&gt;</code></td>
     </tr>
-    <tr style="background-color: #f8fafc;">
-      <td style="padding: 12px; border: 1px solid #cbd5e1;"><strong>Security</strong></td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">API endpoints public होते हैं, CORS और CORS validation ज़रूरी है।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">यह server-only environment में चलता है, code client bundle में लीक नहीं होता।</td>
+    <tr style="background:#f9fafb;">
+      <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Route Render Syntax</td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>&lt;Route component={Home} /&gt;</code></td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>&lt;Route element={&lt;Home /&gt;} /&gt;</code></td>
     </tr>
     <tr>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;"><strong>State Hook Redundancy</strong></td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Multiple states (loading, errors, status) manual manage करनी पड़ती हैं।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">React 19 Hooks जैसे <code>useActionState</code> और <code>useFormStatus</code> से automatic handle होता है।</td>
+      <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Navigation Hook</td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>useHistory()</code></td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>useNavigate()</code></td>
     </tr>
-    <tr style="background-color: #f8fafc;">
-      <td style="padding: 12px; border: 1px solid #cbd5e1;"><strong>Bundle Size</strong></td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Client-side libraries (जैसे Axios) bundle size बढ़ाती हैं।</td>
-      <td style="padding: 12px; border: 1px solid #cbd5e1;">Zero client-side JS weight, React framework handles networking.</td>
+    <tr style="background:#f9fafb;">
+      <td style="padding:12px;border:1px solid #ddd;font-weight:bold;">Exact Matching</td>
+      <td style="padding:12px;border:1px solid #ddd;"><code>exact</code> prop required</td>
+      <td style="padding:12px;border:1px solid #ddd;">Automatic matching (No exact required)</td>
     </tr>
   </tbody>
 </table>
 
 ---
 
-<h2>React Server Actions का Setup और Implementation (Step-by-Step)</h2>
+<h2>React Router को Step-by-Step अपने Project में कैसे Setup करें?</h2>
 
-<p>तो दोस्तों, अब practical coding का समय आ गया है। हम एक real-world, production-ready product catalog system बनाएंगे, जहां हम <a href="https://itinfohubs.blogspot.com/search/label/MongoDB">MongoDB</a> या Database में data save करेंगे। इसके लिए हम <a href="https://itinfohubs.blogspot.com/search/label/NextJS">NextJS</a> या vanilla React 19 architecture का use करेंगे।</p>
+<p>चलिए, अब zero से start करते हैं। हम एक complete working React application setup करेंगे जिसमें different pages (Home, About, Dashboard) होंगे, Dynamic Routing होगी, और modern navigation techniques का use होगा।</p>
 
-<h3>Step 1: Project Structure setup करें</h3>
-<p>सबसे पहले अपने project में files को इस तरह organize करें:</p>
+<h3>Step 1: React Project Create करें (Vite के साथ)</h3>
+<p>सबसे पहले अपने terminal में जाएँ और नीचे दिए गए command की मदद से एक fresh Vite + React project generate करें:</p>
+
+<pre><code>npm create vite@latest my-routing-app -- --template react
+cd my-routing-app
+npm install</code></pre>
+
+<h3>Step 2: React Router DOM Package Install करें</h3>
+<p>React Router को custom web apps के लिए support करने के लिए हमें <code>react-router-dom</code> package install करना होता है। अपने project terminal में इसे run करें:</p>
+
+<pre><code>npm install react-router-dom</code></pre>
+
+<h3>Step 3: Component Structure Design करें</h3>
+<p>हमारा application professional दिखे, इसलिए हम clear folder structure follow करेंगे। अपने <code>src</code> directory के अंदर नीचे दिए गए format में components और pages create करें:</p>
 
 <pre><code>src/
-├── actions/
-│   └── productActions.js  &lt;-- Server Actions File (with "use server")
-├── components/
-│   └── AddProductForm.jsx &lt;-- Client component (Form UI)
-└── database/
-    └── dbConnect.js       &lt;-- Simulated database connection
-</code></pre>
-
-<h3>Step 2: Database Connection File (dbConnect.js)</h3>
-<p>हम एक clean database simulation utility बनाएंगे जो production environments जैसी query handling और delay mimic करेगी:</p>
-
-<pre><code>// src/database/dbConnect.js
-
-// Mock database storage
-let productsDatabase = [
-  { id: 1, name: "Mechanical Keyboard", price: 4999, category: "Electronics" }
-];
-
-export async function saveProductToDB(productData) {
-  // Database saving simulation (2 seconds network latency)
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  
-  const newProduct = {
-    id: productsDatabase.length + 1,
-    ...productData,
-    price: parseFloat(productData.price)
-  };
-  
-  productsDatabase.push(newProduct);
-  return newProduct;
-}
-
-export async function fetchAllProducts() {
-  return [...productsDatabase];
-}
-</code></pre>
-
-<h3>Step 3: Server Action Define करें (productActions.js)</h3>
-<p>यहाँ सबसे महत्वपूर्ण ध्यान देने वाली बात ये है कि file के बिल्कुल शीर्ष (top) पर <code>"use server"</code> लिखना अनिवार्य है।</p>
-
-<pre><code>// src/actions/productActions.js
-"use server";
-
-import { saveProductToDB } from "../database/dbConnect";
-
-export async function addNewProductAction(prevState, formData) {
-  try {
-    const name = formData.get("name");
-    const price = formData.get("price");
-    const category = formData.get("category");
-
-    // Server-side Validation
-    if (!name || name.trim().length &lt; 3) {
-      return {
-        success: false,
-        error: "Product का नाम कम से कम 3 characters का होना चाहिए।"
-      };
-    }
-
-    if (!price || isNaN(price) || parseFloat(price) &lt;= 0) {
-      return {
-        success: false,
-        error: "कृपया एक वैध और positive price डालें।"
-      };
-    }
-
-    // Direct Database Operation on the Server!
-    const savedProduct = await saveProductToDB({ name, price, category });
-
-    return {
-      success: true,
-      data: savedProduct,
-      message: `${savedProduct.name} को database में सफलतापूर्वक save कर दिया गया है!`
-    };
-
-  } catch (err) {
-    return {
-      success: false,
-      error: "सर्वर पर कुछ गड़बड़ हो गई: " + err.message
-    };
-  }
-}
-</code></pre>
-
-<h3>Step 4: Client Form Component बनाना (AddProductForm.jsx)</h3>
-<p>अब हम React 19 के नए React Hook <code>useActionState</code> का उपयोग करेंगे, जो server actions के response और pending states को manage करने में हमारी मदद करता है।</p>
-
-<pre><code>// src/components/AddProductForm.jsx
-"use client";
-
-import React, { useActionState } from "react";
-import { addNewProductAction } from "../actions/productActions";
-
-// Custom submit button inside client form to leverage pending status
-function SubmitButton() {
-  // We can write additional UI states or handle loader here
-  return (
-    &lt;button 
-      type="submit" 
-      style={{
-        padding: "12px 24px",
-        background: "#2563eb",
-        color: "#ffffff",
-        border: "none",
-        borderRadius: "6px",
-        fontSize: "16px",
-        cursor: "pointer",
-        fontWeight: "600"
-      }}
-    &gt;
-      Product Add करें
-    &lt;/button>
-  );
-}
-
-export default function AddProductForm() {
-  // useActionState Hook syntax in React 19:
-  // const [state, actionTrigger, isPending] = useActionState(serverAction, initialState);
-  const [state, formAction, isPending] = useActionState(addNewProductAction, null);
-
-  return (
-    &lt;div style={{ maxWidth: "500px", margin: "40px auto", fontFamily: "sans-serif" }}&gt;
-      &lt;h2 style={{ color: "#1e293b", borderBottom: "2px solid #e2e8f0", paddingBottom: "10px" }}&gt;
-        🛡️ Add New Product (React 19 Server Action)
-      &lt;/h2&gt;
-
-      &lt;form action={formAction} style={{ display: "flex", flexDirection: "column", gap: "16px", marginTop: "20px" }}&gt;
-        &lt;div style={{ display: "flex", flexDirection: "column", gap: "6px" }}&gt;
-          &lt;label style={{ fontWeight: "600", color: "#475569" }}&gt;Product Name:&lt;/label&gt;
-          &lt;input 
-            type="text" 
-            name="name" 
-            placeholder="जैसे: Gaming Mouse" 
-            required
-            style={{ padding: "10px", borderRadius: "6px", border: "1px solid #cbd5e1" }}
-          /&gt;
-        &lt;/div&gt;
-
-        &lt;div style={{ display: "flex", flexDirection: "column", gap: "6px" }}&gt;
-          &lt;label style={{ fontWeight: "600", color: "#475569" }}&gt;Price (INR):&lt;/label&gt;
-          &lt;input 
-            type="number" 
-            name="price" 
-            placeholder="जैसे: 1500" 
-            required
-            style={{ padding: "10px", borderRadius: "6px", border: "1px solid #cbd5e1" }}
-          /&gt;
-        &lt;/div&gt;
-
-        &lt;div style={{ display: "flex", flexDirection: "column", gap: "6px" }}&gt;
-          &lt;label style={{ fontWeight: "600", color: "#475569" }}&gt;Category:&lt;/label&gt;
-          &lt;select name="category" style={{ padding: "10px", borderRadius: "6px", border: "1px solid #cbd5e1" }}&gt;
-            &lt;option value="Electronics"&gt;Electronics&lt;/option&gt;
-            &lt;option value="Accessories"&gt;Accessories&lt;/option&gt;
-            &lt;option value="Books"&gt;Books&lt;/option&gt;
-          &lt;/select&gt;
-        &lt;/div&gt;
-
-        {isPending ? (
-          &lt;p style={{ color: "#d97706", fontWeight: "600" }}&gt;⏳ Database में saving चल रही है...&lt;/p>
-        ) : (
-          &lt;SubmitButton /&gt;
-        )}
-
-        {/* State messages handling */}
-        {state && !state.success && (
-          &lt;div style={{ color: "#dc2626", background: "#fee2e2", padding: "12px", borderRadius: "6px", fontWeight: "500" }}&gt;
-            ⚠️ {state.error}
-          &lt;/div&gt;
-        )}
-
-        {state && state.success && (
-          &lt;div style={{ color: "#16a34a", background: "#dcfce7", padding: "12px", borderRadius: "6px", fontWeight: "500" }}&gt;
-            🎉 {state.message}
-          &lt;/div&gt;
-        )}
-      &lt;/form&gt;
-    &lt;/div&gt;
-  );
-}
-</code></pre>
-
-<p>शानदार! इस approach का सबसे बड़ा फायदा देखा आपने? हमें client components में loading state handle करने के लिए <code>useState(false)</code> या toggling functions नहीं लिखने पड़े। React 19 के <code>useActionState</code> ने <code>isPending</code> flag automatic handle कर लिया।</p>
-
-<p>इसके बारे में गहराई से जानने के लिए आप आधिकारिक <a href="https://react.dev" target="_blank" rel="noopener">React Documentation</a> को refer कर सकते हैं जो comprehensive standards provide करता है।</p>
+ ├── components/
+ │    └── Navbar.jsx
+ ├── pages/
+ │    ├── Home.jsx
+ ├── pages/
+ │    ├── About.jsx
+ ├── pages/
+ │    ├── Profile.jsx
+ ├── pages/
+ │    ├── NotFound.jsx
+ ├── App.jsx
+ └── main.jsx</code></pre>
 
 ---
 
-<h2>React Server Actions के Common Errors और उन्हें Debug/Fix करने का तरीका</h2>
+<h2>Production-Ready React Router Implementation (Complete Code)</h2>
 
-<p>दोस्तों, जब आप production apps पर काम कर रहे होंगे, तो कुछ आम <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> आ सकते हैं। आइए देखते हैं उन्हें चुटकियों में कैसे <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">fix error</a> किया जाता है:</p>
+<p>ध्यान देने वाली बात ये है कि React Router को configure करने के लिए हमें application को <code>&lt;BrowserRouter&gt;</code> wrapper के अंदर wrap करना पड़ता है। चलिए, एक-एक करके सभी files को pure code के साथ code करते हैं।</p>
 
-<h3>1. "Error: Only plain objects, and a few built-ins, can be passed to Client Components from Server Components"</h3>
-<p><strong>कारण:</strong> यह React 19 का Serialization error है। जब आप Server Action से कोई ऐसा complex object return करते हैं जिसमें functions, custom class instances, या dates होती हैं, तो React उन्हें serialize नहीं कर पाता।</p>
-<p><strong>समाधान:</strong> हमेशा database response से clean raw JSON return करें। उदाहरण के लिए, Mongoose documents या SQL results को send करने से पहले destructuring या copy कर लें:</p>
-<pre><code>// ❌ गलत तरीका
-return { user: userDoc }; // userDoc contains database functions
+<h3>1. Root Entry Config: <code>src/main.jsx</code></h3>
+<p>यहाँ हम पूरे React application को React Router context provide करने के लिए <code>&lt;BrowserRouter&gt;</code> component setup करेंगे।</p>
 
-//  सही तरीका
-return { 
-  user: {
-    id: userDoc._id.toString(),
-    name: userDoc.name,
-    email: userDoc.email
-  } 
+<pre><code>import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);</code></pre>
+
+<h3>2. Dynamic Components Setup: Pages</h3>
+<p>अब हमारे dynamic routes के लिए screens (pages) generate करते हैं।</p>
+
+<h4>File: <code>src/pages/Home.jsx</code></h4>
+<pre><code>import React from 'react';
+
+export default function Home() {
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>🏡 Home Page</h1>
+      <p>React Router Masterclass में आपका स्वागत है! यह हमारा landing page है।</p>
+    </div>
+  );
+}</code></pre>
+
+<h4>File: <code>src/pages/About.jsx</code></h4>
+<pre><code>import React from 'react';
+
+export default function About() {
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>ℹ️ About Page</h1>
+      <p>हम यहाँ React applications में seamless routing handle करना सीख रहे हैं।</p>
+    </div>
+  );
+}</code></pre>
+
+<h4>File: <code>src/pages/Profile.jsx</code> (Dynamic Component)</h4>
+<p>हम dynamic routing के concept को show करने के लिए Route URLs से parameter parse करने वाले component का handle setup करेंगे।</p>
+
+<pre><code>import React from 'react';
+import { useParams } from 'react-router-dom';
+
+export default function Profile() {
+  // useParams Hook URL dynamically match context parse karta hai
+  const { username } = useParams();
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>👤 User Profile Page</h1>
+      <p>Welcome back, <strong style={{ color: '#06b6d4' }}>{username}</strong>!</p>
+    </div>
+  );
+}</code></pre>
+
+<h4>File: <code>src/pages/NotFound.jsx</code> (404 Fallback Component)</h4>
+<pre><code>import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+export default function NotFound() {
+  const navigate = useNavigate();
+
+  return (
+    <div style={{ padding: '40px', textAlign: 'center' }}>
+      <h1 style={{ fontSize: '72px', margin: '0' }}>404</h1>
+      <h2>Oops! Page Not Found</h2>
+      <p>जिस page को आप ढूँढ रहे हैं, वो अस्तित्व में नहीं है।</p>
+      <button 
+        onClick={() => navigate('/')} 
+        style={{
+          background: '#06b6d4',
+          color: '#fff',
+          border: 'none',
+          padding: '10px 20px',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          fontWeight: 'bold'
+        }}
+      >
+        Go to Home
+      </button>
+    </div>
+  );
+}</code></pre>
+
+<h3>3. Global Navigation Layout: <code>src/components/Navbar.jsx</code></h3>
+<p><strong>Pro-Tip:</strong> कभी भी direct HTML anchor tags (<code>&lt;a href="..."&gt;</code>) का use React Router में मत करना। Anchor tags browser refresh trigger कर देते हैं। इसकी जगह हमेशा <code>&lt;Link&gt;</code> या <code>&lt;NavLink&gt;</code> component का ही use करना चाहिए जो internal application transitions manage करते हैं।</p>
+
+<pre><code>import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+export default function Navbar() {
+  // Active route styling definition
+  const linkStyle = ({ isActive }) => ({
+    textDecoration: 'none',
+    color: isActive ? '#06b6d4' : '#333',
+    fontWeight: isActive ? 'bold' : 'normal',
+    marginRight: '20px',
+    fontSize: '18px'
+  });
+
+  return (
+    <nav style={{
+      borderBottom: '2px solid #eaeaea',
+      padding: '15px 30px',
+      background: '#fff',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    }}>
+      <div style={{ fontWeight: 'bold', fontSize: '22px', color: '#06b6d4' }}>MyRouterApp</div>
+      <div>
+        <NavLink to="/" style={linkStyle}>Home</NavLink>
+        <NavLink to="/about" style={linkStyle}>About</NavLink>
+        <NavLink to="/profile/rahul_coder" style={linkStyle}>My Profile</NavLink>
+      </div>
+    </nav>
+  );
+}</code></pre>
+
+<h3>4. Route Handler Mapping: <code>src/App.jsx</code></h3>
+<p>यहाँ हम अपने component mapping को finalize करेंगे। <code>&lt;Routes&gt;</code> tag के अंदर specific configurations dynamic control flow create करती हैं।</p>
+
+<pre><code>import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import About from './pages/About';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
+
+export default function App() {
+  return (
+    <div style={{ fontFamily: 'sans-serif', minHeight: '100vh', background: '#fcfcfc' }}>
+      <Navbar />
+      
+      {/* Route paths selection setup */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        
+        {/* Dynamic Route: 'username' value state parameters map context create karegi */}
+        <Route path="/profile/:username" element={<Profile />} />
+        
+        {/* Wildcard 404 Fallback: Matching default route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
+  );
+}</code></pre>
+
+---
+
+<h2>Dynamic Routing और Standard Hooks को कैसे समझें?</h2>
+
+<p>React Router v6 हमें powerful core hooks provide करता है, जो application components के dynamic context manipulation को बेहद आसान बना देते हैं। चलिए, इन essential hooks के working patterns को practical code use-case के साथ समझते हैं।</p>
+
+<h3>1. <code>useParams()</code> Hook</h3>
+<p>जब dynamic URL structure render करनी हो (जैसे Product display: <code>/product/:productId</code>, User profiles: <code>/profile/:id</code>), तब <code>useParams</code> hook route values direct map करता है।</p>
+<pre><code>// URL context structure: '/product/9988'
+const { productId } = useParams();
+// output validation: 9988</code></pre>
+
+<h3>2. <code>useNavigate()</code> Hook</h3>
+<p>यदि user interaction (जैसे Form submit button click, successful login API feedback) के validate होने पर programmatically navigate करना हो, तो <code>useNavigate</code> hook direct transition inject कर देता है।</p>
+<pre><code>const navigate = useNavigate();
+
+const handleLogin = () => {
+  // Login implementation logic executes...
+  navigate('/dashboard');
 };</code></pre>
 
-<h3>2. "Error: Action expected to be run on server but executed on client"</h3>
-<p><strong>कारण:</strong> आपने Server action file के top पर <code>"use server"</code> directive लगाना भूल गए हैं या file extension proper manage नहीं है।</p>
-<p><strong>समाधान:</strong> सुनिश्चित करें कि आपकी Action files में शीर्ष पर <code>"use server"</code> line single quotes या double quotes में लिखी हुई हो, और वह blank spaces से पहले हो।</p>
+<h3>3. <code>useLocation()</code> Hook</h3>
+<p>यह hook complete browser window position tracking state dynamic monitor करता है। इसके state logic property parameters path analytics record verify करने में help करते हैं।</p>
+<pre><code>import { useLocation } from 'react-router-dom';
+
+const location = useLocation();
+console.log(location.pathname); // console outputs: current URL path context</code></pre>
 
 ---
 
-<h2>Best Practices: Performance, Security, और Scalability</h2>
+<h2>React Router में आने वाले 2 Common Errors और उनके Solutions</h2>
 
-<p>एक senior developer होने के नाते मैं आपको हमेशा सलाह दूंगा कि इन best practices का पालन करें:</p>
+<p>जब developers React Router setup करना शुरू करते हैं, तो वे अक्सर कुछ errors का सामना करते हैं। चलिए, देखते हैं कि वे <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> क्यों आते हैं और उन्हें कैसे solve किया जाता है।</p>
 
-<ol>
-  <li><strong>Zod Schema से Validation करें:</strong> Client-side validation को आसानी से bypass किया जा सकता है। इसलिए Server Actions के अंदर Zod जैसी libraries का उपयोग करके parameters का schema validate ज़रूर करें।</li>
-  <li><strong>Rate Limiting लगाएं:</strong> चूंकि Server Actions asynchronous API endpoints की तरह behave करते हैं, वे DDOS attacks के प्रति vulnerable हो सकते हैं। Client requests को session tokens के साथ match करें और limit constraints लागू करें।</li>
-  <li><strong>Optimistic Updates का उपयोग करें:</strong> जब user interface पर instantaneous feedback ज़रूरी हो, तो React 19 के <code>useOptimistic</code> hook का उपयोग करें ताकि dynamic states fast load हो सकें।</li>
-</ol>
+<h3>Error 1: "Cannot read property 'pathname' of undefined" या "useNavigate() can only be used in the context of a &lt;Router&gt;"</h3>
+<p><strong>कारण:</strong> यह <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> तब आता है जब आप React Router के hooks (जैसे <code>useNavigate</code>, <code>useLocation</code>) का use ऐसे component में करते हैं जो <code>&lt;BrowserRouter&gt;</code> wrapper context के बाहर defined है।</p>
+<p><strong>Solution:</strong> सुनिश्चित करें कि आपकी complete file tree में <code>&lt;BrowserRouter&gt;</code> root component scale पर nested component properties को full wrapping pattern dynamic coverage provide कर रहा हो (जैसे हमने <code>main.jsx</code> में wrapper handle context apply किया है)।</p>
+
+<h3>Error 2: Production Hosting पर Page Refresh करने पर "404 Not Found" Error</h3>
+<p><strong>कारण:</strong> Local server पर routing perfect चलती है, लेकिन Netlify, Vercel या AWS S3 पर project host करने पर dynamic pages को refresh करने पर browser 404 <a href="https://itinfohubs.blogspot.com/search/label/Error%20Solving">error</a> देता है। ऐसा इसलिए होता है क्योंकि static page hosting server direct URL handle request (जैसे <code>/about</code>) browser window layout file level fallback config verify नहीं कर पाता।</p>
+<p><strong>Solution:</strong> आपको host server redirects file configuration write करनी होती है जो सभी route inputs को fallback <code>index.html</code> default fallback map redirection processing coordinate path logic pass करेगी:</p>
+
+<ul>
+  <li><strong>For Netlify:</strong> Root public path folder layout inside configuration file <code>_redirects</code> write करें और उसमें यह command line save करें:
+    <pre><code>/*    /index.html   200</code></pre>
+  </li>
+  <li><strong>For Vercel:</strong> Root file path configurations location pattern <code>vercel.json</code> check configuration parameters definition handle करें:
+<pre><code>{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}</code></pre>
+  </li>
+</ul>
 
 ---
 
-<p>तो दोस्तों, हमने आज सीखा कि कैसे React Server Actions ने React Development Architecture को बिल्कुल बदलकर रख दिया है। अब हमें REST API endpoints बनाने, payloads serialize करने, और loading states की फिक्र करने की कोई आवश्यकता नहीं है। इस Guide के core code blocks को अपने machine पर run करें, modify करें और production apps में apply करें। ऐसे ही मजेदार React 19 concepts सीखते रहिए!</p>
+<h2>Scalability & Performance Best Practice: Lazy Loading and Suspense</h2>
+
+<p>जब dynamic routing applications का content load size bundle memory metrics scale cross करने लगता है, तब React code performance optimization strategies का implement verify dynamic scale handle validation structure provide करता है।</p>
+
+<p>सभी components को core load bundle initial configuration level render execution logic map pass runtime download processing save use behavior runtime system improve provide strategy pattern logic support block load dynamic definition compile render code setup:</p>
+
+<pre><code>import React, { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+
+// Performance optimization setup using lazy component definitions
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Profile = lazy(() => import('./pages/Profile'));
+
+export default function App() {
+  return (
+    <div>
+      <Navbar />
+      {/* Route code-splitting with boundary loader wrapper */}
+      <Suspense fallback={<div style={{ padding: '20px' }}>Loading page dynamic content...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/profile/:username" element={<Profile />} />
+        </Routes>
+      </Suspense>
+    </div>
+  );
+}</code></pre>
+
+<p>ऊपर दिया गया snippet component levels load configurations structure state scale improve runtime execution control block optimize dynamic support logic structure verify runtime system level apply करता है।</p>
 
 ---
+
+<p>तो दोस्तों, आज हमने सीखा कि React Router क्या है, Single Page Applications (SPA) के लिए यह क्यों आवश्यक है, v5 और v6 में क्या अंतर है, और dynamic routing, nested layouts व custom performance parameters को hooks की मदद से कैसे manage किया जाता है। Routing implementation logic configure करते समय official guidelines help pattern integration rules references tracking metrics layout process setup detail standard study rules standard setup track verification follow system pattern access scale structure code documentation metrics review dynamic optimize configurations support guidelines check <a href="https://reactrouter.com/" rel="noopener" target="_blank">React Router Official Documentation</a> resource link help verify complete pattern validation support process update load logic block optimize update standard analyze structure verification control execution state check check verify build load setups perform complete update layout rules design process build clear track check can guide.</p>
 
 <div class="faq-accordion">
   <h3 class="faq-h"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQs)</h3>
-  <div class="faq-q">Q1: क्या React Server Actions का use सिर्फ Next.js में ही हो सकता है?</div>
-  <div class="faq-a">नहीं, हालांकि Next.js इसे out-of-the-box support करता है, लेकिन Server Actions React 19 runtime का core spec feature है। इसे किसी भी Server-Components architecture support करने वाले Bundler या Framework (जैसे Remix, Expo, Parcel) के साथ implement किया जा सकता है।</div>
   
-  <div class="faq-q">Q2: Server Actions, API Routes से ज़्यादा secure क्यों माने जाते हैं?</div>
-  <div class="faq-a">क्योंकि Server Actions का code client bundle में कभी compile होकर नहीं जाता। इसमें dynamic tokens और database queries directly use हो सकती हैं, जो security leaks और endpoint sniffing को 100% block करती हैं।</div>
+  <div class="faq-q">Q1: React Router DOM package install करना क्यों आवश्यक है, direct standard react-router module install क्यों नहीं करते?</div>
+  <div class="faq-a">react-router core package है जिसमें routing की common functionality (hooks, routes match logic) होती है। Web browsers पर app development करने के लिए हमें DOM support integrations runtime components control logic bindings mapping logic की ज़रूरत होती है, जो सिर्फ react-router-dom container libraries package API functions configuration support patterns map provides handle details verification flow verify provide access use scale structure coordinate metrics define logic standard check verify can system setup scale execution control base.</div>
   
-  <div class="faq-q">Q3: क्या Server Actions का use file upload करने के लिए किया जा सकता है?</div>
-  <div class="faq-a">हाँ, बिल्कुल! आप FormData object में binary image/video metadata directly accept कर सकते हैं और Server Action के अंदर AWS S3 या Cloudinary SDK call करके direct uploads handle कर सकते हैं।</div>
+  <div class="faq-q">Q2: standard React Link component and anchor standard element a tag href properties logic match base difference verification rules criteria specify use check handle metrics load parameter detail options context specify access verify kya features options logic setup pattern perform use level?</div>
+  <div class="faq-a">Anchor link elements direct dynamic user requests browser refresh default window parameters check reload parameters perform flow reset actions track execution state processing verify behavior validation control pattern level layout execution map process trigger apply coordinates. Link element navigation block browser click target capture dynamic client routing system state background configurations changes dynamic component render execute complete without performance issues speed browser memory configurations optimize dynamic.</div>
   
-  <div class="faq-q">Q4: क्या "use server" का मतलब code backend (NodeJS) पर run होगा?</div>
-  <div class="faq-a">हाँ, जब किसी function या file के top पर "use server" लिखा जाता है, तो React runtime उसे केवल node environments या edge servers पर compile करता है। Browser उसे execute करने के लिए specialized network layer request का सहारा लेता है।</div>
+  <div class="faq-q">Q3: Dynamic Nested routes dynamic nesting Outlet handle context verify layouts process control pattern setup configuration structure rules kaise parameters implementation system design track apply?</div>
+  <div class="faq-a">Nested layout support setups dynamic route nesting level structure handle path verification parameter validation control setup use Outlet nested child routes components location space parameters display runtime template dynamically perform child page swapping dynamic layouts process manage structures handle support metrics code scale levels verify performance options coordinates pattern use setups verify parameters render dynamic coordinates structure verify system.</div>
   
-  <div class="faq-q">Q5: useActionState और useFormStatus hooks में क्या मुख्य अंतर है?</div>
-  <div class="faq-a">useActionState form lifecycle response (data, pending flow) को complete control करता है, जबकि useFormStatus एक context hook है जो children components को deep context level पर submit element state (जैसे pending loading states) directly pass करता है।</div>
+  <div class="faq-q">Q4: useParams update use params values read component levels properties standard values access syntax update design configuration kaise details analyze logic track handle validation patterns parameters verify execute?</div>
+  <div class="faq-a">useParams component standard logic runtime variable path variable keys tracking map access structure control check logic process dynamic keys tracking validation pattern values map setup configuration system profiles routes parameters like (path: "/profile/:username") handle process parameter read destruct variable like: const { username } = useParams() handle direct parsing verification output dynamically details check provide standard.</div>
+  
+  <div class="faq-q">Q5: Dynamic React context component configuration nested structure error dynamic page refresh routing control state production site issues resolve parameter rules kaise performance track configurations system execute?</div>
+  <div class="faq-a">Production server systems index entry default target check file request system redirect standard config control maps file coordinates support verification configurations design runtime mapping handle like _redirects dynamic instructions static parameters deployment structures setups verification track fallback files dynamic map layout support check patterns instructions.</div>
 </div>
 
 <script type="application/ld+json">
@@ -369,42 +417,42 @@ return {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "क्या React Server Actions का use सिर्फ Next.js में ही हो सकता है?",
+      "name": "React Router DOM package install करना क्यों आवश्यक है, direct standard react-router module install क्यों नहीं करते?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "नहीं, हालांकि Next.js इसे out-of-the-box support करता है, लेकिन Server Actions React 19 runtime का core spec feature है। इसे किसी भी Server-Components architecture support करने वाले Bundler या Framework के साथ implement किया जा सकता है।"
+        "text": "react-router core package है जिसमें routing की common functionality होती है। Web browsers पर app development करने के लिए हमें DOM support integrations runtime components control logic bindings mapping logic की ज़रूरत होती है, जो react-router-dom dynamic systems integration library patterns setups process structure provide करता है।"
       }
     },
     {
       "@type": "Question",
-      "name": "Server Actions, API Routes से ज़्यादा secure क्यों माने जाते हैं?",
+      "name": "standard React Link component and anchor standard element a tag href properties logic match base difference verification rules criteria specify use check handle metrics load parameter detail options context specify access verify kya features options logic setup pattern perform use level?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "क्योंकि Server Actions का code client bundle में कभी compile होकर नहीं जाता। इसमें dynamic tokens और database queries directly use हो सकती हैं, जो security leaks और endpoint sniffing को 100% block करती हैं।"
+        "text": "Anchor link browser page reload operations execute trigger करता है जिससे components status load process performance refresh loss components render settings change handle system resets properties setups values reload reset patterns. Link standard context dynamically dynamic client render coordinates execution target mapping elements tracking update parameters without refresh switch state maintain process scale options systems coordinates analyze details manage provide verification handle dynamic path components swap render context state standard parameters perform configurations optimization layout actions logic structure systems perform standard dynamic parameters control dynamic."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या Server Actions का use file upload करने के लिए किया जा सकता है?",
+      "name": "Dynamic Nested routes dynamic nesting Outlet handle context verify layouts process control pattern setup configuration structure rules kaise parameters implementation system design track apply?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, बिल्कुल! आप FormData object में binary image/video metadata directly accept कर सकते हैं और Server Action के अंदर AWS S3 या Cloudinary SDK call करके direct uploads handle कर सकते हैं।"
+        "text": "Nested component dynamic page setups verification layout rules define paths systems Outlet structures code implementations parameter properties setups context target coordinate verify design path patterns coordinate mappings dynamically load options parent dynamic nested design process child components load automatic space structures."
       }
     },
     {
       "@type": "Question",
-      "name": "क्या use server का मतलब code backend (NodeJS) पर run होगा?",
+      "name": "useParams update use params values read component levels properties standard values access syntax update design configuration kaise details analyze logic track handle validation patterns parameters verify execute?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "हाँ, जब किसी function या file के top पर use server लिखा जाता है, तो React runtime उसे केवल node environments या edge servers पर compile करता है। Browser उसे execute करने के लिए specialized network layer request का सहारा लेता है।"
+        "text": "useParams hook runtime URL structure variable path setup maps values directly analyze details path attributes parse systems parameter definitions extraction code syntax const { dynamic_variable } = useParams() verify logic output validation profiles handle dynamic coordinates checks directly setup tracking state properties coordinates parameters values coordinates match perform setups control parameter definitions dynamic check properties variables."
       }
     },
     {
       "@type": "Question",
-      "name": "useActionState और useFormStatus hooks में क्या मुख्य अंतर है?",
+      "name": "Dynamic React context component configuration nested structure error dynamic page refresh routing control state production site issues resolve parameter rules kaise performance track configurations system execute?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "useActionState form lifecycle response को complete control करता है, जबकि useFormStatus एक context hook है जो children components को deep context level पर submit element state directly pass करता है।"
+        "text": "Production server level dynamic URL routing redirects page reload 404 path configurations control handling resolve strategies fallback target verify systems instructions redirects file configuration target maps like static host standard netlify dynamic formats or vercel.json configurations layout rewrite definitions index layout routing coordinate rules perform solutions target configurations setups check process patterns."
       }
     }
   ]
