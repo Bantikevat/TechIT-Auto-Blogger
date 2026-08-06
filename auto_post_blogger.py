@@ -104,7 +104,7 @@ def save_posted_topic(topic):
         json.dump(posted, f, indent=4)
 
 def call_gemini(gemini_key, prompt):
-    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-lite"]
     headers = {"Content-Type": "application/json"}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}]
@@ -112,23 +112,24 @@ def call_gemini(gemini_key, prompt):
     
     for model in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={gemini_key}"
-        # Try up to 2 times for each model in case of temporary 503s
-        for attempt in range(2):
+        # Try up to 3 times for each model in case of rate limits / timeouts
+        for attempt in range(3):
             try:
-                response = requests.post(url, headers=headers, json=payload, timeout=60)
+                response = requests.post(url, headers=headers, json=payload, timeout=150)
                 if response.status_code == 200:
                     res_json = response.json()
                     text = res_json['candidates'][0]['content']['parts'][0]['text'].strip()
                     return text
                 elif response.status_code in [503, 429]:
-                    print(f"[WARNING] Gemini model {model} returned {response.status_code} (attempt {attempt+1}/2). Retrying in 2 seconds...")
-                    time.sleep(2)
+                    sleep_sec = 5 * (attempt + 1)
+                    print(f"[WARNING] Gemini model {model} returned {response.status_code} (attempt {attempt+1}/3). Retrying in {sleep_sec}s...")
+                    time.sleep(sleep_sec)
                 else:
-                    print(f"[WARNING] Gemini model {model} returned status code {response.status_code}: {response.text}. Trying next option.")
+                    print(f"[WARNING] Gemini model {model} returned status code {response.status_code}: {response.text[:200]}. Trying next option.")
                     break # Break out of attempt loop to try the next model
             except Exception as e:
                 print(f"[WARNING] Error calling Gemini model {model}: {e}")
-                time.sleep(2)
+                time.sleep(3)
                 
     return None
 
