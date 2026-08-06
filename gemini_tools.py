@@ -32,7 +32,7 @@ GEMINI_KEY_FILE = "gemini_api_key.txt"
 QUEUE_FILE = "topics_to_write.txt"
 TRACKER_FILE = "posted_topics.json"
 # auto_post_blogger.py jaise hi models (fallback chain)
-MODELS = ["gemini-3.5-flash", "gemini-3.1-flash-lite"]
+MODELS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
 
 
 def load_gemini_api_key():
