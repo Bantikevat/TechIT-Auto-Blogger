@@ -104,7 +104,7 @@ def save_posted_topic(topic):
         json.dump(posted, f, indent=4)
 
 def call_gemini(gemini_key, prompt):
-    models = ["gemini-3.5-flash", "gemini-3.1-flash-lite"]
+    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
     headers = {"Content-Type": "application/json"}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}]
